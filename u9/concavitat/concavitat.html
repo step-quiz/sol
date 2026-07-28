@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U9 · Concavitat i convexitat — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 9. Concavitat i convexitat</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u9">← Torna als temes</a>
+  <div class="cat-title">Aplica el càlcul de derivades a l'estudi d'una funció · Concavitat i convexitat. Punts d'inflexió</div>
+  <div class="cat-sub">Unitat 9 · Aplicacions de les derivades · exercicis 65–75</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Concavitat i convexitat (U9, Activitats finals) ───────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex65', num:65, titol:'A partir de la gràfica de f′(x), indica on es troben els punts d\'inflexió de f', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex66', num:66, titol:'Quants punts d\'inflexió pot tenir una recta, una paràbola o un polinomi de grau n?', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex67', num:67, titol:'Curvatura de catorze funcions: racionals, radicals, logarítmiques i trigonomètriques', dificultat:'●●○', imatges:['full-1.png','full-2.png','full-3.png']},
+  {id:'ex68', num:68, titol:'Inventa: representa una funció amb un punt d\'inflexió a x = 0', dificultat:'●○○', imatges:['full-3.png']},
+  {id:'ex69', num:69, titol:'y = x³ + ax² − 3x: valor del paràmetre a perquè hi hagi inflexió a x = 1', dificultat:'●○○', imatges:['full-3.png']},
+  {id:'ex70', num:70, titol:'Determina a, b i c amb pas per l\'origen, inflexió a x = −1 i pendent 3 a x = 1', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex71', num:71, titol:'Demostra que y = x⁴ + 3x² − 5x + 6 no té cap punt d\'inflexió', dificultat:'●○○', imatges:['full-3.png','full-4.png']},
+  {id:'ex72', num:72, titol:'Calcula a i b perquè x³ + ax² + bx + 7 tingui inflexió a x = 1 amb tangent a 45°', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex73', num:73, titol:'Polinomi de grau quatre sense terme en x³ amb P(0, 3), extrem a Q(1, 0) i inflexió a x = 1/2', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex74', num:74, titol:'y = x³ − ax² − 4x + b talla l\'eix OX a x = 3 i té inflexió a x = 2/3: troba a i b', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex75', num:75, titol:'Troba a perquè les tangents a y = ax⁴ + 2ax³ − ax + 1512 als punts d\'inflexió siguin perpendiculars', dificultat:'●●●', imatges:['full-4.png']},
+];
+
+const DONE_KEY = 'u9-concavitat-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u9/concavitat';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U9 · Teoremes de Rolle i del valor mitjà — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 9. Teoremes de Rolle i del valor mitjà</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u9">← Torna als temes</a>
+  <div class="cat-title">Utilitza els teoremes associats a la derivada per demostrar característiques d'una funció</div>
+  <div class="cat-sub">Unitat 9 · Aplicacions de les derivades · exercicis 92–114</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Teoremes associats a la derivada (U9) ─────────────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex92', num:92, titol:'Quina condició del teorema de Rolle falla en cadascuna de les quatre gràfiques?', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex93', num:93, titol:'Rolle aplicat a f(x) = x² + 2x − 3 a [−4, 2] i interpretació geomètrica', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex94', num:94, titol:'f(x) = x³ + x² − x − 1 satisfà Rolle a [−1, 1]: calcula el punt de la tesi', dificultat:'●●○', imatges:['full-1.png']},
+  {id:'ex95', num:95, titol:'Inventa: dues funcions que compleixin el teorema de Rolle a [a, b]', dificultat:'●●○', imatges:['full-1.png']},
+  {id:'ex96', num:96, titol:'Per què 1/x⁴ i 2 − |x| no contradiuen el teorema de Rolle a [−2, 2]?', dificultat:'●●○', imatges:['full-1.png','full-2.png']},
+  {id:'ex97', num:97, titol:'f(x) = 3cos²x verifica Rolle a [π/2, 3π/2]: calcula el valor de la tesi', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex98', num:98, titol:'Valors d\'a perquè f(x) = x³ − 7x compleixi Rolle a [1, a]; troba el punt', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex99', num:99, titol:'Determina a, b i c per aplicar Rolle a una funció a trossos a [0, 4]', dificultat:'●●○', imatges:['full-2.png','full-3.png']},
+  {id:'ex100', num:100, titol:'Investiga: valor del paràmetre per aplicar Rolle a [−√2, 2]; és màxim o mínim?', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex101', num:101, titol:'Demostra que l\'equació x + 1 = eˣ només té una solució', dificultat:'●●●', imatges:['full-3.png']},
+  {id:'ex102', num:102, titol:'Demostra que x² = x·cos x − sin x es verifica per a un únic valor de x', dificultat:'●●○', imatges:['full-3.png','full-4.png']},
+  {id:'ex103', num:103, titol:'Demostra que f(x) = x³ − 3x + 1 només talla l\'eix X un cop a [0, 1]', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex104', num:104, titol:'x³ + 6x² + 15x + 9 = 0 té una única arrel: situa-la en un interval de longitud 1/2', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex105', num:105, titol:'Repte: calcula a, b i c perquè f(x) compleixi Rolle a [−2, c] i troba la tesi', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex106', num:106, titol:'Teorema del valor mitjà per a f(x) = −x² + 2x − 8 a [−3, 3] i interpretació', dificultat:'●○○', imatges:['full-4.png','full-5.png']},
+  {id:'ex107', num:107, titol:'És aplicable el teorema del valor mitjà a f(x) = x·ln x a l\'interval [0, e]?', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex108', num:108, titol:'f(x) = √|x − 7|: es pot aplicar el valor mitjà a [8, 10]? I a [6, 8]?', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex109', num:109, titol:'Punt de y = x² entre A(1, 1) i B(3, 9) amb tangent paral·lela a la corda AB', dificultat:'●●○', imatges:['full-5.png','full-6.png']},
+  {id:'ex110', num:110, titol:'Determina a i b per poder aplicar el teorema del valor mitjà a [−1, 3]', dificultat:'●○○', imatges:['full-6.png']},
+  {id:'ex111', num:111, titol:'Troba a i b per poder aplicar el teorema del valor mitjà a [3, 5]', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex112', num:112, titol:'Calcula a i b per aplicar el valor mitjà a [−2, 2] i troba el punt de la tesi', dificultat:'●●○', imatges:['full-6.png','full-7.png']},
+  {id:'ex113', num:113, titol:'Determina a i b per aplicar el teorema de Lagrange a [−1, π/2]', dificultat:'●●○', imatges:['full-7.png','full-8.png']},
+  {id:'ex114', num:114, titol:'Determina a i b per aplicar el teorema de Lagrange a [−2, π/2] i troba el punt', dificultat:'●●○', imatges:['full-8.png']},
+];
+
+const DONE_KEY = 'u9-teoremes-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u9/teoremes';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>

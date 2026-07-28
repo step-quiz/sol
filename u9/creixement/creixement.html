@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U9 · Creixement i decreixement — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 9. Creixement i decreixement</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u9">← Torna als temes</a>
+  <div class="cat-title">Aplica el càlcul de derivades a l'estudi d'una funció · Creixement i decreixement. Màxims i mínims</div>
+  <div class="cat-sub">Unitat 9 · Aplicacions de les derivades · exercicis 39–64</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Creixement i decreixement (U9, Activitats finals) ─────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex39', num:39, titol:'Quants extrems relatius pot tenir com a màxim una recta, una paràbola o un polinomi?', dificultat:'●○○', imatges:['full-1.png','full-2.png']},
+  {id:'ex40', num:40, titol:'A partir de f′(x), decideix si la funció és creixent o decreixent en cada punt', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex41', num:41, titol:'A partir de la gràfica de f′(x), indica on f assoleix els màxims i els mínims', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex42', num:42, titol:'Monotonia i extrems de quatre funcions polinòmiques', dificultat:'●○○', imatges:['full-2.png','full-3.png']},
+  {id:'ex43', num:43, titol:'Investiga: comprova que l\'abscissa del vèrtex d\'una paràbola és −b/2a', dificultat:'●●●', imatges:['full-3.png']},
+  {id:'ex44', num:44, titol:'Inventa: una funció amb un màxim en x = 2 i una altra amb un mínim en x = 5', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex45', num:45, titol:'Monotonia i extrems de sis funcions polinòmiques, tres amb valor absolut', dificultat:'●○○', imatges:['full-3.png','full-4.png']},
+  {id:'ex46', num:46, titol:'Monotonia i extrems relatius de quatre funcions racionals', dificultat:'●○○', imatges:['full-4.png']},
+  {id:'ex47', num:47, titol:'Monotonia i extrems de quatre funcions logarítmiques', dificultat:'●○○', imatges:['full-5.png']},
+  {id:'ex48', num:48, titol:'Creixement de 2cos(x + π/2), x − sin x i arctg x, i existència d\'extrems', dificultat:'●○○', imatges:['full-5.png']},
+  {id:'ex49', num:49, titol:'Monotonia i extrems de sis funcions exponencials', dificultat:'●●○', imatges:['full-5.png','full-6.png']},
+  {id:'ex50', num:50, titol:'Màxims i mínims de sis funcions utilitzant la derivada segona', dificultat:'●●○', imatges:['full-6.png','full-7.png']},
+  {id:'ex51', num:51, titol:'Demostra que y = x³ − 2x² + 6x − 13 és sempre creixent', dificultat:'●●○', imatges:['full-7.png']},
+  {id:'ex52', num:52, titol:'Comprova que y = x⁵ + mx + 2 és creixent per a qualsevol valor positiu de m', dificultat:'●●○', imatges:['full-7.png']},
+  {id:'ex53', num:53, titol:'Demostra que y = 2x³ + x² + x − 1 talla l\'eix d\'abscisses en un sol punt', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex54', num:54, titol:'A partir de la gràfica de f′: derivabilitat, monotonia, extrems i càlcul de f(2)', dificultat:'●●○', imatges:['full-7.png']},
+  {id:'ex55', num:55, titol:'y = ax² + bx + c: troba els coeficients amb dos punts i una recta tangent donada', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex56', num:56, titol:'Investiga: quants mínims té una funció derivable amb exactament dos màxims?', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex57', num:57, titol:'Beneficis B(x) = ax² + bx + c d\'una companyia de transport: determina a, b i c', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex58', num:58, titol:'y = x³ + ax amb extrem relatiu a x = 2: troba a i estudia la monotonia', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex59', num:59, titol:'Bacteris N(t) = −t² + at − b: troba a i b sabent que el màxim és a les 10 h', dificultat:'●●○', imatges:['full-8.png','full-9.png']},
+  {id:'ex60', num:60, titol:'f(x) = a²x/(2x² − 5ax + 2a²) amb extrem a x = 2: calcula a i el domini', dificultat:'●●○', imatges:['full-9.png']},
+  {id:'ex61', num:61, titol:'Calcula a, b i c perquè (x²+ax+b)/(x²+ax+c) tingui extrem a (2, −1) i passi per l\'origen', dificultat:'●●●', imatges:['full-9.png']},
+  {id:'ex62', num:62, titol:'y = x·e^(ax): valor de la constant a perquè hi hagi un màxim relatiu a x = 1', dificultat:'●●○', imatges:['full-9.png']},
+  {id:'ex63', num:63, titol:'Repte: f(x) = x + ax·|x| amb extrem a x = 1; monotonia i extrems relatius', dificultat:'●●●', imatges:['full-9.png','full-10.png']},
+  {id:'ex64', num:64, titol:'Matemàtiques i… empreses: funcions d\'ingrés i de guany, i intervals de creixement', dificultat:'●●○', imatges:['full-10.png']},
+];
+
+const DONE_KEY = 'u9-creixement-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u9/creixement';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>

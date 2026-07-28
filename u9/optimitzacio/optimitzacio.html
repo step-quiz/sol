@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U9 · Optimització — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 9. Optimització</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u9">← Torna als temes</a>
+  <div class="cat-title">Resol problemes d'optimització mitjançant el càlcul de derivades</div>
+  <div class="cat-sub">Unitat 9 · Aplicacions de les derivades · exercicis 76–91</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Optimització (U9, Activitats finals) ──────────────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex76', num:76, titol:'De tots els triangles rectangles amb catets que sumen 20 cm, el d\'àrea màxima', dificultat:'●●●', imatges:['full-1.png','full-2.png']},
+  {id:'ex77', num:77, titol:'Triangles rectangles de 8 cm d\'hipotenusa: quin té més àrea i quant mesura?', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex78', num:78, titol:'Investiga: rectangle d\'àrea màxima inscrit en un cercle de 6 cm de radi', dificultat:'●●●', imatges:['full-2.png']},
+  {id:'ex79', num:79, titol:'Full de paper amb 18 cm² de text i marges donats: despesa de paper mínima', dificultat:'●●○', imatges:['full-2.png','full-3.png']},
+  {id:'ex80', num:80, titol:'Rectangle d\'àrea màxima inscrit en una semicircumferència de 5 cm de radi', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex81', num:81, titol:'De tots els prismes rectes de base quadrada i 24 cm² d\'àrea total, el de més volum', dificultat:'●●●', imatges:['full-3.png']},
+  {id:'ex82', num:82, titol:'Cartolina de perímetre 60 cm que en girar genera un cilindre de volum màxim', dificultat:'●●○', imatges:['full-3.png','full-4.png']},
+  {id:'ex83', num:83, titol:'Triangle isòsceles de perímetre 10 m que en girar genera un con de volum màxim', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex84', num:84, titol:'Investiga: els cilindres amb igual volum tenen la mateixa superfície?', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex85', num:85, titol:'Repte: de tots els cons inscrits en una esfera de 9 cm de radi, el de més volum', dificultat:'●●●', imatges:['full-4.png']},
+  {id:'ex86', num:86, titol:'Rectangles amb un vèrtex a la recta x + 2y = 2: el de més superfície', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex87', num:87, titol:'Determina els punts de la paràbola y = x² a mínima distància del punt (0, 1)', dificultat:'●●●', imatges:['full-5.png']},
+  {id:'ex88', num:88, titol:'Quadrat i cercle amb perímetres que sumen 98 cm i suma d\'àrees mínima', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex89', num:89, titol:'Rectangle amb un vèrtex a la corba y = 1/x² + 4: determina el d\'àrea mínima', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex90', num:90, titol:'Matemàtiques i… recursos humans: quan programar les reunions segons la productivitat', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex91', num:91, titol:'Repte: recta per (2, 1) que forma amb els semieixos positius un triangle d\'àrea mínima', dificultat:'●●●', imatges:['full-6.png','full-7.png']},
+];
+
+const DONE_KEY = 'u9-optimitzacio-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u9/optimitzacio';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
