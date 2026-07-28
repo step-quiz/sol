@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U8 · Funció derivada — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 8. Càlcul de la funció derivada</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u8">← Torna als temes</a>
+  <div class="cat-title">Calcula la derivada de qualsevol funció</div>
+  <div class="cat-sub">Unitat 8 · Derivades · exercicis 86–124</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Calcula la derivada de qualsevol funció (U8) ──────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex86', num:86, titol:'Derivada de sis funcions elementals: x² − 5, 5ln x, sin 2x, e⁻ˣ, 2³ˣ i log₂x', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex87', num:87, titol:'Funció derivada per definició de 123, 3x², x³ i ax', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex88', num:88, titol:'Derivada per definició de −5/x, √x, x² + 2x i ax²', dificultat:'●●○', imatges:['full-1.png']},
+  {id:'ex89', num:89, titol:'Derivades successives de x⁴, sin x, cos x i ln x', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex90', num:90, titol:'f(x) = 2^cos(g(x)): calcula f′(π) sabent que g(π) = π/2 i g′(π) = −2', dificultat:'●○○', imatges:['full-1.png','full-2.png']},
+  {id:'ex91', num:91, titol:'Investiga: derivada n-èsima de √x, sin 2x, e⁻ˣ, 2ˣ, xeˣ i cos²x', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex92', num:92, titol:'Derivada de 3√x + 1/x i de 2ln x − 5/x + 6', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex93', num:93, titol:'Derivada de x²·∛x, x²e^(x+2), 2x⁴cos x i √(cos x)·sin x', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex94', num:94, titol:'Propietats de les derivades: sis quocients amb radicals, exponencials i potències', dificultat:'●●○', imatges:['full-2.png','full-3.png']},
+  {id:'ex95', num:95, titol:'Derivada amb arctg, sec i arccos, i productes trigonomètrics', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex96', num:96, titol:'Inventa: dues funcions amb derivada f′(x) = −cos(2x)', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex97', num:97, titol:'Derivada de ln(x⁴ − 3x³), ln√(2x² − 4), x/ln x i log₂(5x³ − 1)', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex98', num:98, titol:'Derivada de logaritmes composts: ln(tg 2x), ln[cos(x² − 1)]³ i quocients', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex99', num:99, titol:'Deu derivades a simplificar al màxim: 4ˣ, quocients, radicals i productes', dificultat:'●●○', imatges:['full-3.png','full-4.png']},
+  {id:'ex100', num:100, titol:'Sis derivades a simplificar: quocients amb eˣ, ln x i radicals', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex101', num:101, titol:'Regla de la cadena: 3^(x²+4), (x⁵ − 2)³, arrels, e^(−x²), sin²x i 2^sin x', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex102', num:102, titol:'Inventa: dues funcions amb derivada f′(x) = −2sin(2x)·e^cos(2x)', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex103', num:103, titol:'Derivada d\'arcsin(1/x), cos(x² + 5x + 5), cotg x/x² i arcsin(5x + 1)', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex104', num:104, titol:'Derivada de 12√(3x² + x), ln(sin x²) i (4x² − 5x + 1)·3ˣ', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex105', num:105, titol:'Derivada de tg²(2x + 3), arctg(x³ + 6), radicals i 2x·arcsin x', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex106', num:106, titol:'Derivada d\'arctg(2/x²), ln(√sin x), tg²(cos 2x) i arcsin√(1 − 4x²)', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex107', num:107, titol:'Repte: g(x) = √(e^(−3x²)) i f(x) = cos²(g(x)) + sin²(g(x)); calcula f′(π/6)', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex108', num:108, titol:'Derivada de sin(2x)·e^cos(2x), tg²(1 − 5x), cos(2x − 1)³ i cos³(2x − 1)', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex109', num:109, titol:'Derivada de vuit quocients amb eˣ, arctg, ln i funcions trigonomètriques', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex110', num:110, titol:'Investiga: derivada de f(x) = x^(xˣ) per derivació logarítmica', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex111', num:111, titol:'Derivada de nou funcions amb logaritmes, radicals i quocients trigonomètrics', dificultat:'●●○', imatges:['full-6.png','full-7.png']},
+  {id:'ex112', num:112, titol:'Regla de la cadena amb composicions de ln, arccos, tg i arcsin', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex113', num:113, titol:'Derivada de deu funcions amb arcsin, arctg, arccos i logaritmes', dificultat:'●●○', imatges:['full-7.png','full-8.png']},
+  {id:'ex114', num:114, titol:'Derivada de ln√((x+1)/(x−1)), arctg, arccos(ln x), ∛(2^cos x) i log₂', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex115', num:115, titol:'Derivada de quatre expressions amb ln, tg i quocients trigonomètrics', dificultat:'●●●', imatges:['full-8.png']},
+  {id:'ex116', num:116, titol:'Investiga: derivada de (cos x + cos(x+1))/(sin x − sin(x+1)); és constant?', dificultat:'●●●', imatges:['full-8.png']},
+  {id:'ex117', num:117, titol:'Derivada d\'arctg√((1 − sin x)/(1 + sin x)) simplificant al màxim', dificultat:'●●○', imatges:['full-8.png','full-9.png']},
+  {id:'ex118', num:118, titol:'Derivació logarítmica: (√x)ˣ, x^√x, (sin x)^2x, ˣ√(cos x) i (arcsin x)^sin x', dificultat:'●●○', imatges:['full-9.png']},
+  {id:'ex119', num:119, titol:'Derivació logarítmica: xˣ, (1 + x²)ˣ, (sin x)^cos x, ˣ√(x³), (1 + 1/x)ˣ i (tg x)ˣ', dificultat:'●●○', imatges:['full-9.png']},
+  {id:'ex120', num:120, titol:'Derivació implícita de 3y − 4x² = 0 i comprovació amb la forma explícita', dificultat:'●○○', imatges:['full-10.png']},
+  {id:'ex121', num:121, titol:'Derivació implícita i explícita de x/3 − y/x = 6', dificultat:'●●○', imatges:['full-10.png']},
+  {id:'ex122', num:122, titol:'Repte: derivada implícita de x²+y²−2xy, x = cos(xy), x³+3y²−2ay i e^2y − ln x³', dificultat:'●●●', imatges:['full-10.png']},
+  {id:'ex123', num:123, titol:'Derivada de la funció inversa: arccos, arcsin, arctg, eˣ, ln x i x² − 2', dificultat:'●●○', imatges:['full-10.png','full-11.png']},
+  {id:'ex124', num:124, titol:'Investiga: cardioide (x²+y²−2ax)² − 4a²(x²+y²) = 0; tangents en x = 3 i x = 4', dificultat:'●●●', imatges:['full-11.png']},
+];
+
+const DONE_KEY = 'u8-funcio-derivada-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u8/funcio-derivada';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>

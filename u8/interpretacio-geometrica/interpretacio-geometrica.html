@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U8 · Interpretació geomètrica — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 8. Interpretació geomètrica de la derivada</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u8">← Torna als temes</a>
+  <div class="cat-title">Calcula i interpreta la derivada d'una funció · Interpretació geomètrica de la derivada</div>
+  <div class="cat-sub">Unitat 8 · Derivades · exercicis 40–66</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Interpretació geomètrica de la derivada (U8) ──────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex40', num:40, titol:'Recta tangent a la paràbola f(x) = x² − 2x − 3 en x = 2 i representació gràfica', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex41', num:41, titol:'Recta tangent a f(x) = x² − ax + 6 en el punt P(1, 2)', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex42', num:42, titol:'Recta tangent a ln(3x + 1), 2 + cos x i 1 + √(2 − x) en el punt indicat', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex43', num:43, titol:'Inventa: dues funcions amb la recta tangent donada en x = 2', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex44', num:44, titol:'Rectes tangent i normal a f(x) = ln√(2x + 3) en x = −1', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex45', num:45, titol:'Recta tangent a f(x) = e⁴ˣ⁺² − 3 en x = −1/2', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex46', num:46, titol:'Rectes tangent i normal a f(x) = (x − 2)/(x + 1) al tall amb l\'eix d\'abscisses', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex47', num:47, titol:'Recta tangent a f(x) = √((x² − 5)/(4 − x)) en el punt d\'abscissa x = 3', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex48', num:48, titol:'Rectes tangent i normal a y = x³ + x² − 6x + 1 al punt d\'ordenada 1 i abscissa positiva', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex49', num:49, titol:'Tangent a y = x² − 2x + 5 paral·lela a la secant pels punts d\'abscissa 1 i 3', dificultat:'●●○', imatges:['full-2.png','full-3.png']},
+  {id:'ex50', num:50, titol:'Investiga: pot y = 2x − m ser tangent a f(x) = eˣ − x² − 2?', dificultat:'●●●', imatges:['full-3.png']},
+  {id:'ex51', num:51, titol:'Tangent a f(x) = ln(x − 1) paral·lela a la secant a l\'interval [2, e + 1]', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex52', num:52, titol:'Troba b i c perquè y = x² + bx + c tingui a (1, 1) tangent paral·lela a la bisectriu', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex53', num:53, titol:'y = x² − 2x − 3: tangent que forma 45° amb l\'eix X i tangent horitzontal', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex54', num:54, titol:'f(x) = x³ − x + 4: punts amb tangent paral·lela a y = 2x − 123', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex55', num:55, titol:'Troba k perquè les tangents a kx³ − x² + 7kx − 18 en x = 1 i x = 2 siguin paral·leles', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex56', num:56, titol:'Calcula a perquè la tangent a f(x) = −ax² + 5x − 4 en x = 3 talli l\'eix X en x = 5', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex57', num:57, titol:'f(x) = √(x² + m): troba m per tangència amb 2x − y − 3 = 0 i per pas per Q(1, 1)', dificultat:'●●○', imatges:['full-4.png','full-5.png']},
+  {id:'ex58', num:58, titol:'Àrea del triangle que la tangent a f(x) = (x + 1)/(x − 1) en x = 2 forma amb els eixos', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex59', num:59, titol:'Àrea del triangle delimitat pels eixos i la tangent a f(x) = √(x² + 5) en x = 2', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex60', num:60, titol:'Àrea delimitada pels eixos i la tangent a f(x) = 3 + ln(tg x) en x = π/4', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex61', num:61, titol:'Repte: àrea del triangle format per les tangents en x = −2 i x = 5 i l\'eix d\'abscisses', dificultat:'●●●', imatges:['full-5.png','full-6.png']},
+  {id:'ex62', num:62, titol:'f(x) = (x + 1)eˣ: tangent i normal al tall amb l\'eix X i àrea del triangle', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex63', num:63, titol:'Repte: f(x) = x² + ax + b i g(x) = c·e⁻⁽ˣ⁺¹⁾ amb la mateixa tangent a P(−1, 2)', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex64', num:64, titol:'Recta tangent a x² + 16y² − 16 = 0 en el punt d\'abscissa 3 i ordenada positiva', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex65', num:65, titol:'Repte: àrea delimitada pels eixos i les tangents a la circumferència de radi √5 en x = 1', dificultat:'●●●', imatges:['full-6.png','full-7.png']},
+  {id:'ex66', num:66, titol:'Determina a, b, c i d de f(x) = ax³ + bx² + cx + d amb dues condicions de tangència', dificultat:'●●●', imatges:['full-7.png']},
+];
+
+const DONE_KEY = 'u8-interpretacio-geometrica-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u8/interpretacio-geometrica';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
