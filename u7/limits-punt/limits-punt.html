@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U7 · Límit en un punt — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 7. Límit d'una funció en un punt</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u7">← Torna als temes</a>
+  <div class="cat-title">Interpreta i calcula el límit d'una funció · Límit d'una funció en un punt</div>
+  <div class="cat-sub">Unitat 7 · Límits i continuïtat · exercicis 66–91</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Límit d'una funció en un punt (U7, Activitats finals) ─
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex66', num:66, titol:'Gràfica de f(x): dona un valor aproximat a aquests límits', dificultat:'●●○', imatges:['full-1.png','full-2.png']},
+  {id:'ex67', num:67, titol:'Límits de f(x) = 2^(ln x) i g(x) = 3^(ln(x−1)) en punts concrets', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex68', num:68, titol:'Gràfica de g(x): valor aproximat dels límits en punts i en ±∞', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex69', num:69, titol:'INVENTA. Escriu una funció amb cada límit en un punt', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex70', num:70, titol:'Límits de f(x) = 3x/√(x²+1) en x→3, x→−1 i x→0', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex71', num:71, titol:'Límits de f(x) = log₂(x−3) + 1 en x→4, x→7 i x→7/2', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex72', num:72, titol:'MATEMÀTIQUES I… ECONOMIA. Valor d\u2019una empresa: límits laterals', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex73', num:73, titol:'Límits de g(x) = 1/(x−2) + log_(1/2)x en x→1/4 i x→8', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex74', num:74, titol:'Límits de (6x−12)/(x²−3x−4) en 0, −1, 1 i 4', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex75', num:75, titol:'Operacions amb límits: quins casos són indeterminacions?', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex76', num:76, titol:'Límits de funcions racionals amb indeterminació 0/0', dificultat:'●○○', imatges:['full-4.png']},
+  {id:'ex77', num:77, titol:'Opera i troba el límit en cada cas', dificultat:'●○○', imatges:['full-4.png','full-5.png']},
+  {id:'ex78', num:78, titol:'Límits amb radicals en els punts indicats', dificultat:'●○○', imatges:['full-5.png']},
+  {id:'ex79', num:79, titol:'Límits amb radicals: racionalitzar numerador o denominador', dificultat:'●○○', imatges:['full-5.png','full-6.png']},
+  {id:'ex80', num:80, titol:'Límits d\u2019una racional de tercer grau en 4 punts i en ±∞', dificultat:'●○○', imatges:['full-6.png']},
+  {id:'ex81', num:81, titol:'Límits de f(x) = (x³−x)/(√(x²+3)−2x²) en punts i en ±∞', dificultat:'●○○', imatges:['full-6.png','full-7.png']},
+  {id:'ex82', num:82, titol:'Límits amb arrels d\u2019índexs diferents', dificultat:'●○○', imatges:['full-7.png']},
+  {id:'ex83', num:83, titol:'Límits amb potències i indeterminació 1^∞ en un punt', dificultat:'●○○', imatges:['full-7.png','full-8.png']},
+  {id:'ex84', num:84, titol:'Límits de (cos²x)^(1/sin x) i (2x+1)^(1/x) en x→0', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex85', num:85, titol:'Determina a perquè (x²−ax+3)/(x−3) tingui límit finit en x→3', dificultat:'●○○', imatges:['full-8.png']},
+  {id:'ex86', num:86, titol:'Determina m perquè es compleixin dues igualtats amb límits 1^∞', dificultat:'●○○', imatges:['full-8.png']},
+  {id:'ex87', num:87, titol:'Troba a perquè √(x²−ax) − √(x²+2) tendeixi a 3', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex88', num:88, titol:'Límits d\u2019una funció a trossos en x→−1, x→3 i x→+∞', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex89', num:89, titol:'REPTE. A partir de lim(sin x)/x = 1, calcula límits trigonomètrics', dificultat:'●●●', imatges:['full-8.png','full-9.png']},
+  {id:'ex90', num:90, titol:'Funció a trossos: límits en 4 punts i en ±∞', dificultat:'●●○', imatges:['full-9.png']},
+  {id:'ex91', num:91, titol:'INVENTA. Dibuixa una gràfica que compleixi 4 condicions de límit', dificultat:'●●○', imatges:['full-9.png']},
+];
+
+const DONE_KEY = 'u7-limits-punt-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u7/limits-punt';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
