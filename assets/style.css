@@ -53,6 +53,14 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .done-btn.is-done{background:#22c55e;color:#fff;font-weight:700;}
 .done-btn:hover{border-color:#000;}
 
+.pista-wrap{margin-bottom:18px;}
+.pista-btn{display:inline-flex;align-items:center;gap:7px;font-family:'Libre Baskerville',serif;font-size:.84rem;
+  padding:9px 18px;border-radius:6px;cursor:pointer;border:1px solid var(--ana);background:none;color:var(--ana);
+  transition:background .15s,color .15s;}
+.pista-btn:hover{background:var(--ana);color:#fff;}
+.pista-text{margin-top:10px;padding:12px 15px;border-radius:6px;background:var(--ana-tint);
+  border:1px solid color-mix(in srgb,var(--ana) 30%,var(--border));font-size:.85rem;line-height:1.55;}
+
 .page-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .page-fig{border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#f0ede6;}
 .page-fig img{display:block;width:100%;cursor:zoom-in;}
