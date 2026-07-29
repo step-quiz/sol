@@ -8,6 +8,9 @@ const TASQUES = [
   { unitat:'u8', setmana:5, limit:'2026-10-18', visible:'sempre', exercicis:[37,86,87,88,92] },
   { unitat:'u8', setmana:6, limit:'2026-10-25', visible:'sempre', exercicis:[30,31,32,21,40,41] },
   { unitat:'u8', setmana:7, limit:'2026-11-01', visible:'sempre', exercicis:[46,54,58,92,93,97] },
+  { unitat:'u9', setmana:8, limit:'2026-11-08', visible:'sempre', exercicis:[37,86,87,88,92] },
+  { unitat:'u9', setmana:9, limit:'2026-11-15', visible:'sempre', exercicis:[30,31,32,21,40,41] },
+  { unitat:'u9', setmana:10, limit:'2026-11-22', visible:'sempre', exercicis:[46,54,58,92,93,97] }
 
 ];
 
