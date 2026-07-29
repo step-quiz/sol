@@ -1,14 +1,14 @@
 
 const TASQUES = [
 
-  { unitat:'u7', setmana:1, limit:'2026-07-31', exercicis:[44, 45, 46, 47, 48, 112, 113, 114, 43, 120] },
-//  { unitat:'u7', setmana:1, limit:'2026-09-20', exercicis:[44, 45, 46, 47, 48] },
-//  { unitat:'u7', setmana:2, limit:'2026-09-27', exercicis:[66, 68, 70, 76, 88, 90] },
-// { unitat:'u7', setmana:3, limit:'2026-10-04', exercicis:[92, 93, 94, 102, 103, 40, 106] },
-//  { unitat:'u7', setmana:4, limit:'2026-10-11', exercicis:[112, 113, 114, 43, 120] },
-//  { unitat:'u8', setmana:5, limit:'2026-10-18', exercicis:[37,86,87,88,92] },
-//  { unitat:'u8', setmana:6, limit:'2026-10-25', exercicis:[30,31,32,21,40,41] },
-//  { unitat:'u8', setmana:7, limit:'2026-11-01', exercicis:[46,54,58,92,93,97] },
+  { unitat:'u7', setmana:1, limit:'2026-07-31', visible:'sempre', exercicis:[44, 45, 46, 47, 48, 112, 113, 114, 43, 120] },
+  { unitat:'u7', setmana:1, limit:'2026-09-20', visible:'sempre', exercicis:[44, 45, 46, 47, 48] },
+  { unitat:'u7', setmana:2, limit:'2026-09-27', visible:'sempre', exercicis:[66, 68, 70, 76, 88, 90] },
+  { unitat:'u7', setmana:3, limit:'2026-10-04', visible:'sempre', exercicis:[92, 93, 94, 102, 103, 40, 106] },
+  { unitat:'u7', setmana:4, limit:'2026-10-11', visible:'sempre', exercicis:[112, 113, 114, 43, 120] },
+  { unitat:'u8', setmana:5, limit:'2026-10-18', visible:'sempre', exercicis:[37,86,87,88,92] },
+  { unitat:'u8', setmana:6, limit:'2026-10-25', visible:'sempre', exercicis:[30,31,32,21,40,41] },
+  { unitat:'u8', setmana:7, limit:'2026-11-01', visible:'sempre', exercicis:[46,54,58,92,93,97] },
 
 ];
 
