@@ -1,7 +1,7 @@
 const PUBLICATS = {
 
   'u7/practica':           'cap',
-  'u7/limits-funcions':    'cap',
+  'u7/limits-funcions':    '44-48',
   'u7/limits-punt':        'cap',
   'u7/continuitat':        'cap',
   'u7/bolzano':            'cap',
