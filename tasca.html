@@ -38,10 +38,6 @@
     <div class="det-meta" id="det-meta"></div>
   </div>
   <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
-  <div class="pista-wrap" id="pista-wrap" style="display:none">
-    <button class="pista-btn" id="pista-btn" onclick="togglePista()">💡 Veure pista</button>
-    <div class="pista-text" id="pista-text" style="display:none"></div>
-  </div>
   <div class="page-wrap" id="page-wrap"></div>
 </div>
 
@@ -123,16 +119,28 @@ function renderList(){
 
     const fet = esFet(r.u, r.n);
     const altra = r.u !== TASCA.unitat;
+    const p = pistaDe(r.u, r.n);
     li.className = 'ex-item' + (fet ? ' is-fet' : '');
     li.innerHTML = `
-      <span class="ex-badge">${etiquetaDe(r.u, r.n)}</span>
-      <div class="ex-info">
-        <div class="ex-title">${f.t}</div>
-        <div class="ex-sub">${[altra ? (UNITATS_META[r.u]||{}).nom : '', f.d].filter(Boolean).join(' · ')}</div>
+      <div class="ex-row">
+        <span class="ex-badge">${etiquetaDe(r.u, r.n)}</span>
+        <div class="ex-info">
+          <div class="ex-title">${f.t}</div>
+          <div class="ex-sub">${[altra ? (UNITATS_META[r.u]||{}).nom : '', f.d].filter(Boolean).join(' · ')}</div>
+        </div>
+        ${fet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+        <span class="ex-arrow">→</span>
       </div>
-      ${fet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
-      <span class="ex-arrow">→</span>`;
-    li.onclick = () => showExercise(r);
+      ${p ? `
+      <div class="pista-wrap">
+        <button class="pista-btn" type="button">💡 Veure pista</button>
+        <div class="pista-text" style="display:none">${p}</div>
+      </div>` : ''}`;
+    li.querySelector('.ex-row').onclick = () => showExercise(r);
+    if(p){
+      const btn = li.querySelector('.pista-btn');
+      btn.onclick = (ev) => { ev.stopPropagation(); togglePista(btn); };
+    }
     ul.appendChild(li);
   });
 }
@@ -164,27 +172,10 @@ function showExercise(r){
   }).join('');
 
   updateDoneBtn();
-  updatePista(r);
 }
 
-function updatePista(r){
-  const p = pistaDe(r.u, r.n);
-  const wrap = document.getElementById('pista-wrap');
-  const text = document.getElementById('pista-text');
-  const btn = document.getElementById('pista-btn');
-  text.style.display = 'none';
-  btn.textContent = '💡 Veure pista';
-  if(p){
-    wrap.style.display = 'block';
-    text.textContent = p;
-  } else {
-    wrap.style.display = 'none';
-  }
-}
-
-function togglePista(){
-  const text = document.getElementById('pista-text');
-  const btn = document.getElementById('pista-btn');
+function togglePista(btn){
+  const text = btn.nextElementSibling;
   const obert = text.style.display !== 'none';
   text.style.display = obert ? 'none' : 'block';
   btn.textContent = obert ? '💡 Veure pista' : '💡 Amaga la pista';
