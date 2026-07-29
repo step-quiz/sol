@@ -4,7 +4,7 @@ const PUBLICATS = {
   'u7/limits-funcions':    '44,45,46,47,48',
   'u7/limits-punt':        '66,68,70,76,88,90',
   'u7/continuitat':        '92,93,94,102,103,40,106',
-  'u7/bolzano':            '112,113,114,43,120',
+  'u7/bolzano':            '112,113,114,120',
   'u7/problemes-limits':   'cap',
   'u7/problemes-diversos': 'cap',
   'u7/series':             'cap',
