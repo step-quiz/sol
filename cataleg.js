@@ -6,6 +6,9 @@
      d : dificultat ('●○○' | '●●○' | '●●●' | '')
      i : imatges de suport (enunciat i solució), en ordre
      a : 1 si és una "activitat" numerada 1–4 i no un exercici
+     p : pista (opcional). Si no hi és, l'exercici simplement no mostra
+         botó de pista. S'omple a mà (o enganxant-hi el que generi la IA),
+         exactament igual que la resta de camps.
 
    Les tasques (tasques.js) només guarden NÚMEROS. Tota la resta surt d'aquí.
    Això és el que permet que una tasca barregi exercicis de temes diferents
@@ -37,7 +40,7 @@ const CATALEG = {
      41: {t:'Demostra que f(x) = 2cos x + 1 té almenys una arrel real a [0, π]', d:'', i:['practica/data/full-3.png']},
      42: {t:'Comprova que f(x) = 2^(x+1)−1 i g(x) = 2√(x+1) es tallen a [0, 1]', d:'', i:['practica/data/full-3.png']},
      43: {t:'f(x) = 3^(−x+2) − 4: demostra que existeix x₀ amb f(x₀) = 1', d:'', i:['practica/data/full-4.png']},
-     44: {t:'A partir de les gràfiques de f, g i h, determina els límits en ±∞', d:'●○○', i:['limits-funcions/data/full-1.png']},
+     44: {t:'A partir de les gràfiques de f, g i h, determina els límits en ±∞', d:'●○○', i:['limits-funcions/data/full-1.png'], p:'[Exemple de pista — substitueix aquest text] Fixa\'t en cap a on tendeix cada gràfica per l\'esquerra i per la dreta de l\'eix Y, i què passa quan x es fa molt gran en valor absolut.'},
      45: {t:'Límits en +∞ de potències, radicals i exponencials', d:'●○○', i:['limits-funcions/data/full-1.png']},
      46: {t:'Límits de funcions racionals en +∞ i −∞', d:'●●○', i:['limits-funcions/data/full-1.png','limits-funcions/data/full-2.png']},
      47: {t:'INVENTA. Escriu una funció amb cada límit donat', d:'●●○', i:['limits-funcions/data/full-2.png']},
@@ -477,4 +480,8 @@ function fitxaDe(u, n){
 function etiquetaDe(u, n){
   const f = fitxaDe(u, n);
   return (f && f.a) ? 'Act. ' + n : 'Ex. ' + n;
+}
+function pistaDe(u, n){
+  const f = fitxaDe(u, n);
+  return (f && f.p) ? f.p : null;
 }

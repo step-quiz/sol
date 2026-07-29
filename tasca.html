@@ -38,6 +38,10 @@
     <div class="det-meta" id="det-meta"></div>
   </div>
   <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="pista-wrap" id="pista-wrap" style="display:none">
+    <button class="pista-btn" id="pista-btn" onclick="togglePista()">💡 Veure pista</button>
+    <div class="pista-text" id="pista-text" style="display:none"></div>
+  </div>
   <div class="page-wrap" id="page-wrap"></div>
 </div>
 
@@ -160,6 +164,30 @@ function showExercise(r){
   }).join('');
 
   updateDoneBtn();
+  updatePista(r);
+}
+
+function updatePista(r){
+  const p = pistaDe(r.u, r.n);
+  const wrap = document.getElementById('pista-wrap');
+  const text = document.getElementById('pista-text');
+  const btn = document.getElementById('pista-btn');
+  text.style.display = 'none';
+  btn.textContent = '💡 Veure pista';
+  if(p){
+    wrap.style.display = 'block';
+    text.textContent = p;
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+function togglePista(){
+  const text = document.getElementById('pista-text');
+  const btn = document.getElementById('pista-btn');
+  const obert = text.style.display !== 'none';
+  text.style.display = obert ? 'none' : 'block';
+  btn.textContent = obert ? '💡 Veure pista' : '💡 Amaga la pista';
 }
 
 function openLightbox(src){
