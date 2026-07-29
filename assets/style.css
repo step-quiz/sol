@@ -24,10 +24,10 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .cat-sub{font-size:.78rem;color:var(--muted);margin-bottom:20px;}
 
 .ex-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.ex-item{padding:13px 16px;border:1px solid var(--border);border-radius:6px;
-  background:var(--surface);position:relative;box-shadow:inset 4px 0 0 transparent;
+.ex-item{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:13px 16px;border:1px solid var(--border);border-radius:6px;
+  cursor:pointer;background:var(--surface);position:relative;box-shadow:inset 4px 0 0 transparent;
   transition:box-shadow .18s,background .18s,border-color .18s,transform .18s;text-decoration:none;color:inherit;}
-.ex-row{display:flex;align-items:center;gap:14px;cursor:pointer;}
+.ex-row{display:flex;align-items:center;gap:14px;cursor:pointer;flex:1 1 100%;}
 .ex-item:hover{box-shadow:inset 4px 0 0 var(--ana);background:var(--ana-tint);
   border-color:color-mix(in srgb,var(--ana) 30%,var(--border));transform:translateX(3px);}
 .ex-badge{font-family:'Source Code Pro',monospace;font-size:.84rem;padding:4px 10px;border-radius:3px;color:#fff;
