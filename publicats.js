@@ -1,3 +1,36 @@
+const PUBLICATS = {
+
+  'u7/practica':           'cap',
+  'u7/limits-funcions':    'cap',
+  'u7/limits-punt':        'cap',
+  'u7/continuitat':        'cap',
+  'u7/bolzano':            'cap',
+  'u7/problemes-limits':   'cap',
+  'u7/problemes-diversos': 'cap',
+  'u7/series':             'cap',
+
+  'u8/practica':           'cap',
+  'u8/derivada-punt':      'cap',
+  'u8/interpretacio-geometrica': 'cap',
+  'u8/derivabilitat':      'cap',
+  'u8/funcio-derivada':    'cap',
+  'u8/problemes-contextualitzats': 'cap',
+  'u8/problemes-diferents': 'cap',
+  'u8/mon-real':           'cap',
+
+  'u9/practica':           'cap',
+  'u9/creixement':         'cap',
+  'u9/concavitat':         'cap',
+  'u9/optimitzacio':       'cap',
+  'u9/teoremes':           'cap',
+  'u9/hopital':            'cap',
+  'u9/aplicacions':        'cap',
+  'u9/problemes-diferents': 'cap',
+  'u9/mon-real':           'cap',
+
+};
+
+
 /* ═══════════════════════════════════════════════════════════════════════
    QUINS EXERCICIS ES VEUEN A LA WEB
    ───────────────────────────────────────────────────────────────────────
@@ -20,39 +53,6 @@
 
    Si un tema no surt en aquesta llista, es comporta com si fos 'cap'.
    ═══════════════════════════════════════════════════════════════════════ */
-
-const PUBLICATS = {
-
-  'u7/practica':           'tots',
-  'u7/limits-funcions':    'tots',
-  'u7/limits-punt':        'tots',
-  'u7/continuitat':        'tots',
-  'u7/bolzano':            'tots',
-  'u7/problemes-limits':   'tots',
-  'u7/problemes-diversos': 'tots',
-  'u7/series':             'tots',
-
-  'u8/practica':           'tots',
-  'u8/derivada-punt':      'tots',
-  'u8/interpretacio-geometrica': 'tots',
-  'u8/derivabilitat':      'tots',
-  'u8/funcio-derivada':    'tots',
-  'u8/problemes-contextualitzats': 'tots',
-  'u8/problemes-diferents': 'tots',
-  'u8/mon-real':           'tots',
-
-  'u9/practica':           'tots',
-  'u9/creixement':         'tots',
-  'u9/concavitat':         'tots',
-  'u9/optimitzacio':       'tots',
-  'u9/teoremes':           'tots',
-  'u9/hopital':            'tots',
-  'u9/aplicacions':        'tots',
-  'u9/problemes-diferents': 'tots',
-  'u9/mon-real':           'tots',
-
-};
-
 
 /* ═══════════════════════════════════════════════════════════════════════
    A partir d'aquí no cal tocar res.
