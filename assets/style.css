@@ -24,9 +24,10 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .cat-sub{font-size:.78rem;color:var(--muted);margin-bottom:20px;}
 
 .ex-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.ex-item{display:flex;align-items:center;gap:14px;padding:13px 16px;border:1px solid var(--border);border-radius:6px;
-  cursor:pointer;background:var(--surface);position:relative;box-shadow:inset 4px 0 0 transparent;
+.ex-item{padding:13px 16px;border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);position:relative;box-shadow:inset 4px 0 0 transparent;
   transition:box-shadow .18s,background .18s,border-color .18s,transform .18s;text-decoration:none;color:inherit;}
+.ex-row{display:flex;align-items:center;gap:14px;cursor:pointer;}
 .ex-item:hover{box-shadow:inset 4px 0 0 var(--ana);background:var(--ana-tint);
   border-color:color-mix(in srgb,var(--ana) 30%,var(--border));transform:translateX(3px);}
 .ex-badge{font-family:'Source Code Pro',monospace;font-size:.84rem;padding:4px 10px;border-radius:3px;color:#fff;
@@ -53,13 +54,13 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .done-btn.is-done{background:#22c55e;color:#fff;font-weight:700;}
 .done-btn:hover{border-color:#000;}
 
-.pista-wrap{margin-bottom:18px;}
-.pista-btn{display:inline-flex;align-items:center;gap:7px;font-family:'Libre Baskerville',serif;font-size:.84rem;
-  padding:9px 18px;border-radius:6px;cursor:pointer;border:1px solid var(--ana);background:none;color:var(--ana);
+.pista-wrap{margin-top:11px;padding-top:11px;border-top:1px dashed var(--border);}
+.pista-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Libre Baskerville',serif;font-size:.78rem;
+  padding:6px 14px;border-radius:6px;cursor:pointer;border:1px solid var(--ana);background:none;color:var(--ana);
   transition:background .15s,color .15s;}
 .pista-btn:hover{background:var(--ana);color:#fff;}
-.pista-text{margin-top:10px;padding:12px 15px;border-radius:6px;background:var(--ana-tint);
-  border:1px solid color-mix(in srgb,var(--ana) 30%,var(--border));font-size:.85rem;line-height:1.55;}
+.pista-text{margin-top:9px;padding:11px 14px;border-radius:6px;background:var(--ana-tint);
+  border:1px solid color-mix(in srgb,var(--ana) 30%,var(--border));font-size:.82rem;line-height:1.55;}
 
 .page-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .page-fig{border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#f0ede6;}
