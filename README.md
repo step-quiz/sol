@@ -2,69 +2,108 @@
 
 Web estàtica (GitHub Pages). No hi ha servidor ni base de dades.
 
-## Com publico exercicis nous
+L'alumne navega **unitat → tasca → exercici**. Una *tasca* és una setmana de
+feina: una llista ordenada d'exercicis amb una data límit.
 
-Edita **`publicats.js`** i prou. És l'únic fitxer que cal tocar.
+## Com programo la feina
+
+Edita **`tasques.js`** i prou. És l'únic fitxer que cal tocar.
 
 ```js
-const PUBLICATS = {
-  'u7/limits-funcions': '44-49',   // aquesta setmana només fins al 49
-  'u7/bolzano':         'cap',     // encara amagat
-};
+const TASQUES = [
+  { unitat:'u7', setmana:1, limit:'2026-09-20', exercicis:[44, 45, 46, 47, 48] },
+  { unitat:'u7', setmana:3, limit:'2026-10-04', exercicis:[92, 93, 94, 102, 103, 40, 106] },
+];
 ```
 
-Valors admesos: `'cap'`, `'tots'`, `'44-49'`, `'44-49, 52'`, `'44, 46, 51'`.
+**L'ordre mana.** Els exercicis es mostren tal com els escrius, encara que no
+estiguin ordenats per número i encara que siguin de parts diferents del llibre.
+A la setmana 3 de l'exemple, el 40 va entre el 103 i el 106 perquè així ho diu
+la llista.
 
-Es pot fer des del mòbil: GitHub → `publicats.js` → llapis → *Commit changes*.
-En un minut la web ja mostra els canvis.
+Afegir una setmana és **una línia**. No cal crear cap carpeta ni cap fitxer.
 
-Un tema amb `'cap'` desapareix del menú. Una unitat sense cap tema visible
-també desapareix. No cal esborrar ni moure fitxers mai.
+Es pot fer des del mòbil: GitHub → `tasques.js` → llapis → *Commit changes*.
+
+### Barrejar unitats
+
+Per a una setmana de repàs, un exercici d'una altra unitat porta prefix:
+
+```js
+exercicis:[112, 113, 'u9:44', 120]
+```
+
+### Quan es fa visible una tasca
+
+Per defecte s'obre **7 dies abans** de la data límit (`DIES_ABANS`, a dalt de
+`tasques.js`). Un cop oberta ja no es tanca: passada la data segueix
+consultable i surt marcada com a vençuda. Per tasca:
+
+```js
+obre:'2026-09-10'     // s'obre aquest dia concret
+visible:'sempre'      // visible ja, passi el que passi
+visible:'mai'         // amagada, per preparar-la amb antelació
+```
+
+**Vista prèvia:** obre `index.html?tot=1` per veure totes les tasques, també
+les que encara no toquen. Els alumnes no ho saben.
 
 ## Estructura
 
 ```
-index.html                 ← únic index.html de tot el projecte
-publicats.js               ← QUÈ ES VEU (l'únic que edito sovint)
+index.html      ← únic index.html del projecte. Unitats → tasques.
+tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
+tasques.js      ← LA PROGRAMACIÓ (l'únic que edito sovint)
+cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
+progres.js      ← les creuetes de "fet" de l'alumne
+publicats.js    ← només governa la vista per temes (vegeu més avall)
 README.md
 assets/
-  style.css                ← compartit per totes les pàgines
+  style.css     ← compartit per totes les pàgines
   icon.png
-u7/
-  limits-funcions/
-    limits-funcions.html
-    data/full-1.png … full-5.png
-  bolzano/
-    bolzano.html
-    data/full-1.png … full-3.png
+u7/  u8/  u9/  u10/
+  <tema>/
+    <tema>.html     ← pàgina del tema (ja no enllaçada des del menú)
+    data/full-1.png … full-K.png
 ```
 
-Regla: **1 tema = 1 carpeta `unitat/tema/`**, amb un `tema.html` a dins i les
-seves pròpies imatges. Cap tema comparteix imatges amb un altre, així que
-esborrar-ne un no n'afecta cap altre.
+`cataleg.js` és el que permet que una tasca agafi exercicis d'on sigui: hi ha
+el títol, la dificultat i les imatges de cada exercici, un sol cop. Les tasques
+només guarden números.
 
-## Com afegeixo un tema nou
+**No editis `cataleg.js` a mà**: es genera a partir de les pàgines dels temes.
 
-1. `cp -r u7/bolzano u7/nou-tema` i reanomena el `.html` a `nou-tema.html`.
-2. Substitueix les imatges de `data/` i reescriu l'array `EXERCICIS`.
-3. Canvia `const CLAU` i `const DONE_KEY` pel nom del tema nou.
-4. Afegeix una entrada a `UNITATS` dins d'`index.html`:
-   ```js
-   { id: 'nou-tema', titol: '…', rang: 'exercicis X–Y' },
-   ```
-   Les rutes es dedueixen de l'`id`: no cal escriure-les.
-5. Afegeix `'u7/nou-tema': 'cap',` a `publicats.js` i publica quan toqui.
+## La vista per temes
+
+Els temes del llibre segueixen existint, però **no estan enllaçats enlloc** i
+els alumnes no hi arriben navegant. Per consultar-los, escriu l'adreça:
+
+```
+index.html#u7/temes
+```
+
+`publicats.js` només afecta aquesta vista: hi decideixes quins temes hi
+apareixen. Ja no té cap efecte sobre el que veuen els alumnes a les tasques.
+
+## El progrés de l'alumne
+
+Es guarda al navegador de l'alumne, **una clau per unitat** (`u7-fet`), amb la
+llista de números d'exercici. Es guarda per unitat i no per tasca a posta: si
+reorganitzes la programació a mig curs, la creueta va enganxada a l'exercici i
+l'alumne no perd res. Les creuetes del format antic (per tema) es migren soles
+el primer cop, sense esborrar-ne cap.
 
 ## Provar-ho en local
 
 ```bash
 python3 -m http.server
 # obre http://localhost:8000
+# i http://localhost:8000/?tot=1  per veure-ho tot
 ```
 
-## Nota
+## Nota sobre la privacitat dels enunciats
 
-Els exercicis amagats no s'envien al navegador *només* si no els has pujat mai.
-Si el fitxer del tema ja és al repositori, un alumne prou tafaner podria llegir
-l'array `EXERCICIS`. Per a un ús normal d'aula això és suficient; si algun dia
+Els exercicis d'una tasca que encara no s'ha obert **sí que són al repositori**:
+un alumne prou tafaner podria llegir `tasques.js` i `cataleg.js` i obrir les
+imatges directament. Per a un ús normal d'aula això és suficient; si algun dia
 vols que sigui hermètic, cal no pujar les imatges fins al dia de publicar-les.

@@ -22,10 +22,21 @@
 <!-- VIEW: Unitats -->
 <div class="view active" id="v-unitats">
   <div class="cat-title">Unitats didàctiques</div>
-  <div class="cat-sub">Tria una unitat per veure els seus temes</div>
+  <div class="cat-sub">Tria una unitat per veure les tasques</div>
   <ul class="ex-list" id="unitats-list"></ul>
   <div class="buit" id="unitats-buit" style="display:none">
     Encara no hi ha cap unitat publicada.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Tasques (dins d'una unitat) -->
+<div class="view" id="v-tasques">
+  <button class="back-btn" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
+  <div class="cat-title" id="tasca-cat-title"></div>
+  <div class="cat-sub" id="tasca-cat-sub"></div>
+  <ul class="ex-list" id="tasques-list"></ul>
+  <div class="buit" id="tasques-buit" style="display:none">
+    Encara no hi ha cap tasca oberta en aquesta unitat.<br>Torna-hi d'aquí a uns dies.
   </div>
 </div>
 
@@ -50,6 +61,9 @@
 </footer>
 
 <script src="publicats.js"></script>
+<script src="cataleg.js"></script>
+<script src="tasques.js"></script>
+<script src="progres.js"></script>
 <script>
 /* ── DADES: unitats i temes ──────────────────────────────────────────
    L'`id` de la unitat és la seva carpeta ('u7') i l'`id` del tema és
@@ -59,8 +73,6 @@
 const UNITATS = [
   {
     id: 'u7',
-    nom: 'Unitat 7',
-    subtitol: 'Límits i continuïtat',
     temes: [
       {
         id: 'practica',
@@ -113,8 +125,6 @@ const UNITATS = [
   },
   {
     id: 'u8',
-    nom: 'Unitat 8',
-    subtitol: 'Derivades',
     temes: [
       {
         id: 'practica',
@@ -167,8 +177,6 @@ const UNITATS = [
   },
   {
     id: 'u9',
-    nom: 'Unitat 9',
-    subtitol: 'Aplicacions de les derivades',
     temes: [
       {
         id: 'practica',
@@ -225,12 +233,97 @@ const UNITATS = [
       },
     ],
   },
+  {
+    id: 'u10',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 34–42',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'domini-recorregut',
+        num: 1,
+        titol: 'Domini i recorregut',
+        rang: 'exercicis 43–53',
+      },
+      {
+        id: 'simetria-periodicitat',
+        num: 2,
+        titol: 'Simetria i periodicitat',
+        rang: 'exercicis 54–60',
+      },
+      {
+        id: 'asimptotes',
+        num: 3,
+        titol: 'Asímptotes',
+        rang: 'exercicis 61–74',
+      },
+      {
+        id: 'creixement',
+        num: 4,
+        titol: 'Creixement i decreixement',
+        rang: 'exercicis 75–77',
+      },
+      {
+        id: 'concavitat',
+        num: 5,
+        titol: 'Concavitat',
+        rang: 'exercicis 78–79',
+      },
+      {
+        id: 'estudi-complet',
+        num: 6,
+        titol: 'Estudi complet de la funció',
+        rang: 'exercicis 80–83',
+      },
+      {
+        id: 'representacio',
+        num: 7,
+        titol: 'Representació gràfica',
+        rang: 'exercicis 84–99',
+      },
+      {
+        id: 'altres-funcions',
+        num: 8,
+        titol: 'Funcions radicals, exponencials, trigonomètriques, logarítmiques',
+        rang: 'exercicis 100–107',
+      },
+      {
+        id: 'trossos',
+        num: 9,
+        titol: 'Funcions definides a trossos',
+        rang: 'exercicis 108–115',
+      },
+      {
+        id: 'problemes-reals',
+        num: 10,
+        titol: 'Propietats de les funcions i aplicació en problemes reals',
+        rang: 'exercicis 116–118',
+      },
+      {
+        id: 'problemes-diferents',
+        num: 11,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 119–124',
+      },
+      {
+        id: 'mon-real',
+        num: 12,
+        titol: 'Matemàtiques en el món real',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
 ];
 
 const clauDe   = (u,t) => u.id + '/' + t.id;
 const fitxerDe = (u,t) => u.id + '/' + t.id + '/' + t.id + '.html';
+const metaDe   = u => UNITATS_META[u.id] || {nom:u.id, subtitol:''};
 
-/* Només els temes que el professor ha publicat a publicats.js */
+/* Els temes ja no es mostren als alumnes: la navegació normal és
+   unitat → tasca → exercici. Segueixen existint i s'hi arriba escrivint
+   l'adreça  index.html#u7/temes  (o obrint el fitxer del tema directament). */
 function temesVisibles(u){
   return u.temes.filter(t => comptaPublicats(clauDe(u,t)) !== 0);
 }
@@ -238,19 +331,20 @@ function temesVisibles(u){
 function renderUnitats(){
   const ul = document.getElementById('unitats-list');
   ul.innerHTML = '';
-  const visibles = UNITATS.filter(u => temesVisibles(u).length > 0);
+  const visibles = UNITATS.filter(u => tasquesDe(u.id).length > 0);
 
   document.getElementById('unitats-buit').style.display = visibles.length ? 'none' : 'block';
 
   visibles.forEach(u=>{
-    const n = temesVisibles(u).length;
+    const meta = metaDe(u);
+    const n = tasquesDe(u.id).length;
     const li = document.createElement('li');
     li.className = 'ex-item';
     li.innerHTML = `
-      <span class="ex-badge">${u.nom}</span>
+      <span class="ex-badge">${meta.nom}</span>
       <div class="ex-info">
-        <div class="ex-title">${u.nom}</div>
-        <div class="ex-sub">${u.subtitol} &middot; ${n===1 ? '1 tema' : n + ' temes'}</div>
+        <div class="ex-title">${meta.nom}</div>
+        <div class="ex-sub">${meta.subtitol} &middot; ${n===1 ? '1 tasca' : n + ' tasques'}</div>
       </div>
       <span class="ex-arrow">&rarr;</span>`;
     li.onclick = () => { location.hash = u.id; };
@@ -258,20 +352,56 @@ function renderUnitats(){
   });
 }
 
-function showUnitat(u){
+function showTasques(u){
+  show('v-tasques');
+  const meta = metaDe(u);
+  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
+  document.getElementById('tasca-cat-title').textContent = meta.nom;
+  document.getElementById('tasca-cat-sub').textContent = meta.subtitol + ' · tria una tasca';
+
+  const llista = tasquesDe(u.id);
+  const ul = document.getElementById('tasques-list');
+  ul.innerHTML = '';
+  document.getElementById('tasques-buit').style.display = llista.length ? 'none' : 'block';
+
+  llista.forEach(t=>{
+    const refs  = refsDe(t);
+    const fets  = comptaFets(refs);
+    const tots  = refs.length;
+    const acabada = fets === tots && tots > 0;
+    const venc  = tascaVencuda(t);
+    const dies  = diesRestants(t);
+    const quan  = venc ? 'data límit passada'
+                : (dies === 0 ? 'venç avui' : dies === 1 ? 'venç demà' : 'falten ' + dies + ' dies');
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (acabada ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Setmana ${t.setmana}</span>
+      <div class="ex-info">
+        <div class="ex-title">${t.titol || ('Data límit: ' + dataLlarga(t.limit))}</div>
+        <div class="ex-sub">${tots} exercici${tots===1?'':'s'} &middot; ${fets} fet${fets===1?'':'s'} &middot; ${quan}</div>
+      </div>
+      ${acabada ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">&rarr;</span>`;
+    li.onclick = () => { window.location.href = 'tasca.html#' + idTasca(t); };
+    ul.appendChild(li);
+  });
+}
+
+function showTemes(u){
   show('v-temes');
-  document.getElementById('hd-title').textContent = u.nom + '. ' + u.subtitol;
-  document.getElementById('tema-cat-title').textContent = u.nom;
-  document.getElementById('tema-cat-sub').textContent = u.subtitol + ' · tria un tema';
+  const meta = metaDe(u);
+  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
+  document.getElementById('tema-cat-title').textContent = meta.nom + ' · temes del llibre';
+  document.getElementById('tema-cat-sub').textContent = meta.subtitol + ' · vista per temes';
 
   const ul = document.getElementById('temes-list');
   ul.innerHTML = '';
   temesVisibles(u).forEach(t=>{
     const etiqueta = t.etiqueta || ('Tema ' + t.num);
     const n = comptaPublicats(clauDe(u,t));
-    const sub = (n === 'tots')
-      ? t.rang
-      : `${n} exercici${n===1?'':'s'} disponible${n===1?'':'s'}`;
+    const sub = (n === 'tots') ? t.rang
+              : `${n} exercici${n===1?'':'s'} disponible${n===1?'':'s'}`;
     const li = document.createElement('li');
     li.className = 'ex-item';
     li.innerHTML = `
@@ -293,14 +423,16 @@ function mostraUnitats(){
 
 function goBackUnitats(){ location.hash = ''; }
 
-/* L'adreça mana: #u7 obre la llista de temes de la Unitat 7, i sense hash
-   es veu la llista d'unitats. Així el botó "Torna als temes" d'una pàgina
-   de tema pot enllaçar a ../../index.html#u7 i aterrar al lloc correcte,
-   i el botó "enrere" del navegador també funciona. */
+/* L'adreça mana:
+     (sense hash)   llista d'unitats
+     #u7            les tasques de la unitat 7      ← el que veu l'alumne
+     #u7/temes      els temes de la unitat 7        ← no enllaçat enlloc */
 function router(){
-  const id = location.hash.replace('#','');
-  const u = UNITATS.find(x => x.id === id && temesVisibles(x).length > 0);
-  if(u) showUnitat(u); else mostraUnitats();
+  const parts = location.hash.replace('#','').split('/');
+  const u = UNITATS.find(x => x.id === parts[0]);
+  if(u && parts[1] === 'temes' && temesVisibles(u).length) showTemes(u);
+  else if(u && tasquesDe(u.id).length) showTasques(u);
+  else mostraUnitats();
 }
 window.addEventListener('hashchange', router);
 

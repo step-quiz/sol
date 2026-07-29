@@ -1,32 +1,46 @@
 const PUBLICATS = {
 
-  'u7/practica':           'cap',
-  'u7/limits-funcions':    '44,45,46,47,48',
-  'u7/limits-punt':        '66,68,70,76,88,90',
-  'u7/continuitat':        '92,93,94,102,103,40,106',
-  'u7/bolzano':            '112,113,114,120',
-  'u7/problemes-limits':   'cap',
-  'u7/problemes-diversos': 'cap',
-  'u7/series':             'cap',
+  'u7/practica':           'tots',
+  'u7/limits-funcions':    'tots',
+  'u7/limits-punt':        'tots',
+  'u7/continuitat':        'tots',
+  'u7/bolzano':            'tots',
+  'u7/problemes-limits':   'tots',
+  'u7/problemes-diversos': 'tots',
+  'u7/series':             'tots',
 
-  'u8/practica':           'cap',
-  'u8/derivada-punt':      'cap',
-  'u8/interpretacio-geometrica': 'cap',
-  'u8/derivabilitat':      'cap',
-  'u8/funcio-derivada':    'cap',
-  'u8/problemes-contextualitzats': 'cap',
-  'u8/problemes-diferents': 'cap',
-  'u8/mon-real':           'cap',
+  'u8/practica':           'tots',
+  'u8/derivada-punt':      'tots',
+  'u8/interpretacio-geometrica': 'tots',
+  'u8/derivabilitat':      'tots',
+  'u8/funcio-derivada':    'tots',
+  'u8/problemes-contextualitzats': 'tots',
+  'u8/problemes-diferents': 'tots',
+  'u8/mon-real':           'tots',
 
-  'u9/practica':           'cap',
-  'u9/creixement':         'cap',
-  'u9/concavitat':         'cap',
-  'u9/optimitzacio':       'cap',
-  'u9/teoremes':           'cap',
-  'u9/hopital':            'cap',
-  'u9/aplicacions':        'cap',
-  'u9/problemes-diferents': 'cap',
-  'u9/mon-real':           'cap',
+  'u9/practica':           'tots',
+  'u9/creixement':         'tots',
+  'u9/concavitat':         'tots',
+  'u9/optimitzacio':       'tots',
+  'u9/teoremes':           'tots',
+  'u9/hopital':            'tots',
+  'u9/aplicacions':        'tots',
+  'u9/problemes-diferents': 'tots',
+  'u9/mon-real':           'tots',
+
+  'u10/practica':                  'tots',
+  'u10/domini-recorregut':         'tots',
+  'u10/simetria-periodicitat':     'tots',
+  'u10/asimptotes':                'tots',
+  'u10/creixement':                'tots',
+  'u10/concavitat':                'tots',
+  'u10/estudi-complet':            'tots',
+  'u10/representacio':             'tots',
+  'u10/altres-funcions':           'tots',
+  'u10/trossos':                   'tots',
+  'u10/problemes-reals':           'tots',
+  'u10/problemes-diferents':       'tots',
+  'u10/mon-real':                  'tots',
 
 };
 
@@ -37,7 +51,7 @@ const PUBLICATS = {
    Aquest és l'ÚNIC fitxer que has de tocar per publicar o amagar
    exercicis. Edita'l, desa i fes commit: la web s'actualitza sola.
 
-   Cada línia és:   'unitat/tema': 'què es veu',
+   Cada línia és:   'unitat/tema': 'tots',
 
    Valors possibles a la dreta:
      'cap'          → el tema no apareix enlloc (ni al menú)
@@ -47,8 +61,8 @@ const PUBLICATS = {
      '44, 46, 51'   → només aquests tres
 
    Exemple d'un curs que va avançant:
-     setmana 1 →  'u7/limits-funcions': '44-49',
-     setmana 2 →  'u7/limits-funcions': '44-56',
+     setmana 1 →  'u7/limits-funcions': 'tots',
+     setmana 2 →  'u7/limits-funcions': 'tots',
      setmana 3 →  'u7/limits-funcions': 'tots',
 
    Si un tema no surt en aquesta llista, es comporta com si fos 'cap'.

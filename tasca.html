@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tasca — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1 id="hd-title">Tasca</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista d'exercicis de la tasca -->
+<div class="view active" id="v-list">
+  <a class="back-btn" id="back-list" href="index.html">← Torna a les tasques</a>
+  <div class="cat-title" id="tasca-title"></div>
+  <div class="cat-sub" id="tasca-sub"></div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Aquesta tasca encara no està disponible.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall d'un exercici -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="cataleg.js"></script>
+<script src="tasques.js"></script>
+<script src="progres.js"></script>
+<script>
+/* ── VISOR DE TASQUES ─────────────────────────────────────────────────
+   Pàgina genèrica. L'adreça mana:  tasca.html#u7/s3  obre la setmana 3
+   de la unitat 7. Afegir una setmana NO vol dir crear cap fitxer nou:
+   n'hi ha prou amb una línia a tasques.js. */
+
+let TASCA = null;      // la tasca que s'està mirant
+let ACTUAL = null;     // {u, n} de l'exercici obert
+
+function render(){
+  const id = location.hash.replace('#','');
+  TASCA = tascaPerId(id);
+
+  if(!TASCA){
+    document.getElementById('tasca-title').textContent = 'Tasca no disponible';
+    document.getElementById('tasca-sub').textContent = '';
+    document.getElementById('ex-list').innerHTML = '';
+    document.getElementById('ex-buit').style.display = 'block';
+    return;
+  }
+
+  const meta = UNITATS_META[TASCA.unitat] || {nom:TASCA.unitat, subtitol:''};
+  document.getElementById('back-list').href = 'index.html#' + TASCA.unitat;
+  document.getElementById('hd-title').textContent = meta.nom + '. Setmana ' + TASCA.setmana;
+  document.getElementById('tasca-title').textContent = TASCA.titol || ('Setmana ' + TASCA.setmana);
+
+  const dies = diesRestants(TASCA);
+  const quan = tascaVencuda(TASCA)
+      ? 'data límit passada'
+      : (dies === 0 ? 'venç avui' : dies === 1 ? 'venç demà' : 'falten ' + dies + ' dies');
+  document.getElementById('tasca-sub').textContent =
+      meta.nom + ' · ' + meta.subtitol + ' · data límit: ' + dataLlarga(TASCA.limit) + ' (' + quan + ')';
+
+  renderList();
+}
+
+function renderList(){
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = 'none';
+
+  refsDe(TASCA).forEach(r => {
+    const f = fitxaDe(r.u, r.n);
+    const li = document.createElement('li');
+
+    if(!f){
+      li.className = 'ex-item';
+      li.innerHTML = `
+        <span class="ex-badge">Ex. ${r.n}</span>
+        <div class="ex-info">
+          <div class="ex-title">Aquest exercici no és al catàleg de ${r.u}</div>
+          <div class="ex-sub">Revisa tasques.js</div>
+        </div>`;
+      ul.appendChild(li);
+      return;
+    }
+
+    const fet = esFet(r.u, r.n);
+    const altra = r.u !== TASCA.unitat;
+    li.className = 'ex-item' + (fet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">${etiquetaDe(r.u, r.n)}</span>
+      <div class="ex-info">
+        <div class="ex-title">${f.t}</div>
+        <div class="ex-sub">${[altra ? (UNITATS_META[r.u]||{}).nom : '', f.d].filter(Boolean).join(' · ')}</div>
+      </div>
+      ${fet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(r);
+    ul.appendChild(li);
+  });
+}
+
+function showExercise(r){
+  const f = fitxaDe(r.u, r.n);
+  if(!f) return;
+  ACTUAL = r;
+  show('v-detail');
+
+  const esAct = !!f.a;
+  document.getElementById('det-title').textContent =
+      (esAct ? 'Activitat ' : 'Exercici ') + r.n;
+  document.getElementById('det-meta').textContent = f.t + (f.d ? '  ·  ' + f.d : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = f.i.map((p, i) => {
+    const src = r.u + '/' + p;
+    const quina = f.i.length > 1 ? 'Imatge ' + (i+1) + ' de ' + f.i.length : 'Enunciat i solució';
+    return `
+      <div class="page-fig">
+        <img src="${src}" alt="Enunciat i solució de l'${esAct ? 'activitat' : 'exercici'} ${r.n}"
+             onclick="openLightbox('${src}')">
+      </div>
+      <div class="page-actions">
+        <span class="page-fname">${quina}</span>
+        <a class="page-link" href="${src}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+      </div>`;
+  }).join('');
+
+  updateDoneBtn();
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  ACTUAL = null;
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(){
+  if(!ACTUAL) return;
+  const fet = esFet(ACTUAL.u, ACTUAL.n);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (fet ? 'is-done' : 'not-done');
+  btn.textContent = fet ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!ACTUAL) return;
+  marcaFet(ACTUAL.u, ACTUAL.n, !esFet(ACTUAL.u, ACTUAL.n));
+  updateDoneBtn();
+}
+
+window.addEventListener('hashchange', () => { show('v-list'); render(); });
+render();
+</script>
+</body>
+</html>
