@@ -1,5 +1,26 @@
 # Change log: exercise hint ("pista") scaffolding
 
+> **SUPERSEDED (later change) — read this first.**
+> Hints no longer live in `cataleg.js` as a per-exercise `p` field. They were
+> moved to a dedicated file **`hints.js`**, a flat map keyed by
+> `'unit/exercise'`:
+>
+> ```js
+> const PISTES = { 'u7/44': '...', 'u8/21': '...' };
+> ```
+>
+> Reason: editing one hint meant finding and modifying a line inside a 70 kB
+> generated file, which was slow and error-prone on a phone. It also meant
+> `cataleg.js` could no longer be regenerated from the topic pages without
+> destroying every hint. With the split, `cataleg.js` is a derived file again
+> and `hints.js` is hand-maintained.
+>
+> `pistaDe(u, n)` moved to `hints.js` and keeps the same signature and
+> contract, so `tasca.html` was unchanged apart from loading the new script.
+> Everything else below still holds: precomputed only, no runtime API call,
+> no backend. **Do not put hints back into `cataleg.js`.**
+
+
 ## Context for the AI reading this
 
 This is a static site (no server, no database, hosted on GitHub Pages) for a

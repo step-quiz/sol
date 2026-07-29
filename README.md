@@ -55,7 +55,7 @@ index.html      ← únic index.html del projecte. Unitats → tasques.
 tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
 tasques.js      ← LA PROGRAMACIÓ (l'únic que edito sovint)
 cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
-                  (excepte el camp de pista, `p`, que s'edita a mà — vegeu més avall)
+hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
 progres.js      ← les creuetes de "fet" de l'alumne
 publicats.js    ← només governa la vista per temes (vegeu més avall)
 README.md
@@ -73,36 +73,37 @@ el títol, la dificultat i les imatges de cada exercici, un sol cop. Les tasques
 només guarden números.
 
 **No editis `cataleg.js` a mà**: es genera a partir de les pàgines dels temes.
-L'única excepció és el camp `p` (pista), que sí que s'edita a mà — vegeu la
-secció «Les pistes dels exercicis».
+Com que les pistes viuen en un fitxer a part (`hints.js`), tornar a generar el
+catàleg no fa perdre res.
 
 ## Les pistes dels exercicis
 
 Cada exercici pot tenir, opcionalment, una pista curta: un cop de mà cap al
-mètode, no la solució feta. Es guarda al camp `p` de `cataleg.js`, al costat
-de `t`, `d` i `i`:
+mètode, no la solució feta. Totes viuen a **`hints.js`**, una línia per pista,
+amb la clau `'unitat/exercici'`:
 
 ```js
-44: {
-  t:'A partir de les gràfiques de f, g i h, determina els límits en ±∞',
-  d:'●○○',
-  i:['limits-funcions/data/full-1.png'],
-  p:'Mira cada gràfica per separat a la banda dreta (x → +∞) i a l\'esquerra ' +
-    '(x → −∞): la corba s\'apropa a una alçada fixa, puja o baixa sense parar, ' +
-    'o no s\'estabilitza?'
-},
+const PISTES = {
+
+  /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
+  'u7/44': 'Mira cada gràfica per separat a la banda dreta (x → +∞) i a l\'esquerra (x → −∞): la corba s\'apropa a una alçada fixa, puja o baixa sense parar, o no s\'estabilitza?',
+  'u7/45': 'Pensa en qui guanya quan x es fa molt gran...',
+
+};
 ```
 
-- **Camp opcional.** Si un exercici no té `p`, no es mostra cap botó de
-  pista per a aquell exercici — no hi ha manera de saber que en podria haver
-  una. No cal "activar" res enlloc més.
-- **S'omple a mà**, exactament igual que `t`, `d` i `i`: escrius el text tu
-  mateix, o li demanes a una IA que en redacti un i l'enganxes, i fas
-  commit. No hi ha cap botó de "generar" ni cap crida a cap IA en temps
-  real des del navegador de l'alumne — el projecte segueix sent 100%
-  estàtic.
-- **Helper:** `pistaDe(u, n)` a `cataleg.js` retorna el text de la pista o
-  `null` si no n'hi ha, seguint el mateix patró que `fitxaDe` i `etiquetaDe`.
+- **Afegir una pista és afegir una línia**, en qualsevol lloc del fitxer.
+  Esborrar-la és esborrar la línia. No cal tocar res més enlloc.
+- **Exercici sense línia = sense botó.** L'alumne no té cap manera de saber
+  que en podria haver una.
+- **Compte amb els apòstrofs:** dins d'un text entre cometes simples s'han
+  d'escapar (`d\'una`, `fixa\'t`). Si t'ho vols estalviar, escriu l'apòstrof
+  tipogràfic (’), que no cal escapar.
+- **S'omple a mà**: escrius el text tu mateix, o li demanes a una IA que en
+  redacti un i l'enganxes, i fas commit. No hi ha cap botó de "generar" ni
+  cap crida a cap IA en temps real des del navegador de l'alumne — el
+  projecte segueix sent 100% estàtic.
+- **Helper:** `pistaDe(u, n)` (a `hints.js`) retorna el text o `null`.
 - **Com escriure-la:** una frase o dues que apuntin al mètode o al concepte
   clau (compara graus, mira l'asímptota, pensa-ho al revés...), mai el
   resultat numèric ni el pas final. Si la pista revela la resposta, ja no és
@@ -125,4 +126,4 @@ d'API a qualsevol que obri el codi font de la pàgina. Fer-ho bé requeriria
 introduir una petita funció serverless només per amagar la clau — una peça
 d'infraestructura nova que, de moment, es prefereix evitar. Mentre no es
 reconsideri aquesta decisió, les pistes es preparen sempre abans, a mà, i es
-guarden com a text pla a `cataleg.js`.
+guarden com a text pla a `hints.js`.

@@ -1,14 +1,15 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   CATÀLEG D'EXERCICIS  —  FITXER GENERAT, NO L'EDITIS A MÀ
+   CATÀLEG D'EXERCICIS  —  FITXER DERIVAT
    ───────────────────────────────────────────────────────────────────────
+   Es genera a partir de les pàgines dels temes. No cal editar-lo a mà.
+   Les PISTES ja no viuen aquí: són a hints.js, i per això aquest fitxer
+   es pot tornar a generar sense perdre res.
+
    Per a cada unitat, cada exercici hi apareix UN SOL COP, amb:
      t : títol (descripció curta)
      d : dificultat ('●○○' | '●●○' | '●●●' | '')
      i : imatges de suport (enunciat i solució), en ordre
      a : 1 si és una "activitat" numerada 1–4 i no un exercici
-     p : pista (opcional). Si no hi és, l'exercici simplement no mostra
-         botó de pista. S'omple a mà (o enganxant-hi el que generi la IA),
-         exactament igual que la resta de camps.
 
    Les tasques (tasques.js) només guarden NÚMEROS. Tota la resta surt d'aquí.
    Això és el que permet que una tasca barregi exercicis de temes diferents
@@ -36,15 +37,15 @@ const CATALEG = {
      37: {t:'Calcula el valor de lim 2^(2x/(5x²+x)) quan x → −1/5', d:'', i:['practica/data/full-2.png']},
      38: {t:'Quatre límits amb radicals i indeterminació 0/0', d:'', i:['practica/data/full-2.png']},
      39: {t:'Per a quin valor del paràmetre a existeix el límit quan x → 2?', d:'', i:['practica/data/full-2.png','practica/data/full-3.png']},
-     40: {t:'Determina a i b perquè la funció a trossos sigui contínua a tots els punts', d:'', i:['practica/data/full-3.png']},
+       40: {t:'Determina a i b perquè la funció a trossos sigui contínua a tots els punts', d:'', i:['practica/data/full-3.png']},
      41: {t:'Demostra que f(x) = 2cos x + 1 té almenys una arrel real a [0, π]', d:'', i:['practica/data/full-3.png']},
      42: {t:'Comprova que f(x) = 2^(x+1)−1 i g(x) = 2√(x+1) es tallen a [0, 1]', d:'', i:['practica/data/full-3.png']},
-     43: {t:'f(x) = 3^(−x+2) − 4: demostra que existeix x₀ amb f(x₀) = 1', d:'', i:['practica/data/full-4.png']},
-     44: {t:'A partir de les gràfiques de f, g i h, determina els límits en ±∞', d:'●○○', i:['limits-funcions/data/full-1.png'], p:'Mira cada gràfica per separat a la banda dreta (x → +∞) i a l\'esquerra (x → −∞): la corba s\'apropa a una alçada fixa (asímptota horitzontal), puja o baixa sense parar, o no s\'estabilitza? No cal calcular res, només llegir el dibuix.'},
-     45: {t:'Límits en +∞ de potències, radicals i exponencials', d:'●○○', i:['limits-funcions/data/full-1.png'], p:'Pensa en qui "guanya" quan x es fa molt gran: una exponencial d\'una base més gran que 1 creix molt més de pressa que qualsevol potència de x, i una arrel creix més a poc a poc que allò que hi ha a dins. Simplifica quedant-te només amb els termes que realment dominen.'},
-     46: {t:'Límits de funcions racionals en +∞ i −∞', d:'●●○', i:['limits-funcions/data/full-1.png','limits-funcions/data/full-2.png'], p:'Compara el grau del numerador amb el del denominador: si són iguals, el límit és el quocient dels coeficients del terme de grau més alt; si el numerador té grau més gran, dona infinit; si en té menys, dona 0. Per al signe a −∞, vigila si les potències són parelles o senars.'},
-     47: {t:'INVENTA. Escriu una funció amb cada límit donat', d:'●●○', i:['limits-funcions/data/full-2.png'], p:'Fes-ho al revés: per a cada límit que et demanen, quina és la funció més senzilla que el produeix? Un límit finit no nul suggereix numerador i denominador del mateix grau; un límit infinit, un numerador de grau més gran (o una exponencial); un límit 0, un denominador de grau més gran. No busquis res complicat.'},
-     48: {t:'Límits en ±∞ de (4x+3)/(2x²+1) i (4x²+3)/(2x²+1)', d:'●○○', i:['limits-funcions/data/full-2.png'], p:'Fixa\'t que les dues funcions comparteixen denominador (grau 2) i només canvia el grau del numerador (1 i 2, respectivament): aplica la regla de comparar graus a cadascuna i observa com aquest únic canvi altera el resultat.'},     
+       43: {t:'f(x) = 3^(−x+2) − 4: demostra que existeix x₀ amb f(x₀) = 1', d:'', i:['practica/data/full-4.png']},
+      44: {t:'A partir de les gràfiques de f, g i h, determina els límits en ±∞', d:'●○○', i:['limits-funcions/data/full-1.png']},
+      45: {t:'Límits en +∞ de potències, radicals i exponencials', d:'●○○', i:['limits-funcions/data/full-1.png']},
+      46: {t:'Límits de funcions racionals en +∞ i −∞', d:'●●○', i:['limits-funcions/data/full-1.png','limits-funcions/data/full-2.png']},
+      47: {t:'INVENTA. Escriu una funció amb cada límit donat', d:'●●○', i:['limits-funcions/data/full-2.png']},
+      48: {t:'Límits en ±∞ de (4x+3)/(2x²+1) i (4x²+3)/(2x²+1)', d:'●○○', i:['limits-funcions/data/full-2.png']},
      49: {t:'Diferència de radicals: √(x²+x−1) − √(x²−x+2) dividit per 1/2', d:'●○○', i:['limits-funcions/data/full-2.png']},
      50: {t:'Límits de potències i exponencials: (0,7)^(3x+2), (3x−7)^(2−x)…', d:'●○○', i:['limits-funcions/data/full-2.png']},
      51: {t:'INVESTIGA. Límits en ±∞ del polinomi general, de be^x i de √(cx)', d:'●●○', i:['limits-funcions/data/full-2.png','limits-funcions/data/full-3.png']},
@@ -62,17 +63,17 @@ const CATALEG = {
      63: {t:'Funcions amb valor absolut a trossos i els seus límits en ±∞', d:'●●○', i:['limits-funcions/data/full-5.png']},
      64: {t:'MATEMÀTIQUES I… MEDI AMBIENT. Taca d’una erupció submarina: √(t²+5t) − t', d:'●●○', i:['limits-funcions/data/full-5.png']},
      65: {t:'MATEMÀTIQUES I… ECOSISTEMES. Profunditat de la capa de sorra i el dic', d:'●●○', i:['limits-funcions/data/full-5.png']}, 
-     66: {t:'Gràfica de f(x): dona un valor aproximat a aquests límits', d:'●●○', i:['limits-punt/data/full-1.png','limits-punt/data/full-2.png'], p:'Per a cada punt que et demanen, mira si per l\'esquerra i per la dreta la gràfica s\'acosta a la mateixa alçada; si no coincideixen, dona els dos límits laterals per separat en lloc d\'un únic valor.'},
+      66: {t:'Gràfica de f(x): dona un valor aproximat a aquests límits', d:'●●○', i:['limits-punt/data/full-1.png','limits-punt/data/full-2.png']},
      67: {t:'Límits de f(x) = 2^(ln x) i g(x) = 3^(ln(x−1)) en punts concrets', d:'●●○', i:['limits-punt/data/full-2.png']},
-     68: {t:'Gràfica de g(x): valor aproximat dels límits en punts i en ±∞', d:'●●○', i:['limits-punt/data/full-2.png'], p:'Igual que amb f: comprova els límits laterals a cada punt marcat i, per a ±∞, fixa\'t cap a on tendeix la corba pels dos extrems del dibuix (puja, baixa o s\'estabilitza en una alçada).'},
+      68: {t:'Gràfica de g(x): valor aproximat dels límits en punts i en ±∞', d:'●●○', i:['limits-punt/data/full-2.png']},
      69: {t:'INVENTA. Escriu una funció amb cada límit en un punt', d:'●●○', i:['limits-punt/data/full-2.png']},
-     70: {t:'Límits de f(x) = 3x/√(x²+1) en x→3, x→−1 i x→0', d:'●●○', i:['limits-punt/data/full-2.png'], p:'Comprova que √(x²+1) mai és zero: la funció és contínua a tot arreu, així que en cada punt només cal substituir directament el valor de x, sense cap indeterminació.'},
+      70: {t:'Límits de f(x) = 3x/√(x²+1) en x→3, x→−1 i x→0', d:'●●○', i:['limits-punt/data/full-2.png']},
      71: {t:'Límits de f(x) = log₂(x−3) + 1 en x→4, x→7 i x→7/2', d:'●●○', i:['limits-punt/data/full-2.png']},
      72: {t:'MATEMÀTIQUES I… ECONOMIA. Valor d’una empresa: límits laterals', d:'●●○', i:['limits-punt/data/full-3.png']},
      73: {t:'Límits de g(x) = 1/(x−2) + log_(1/2)x en x→1/4 i x→8', d:'●●○', i:['limits-punt/data/full-3.png']},
      74: {t:'Límits de (6x−12)/(x²−3x−4) en 0, −1, 1 i 4', d:'●●○', i:['limits-punt/data/full-3.png']},
      75: {t:'Operacions amb límits: quins casos són indeterminacions?', d:'●●○', i:['limits-punt/data/full-3.png']},
-     76: {t:'Límits de funcions racionals amb indeterminació 0/0', d:'●○○', i:['limits-punt/data/full-4.png'], p:'Quan en substituir surt 0/0, factoritza numerador i denominador (factor comú o Ruffini) per trobar l\'arrel que els anul·la, simplifica i torna a substituir.'},
+      76: {t:'Límits de funcions racionals amb indeterminació 0/0', d:'●○○', i:['limits-punt/data/full-4.png']},
      77: {t:'Opera i troba el límit en cada cas', d:'●○○', i:['limits-punt/data/full-4.png','limits-punt/data/full-5.png']},
      78: {t:'Límits amb radicals en els punts indicats', d:'●○○', i:['limits-punt/data/full-5.png']},
      79: {t:'Límits amb radicals: racionalitzar numerador o denominador', d:'●○○', i:['limits-punt/data/full-5.png','limits-punt/data/full-6.png']},
@@ -84,13 +85,13 @@ const CATALEG = {
      85: {t:'Determina a perquè (x²−ax+3)/(x−3) tingui límit finit en x→3', d:'●○○', i:['limits-punt/data/full-8.png']},
      86: {t:'Determina m perquè es compleixin dues igualtats amb límits 1^∞', d:'●○○', i:['limits-punt/data/full-8.png']},
      87: {t:'Troba a perquè √(x²−ax) − √(x²+2) tendeixi a 3', d:'●●○', i:['limits-punt/data/full-8.png']},
-     88: {t:'Límits d’una funció a trossos en x→−1, x→3 i x→+∞', d:'●●○', i:['limits-punt/data/full-8.png'], p:'Com que la funció és a trossos, en x=−1 i x=3 calcula per separat el límit amb l\'expressió que val a l\'esquerra i la que val a la dreta de cada punt; en +∞ fixa\'t només en el tros vàlid per a x grans.'},
+      88: {t:'Límits d’una funció a trossos en x→−1, x→3 i x→+∞', d:'●●○', i:['limits-punt/data/full-8.png']},
      89: {t:'REPTE. A partir de lim(sin x)/x = 1, calcula límits trigonomètrics', d:'●●●', i:['limits-punt/data/full-8.png','limits-punt/data/full-9.png']},
-     90: {t:'Funció a trossos: límits en 4 punts i en ±∞', d:'●●○', i:['limits-punt/data/full-9.png'], p:'Igual que en l\'exercici anterior: identifica quin tros s\'aplica a cada banda dels 4 punts de canvi i calcula els límits laterals per separat; per a ±∞ mira només el tros vàlid per a x molt grans o molt petites.'},
+      90: {t:'Funció a trossos: límits en 4 punts i en ±∞', d:'●●○', i:['limits-punt/data/full-9.png']},
      91: {t:'INVENTA. Dibuixa una gràfica que compleixi 4 condicions de límit', d:'●●○', i:['limits-punt/data/full-9.png']},
-     92: {t:'Sis gràfiques: són contínues en els punts indicats? Quin tipus de discontinuïtat?', d:'●●○', i:['continuitat/data/full-1.png','continuitat/data/full-2.png']},
-     93: {t:'Continuïtat de 8 funcions: radicals, logaritmes i valor absolut', d:'●●○', i:['continuitat/data/full-3.png']},
-     94: {t:'En quins punts hi ha discontinuïtat i de quin tipus? (6 racionals)', d:'●●○', i:['continuitat/data/full-3.png','continuitat/data/full-4.png']},
+       92: {t:'Sis gràfiques: són contínues en els punts indicats? Quin tipus de discontinuïtat?', d:'●●○', i:['continuitat/data/full-1.png','continuitat/data/full-2.png']},
+       93: {t:'Continuïtat de 8 funcions: radicals, logaritmes i valor absolut', d:'●●○', i:['continuitat/data/full-3.png']},
+       94: {t:'En quins punts hi ha discontinuïtat i de quin tipus? (6 racionals)', d:'●●○', i:['continuitat/data/full-3.png','continuitat/data/full-4.png']},
      95: {t:'f(x) = (x²−x−2)/(2−x): tipus de discontinuïtat i redefinició contínua', d:'●●○', i:['continuitat/data/full-4.png']},
      96: {t:'f(x) = (18−6√(x+5))/(x−4): on no és contínua i com fer-la contínua', d:'●●○', i:['continuitat/data/full-5.png']},
      97: {t:'f(x) = (3x³−2x²+x)/(4x): discontinuïtat evitable i nova funció', d:'●●○', i:['continuitat/data/full-5.png']},
@@ -135,7 +136,7 @@ const CATALEG = {
       2: {t:'Defineix amb les teves paraules què és el punt d\'equilibri tèrmic i com s\'hi arriba', d:'', i:['mon-real/data/full-2.png'], a:1},
       3: {t:'Què passarà amb la temperatura de l\'objecte i de l\'ambient a mesura que creixi el temps?', d:'', i:['mon-real/data/full-2.png'], a:1},
       4: {t:'Busca altres contribucions d\'Isaac Newton més enllà de la gravitació universal', d:'', i:['mon-real/data/full-2.png'], a:1},
-     21: {t:'Recta tangent a la gràfica de f(x) = x·ln x en x = e', d:'', i:['practica/data/full-1.png']},
+       21: {t:'Recta tangent a la gràfica de f(x) = x·ln x en x = e', d:'', i:['practica/data/full-1.png']},
      22: {t:'f(x) = 3x³ + 2: punts amb tangent paral·lela a la bisectriu del primer quadrant', d:'', i:['practica/data/full-1.png']},
      23: {t:'y = −x + 1 tangent a f(x) = (a − 1)sin x + bx en x = π: determina a i b', d:'', i:['practica/data/full-1.png']},
      24: {t:'Continuïtat i derivabilitat de la funció a trossos x² − 4x + 3 / −x² + 4x − 3', d:'', i:['practica/data/full-1.png']},
@@ -144,23 +145,23 @@ const CATALEG = {
      27: {t:'h derivable amb h(1) = 3 i h′(1) = 2: calcula f′(1) de f(x) = x·ln h(x) + h²(x)/x', d:'', i:['practica/data/full-2.png']},
      28: {t:'Derivada de f(x) = (tg x)^(x+3) per derivació logarítmica', d:'', i:['practica/data/full-3.png']},
      29: {t:'Recta tangent a la circumferència de centre C(1, 1) que passa per A(3, 3)', d:'', i:['practica/data/full-3.png']},
-     30: {t:'TVM de f(x) = 7x − 4 en quatre intervals', d:'●○○', i:['derivada-punt/data/full-1.png']},
-     31: {t:'TVM en [2, 3] de tres funcions: constant, afí i lineal', d:'●○○', i:['derivada-punt/data/full-1.png']},
-     32: {t:'TVM de f(x) = 3/(x + 2) en [1, 6] i [1, 4] i derivada en x = 1', d:'●○○', i:['derivada-punt/data/full-1.png','derivada-punt/data/full-2.png']},
+       30: {t:'TVM de f(x) = 7x − 4 en quatre intervals', d:'●○○', i:['derivada-punt/data/full-1.png']},
+       31: {t:'TVM en [2, 3] de tres funcions: constant, afí i lineal', d:'●○○', i:['derivada-punt/data/full-1.png']},
+       32: {t:'TVM de f(x) = 3/(x + 2) en [1, 6] i [1, 4] i derivada en x = 1', d:'●○○', i:['derivada-punt/data/full-1.png','derivada-punt/data/full-2.png']},
      33: {t:'Calcula b perquè la TVM de f(x) = ln(x + b) en [0, 2] valgui ln 2', d:'●○○', i:['derivada-punt/data/full-2.png']},
      34: {t:'s(t) = 3t² + t + 2: velocitat mitjana del mòbil en els 6 primers segons', d:'●○○', i:['derivada-punt/data/full-2.png']},
      35: {t:'TVM de la superfície d\'un cercle en passar el radi d\'1 a 3 cm i de 3 a 5 cm', d:'●○○', i:['derivada-punt/data/full-2.png','derivada-punt/data/full-3.png']},
      36: {t:'Matemàtiques i… caiguda lliure: TVM i derivada de h = 5t²', d:'●○○', i:['derivada-punt/data/full-3.png']},
-     37: {t:'Derivada per definició de quatre funcions en el punt indicat', d:'●○○', i:['derivada-punt/data/full-3.png']},
+       37: {t:'Derivada per definició de quatre funcions en el punt indicat', d:'●○○', i:['derivada-punt/data/full-3.png']},
      38: {t:'Derivada per definició en x₀ = 0 de quatre polinomis amb paràmetres', d:'●●○', i:['derivada-punt/data/full-3.png','derivada-punt/data/full-4.png']},
      39: {t:'Derivada en x = 2, si és possible, de sis funcions amb radicals i valor absolut', d:'●●○', i:['derivada-punt/data/full-4.png']},
-     40: {t:'Recta tangent a la paràbola f(x) = x² − 2x − 3 en x = 2 i representació gràfica', d:'●○○', i:['interpretacio-geometrica/data/full-1.png']},
-     41: {t:'Recta tangent a f(x) = x² − ax + 6 en el punt P(1, 2)', d:'●○○', i:['interpretacio-geometrica/data/full-1.png']},
+       40: {t:'Recta tangent a la paràbola f(x) = x² − 2x − 3 en x = 2 i representació gràfica', d:'●○○', i:['interpretacio-geometrica/data/full-1.png']},
+       41: {t:'Recta tangent a f(x) = x² − ax + 6 en el punt P(1, 2)', d:'●○○', i:['interpretacio-geometrica/data/full-1.png']},
      42: {t:'Recta tangent a ln(3x + 1), 2 + cos x i 1 + √(2 − x) en el punt indicat', d:'●○○', i:['interpretacio-geometrica/data/full-1.png']},
      43: {t:'Inventa: dues funcions amb la recta tangent donada en x = 2', d:'●●○', i:['interpretacio-geometrica/data/full-2.png']},
      44: {t:'Rectes tangent i normal a f(x) = ln√(2x + 3) en x = −1', d:'●○○', i:['interpretacio-geometrica/data/full-2.png']},
      45: {t:'Recta tangent a f(x) = e⁴ˣ⁺² − 3 en x = −1/2', d:'●○○', i:['interpretacio-geometrica/data/full-2.png']},
-     46: {t:'Rectes tangent i normal a f(x) = (x − 2)/(x + 1) al tall amb l\'eix d\'abscisses', d:'●●○', i:['interpretacio-geometrica/data/full-2.png']},
+       46: {t:'Rectes tangent i normal a f(x) = (x − 2)/(x + 1) al tall amb l\'eix d\'abscisses', d:'●●○', i:['interpretacio-geometrica/data/full-2.png']},
      47: {t:'Recta tangent a f(x) = √((x² − 5)/(4 − x)) en el punt d\'abscissa x = 3', d:'●●○', i:['interpretacio-geometrica/data/full-2.png']},
      48: {t:'Rectes tangent i normal a y = x³ + x² − 6x + 1 al punt d\'ordenada 1 i abscissa positiva', d:'●●○', i:['interpretacio-geometrica/data/full-2.png']},
      49: {t:'Tangent a y = x² − 2x + 5 paral·lela a la secant pels punts d\'abscissa 1 i 3', d:'●●○', i:['interpretacio-geometrica/data/full-2.png','interpretacio-geometrica/data/full-3.png']},
@@ -168,11 +169,11 @@ const CATALEG = {
      51: {t:'Tangent a f(x) = ln(x − 1) paral·lela a la secant a l\'interval [2, e + 1]', d:'●●○', i:['interpretacio-geometrica/data/full-3.png']},
      52: {t:'Troba b i c perquè y = x² + bx + c tingui a (1, 1) tangent paral·lela a la bisectriu', d:'●●○', i:['interpretacio-geometrica/data/full-3.png']},
      53: {t:'y = x² − 2x − 3: tangent que forma 45° amb l\'eix X i tangent horitzontal', d:'●●○', i:['interpretacio-geometrica/data/full-3.png']},
-     54: {t:'f(x) = x³ − x + 4: punts amb tangent paral·lela a y = 2x − 123', d:'●●○', i:['interpretacio-geometrica/data/full-4.png']},
+       54: {t:'f(x) = x³ − x + 4: punts amb tangent paral·lela a y = 2x − 123', d:'●●○', i:['interpretacio-geometrica/data/full-4.png']},
      55: {t:'Troba k perquè les tangents a kx³ − x² + 7kx − 18 en x = 1 i x = 2 siguin paral·leles', d:'●●○', i:['interpretacio-geometrica/data/full-4.png']},
      56: {t:'Calcula a perquè la tangent a f(x) = −ax² + 5x − 4 en x = 3 talli l\'eix X en x = 5', d:'●●○', i:['interpretacio-geometrica/data/full-4.png']},
      57: {t:'f(x) = √(x² + m): troba m per tangència amb 2x − y − 3 = 0 i per pas per Q(1, 1)', d:'●●○', i:['interpretacio-geometrica/data/full-4.png','interpretacio-geometrica/data/full-5.png']},
-     58: {t:'Àrea del triangle que la tangent a f(x) = (x + 1)/(x − 1) en x = 2 forma amb els eixos', d:'●●○', i:['interpretacio-geometrica/data/full-5.png']},
+       58: {t:'Àrea del triangle que la tangent a f(x) = (x + 1)/(x − 1) en x = 2 forma amb els eixos', d:'●●○', i:['interpretacio-geometrica/data/full-5.png']},
      59: {t:'Àrea del triangle delimitat pels eixos i la tangent a f(x) = √(x² + 5) en x = 2', d:'●●○', i:['interpretacio-geometrica/data/full-5.png']},
      60: {t:'Àrea delimitada pels eixos i la tangent a f(x) = 3 + ln(tg x) en x = π/4', d:'●●○', i:['interpretacio-geometrica/data/full-5.png']},
      61: {t:'Repte: àrea del triangle format per les tangents en x = −2 i x = 5 i l\'eix d\'abscisses', d:'●●●', i:['interpretacio-geometrica/data/full-5.png','interpretacio-geometrica/data/full-6.png']},
@@ -200,18 +201,18 @@ const CATALEG = {
      83: {t:'Troba a i b perquè ax² + bx + 1 / a² − sin x sigui contínua i derivable en tot ℝ', d:'●●○', i:['derivabilitat/data/full-7.png']},
      84: {t:'Calcula a i b perquè dues funcions amb exponencial i radical siguin derivables en ℝ', d:'●●○', i:['derivabilitat/data/full-7.png','derivabilitat/data/full-8.png']},
      85: {t:'Repte: paràmetres de x² + a(x+b) / log₂(x+2) i àrea amb la tangent en x = 3', d:'●●●', i:['derivabilitat/data/full-8.png']},
-     86: {t:'Derivada de sis funcions elementals: x² − 5, 5ln x, sin 2x, e⁻ˣ, 2³ˣ i log₂x', d:'●○○', i:['funcio-derivada/data/full-1.png']},
-     87: {t:'Funció derivada per definició de 123, 3x², x³ i ax', d:'●○○', i:['funcio-derivada/data/full-1.png']},
-     88: {t:'Derivada per definició de −5/x, √x, x² + 2x i ax²', d:'●●○', i:['funcio-derivada/data/full-1.png']},
+       86: {t:'Derivada de sis funcions elementals: x² − 5, 5ln x, sin 2x, e⁻ˣ, 2³ˣ i log₂x', d:'●○○', i:['funcio-derivada/data/full-1.png']},
+       87: {t:'Funció derivada per definició de 123, 3x², x³ i ax', d:'●○○', i:['funcio-derivada/data/full-1.png']},
+       88: {t:'Derivada per definició de −5/x, √x, x² + 2x i ax²', d:'●●○', i:['funcio-derivada/data/full-1.png']},
      89: {t:'Derivades successives de x⁴, sin x, cos x i ln x', d:'●○○', i:['funcio-derivada/data/full-1.png']},
      90: {t:'f(x) = 2^cos(g(x)): calcula f′(π) sabent que g(π) = π/2 i g′(π) = −2', d:'●○○', i:['funcio-derivada/data/full-1.png','funcio-derivada/data/full-2.png']},
      91: {t:'Investiga: derivada n-èsima de √x, sin 2x, e⁻ˣ, 2ˣ, xeˣ i cos²x', d:'●●○', i:['funcio-derivada/data/full-2.png']},
-     92: {t:'Derivada de 3√x + 1/x i de 2ln x − 5/x + 6', d:'●○○', i:['funcio-derivada/data/full-2.png']},
-     93: {t:'Derivada de x²·∛x, x²e^(x+2), 2x⁴cos x i √(cos x)·sin x', d:'●○○', i:['funcio-derivada/data/full-2.png']},
+       92: {t:'Derivada de 3√x + 1/x i de 2ln x − 5/x + 6', d:'●○○', i:['funcio-derivada/data/full-2.png']},
+       93: {t:'Derivada de x²·∛x, x²e^(x+2), 2x⁴cos x i √(cos x)·sin x', d:'●○○', i:['funcio-derivada/data/full-2.png']},
      94: {t:'Propietats de les derivades: sis quocients amb radicals, exponencials i potències', d:'●●○', i:['funcio-derivada/data/full-2.png','funcio-derivada/data/full-3.png']},
      95: {t:'Derivada amb arctg, sec i arccos, i productes trigonomètrics', d:'●●○', i:['funcio-derivada/data/full-3.png']},
      96: {t:'Inventa: dues funcions amb derivada f′(x) = −cos(2x)', d:'●●○', i:['funcio-derivada/data/full-3.png']},
-     97: {t:'Derivada de ln(x⁴ − 3x³), ln√(2x² − 4), x/ln x i log₂(5x³ − 1)', d:'●●○', i:['funcio-derivada/data/full-3.png']},
+       97: {t:'Derivada de ln(x⁴ − 3x³), ln√(2x² − 4), x/ln x i log₂(5x³ − 1)', d:'●●○', i:['funcio-derivada/data/full-3.png']},
      98: {t:'Derivada de logaritmes composts: ln(tg 2x), ln[cos(x² − 1)]³ i quocients', d:'●●○', i:['funcio-derivada/data/full-3.png']},
      99: {t:'Deu derivades a simplificar al màxim: 4ˣ, quocients, radicals i productes', d:'●●○', i:['funcio-derivada/data/full-3.png','funcio-derivada/data/full-4.png']},
     100: {t:'Sis derivades a simplificar: quocients amb eˣ, ln x i radicals', d:'●●○', i:['funcio-derivada/data/full-4.png']},
@@ -480,8 +481,4 @@ function fitxaDe(u, n){
 function etiquetaDe(u, n){
   const f = fitxaDe(u, n);
   return (f && f.a) ? 'Act. ' + n : 'Ex. ' + n;
-}
-function pistaDe(u, n){
-  const f = fitxaDe(u, n);
-  return (f && f.p) ? f.p : null;
 }
