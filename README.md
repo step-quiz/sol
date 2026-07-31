@@ -7,7 +7,7 @@ feina: una llista ordenada d'exercicis amb una data límit.
 
 ## Com programo la feina
 
-Edita **`tasques.js`** i prou. És l'únic fitxer que cal tocar.
+Edita **`tasques.js`**.
 
 ```js
 const TASQUES = [
@@ -35,7 +35,7 @@ exercicis:[112, 113, 'u9:44', 120]
 
 ### Quan es fa visible una tasca
 
-Per defecte s'obre **7 dies abans** de la data límit (`DIES_ABANS`, a dalt de
+Per defecte s'obre **uns dies abans** de la data límit (`DIES_ABANS`, a dalt de
 `tasques.js`). Un cop oberta ja no es tanca: passada la data segueix
 consultable i surt marcada com a vençuda. Per tasca:
 
@@ -53,7 +53,7 @@ les que encara no toquen. Els alumnes no ho saben.
 ```
 index.html      ← únic index.html del projecte. Unitats → tasques.
 tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
-tasques.js      ← LA PROGRAMACIÓ (l'únic que edito sovint)
+tasques.js      ← LA PROGRAMACIÓ
 cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
 hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
 progres.js      ← les creuetes de "fet" de l'alumne
@@ -72,7 +72,6 @@ u7/  u8/  u9/  u10/
 el títol, la dificultat i les imatges de cada exercici, un sol cop. Les tasques
 només guarden números.
 
-**No editis `cataleg.js` a mà**: es genera a partir de les pàgines dels temes.
 Com que les pistes viuen en un fitxer a part (`hints.js`), tornar a generar el
 catàleg no fa perdre res.
 
@@ -117,13 +116,3 @@ sense obrir l'exercici. **No** apareix dins la pàgina de detall de
 l'exercici: aquella pàgina ja ensenya la imatge amb l'enunciat (i sovint la
 solució treballada del llibre), així que oferir-hi la pista arribaria tard —
 per això es mostra abans, a la llista, on l'alumne encara no ha vist res.
-
-### Si en algun moment es vol generar-les amb IA a l'instant
-
-Ara mateix està descartat expressament: el lloc no té servidor, i fer una
-crida a una API d'IA directament des de `tasca.html` exposaria la clau
-d'API a qualsevol que obri el codi font de la pàgina. Fer-ho bé requeriria
-introduir una petita funció serverless només per amagar la clau — una peça
-d'infraestructura nova que, de moment, es prefereix evitar. Mentre no es
-reconsideri aquesta decisió, les pistes es preparen sempre abans, a mà, i es
-guarden com a text pla a `hints.js`.
