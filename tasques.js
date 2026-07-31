@@ -8,9 +8,11 @@ const TASQUES = [
   { unitat:'u8', setmana:5, limit:'2026-10-18', visible:'sempre', exercicis:[37,86,87,88,92] },
   { unitat:'u8', setmana:6, limit:'2026-10-25', visible:'sempre', exercicis:[30,31,32,21,40,41] },
   { unitat:'u8', setmana:7, limit:'2026-11-01', visible:'sempre', exercicis:[46,54,58,92,93,97] },
-  { unitat:'u9', setmana:8, limit:'2026-11-08', visible:'sempre', exercicis:[37,86,87,88,92] },
-  { unitat:'u9', setmana:9, limit:'2026-11-15', visible:'sempre', exercicis:[30,31,32,21,40,41] },
-  { unitat:'u9', setmana:10, limit:'2026-11-22', visible:'sempre', exercicis:[46,54,58,92,93,97] }
+  { unitat:'u9', setmana:8, limit:'2026-11-08', visible:'sempre', exercicis:[39, 41, 42, 44, 50, 51, 58] },
+  { unitat:'u9', setmana:9, limit:'2026-11-15', visible:'sempre', exercicis:[30, 66, 67, 70] },
+  { unitat:'u9', setmana:10, limit:'2026-11-22', visible:'sempre', exercicis:[34, 77, 79, 86, 87] },
+  { unitat:'u10', setmana:11, limit:'2026-11-29', visible:'sempre', exercicis:[37, 38, 43, 45, 62, 63] },
+  { unitat:'u10', setmana:12, limit:'2026-12-06', visible:'sempre', exercicis:[75, 78, 88, 91, 41, 100] }
 
 ];
 
