@@ -92,7 +92,7 @@ function renderList(){
     const li = document.createElement('li');
     li.className = 'ex-item' + (isFet ? ' is-fet' : '');
     li.innerHTML = `
-      <span class="ex-badge">Ex. ${ex.num}</span>
+      <span class="ex-badge">Act. ${ex.num}</span>
       <div class="ex-info">
         <div class="ex-title">${ex.titol}</div>
         ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
@@ -109,7 +109,7 @@ let currentExId = null;
 function showExercise(ex){
   currentExId = ex.id;
   show('v-detail');
-  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-title').textContent = 'Activitat ' + ex.num;
   document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
 
   const wrap = document.getElementById('page-wrap');
