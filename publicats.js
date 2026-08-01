@@ -64,6 +64,16 @@ const PUBLICATS = {
   'u12/problemes-diferents':       'tots',
   'u12/mon-real':                  'tots',
 
+  'u13/practica':                     'tots',
+  'u13/espai-mostral':                'tots',
+  'u13/probabilitat-esdeveniments':   'tots',
+  'u13/calcul-probabilitats':         'tots',
+  'u13/probabilitat-condicionada':    'tots',
+  'u13/bayes':                        'tots',
+  'u13/problemes-quotidians':         'tots',
+  'u13/problemes-diferents':          'tots',
+  'u13/mon-real':                     'tots',
+
   'u14/practica':                  'tots',
   'u14/variables-discretes':       'tots',
   'u14/distribucio-binomial':      'tots',
