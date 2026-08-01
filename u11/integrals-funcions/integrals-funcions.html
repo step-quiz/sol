@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U11 · Integrals de funcions — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 11. Integrals de funcions</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u11/temes">← Torna als temes</a>
+  <div class="cat-title">Integrals de funcions</div>
+  <div class="cat-sub">Unitat 11 · Integrals · exercicis 101–120</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Integrals de funcions (U11) ──────────────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex101', num:101, titol:'Resol dotze integrals de funcions', dificultat:'●●○', imatges:['full-1.png','full-2.png']},
+  {id:'ex102', num:102, titol:'Troba les integrals següents amb sis funcions', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex103', num:103, titol:'Calcula el resultat de sis integrals', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex104', num:104, titol:'Determina sis integrals de funcions', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex105', num:105, titol:'Calcula sis integrals amb funcions exponencials i trigonomètriques', dificultat:'●●○', imatges:['full-3.png','full-4.png']},
+  {id:'ex106', num:106, titol:'INVESTIGA. Resol ∫(sin x−sin³x)/(cos⁴x−cos²x·sin²x)dx', dificultat:'●●●', imatges:['full-4.png']},
+  {id:'ex107', num:107, titol:'Calcula quatre integrals amb radicals i canvis de variable', dificultat:'●●●', imatges:['full-4.png']},
+  {id:'ex108', num:108, titol:'REPTE. Determina la funció f(x) que compleix f’(x)+2x·f(x)=0, amb f(0)=1', dificultat:'●●●', imatges:['full-4.png']},
+  {id:'ex109', num:109, titol:'Calcula deu integrals amb sinus i cosinus múltiples', dificultat:'●●●', imatges:['full-5.png']},
+  {id:'ex110', num:110, titol:'Troba amb el mètode que consideris més adequat quatre integrals', dificultat:'●●●', imatges:['full-5.png']},
+  {id:'ex111', num:111, titol:'Integra sis funcions amb radicals i logaritmes', dificultat:'●●●', imatges:['full-5.png']},
+  {id:'ex112', num:112, titol:'Calcula tres integrals amb funcions logarítmiques i trigonomètriques', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex113', num:113, titol:'Troba sis integrals per parts diverses', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex114', num:114, titol:'REPTE. Resol en funció del paràmetre a la integral ∫a/√(a²−x²)dx', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex115', num:115, titol:'Determina en funció del paràmetre a ∫3/(x²−(a+2)x+2a)dx', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex116', num:116, titol:'Calcula la integral ∫(1−cos²x)sin(2x)e^(cos²x)dx', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex117', num:117, titol:'REPTE. Troba la família de funcions amb pendent f(x) = x·e^(2x), que passa per A(0,2)', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex118', num:118, titol:'Funció f de la qual coneixem f’(x) a trossos: expressió i representació', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex119', num:119, titol:'Funció derivable a trossos amb condicions en P(2,15)', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex120', num:120, titol:'INVESTIGA. Troba la primitiva de f(x) = −3/(3x+a)² amb asímptotes donades', dificultat:'●●●', imatges:['full-8.png']},
+];
+
+const DONE_KEY = 'u11-integrals-funcions-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u11/integrals-funcions';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
