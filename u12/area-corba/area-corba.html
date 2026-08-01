@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U12 · Àrea tancada per una corba — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 12. Àrea tancada per una corba</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u12/temes">← Torna als temes</a>
+  <div class="cat-title">Àrea tancada per una corba</div>
+  <div class="cat-sub">Unitat 12 · La integral definida · exercicis 77–109</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Àrea tancada per una corba (U12) ─────────────────────────────────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex77', num:77, titol:'Indica el valor de sis integrals a partir de les gràfiques de f i g', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex78', num:78, titol:'Utilitzant el càlcul integral, troba l’àrea del recinte limitat per y=2x+6, y=0, x=0, x=3', dificultat:'●○○', imatges:['full-1.png']},
+  {id:'ex79', num:79, titol:'Determina l’àrea tancada per la corba i l’eix d’abscisses en quatre casos', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex80', num:80, titol:'Calcula l’àrea de la regió limitada per l’eix d’abscisses, la recta x=4 i f(x)=√(x−3)', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex81', num:81, titol:'Troba l’àrea de la regió que tanquen f(x)=√(4−2x) i les rectes x=2, y=2', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex82', num:82, titol:'Determina l’àrea del recinte limitat per f(x)=0,5+cos x, l’eix d’abscisses i x=0, x=π', dificultat:'●●○', imatges:['full-2.png']},
+  {id:'ex83', num:83, titol:'L’àrea del recinte finit entre f(x)=ln x, l’eix d’abscisses i la recta x=e', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex84', num:84, titol:'Troba l’àrea limitada per f(x)=ln(1+x)² i l’eix X en [0,2]', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex85', num:85, titol:'Calcula l’àrea de la regió sota f(x)=|2x+1|−|x+5| en [−5,0]', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex86', num:86, titol:'Troba l’àrea limitada per f(x)=|x²−4| i l’eix d’abscisses a [−1,3]', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex87', num:87, titol:'Troba l’àrea acotada per f(x)=1/(x−2)², la recta y=1 i la recta x=5/2', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex88', num:88, titol:'Considera f(x)=x²/2−√x: representa-la i calcula l’àrea amb l’eix X', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex89', num:89, titol:'Estudia f(x)=(x+2)/(x³−4x²+4x): asímptotes, monotonia i àrea sota la corba a [3,4]', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex90', num:90, titol:'Dibuixa i calcula l’àrea del recinte limitat per f(x)=x³/(x−3)² en [0,2]', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex91', num:91, titol:'Calcula asímptotes i monotonia de f(x)=(x²−12)/(x²+4) i l’àrea amb l’eix d’abscisses', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex92', num:92, titol:'REPTE. Estudia i representa f(x)=(x/2)·sin x a [−π,π] i troba l’àrea sota la corba', dificultat:'●●●', imatges:['full-5.png']},
+  {id:'ex93', num:93, titol:'Troba, amb integrals, l’àrea del sector circular d’x²+y²=1 amb els semieixos positius', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex94', num:94, titol:'Considera f(x) definida a trossos amb 1/x: representa-la i calcula l’àrea del recinte', dificultat:'●●○', imatges:['full-5.png']},
+  {id:'ex95', num:95, titol:'Dibuixa el recinte limitat per y=xeˣ, l’eix X i la recta pel mínim relatiu, i calcula’n l’àrea', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex96', num:96, titol:'Determina la recta tangent a f(x)=x²−x/2 en x=1/2 i l’àrea amb la recta i l’eix Y', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex97', num:97, titol:'Calcula l’àrea tancada per f(x)=ln(x+1), la tangent a x=0 i la recta x=2', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex98', num:98, titol:'La corba y=ax³+bx²+cx+d passa per l’origen i té inflexió amb tangent horitzontal a (2,1)', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex99', num:99, titol:'REPTE. Considera f(x)=eˣ⁻²+x−5: calcula l’àrea del triangle amb la recta tangent', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex100', num:100, titol:'Es considera, en el primer quadrant, la regió R limitada per f(x)=1/(4+x²)', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex101', num:101, titol:'INVESTIGA. Considera f(x)=√(r²−x²): esbós i àrea de la regió amb l’eix d’abscisses', dificultat:'●●●', imatges:['full-7.png']},
+  {id:'ex102', num:102, titol:'La funció f(x)=eᵃˣ si x≤0 i a+b·sin x si x>0 és derivable a x=0: troba l’àrea a [−2,π/2]', dificultat:'●●○', imatges:['full-8.png']},
+  {id:'ex103', num:103, titol:'La funció f(x) a trossos compleix el teorema del valor mitjà: troba l’àrea sota la corba a [1,7]', dificultat:'●●●', imatges:['full-8.png']},
+  {id:'ex104', num:104, titol:'La funció f(x) contínua per a qualsevol interval: troba l’àrea limitada per f i l’eix a [0,2]', dificultat:'●●●', imatges:['full-9.png']},
+  {id:'ex105', num:105, titol:'Sigui f(x) a trossos: troba a i b pel teorema del valor mitjà en [−1,1] i l’àrea', dificultat:'●●●', imatges:['full-9.png']},
+  {id:'ex106', num:106, titol:'Considera f(x) a trossos: calcula a,b,c pel teorema de Rolle a [0,4] i l’àrea limitada', dificultat:'●●●', imatges:['full-10.png']},
+  {id:'ex107', num:107, titol:'Troba a perquè l’àrea tancada de f(x)=2x+1 i l’eix d’abscisses a [1,a] sigui 18 u²', dificultat:'●●●', imatges:['full-10.png']},
+  {id:'ex108', num:108, titol:'Calcula a si l’àrea limitada per f(x)=−x²+9, l’eix d’abscisses i x=−1, x=a és 24 u²', dificultat:'●●●', imatges:['full-10.png']},
+  {id:'ex109', num:109, titol:'Sigui f(x)=2/(x²−1): troba una primitiva i calcula k perquè l’àrea en [2,k] sigui ln2', dificultat:'●●●', imatges:['full-10.png']},
+];
+
+const DONE_KEY = 'u12-area-corba-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u12/area-corba';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
