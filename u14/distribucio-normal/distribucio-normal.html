@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U14 · Distribució normal — Exercicis propis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1>Unitat 14. Distribució normal</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="../../assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Llista -->
+<div class="view active" id="v-list">
+  <a class="back-btn" href="../../index.html#u14/temes">← Torna als temes</a>
+  <div class="cat-title">Distribució normal</div>
+  <div class="cat-sub">Unitat 14 · Distribucions de probabilitat · exercicis 60–85</div>
+  <ul class="ex-list" id="ex-list"></ul>
+  <div class="buit" id="ex-buit" style="display:none">
+    Encara no hi ha exercicis publicats en aquest tema.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Detall -->
+<div class="view" id="v-detail">
+  <button class="back-btn" onclick="goBack()">← Torna a la llista</button>
+  <div class="det-header">
+    <h2 id="det-title"></h2>
+    <div class="det-meta" id="det-meta"></div>
+  </div>
+  <button class="done-btn not-done" id="done-btn" onclick="toggleDone()">Marcar com a fet</button>
+  <div class="page-wrap" id="page-wrap"></div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="../../publicats.js"></script>
+<script>
+/* ── DADES: bloc Distribució normal (U14) ─────────────────────────────────────────
+   Cada exercici indica les imatges de suport (enunciat i solució).
+   No s'hi associa cap número de pàgina: aquesta dada no era fiable. */
+const EXERCICIS = [
+  {id:'ex60', num:60, titol:'INVENTA. Dues variables contínues amb densitat lineal a [2, 4]: calcula’n la distribució', dificultat:'●●●', imatges:['full-1.png']},
+  {id:'ex61', num:61, titol:'REPTE. Calcula la mitjana de les variables aleatòries inventades a l’activitat anterior', dificultat:'●●●', imatges:['full-1.png']},
+  {id:'ex62', num:62, titol:'Calcula nou probabilitats en la distribució N(0, 1)', dificultat:'●○○', imatges:['full-1.png','full-2.png']},
+  {id:'ex63', num:63, titol:'Calcula P(Z > −1,27), P(Z ≥ −2,02), P(Z = −0,2) i P(Z ≥ −1,04)', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex64', num:64, titol:'Calcula P(Z > 1,11), P(Z ≤ −0,93), P(Z < −0,33) i P(Z > 0,45)', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex65', num:65, titol:'Calcula sis probabilitats en N(0, 1) amb fraccions als extrems', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex66', num:66, titol:'Determina P(0,4 < Z ≤ 1,8), P(−0,6 ≤ Z ≤ 0,93) i P(−1,51 ≤ Z < −0,64)', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex67', num:67, titol:'Calcula P(−1,8 < Z ≤ 1,8), P(−2,06 ≤ Z ≤ 2,06) i P(−1,51 ≤ Z < 1,51)', dificultat:'●○○', imatges:['full-2.png']},
+  {id:'ex68', num:68, titol:'Troba el valor de k perquè es verifiquin sis igualtats en la distribució N(0, 1)', dificultat:'●○○', imatges:['full-2.png','full-3.png']},
+  {id:'ex69', num:69, titol:'Troba a, b, c... perquè es compleixin sis igualtats en una distribució N(108, 16)', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex70', num:70, titol:'Troba k perquè es verifiquin cinc igualtats simètriques P(−k < Z < k) en N(0, 1)', dificultat:'●●○', imatges:['full-3.png']},
+  {id:'ex71', num:71, titol:'Extrems de l’interval simètric que conté el 80 % de les observacions en N(5, 2)', dificultat:'●●○', imatges:['full-3.png','full-4.png']},
+  {id:'ex72', num:72, titol:'Extrems de l’interval simètric amb un percentatge donat en tres distribucions N(µ, σ)', dificultat:'●●○', imatges:['full-4.png']},
+  {id:'ex73', num:73, titol:'Troba k perquè es compleixin quatre igualtats amb múltiples de k en N(0, 1)', dificultat:'●●●', imatges:['full-4.png']},
+  {id:'ex74', num:74, titol:'Calcula vuit probabilitats en la distribució N(25, 4)', dificultat:'●○○', imatges:['full-4.png','full-5.png']},
+  {id:'ex75', num:75, titol:'Calcula vuit probabilitats en la distribució N(80, 11)', dificultat:'●○○', imatges:['full-5.png']},
+  {id:'ex76', num:76, titol:'Calcula µ i σ d’una distribució N(µ, σ) a partir de dues probabilitats donades', dificultat:'●○○', imatges:['full-5.png','full-6.png']},
+  {id:'ex77', num:77, titol:'REPTE. Troba a tal que P(X > a) = P(Y < a) amb X ≡ N(5, 2) i Y ≡ N(9, 3)', dificultat:'●●●', imatges:['full-6.png']},
+  {id:'ex78', num:78, titol:'Alçada d’un grup de persones: probabilitat de mesurar més, menys o entre dos valors', dificultat:'●○○', imatges:['full-6.png']},
+  {id:'ex79', num:79, titol:'Puntuacions d’un examen de batxillerat: calcula la mitjana i la desviació típica', dificultat:'●●○', imatges:['full-6.png']},
+  {id:'ex80', num:80, titol:'MATEMÀTIQUES I... AQÜICULTURA. Pes dels llobarros de piscifactoria N(900, 200)', dificultat:'●●○', imatges:['full-6.png','full-7.png']},
+  {id:'ex81', num:81, titol:'Pes dels esportistes d’un club de natació: probabilitat de pesos en tres intervals', dificultat:'●●○', imatges:['full-7.png']},
+  {id:'ex82', num:82, titol:'Temperatura màxima al juliol: dies que se superen o no se superen dos llindars', dificultat:'●●○', imatges:['full-7.png']},
+  {id:'ex83', num:83, titol:'Pes de les pomes d’un magatzem: quantitats per sobre i sota de diversos pesos', dificultat:'●●○', imatges:['full-7.png','full-8.png']},
+  {id:'ex84', num:84, titol:'MATEMÀTIQUES I... CONSUM. Durada de bombetes LED amb distribució N(15000, 300)', dificultat:'●○○', imatges:['full-8.png']},
+  {id:'ex85', num:85, titol:'Temps de fabricació de camises: troba la desviació típica sabent que P(X < 7) = 93,7 %', dificultat:'●●○', imatges:['full-8.png']},
+];
+
+const DONE_KEY = 'u14-distribucio-normal-done';
+
+function getDoneSet(){
+  try{ const raw = localStorage.getItem(DONE_KEY); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch{ return new Set(); }
+}
+function saveDoneSet(set){
+  try{ localStorage.setItem(DONE_KEY, JSON.stringify([...set])); }catch{}
+}
+
+const CLAU = 'u14/distribucio-normal';
+const VISIBLES = EXERCICIS.filter(ex => esPublicat(CLAU, ex.num));
+
+function renderList(){
+  const done = getDoneSet();
+  const ul = document.getElementById('ex-list');
+  ul.innerHTML = '';
+  document.getElementById('ex-buit').style.display = VISIBLES.length ? 'none' : 'block';
+  VISIBLES.forEach(ex=>{
+    const isFet = done.has(ex.id);
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (isFet ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Ex. ${ex.num}</span>
+      <div class="ex-info">
+        <div class="ex-title">${ex.titol}</div>
+        ${ex.dificultat ? `<div class="ex-sub">${ex.dificultat}</div>` : ''}
+      </div>
+      ${isFet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">→</span>`;
+    li.onclick = () => showExercise(ex);
+    ul.appendChild(li);
+  });
+}
+
+let currentExId = null;
+
+function showExercise(ex){
+  currentExId = ex.id;
+  show('v-detail');
+  document.getElementById('det-title').textContent = 'Exercici ' + ex.num;
+  document.getElementById('det-meta').textContent = ex.titol + (ex.dificultat ? '  ·  ' + ex.dificultat : '');
+
+  const wrap = document.getElementById('page-wrap');
+  wrap.innerHTML = ex.imatges.map((p, i) => `
+    <div class="page-fig">
+      <img src="data/${p}" alt="Enunciat i solució de l'exercici ${ex.num}" onclick="openLightbox('data/${p}')">
+    </div>
+    <div class="page-actions">
+      <span class="page-fname">${ex.imatges.length > 1 ? 'Imatge ' + (i+1) + ' de ' + ex.imatges.length : 'Enunciat i solució'}</span>
+      <a class="page-link" href="data/${p}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+    </div>`).join('');
+
+  updateDoneBtn(ex.id);
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function goBack(){
+  show('v-list');
+  renderList();
+}
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateDoneBtn(exId){
+  const done = getDoneSet().has(exId);
+  const btn = document.getElementById('done-btn');
+  btn.className = 'done-btn ' + (done ? 'is-done' : 'not-done');
+  btn.textContent = done ? '✓ Fet' : 'Marcar com a fet';
+}
+
+function toggleDone(){
+  if(!currentExId) return;
+  const set = getDoneSet();
+  if(set.has(currentExId)) set.delete(currentExId); else set.add(currentExId);
+  saveDoneSet(set);
+  updateDoneBtn(currentExId);
+}
+
+renderList();
+</script>
+</body>
+</html>
