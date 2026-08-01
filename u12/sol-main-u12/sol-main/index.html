@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exercicis propis — Step Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=3">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1 id="hd-title">Exercicis propis</h1>
+  </div>
+  <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
+    <div class="site-label">Step Quiz<br>step-quiz.net</div>
+    <img class="site-icon" src="assets/icon.png" alt="Step Quiz" onerror="this.style.display='none'">
+  </a>
+</header>
+
+<!-- VIEW: Unitats -->
+<div class="view active" id="v-unitats">
+  <div class="cat-title">Unitats didàctiques</div>
+  <div class="cat-sub">Tria una unitat per veure les tasques</div>
+  <ul class="ex-list" id="unitats-list"></ul>
+  <div class="buit" id="unitats-buit" style="display:none">
+    Encara no hi ha cap unitat publicada.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Tasques (dins d'una unitat) -->
+<div class="view" id="v-tasques">
+  <button class="back-btn" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
+  <div class="cat-title" id="tasca-cat-title"></div>
+  <div class="cat-sub" id="tasca-cat-sub"></div>
+  <ul class="ex-list" id="tasques-list"></ul>
+  <div class="buit" id="tasques-buit" style="display:none">
+    Encara no hi ha cap tasca oberta en aquesta unitat.<br>Torna-hi d'aquí a uns dies.
+  </div>
+</div>
+
+<!-- VIEW: Temes (dins d'una unitat) -->
+<div class="view" id="v-temes">
+  <button class="back-btn" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
+  <div class="cat-title" id="tema-cat-title"></div>
+  <div class="cat-sub" id="tema-cat-sub"></div>
+  <ul class="ex-list" id="temes-list"></ul>
+</div>
+
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+    <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
+         src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
+  </a>
+  <span>
+    &copy; 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="publicats.js"></script>
+<script src="cataleg.js"></script>
+<script src="hints.js"></script>
+<script src="tasques.js"></script>
+<script src="progres.js"></script>
+<script>
+/* ── DADES: unitats i temes ──────────────────────────────────────────
+   L'`id` de la unitat és la seva carpeta ('u7') i l'`id` del tema és
+   la subcarpeta i el nom del fitxer. Per tant, el tema 'bolzano' de la
+   unitat 'u7' viu a  u7/bolzano/bolzano.html  i la seva clau dins de
+   publicats.js és  'u7/bolzano'.  Tot es dedueix; no cal repetir rutes. */
+const UNITATS = [
+  {
+    id: 'u7',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 33–43',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'limits-funcions',
+        num: 1,
+        titol: 'Interpreta i calcula el límit d\'una funció · Límits de funcions',
+        rang: 'exercicis 44–65',
+      },
+      {
+        id: 'limits-punt',
+        num: 2,
+        titol: 'Interpreta i calcula el límit d\'una funció · Límit d\'una funció en un punt',
+        rang: 'exercicis 66–91',
+      },
+      {
+        id: 'continuitat',
+        num: 3,
+        titol: 'Determina la continuïtat d\'una funció utilitzant límits',
+        rang: 'exercicis 92–109',
+      },
+      {
+        id: 'bolzano',
+        num: 4,
+        titol: 'Aplica i interpreta els teoremes de Bolzano i dels valors intermedis',
+        rang: 'exercicis 110–115',
+      },
+      {
+        id: 'problemes-limits',
+        num: 5,
+        titol: 'Utilitza el concepte de límit i la continuïtat d\'una funció per resoldre problemes',
+        rang: 'exercicis 116–125',
+      },
+      {
+        id: 'problemes-diversos',
+        num: 6,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 126–131',
+      },
+      {
+        id: 'series',
+        num: 7,
+        titol: 'Matemàtiques en el món real · Sèries geomètriques infinites',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
+  {
+    id: 'u8',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 21–29',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'derivada-punt',
+        num: 1,
+        titol: 'Calcula i interpreta la derivada d\'una funció · Taxa de variació mitjana',
+        rang: 'exercicis 30–39',
+      },
+      {
+        id: 'interpretacio-geometrica',
+        num: 2,
+        titol: 'Calcula i interpreta la derivada d\'una funció · Interpretació geomètrica de la derivada',
+        rang: 'exercicis 40–66',
+      },
+      {
+        id: 'derivabilitat',
+        num: 3,
+        titol: 'Estudia la derivabilitat d\'una funció',
+        rang: 'exercicis 67–85',
+      },
+      {
+        id: 'funcio-derivada',
+        num: 4,
+        titol: 'Calcula la derivada de qualsevol funció',
+        rang: 'exercicis 86–124',
+      },
+      {
+        id: 'problemes-contextualitzats',
+        num: 5,
+        titol: 'Aplica la funció derivada a la resolució de problemes contextualitzats',
+        rang: 'exercicis 125–130',
+      },
+      {
+        id: 'problemes-diferents',
+        num: 6,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 131–136',
+      },
+      {
+        id: 'mon-real',
+        num: 7,
+        titol: 'Matemàtiques en el món real · Llei de Newton del refredament',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
+  {
+    id: 'u9',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 30–38',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'creixement',
+        num: 1,
+        titol: 'Aplica el càlcul de derivades a l\'estudi d\'una funció · Creixement i decreixement. Màxims i mínims',
+        rang: 'exercicis 39–64',
+      },
+      {
+        id: 'concavitat',
+        num: 2,
+        titol: 'Aplica el càlcul de derivades a l\'estudi d\'una funció · Concavitat i convexitat. Punts d\'inflexió',
+        rang: 'exercicis 65–75',
+      },
+      {
+        id: 'optimitzacio',
+        num: 3,
+        titol: 'Resol problemes d\'optimització mitjançant el càlcul de derivades',
+        rang: 'exercicis 76–91',
+      },
+      {
+        id: 'teoremes',
+        num: 4,
+        titol: 'Utilitza els teoremes associats a la derivada per demostrar característiques d\'una funció',
+        rang: 'exercicis 92–114',
+      },
+      {
+        id: 'hopital',
+        num: 5,
+        titol: 'Aplica la regla de L\'Hôpital per resoldre indeterminacions en límits',
+        rang: 'exercicis 115–128',
+      },
+      {
+        id: 'aplicacions',
+        num: 6,
+        titol: 'Problemes amb aplicacions de les derivades',
+        rang: 'exercicis 129–137',
+      },
+      {
+        id: 'problemes-diferents',
+        num: 7,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 138–143',
+      },
+      {
+        id: 'mon-real',
+        num: 8,
+        titol: 'Matemàtiques en el món real · La llauna perfecta',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
+  {
+    id: 'u10',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 34–42',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'domini-recorregut',
+        num: 1,
+        titol: 'Domini i recorregut',
+        rang: 'exercicis 43–53',
+      },
+      {
+        id: 'simetria-periodicitat',
+        num: 2,
+        titol: 'Simetria i periodicitat',
+        rang: 'exercicis 54–60',
+      },
+      {
+        id: 'asimptotes',
+        num: 3,
+        titol: 'Asímptotes',
+        rang: 'exercicis 61–74',
+      },
+      {
+        id: 'creixement',
+        num: 4,
+        titol: 'Creixement i decreixement',
+        rang: 'exercicis 75–77',
+      },
+      {
+        id: 'concavitat',
+        num: 5,
+        titol: 'Concavitat',
+        rang: 'exercicis 78–79',
+      },
+      {
+        id: 'estudi-complet',
+        num: 6,
+        titol: 'Estudi complet de la funció',
+        rang: 'exercicis 80–83',
+      },
+      {
+        id: 'representacio',
+        num: 7,
+        titol: 'Representació gràfica',
+        rang: 'exercicis 84–99',
+      },
+      {
+        id: 'altres-funcions',
+        num: 8,
+        titol: 'Funcions radicals, exponencials, trigonomètriques, logarítmiques',
+        rang: 'exercicis 100–107',
+      },
+      {
+        id: 'trossos',
+        num: 9,
+        titol: 'Funcions definides a trossos',
+        rang: 'exercicis 108–115',
+      },
+      {
+        id: 'problemes-reals',
+        num: 10,
+        titol: 'Propietats de les funcions i aplicació en problemes reals',
+        rang: 'exercicis 116–118',
+      },
+      {
+        id: 'problemes-diferents',
+        num: 11,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 119–124',
+      },
+      {
+        id: 'mon-real',
+        num: 12,
+        titol: 'Matemàtiques en el món real',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
+  {
+    id: 'u12',
+    temes: [
+      {
+        id: 'practica',
+        rang: 'exercicis 26–34',
+        etiqueta: 'Practica',   // badge propi; sense num i sense titol
+      },
+      {
+        id: 'integral-definida',
+        num: 1,
+        titol: 'Integral definida',
+        rang: 'exercicis 35–42',
+      },
+      {
+        id: 'valor-mitja',
+        num: 2,
+        titol: 'Teorema del valor mitjà',
+        rang: 'exercicis 43–47',
+      },
+      {
+        id: 'teorema-fonamental',
+        num: 3,
+        titol: 'Teorema fonamental del càlcul integral',
+        rang: 'exercicis 48–52',
+      },
+      {
+        id: 'regla-barrow',
+        num: 4,
+        titol: 'Regla de Barrow',
+        rang: 'exercicis 53–76',
+      },
+      {
+        id: 'area-corba',
+        num: 5,
+        titol: 'Àrea tancada per una corba',
+        rang: 'exercicis 77–109',
+      },
+      {
+        id: 'area-corbes',
+        num: 6,
+        titol: 'Àrea tancada per corbes',
+        rang: 'exercicis 110–129',
+      },
+      {
+        id: 'problemes-reals',
+        num: 7,
+        titol: 'Problemes reals amb integrals definides',
+        rang: 'exercicis 130–136',
+      },
+      {
+        id: 'problemes-diferents',
+        num: 8,
+        titol: 'Problemes aparentment diferents',
+        rang: 'exercicis 137–142',
+      },
+      {
+        id: 'mon-real',
+        num: 9,
+        titol: 'Matemàtiques en el món real',
+        rang: 'activitats 1–4',
+      },
+    ],
+  },
+];
+
+const clauDe   = (u,t) => u.id + '/' + t.id;
+const fitxerDe = (u,t) => u.id + '/' + t.id + '/' + t.id + '.html';
+const metaDe   = u => UNITATS_META[u.id] || {nom:u.id, subtitol:''};
+
+/* Els temes ja no es mostren als alumnes: la navegació normal és
+   unitat → tasca → exercici. Segueixen existint i s'hi arriba escrivint
+   l'adreça  index.html#u7/temes  (o obrint el fitxer del tema directament). */
+function temesVisibles(u){
+  return u.temes.filter(t => comptaPublicats(clauDe(u,t)) !== 0);
+}
+
+function renderUnitats(){
+  const ul = document.getElementById('unitats-list');
+  ul.innerHTML = '';
+  const visibles = UNITATS.filter(u => tasquesDe(u.id).length > 0);
+
+  document.getElementById('unitats-buit').style.display = visibles.length ? 'none' : 'block';
+
+  visibles.forEach(u=>{
+    const meta = metaDe(u);
+    const n = tasquesDe(u.id).length;
+    const li = document.createElement('li');
+    li.className = 'ex-item';
+    li.innerHTML = `
+      <span class="ex-badge">${meta.nom}</span>
+      <div class="ex-info">
+        <div class="ex-title">${meta.nom}</div>
+        <div class="ex-sub">${meta.subtitol} &middot; ${n===1 ? '1 tasca' : n + ' tasques'}</div>
+      </div>
+      <span class="ex-arrow">&rarr;</span>`;
+    li.onclick = () => { location.hash = u.id; };
+    ul.appendChild(li);
+  });
+}
+
+function showTasques(u){
+  show('v-tasques');
+  const meta = metaDe(u);
+  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
+  document.getElementById('tasca-cat-title').textContent = meta.nom;
+  document.getElementById('tasca-cat-sub').textContent = meta.subtitol + ' · tria una tasca';
+
+  const llista = tasquesDe(u.id);
+  const ul = document.getElementById('tasques-list');
+  ul.innerHTML = '';
+  document.getElementById('tasques-buit').style.display = llista.length ? 'none' : 'block';
+
+  llista.forEach(t=>{
+    const refs  = refsDe(t);
+    const fets  = comptaFets(refs);
+    const tots  = refs.length;
+    const acabada = fets === tots && tots > 0;
+    const venc  = tascaVencuda(t);
+    const dies  = diesRestants(t);
+    const quan  = venc ? 'data límit passada'
+                : (dies === 0 ? 'venç avui' : dies === 1 ? 'venç demà' : 'falten ' + dies + ' dies');
+    const li = document.createElement('li');
+    li.className = 'ex-item' + (acabada ? ' is-fet' : '');
+    li.innerHTML = `
+      <span class="ex-badge">Setmana ${t.setmana}</span>
+      <div class="ex-info">
+        <div class="ex-title">${t.titol || ('Data límit: ' + dataLlarga(t.limit))}</div>
+        <div class="ex-sub">${tots} exercici${tots===1?'':'s'} &middot; ${fets} fet${fets===1?'':'s'} &middot; ${quan}</div>
+      </div>
+      ${acabada ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
+      <span class="ex-arrow">&rarr;</span>`;
+    li.onclick = () => { window.location.href = 'tasca.html#' + idTasca(t); };
+    ul.appendChild(li);
+  });
+}
+
+function showTemes(u){
+  show('v-temes');
+  const meta = metaDe(u);
+  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
+  document.getElementById('tema-cat-title').textContent = meta.nom + ' · temes del llibre';
+  document.getElementById('tema-cat-sub').textContent = meta.subtitol + ' · vista per temes';
+
+  const ul = document.getElementById('temes-list');
+  ul.innerHTML = '';
+  temesVisibles(u).forEach(t=>{
+    const etiqueta = t.etiqueta || ('Tema ' + t.num);
+    const n = comptaPublicats(clauDe(u,t));
+    const sub = (n === 'tots') ? t.rang
+              : `${n} exercici${n===1?'':'s'} disponible${n===1?'':'s'}`;
+    const li = document.createElement('li');
+    li.className = 'ex-item';
+    li.innerHTML = `
+      <span class="ex-badge">${etiqueta}</span>
+      <div class="ex-info">
+        ${t.titol ? `<div class="ex-title">${t.titol}</div>` : ''}
+        <div class="ex-sub">${sub}</div>
+      </div>
+      <span class="ex-arrow">&rarr;</span>`;
+    li.onclick = () => { window.location.href = fitxerDe(u,t); };
+    ul.appendChild(li);
+  });
+}
+
+function mostraUnitats(){
+  show('v-unitats');
+  document.getElementById('hd-title').textContent = 'Exercicis propis';
+}
+
+function goBackUnitats(){ location.hash = ''; }
+
+/* L'adreça mana:
+     (sense hash)   llista d'unitats
+     #u7            les tasques de la unitat 7      ← el que veu l'alumne
+     #u7/temes      els temes de la unitat 7        ← no enllaçat enlloc */
+function router(){
+  const parts = location.hash.replace('#','').split('/');
+  const u = UNITATS.find(x => x.id === parts[0]);
+  if(u && parts[1] === 'temes' && temesVisibles(u).length) showTemes(u);
+  else if(u && tasquesDe(u.id).length) showTasques(u);
+  else mostraUnitats();
+}
+window.addEventListener('hashchange', router);
+
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+renderUnitats();
+router();
+</script>
+</body>
+</html>
