@@ -42,6 +42,38 @@ const PUBLICATS = {
   'u10/problemes-diferents':       'tots',
   'u10/mon-real':                  'tots',
 
+  'u11/practica':                  'tots',
+  'u11/primitiva':                 'tots',
+  'u11/funcions-elementals':       'tots',
+  'u11/integracio-parts':          'tots',
+  'u11/funcions-racionals':        'tots',
+  'u11/canvi-variable':            'tots',
+  'u11/integrals-funcions':        'tots',
+  'u11/problemes-reals':           'tots',
+  'u11/problemes-diferents':       'tots',
+  'u11/mon-real':                  'tots',
+
+  'u12/practica':                  'tots',
+  'u12/integral-definida':         'tots',
+  'u12/valor-mitja':               'tots',
+  'u12/teorema-fonamental':        'tots',
+  'u12/regla-barrow':              'tots',
+  'u12/area-corba':                'tots',
+  'u12/area-corbes':               'tots',
+  'u12/problemes-reals':           'tots',
+  'u12/problemes-diferents':       'tots',
+  'u12/mon-real':                  'tots',
+
+  'u14/practica':                  'tots',
+  'u14/variables-discretes':       'tots',
+  'u14/distribucio-binomial':      'tots',
+  'u14/variables-continues':       'tots',
+  'u14/distribucio-normal':        'tots',
+  'u14/aproximacio-normal':        'tots',
+  'u14/calcul-probabilitats':      'tots',
+  'u14/problemes-diferents':       'tots',
+  'u14/mon-real':                  'tots',
+
 };
 
 
