@@ -41,8 +41,8 @@
   <div class="page-wrap" id="page-wrap"></div>
 </div>
 
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
-  <img id="lightbox-img" src="" alt="">
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active','zoomed')">
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation(); toggleZoom()">
 </div>
 
 <footer>
@@ -183,8 +183,15 @@ function togglePista(btn){
 }
 
 function openLightbox(src){
+  document.getElementById('lightbox').classList.remove('zoomed');
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox').classList.add('active');
+}
+
+// Toca la imatge del lightbox per ampliar-la a mida real (amb scroll);
+// toca el fons per tancar. Cada imatge nova s'obre sense zoom.
+function toggleZoom(){
+  document.getElementById('lightbox').classList.toggle('zoomed');
 }
 
 function goBack(){
