@@ -116,3 +116,12 @@ sense obrir l'exercici. **No** apareix dins la pàgina de detall de
 l'exercici: aquella pàgina ja ensenya la imatge amb l'enunciat (i sovint la
 solució treballada del llibre), així que oferir-hi la pista arribaria tard —
 per això es mostra abans, a la llista, on l'alumne encara no ha vist res.
+
+<!-- atribucio-centre:inici -->
+
+---
+
+Material desenvolupat per **David Arso Civil** per al Departament de Matemàtiques de l'INS Miquel Tarradell.
+Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT. Vegeu [`LLICENCIA.md`](LLICENCIA.md).
+
+<!-- atribucio-centre:final -->
