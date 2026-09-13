@@ -1,23 +1,23 @@
 
 const TASQUES = [
 
-  { unitat:'u7', setmana:1, limit:'2026-09-20', visible:'sempre', exercicis:[44, 45, 46, 47, 48] },
-  { unitat:'u7', setmana:2, limit:'2026-09-27', visible:'sempre', exercicis:[66, 68, 70, 76, 88, 90] },
-  { unitat:'u7', setmana:3, limit:'2026-10-04', visible:'sempre', exercicis:[92, 93, 94, 102, 103, 40, 106] },
-  { unitat:'u7', setmana:4, limit:'2026-10-11', visible:'sempre', exercicis:[112, 113, 114, 43, 120] },
-  { unitat:'u8', setmana:5, limit:'2026-10-18', visible:'sempre', exercicis:[37,86,87,88,92] },
-  { unitat:'u8', setmana:6, limit:'2026-10-25', visible:'sempre', exercicis:[30,31,32,21,40,41] },
-  { unitat:'u8', setmana:7, limit:'2026-11-01', visible:'sempre', exercicis:[46,54,58,92,93,97] },
-  { unitat:'u9', setmana:8, limit:'2026-11-08', visible:'sempre', exercicis:[39, 41, 42, 44, 50, 51, 58] },
-  { unitat:'u9', setmana:9, limit:'2026-11-15', visible:'sempre', exercicis:[30, 66, 67, 70] },
-  { unitat:'u9', setmana:10, limit:'2026-11-22', visible:'sempre', exercicis:[34, 77, 79, 86, 87] },
-  { unitat:'u10', setmana:11, limit:'2026-11-29', visible:'sempre', exercicis:[37, 38, 43, 45, 62, 63] },
-  { unitat:'u10', setmana:12, limit:'2026-12-06', visible:'sempre', exercicis:[75, 78, 88, 91, 41, 100] },
-  { unitat:'u13', setmana:13, limit:'2026-12-13', visible:'sempre', exercicis:[28, 29, 40, 60, 62, 32, 33, 35] },
-  { unitat:'u13', setmana:14, limit:'2026-12-20', visible:'sempre', exercicis:[36, 96, 103, 104, 105, 106, 107, 108] },
-  { unitat:'u14', setmana:15, limit:'2026-12-27', visible:'sempre', exercicis:[43, 46, 44, 50] },
-  { unitat:'u14', setmana:16, limit:'2027-01-03', visible:'sempre', exercicis:[21, 53, 100, 101] },
-  { unitat:'u10', setmana:17, limit:'2027-01-10', visible:'sempre', exercicis:[84, 108, 123, 124] }
+  { unitat:'u7', setmana:1, limit:'2026-09-20', obre:'2026-09-13', exercicis:[44, 45, 46, 47, 48] },
+  { unitat:'u7', setmana:2, limit:'2026-09-27', exercicis:[66, 68, 70, 76, 88, 90] },
+  { unitat:'u7', setmana:3, limit:'2026-10-04', exercicis:[92, 93, 94, 102, 103, 40, 106] },
+  { unitat:'u7', setmana:4, limit:'2026-10-11', exercicis:[112, 113, 114, 43, 120] },
+  { unitat:'u8', setmana:5, limit:'2026-10-18', exercicis:[37,86,87,88,92] },
+  { unitat:'u8', setmana:6, limit:'2026-10-25', exercicis:[30,31,32,21,40,41] },
+  { unitat:'u8', setmana:7, limit:'2026-11-01', exercicis:[46,54,58,92,93,97] },
+  { unitat:'u9', setmana:8, limit:'2026-11-08', exercicis:[39, 41, 42, 44, 50, 51, 58] },
+  { unitat:'u9', setmana:9, limit:'2026-11-15', exercicis:[30, 66, 67, 70] },
+  { unitat:'u9', setmana:10, limit:'2026-11-22', exercicis:[34, 77, 79, 86, 87] },
+  { unitat:'u10', setmana:11, limit:'2026-11-29', exercicis:[37, 38, 43, 45, 62, 63] },
+  { unitat:'u10', setmana:12, limit:'2026-12-06', exercicis:[75, 78, 88, 91, 41, 100] },
+  { unitat:'u13', setmana:13, limit:'2026-12-13', exercicis:[28, 29, 40, 60, 62, 32, 33, 35] },
+  { unitat:'u13', setmana:14, limit:'2026-12-20', exercicis:[36, 96, 103, 104, 105, 106, 107, 108] },
+  { unitat:'u14', setmana:15, limit:'2026-12-27', exercicis:[43, 46, 44, 50] },
+  { unitat:'u14', setmana:16, limit:'2027-01-03', exercicis:[21, 53, 100, 101] },
+  { unitat:'u10', setmana:17, limit:'2027-01-10', exercicis:[84, 108, 123, 124] }
 ];
 
 
@@ -52,7 +52,7 @@ const DIES_ABANS = 3;
    Útil per a setmanes de repàs abans d'un examen.
 
    ── Quan es fa visible una tasca ───────────────────────────────────────
-   Per defecte, s'obre DIES_ABANS dies abans de la data límit (ara: 7).
+   Per defecte, s'obre DIES_ABANS dies abans de la data límit (ara: 3).
    Ho pots canviar tasca per tasca:
 
      obre:'2026-09-10'     s'obre aquest dia concret
