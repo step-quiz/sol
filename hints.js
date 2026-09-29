@@ -17,6 +17,18 @@
 
 const PISTES = {
 
+  /* ── Unitat 1 · Matrius ──────────────────────────────────────────────── */
+  'u1/12': 'Abans de calcular, simplifica l\'expressió com si A, B i C fossin lletres: treu parèntesis, vigila els signes i agrupa. Et quedarà una combinació del tipus aA + bB + cC, i llavors només has de multiplicar cada matriu pel seu nombre i sumar element a element.',
+  'u1/13': 'Una matriu fila 1×3 per una matriu columna 3×1 dona una matriu 1×1, és a dir, un sol nombre: multiplica els elements que ocupen la mateixa posició i suma els tres productes. Els nombres que multipliquen (2, 5 i 3) els pots deixar per al final.',
+  'u1/15': 'Comença per les dimensions, sense fer cap càlcul: el producte d\'una matriu 2×2 per una de 2×3 dona una matriu 2×3, i només es poden sumar matrius de la mateixa dimensió. Després comprova-ho fent primer el producte, multiplicant pels nombres i, finalment, sumant.',
+  'u1/16': 'Per saber si commuten, calcula AB i BA per separat i compara-les: n\'hi ha prou que un sol element sigui diferent. Per a la propietat distributiva, calcula els dos costats per separat: a l\'esquerra suma primer B + C i després multiplica per A; a la dreta fes AB i AC i suma\'ls.',
+  'u1/17': 'Decideix primer què posaràs a les files i què a les columnes (per exemple, els dies a les files i les línies a les columnes) i mantén-ho fins al final: cada element de la matriu és el nombre d\'autobusos d\'una línia en un dia concret.',
+  'u1/42': 'Recorda la definició de cadascuna: una matriu fila només té una fila; una quadrada té tantes files com columnes; una diagonal és quadrada i fora de la diagonal principal només hi ha zeros; una triangular inferior té zeros per sobre de la diagonal principal. Els nombres, inventa\'ls tu.',
+  'u1/49': 'Abans de multiplicar, escriu la dimensió de cada matriu. Un producte només és possible si el nombre de columnes de la primera coincideix amb el nombre de files de la segona; si és així, el resultat té les files de la primera i les columnes de la segona. Si no coincideixen, justifica per què no es pot fer.',
+  'u1/69': 'Calcula AB i BA, sempre fila de la primera per columna de la segona, i compara-les element a element. El producte de matrius, en general, no és commutatiu: n\'hi ha prou que un sol element sigui diferent per dir que no ho compleix.',
+  'u1/81': 'Calcula A², A³ i A⁴ i fixa\'t en quin element canvia i com ho fa: descobriràs un patró que depèn de n. Un cop tinguis l\'expressió de Aⁿ, fes-la servir per a A²² i A² i opera: no cal que calculis les 22 potències una per una.',
+  'u1/85': 'A l\'apartat a, calcula A² i comprova que no és la matriu nul·la; després calcula A³ = A²·A. A l\'apartat b, calcula B² en funció d\'a i b i iguala\'l a la matriu nul·la: quina condició han de complir a i b? Recorda que, per ser de grau 2, B mateixa no pot ser la matriu nul·la.',
+
   /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
   'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
   'u7/43': 'Bolzano parla d\'arrels, o sigui de valors on la funció val 0. Reescriu-ho: defineix g(x) = f(x) − 1 i busca-hi dos punts amb signes contraris. L\'exponencial és contínua a tot ℝ, o sigui que g també ho és.',

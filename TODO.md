@@ -14,12 +14,11 @@
 
 ## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
 
-Setmanes 1–17 ja són a `tasques.js` i coincideixen amb l'Excel.
-Setmanes 18–36 encara no tenen exercicis:
+Setmanes 1–19 ja són a `tasques.js`. Setmanes 20–36 encara no tenen exercicis:
 
 | Setmanes | Dates límit | Unitat | Material al repo |
 |---|---|---|---|
-| 18–19 | 17/01 – 24/01/2027 | U1 Matrius | ❌ no n'hi ha |
+| 18–19 | 17/01 – 24/01/2027 | U1 Matrius | ✅ fet (imatges, catàleg, tasques i pistes) |
 | 20–22 | 31/01 – 14/02/2027 | U2 Determinants | ❌ no n'hi ha |
 | 23–25 | 21/02 – 07/03/2027 | U3 Sistemes d'equacions | ❌ no n'hi ha |
 | 26–30 | 14/03 – 11/04/2027 | U5 Rectes i plans en l'espai | ❌ no n'hi ha |
@@ -29,11 +28,15 @@ Setmanes 18–36 encara no tenen exercicis:
 
 - [ ] Triar els exercicis de cada setmana (columna D de l'Excel) i afegir-los a `tasques.js`.
 - [ ] Escriure les pistes corresponents a `hints.js`.
-- [ ] U1, U2, U3, U5, U6: cal crear-ne tot el material (imatges `data/full-*.png`,
+- [ ] U2, U3, U5, U6: cal crear-ne tot el material (imatges `data/full-*.png`,
       entrades a `cataleg.js`, `UNITATS_META` i `UNITATS` a `index.html`).
-- [ ] L'Excel no té cap unitat 4 programada: confirmar que és intencionat.
+- [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
 ## Altres
+
+- [ ] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
+      ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).
+      Si mai se'n vol programar alguna, caldrà ampliar el sistema (p. ex. un prefix).
 
 - [ ] L'Excel encara té l'exercici 92 a la setmana 7 (U8). A `tasques.js` s'ha tret
       perquè ja era a la setmana 5. Actualitzar l'Excel si es vol que quadrin.

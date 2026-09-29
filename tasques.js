@@ -17,7 +17,9 @@ const TASQUES = [
   { unitat:'u13', setmana:14, limit:'2026-12-20', exercicis:[36, 96, 103, 104, 105, 106, 107, 108] },
   { unitat:'u14', setmana:15, limit:'2026-12-27', exercicis:[43, 46, 44, 50] },
   { unitat:'u14', setmana:16, limit:'2027-01-03', exercicis:[21, 53, 100, 101] },
-  { unitat:'u10', setmana:17, limit:'2027-01-10', exercicis:[84, 108, 123, 124] }
+  { unitat:'u10', setmana:17, limit:'2027-01-10', exercicis:[84, 108, 123, 124] },
+  { unitat:'u1', setmana:18, limit:'2027-01-17', exercicis:[12, 13, 15, 16, 17] },
+  { unitat:'u1', setmana:19, limit:'2027-01-24', exercicis:[42, 49, 69, 81, 85] }
 ];
 
 
