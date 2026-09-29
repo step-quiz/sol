@@ -28,9 +28,9 @@ Setmanes 1–19 ja són a `tasques.js`. Setmanes 20–36 encara no tenen exercic
 
 - [ ] Triar els exercicis de cada setmana (columna D de l'Excel) i afegir-los a `tasques.js`.
 - [ ] Escriure les pistes corresponents a `hints.js`.
-- [ ] U1, U2, U3, U5, U6: cal crear-ne tot el material (imatges `data/full-*.png`,
+- [ ] U2, U3, U5, U6: cal crear-ne tot el material (imatges `data/full-*.png`,
       entrades a `cataleg.js`, `UNITATS_META` i `UNITATS` a `index.html`).
-- [ ] L'Excel no té cap unitat 4 programada: confirmar que és intencionat.
+- [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
 ## Altres
 
