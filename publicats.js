@@ -1,5 +1,13 @@
 const PUBLICATS = {
 
+  'u1/practica':                   'cap',
+  'u1/operacions':                 'cap',
+  'u1/rang':                       'cap',
+  'u1/inversa':                    'cap',
+  'u1/equacions':                  'cap',
+  'u1/problemes':                  'cap',
+  'u1/mon-real':                   'cap',
+
   'u7/practica':           'cap',
   'u7/limits-funcions':    'cap',
   'u7/limits-punt':        'cap',
