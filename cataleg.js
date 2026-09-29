@@ -389,7 +389,7 @@ const CATALEG = {
      97: {t:'Preu d’una dotzena d’ous de les categories XL, L i M', d:'●○○', i:['problemes/data/full-4.png','problemes/data/full-5.png']},
      98: {t:'Tres lectors de La plaça del Diamant: pàgines diàries i dies de lectura', d:'●●●', i:['problemes/data/full-5.png']},
      99: {t:'Pes d’un frigorífic i d’una rentadora a partir de tres afirmacions', d:'●●○', i:['problemes/data/full-5.png']},
-    100: {t:'MATEMÀTIQUES I… ECONOMIA. Model de Leontief amb tres empreses', d:'●●○', i:['problemes/data/full-5.png','problemes/data/full-6.png']},
+    100: {t:'MATEMÀTIQUES I… MODELS ECONÒMICS. Model de Leontief amb tres empreses', d:'●●○', i:['problemes/data/full-5.png','problemes/data/full-6.png']},
     101: {t:'Excavació arqueològica: pes d’un anell, una moneda i una arracada', d:'●●○', i:['problemes/data/full-6.png']},
     102: {t:'Viatges de tres conductors d’una formigonera', d:'●●○', i:['problemes/data/full-6.png','problemes/data/full-7.png']},
     103: {t:'MATEMÀTIQUES I… GEOLOGIA. Epicentre d’un terratrèmol amb un sistema', d:'●●○', i:['problemes/data/full-7.png']},
