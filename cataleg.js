@@ -655,7 +655,7 @@ const CATALEG = {
     112: {t:'Lloc geomètric dels punts que equidisten de dos plans', d:'●●○', i:['esferes/data/full-2.png']},
     113: {t:'INVESTIGA. De quin lloc geomètric es tracta en cada cas?', d:'●●○', i:['esferes/data/full-2.png']},
     114: {t:'Punts que formen amb tres punts un tetraedre de volum donat', d:'●●○', i:['esferes/data/full-2.png','esferes/data/full-3.png']},
-    115: {t:'Punts d’una recta que compleixen una condició de distància', d:'●○○', i:['esferes/data/full-3.png']},
+    115: {t:'Punts d’una recta que equidisten de dos plans', d:'●○○', i:['esferes/data/full-3.png']},
     116: {t:'Esfera de centre C que passa per un punt A', d:'●○○', i:['esferes/data/full-3.png']},
     117: {t:'Esfera que passa per quatre punts, i el seu centre i radi', d:'●●○', i:['esferes/data/full-3.png']},
     118: {t:'Centre i radi de diverses esferes a partir de la seva equació', d:'●○○', i:['esferes/data/full-3.png','esferes/data/full-4.png']},

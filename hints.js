@@ -85,6 +85,17 @@ const PISTES = {
   'u5/84': 'Ajunta les dues equacions de la recta amb la del pla en un sistema de tres equacions. El determinant de la matriu de coeficients depèn de a: on no s\'anul·la es tallen en un punt; quan s\'anul·la, mira l\'ampliada, que depèn de b, per decidir si la recta és paral·lela o continguda al pla.',
   'u5/85': 'Tot depèn dels vectors normals dels dos plans. a) Paral·lels: vectors normals proporcionals. b) Perpendiculars: vectors normals perpendiculars, és a dir, producte escalar igual a zero.',
 
+  /* ── Unitat 6 · Angles i distàncies a l'espai ────────────────────────── */
+  'u6/74': 'Primer troba la projecció de P sobre la recta: el pla perpendicular a r que passa per P (el vector director de r en fa de vector normal) talla r en un punt Q. Aquest Q és el punt mitjà entre P i el simètric P′, o sigui que P′ = 2Q − P.',
+  'u6/76': 'Traça la recta perpendicular al pla que passa per P (el vector normal del pla en fa de vector director) i troba el punt Q on talla el pla. Aquest Q és el punt mitjà entre P i el seu simètric: P′ = 2Q − P.',
+  'u6/86': 'Aplica la fórmula de la distància d\'un punt a un pla: substitueix les coordenades del punt a l\'equació del pla, pren el valor absolut del resultat i divideix-lo pel mòdul del vector normal, √(A² + B² + C²).',
+  'u6/88': 'Escriu el punt genèric de la recta en paramètriques, en funció d\'un paràmetre, i imposa que la seva distància al pla sigui √6. Com que la fórmula porta un valor absolut, l\'equació |…| = k et donarà dues solucions.',
+  'u6/90': 'El punt del pla més proper a A és la projecció ortogonal de A: traça la recta perpendicular al pla que passa per A i troba on el talla. La distància la pots calcular amb la fórmula de punt a pla, o com la distància entre A i aquest punt.',
+  'u6/92': 'Escriu el punt genèric de la recta en funció del paràmetre i aplica-li la fórmula de la distància a un pla, igualada a 1/3. El valor absolut et donarà dues equacions i, per tant, dos punts.',
+  'u6/97': 'Estudia primer la posició relativa: si la recta talla el pla, la distància és 0. Si és paral·lela (el vector director és perpendicular al vector normal del pla), agafa qualsevol punt de la recta i calcula\'n la distància al pla.',
+  'u6/115': 'Escriu el punt genèric de la recta en funció del paràmetre i iguala les seves distàncies als dos plans. Com que hi ha valors absoluts, en surten dues equacions (una per a cada signe) i, per tant, dos punts.',
+  'u6/139': 'a) El vector normal del pla fa de vector director de la recta perpendicular. b) Substitueix les paramètriques de la recta a l\'equació del pla per trobar el punt de tall. c) La distància de P al pla és la distància de P a aquest punt, o bé la de la fórmula de punt a pla.',
+
   /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
   'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
   'u7/43': 'Bolzano parla d\'arrels, o sigui de valors on la funció val 0. Reescriu-ho: defineix g(x) = f(x) − 1 i busca-hi dos punts amb signes contraris. L\'exponencial és contínua a tot ℝ, o sigui que g també ho és.',
