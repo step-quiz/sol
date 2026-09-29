@@ -34,9 +34,10 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
 
 ## Altres
 
-- [ ] Catàleg antic (u7–u14): alguna fitxa pot no incloure la pàgina on continua la
-      solució. Trobat i corregit: u12/88 (li faltava `area-corba/data/full-4.png`).
-      Revisar la resta quan es programin exercicis d'aquestes unitats.
+- [x] Catàleg antic (u7–u14) revisat: 61 fitxes corregides (u12/88 i 60 més) perquè
+      apuntaven a una pàgina equivocada o no incloïen la pàgina on continua la solució.
+- [ ] Les pàgines per tema antigues (`u*/<tema>/<tema>.html`) tenen la seva pròpia llista
+      d'imatges amb els mateixos errors. No es fan servir (tots els temes a `'cap'`).
 
 - [ ] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
       ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).
