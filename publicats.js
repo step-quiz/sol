@@ -29,6 +29,14 @@ const PUBLICATS = {
   'u3/problemes-diferents':           'cap',
   'u3/mon-real':                      'cap',
 
+  'u5/activitats':                    'cap',
+  'u5/practica':                      'cap',
+  'u5/equacions':                     'cap',
+  'u5/posicions':                     'cap',
+  'u5/problemes':                     'cap',
+  'u5/problemes-diferents':           'cap',
+  'u5/mon-real':                      'cap',
+
   'u7/practica':           'cap',
   'u7/limits-funcions':    'cap',
   'u7/limits-punt':        'cap',
