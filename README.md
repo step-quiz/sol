@@ -122,6 +122,6 @@ per això es mostra abans, a la llista, on l'alumne encara no ha vist res.
 ---
 
 Material desenvolupat per **David Arso Civil** 
-Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT.
+Contingut i codi sota llicència CC BY-NC-ND 4.0.
 
 <!-- atribucio-centre:final -->

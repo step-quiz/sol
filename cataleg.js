@@ -1,9 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   CATÀLEG D'EXERCICIS  —  FITXER DERIVAT
+   CATÀLEG D'EXERCICIS
    ───────────────────────────────────────────────────────────────────────
-   Es genera a partir de les pàgines dels temes. No cal editar-lo a mà.
-   Les PISTES ja no viuen aquí: són a hints.js, i per això aquest fitxer
-   es pot tornar a generar sense perdre res.
+   Fitxer mantingut a mà (no el genera cap programa).
+   Les PISTES no viuen aquí: són a hints.js.
 
    Per a cada unitat, cada exercici hi apareix UN SOL COP, amb:
      t : títol (descripció curta)

@@ -137,9 +137,13 @@ function pistaDe(u, n){
   return t ? t : null;
 }
 
-/* Quants dels exercicis d'una llista de refs {u,n} tenen pista. */
+/* Quants dels exercicis d'una llista de refs {u,n} tenen pista.
+   DESACTIVADA: ara mateix no la crida cap pàgina. Es deixa comentada
+   per si algun dia es vol mostrar "N pistes" a la llista de tasques.
+
 function comptaPistes(refs){
   let k = 0;
   refs.forEach(r => { if(pistaDe(r.u, r.n)) k++; });
   return k;
 }
+*/
