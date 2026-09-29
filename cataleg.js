@@ -1298,7 +1298,7 @@ const CATALEG = {
       85: {t:'Calcula l’àrea de la regió sota f(x)=|2x+1|−|x+5| en [−5,0]', d:'●●○', i:['area-corba/data/full-3.png']},
       86: {t:'Troba l’àrea limitada per f(x)=|x²−4| i l’eix d’abscisses a [−1,3]', d:'●●○', i:['area-corba/data/full-3.png']},
       87: {t:'Troba l’àrea acotada per f(x)=1/(x−2)², la recta y=1 i la recta x=5/2', d:'●●○', i:['area-corba/data/full-3.png']},
-      88: {t:'Considera f(x)=x²/2−√x: representa-la i calcula l’àrea amb l’eix X', d:'●●○', i:['area-corba/data/full-3.png']},
+      88: {t:'Considera f(x)=x²/2−√x: representa-la i calcula l’àrea amb l’eix X', d:'●●○', i:['area-corba/data/full-3.png','area-corba/data/full-4.png']},
       89: {t:'Estudia f(x)=(x+2)/(x³−4x²+4x): asímptotes, monotonia i àrea sota la corba a [3,4]', d:'●●○', i:['area-corba/data/full-4.png']},
       90: {t:'Dibuixa i calcula l’àrea del recinte limitat per f(x)=x³/(x−3)² en [0,2]', d:'●●○', i:['area-corba/data/full-4.png']},
       91: {t:'Calcula asímptotes i monotonia de f(x)=(x²−12)/(x²+4) i l’àrea amb l’eix d’abscisses', d:'●●○', i:['area-corba/data/full-5.png']},

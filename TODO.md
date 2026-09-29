@@ -14,7 +14,7 @@
 
 ## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
 
-Setmanes 1–33 ja són a `tasques.js`. Setmanes 34 i següents encara no tenen exercicis:
+Totes les setmanes (1–36) ja són a `tasques.js`:
 
 | Setmanes | Dates límit | Unitat | Material al repo |
 |---|---|---|---|
@@ -23,15 +23,20 @@ Setmanes 1–33 ja són a `tasques.js`. Setmanes 34 i següents encara no tenen 
 | 23–26 | 21/02 – 14/03/2027 | U3 Sistemes d'equacions | ✅ fet (imatges, catàleg, tasques i pistes) · ampliada a 4 setmanes |
 | 27–31 | 21/03 – 18/04/2027 | U5 Rectes i plans en l'espai | ✅ fet (imatges, catàleg, tasques i pistes) · 5 setmanes |
 | 32–33 | 25/04 – 02/05/2027 | U6 Angles i distàncies a l'espai | ✅ fet (imatges, catàleg, tasques i pistes) |
-| 34–35? | 09/05 – 16/05/2027 | U11 Integrals indefinides | ✅ catàleg i imatges (falta llista-sel) · ⚠️ a l'Excel era 33–34 |
-| 36–37? | 23/05 – 30/05/2027 | U12 Integrals definides | ✅ catàleg i imatges (falta llista-sel) · ⚠️ a l'Excel era 35–36 |
+| 34 | 09/05/2027 | U11 Integrals indefinides | ✅ fet (tasques i pistes) · 1 setmana |
+| 35–36 | 16/05 – 23/05/2027 | U12 Integrals definides | ✅ fet (tasques i pistes) |
 
-- [ ] Triar els exercicis de cada setmana (columna D de l'Excel) i afegir-los a `tasques.js`.
-- [ ] Escriure les pistes corresponents a `hints.js`.
+- [x] Triar els exercicis de cada setmana i afegir-los a `tasques.js`.
+- [x] Escriure les pistes corresponents a `hints.js`.
+- [ ] L'Excel no reflecteix els canvis de setmanes (U3 4 setmanes, U5 5, U6 2, U11 1, U12 2). Actualitzar-lo si es vol que quadri.
 - [x] Totes les unitats tenen imatges i catàleg.
 - [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
 ## Altres
+
+- [ ] Catàleg antic (u7–u14): alguna fitxa pot no incloure la pàgina on continua la
+      solució. Trobat i corregit: u12/88 (li faltava `area-corba/data/full-4.png`).
+      Revisar la resta quan es programin exercicis d'aquestes unitats.
 
 - [ ] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
       ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).

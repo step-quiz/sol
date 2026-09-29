@@ -176,6 +176,21 @@ const PISTES = {
   'u10/123': 'Abans de res mira\'t el denominador: si el completes a quadrat perfecte veuràs que no s\'anul·la mai, o sigui que el domini és tot ℝ i no hi ha asímptotes verticals. Per als talls amb l\'eix X, iguala la funció a zero i comprova si l\'equació té solució; si no en té, la funció no canvia mai de signe. La resta és el guió de sempre amb f′, i el recorregut te\'l donaran els dos extrems que trobis.',
   'u10/124': 'És la mateixa funció de l\'exercici anterior, ara amb el temps a l\'eix horitzontal: si ja la tens estudiada, aquí només has de traduir. La temperatura inicial és el valor en t = 0; la temperatura a la llarga és el límit quan t tendeix a infinit; i els extrems que vas calcular són els moments en què la peça és més freda i més calenta. Canviar de tendència vol dir passar de refredar-se a escalfar-se, és a dir, els punts on s\'anul·la la derivada.',
 
+  /* ── Unitat 11 · Integrals ───────────────────────────────────────────── */
+  'u11/52': 'Integra terme a terme: la integral d\'una suma és la suma d\'integrals, els coeficients surten fora i cada potència té primitiva xⁿ⁺¹/(n+1). Si hi ha un parèntesi elevat, com (x + 3)², o el desenvolupes o fas servir que (ax + b)ⁿ té primitiva (ax + b)ⁿ⁺¹/(a(n+1)).',
+  'u11/54': 'Separa cada fracció en termes. Les de la forma k/(x − a) donen un logaritme, k·ln|x − a|. Les que tenen el denominador elevat, 1/(x − a)ⁿ, escriu-les com una potència d\'exponent negatiu, (x − a)⁻ⁿ, i integra-les com qualsevol potència.',
+
+  /* ── Unitat 12 · La integral definida ────────────────────────────────── */
+  'u12/35': 'No cal calcular cap primitiva: la integral d\'una funció positiva és l\'àrea entre la gràfica i l\'eix X. Descompon cada regió en triangles, rectangles o trapezis i suma\'n les àrees.',
+  'u12/39': 'Fes servir la linealitat: separa la integral d\'una suma en suma d\'integrals i treu fora les constants. Després aplica la regla de Barrow a cada terme: la primitiva avaluada al límit superior menys l\'avaluada al límit inferior.',
+  'u12/55': 'Per a cada apartat, troba primer una primitiva (amb les integrals immediates o, si cal, per parts o per canvi de variable) i després aplica Barrow, F(b) − F(a). Quan hi ha un valor absolut, mira quin signe té l\'expressió dins l\'interval per poder treure les barres.',
+  'u12/79': 'Troba primer on la corba talla l\'eix X resolent f(x) = 0: aquests punts són els límits d\'integració. Si hi ha més de dos talls, integra per separat cada tros i suma els valors absoluts, perquè les parts que queden per sota de l\'eix donen integrals negatives.',
+  'u12/80': 'Busca on la funció talla l\'eix X: aquest punt i la recta x = 4 són els límits d\'integració. Per trobar la primitiva, escriu l\'arrel com una potència d\'exponent 1/2.',
+  'u12/88': 'a) Per a l\'esbós, estudia el domini, els talls amb els eixos i el creixement. b) Els límits d\'integració són els punts on f(x) = 0; com que entre ells la funció és negativa, pren el valor absolut de la integral.',
+  'u12/96': 'Primer la recta tangent: el pendent és f′(1/2) i el punt és (1/2, f(1/2)). Després dibuixa la paràbola, la tangent i l\'eix Y per veure la regió: l\'àrea és la integral de la diferència entre les dues funcions entre x = 0 i x = 1/2.',
+  'u12/111': 'Iguala les dues funcions per trobar els punts de tall, que seran els límits d\'integració. Després integra la diferència entre les dues funcions en aquest interval i pren-ne el valor absolut.',
+  'u12/114': 'Resol f(x) = g(x) per trobar tots els punts de tall. Si n\'hi ha tres, hi ha dues regions: integra f − g per separat a cada interval i suma els valors absoluts, perquè la funció que queda per sobre canvia d\'una regió a l\'altra.',
+
   /* ── Unitat 13 · Probabilitat ────────────────────────────────────────── */
   'u13/28': 'L\'espai mostral són totes les parelles possibles: una cara de la moneda i un número del dau. Com que un llançament no influeix en l\'altre, organitza-ho en una taula de doble entrada o en un diagrama d\'arbre, i el total et sortirà de multiplicar les possibilitats de cada pas.',
   'u13/29': 'Cada resultat és una parella: primer el color del llapis, després la cara de la moneda. Dibuixa un arbre amb tants grups de branques com colors, i de cada color en fas penjar les dues possibilitats de la moneda; així no te\'n deixaràs cap.',
