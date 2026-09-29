@@ -9,6 +9,17 @@ const PUBLICATS = {
   'u1/problemes':                  'cap',
   'u1/mon-real':                   'cap',
 
+  'u2/activitats':                    'cap',
+  'u2/practica':                      'cap',
+  'u2/calcul':                        'cap',
+  'u2/propietats':                    'cap',
+  'u2/qualsevol-ordre':               'cap',
+  'u2/rang':                          'cap',
+  'u2/inversa':                       'cap',
+  'u2/problemes':                     'cap',
+  'u2/problemes-diferents':           'cap',
+  'u2/mon-real':                      'cap',
+
   'u7/practica':           'cap',
   'u7/limits-funcions':    'cap',
   'u7/limits-punt':        'cap',
