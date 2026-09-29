@@ -14,7 +14,7 @@
 
 ## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
 
-Setmanes 1–31 ja són a `tasques.js`. Setmanes 32 i següents encara no tenen exercicis:
+Setmanes 1–33 ja són a `tasques.js`. Setmanes 34 i següents encara no tenen exercicis:
 
 | Setmanes | Dates límit | Unitat | Material al repo |
 |---|---|---|---|
@@ -22,9 +22,9 @@ Setmanes 1–31 ja són a `tasques.js`. Setmanes 32 i següents encara no tenen 
 | 20–22 | 31/01 – 14/02/2027 | U2 Determinants | ✅ fet (imatges, catàleg, tasques i pistes) |
 | 23–26 | 21/02 – 14/03/2027 | U3 Sistemes d'equacions | ✅ fet (imatges, catàleg, tasques i pistes) · ampliada a 4 setmanes |
 | 27–31 | 21/03 – 18/04/2027 | U5 Rectes i plans en l'espai | ✅ fet (imatges, catàleg, tasques i pistes) · 5 setmanes |
-| 31–32 | 18/04 – 25/04/2027 | U6 Angles i distàncies a l'espai | ✅ imatges i catàleg (falta llista-sel) · ⚠️ la setmana 31 ara és de la U5: cal replanificar U6, U11 i U12 |
-| 33–34 | 02/05 – 09/05/2027 | U11 Integrals indefinides | ✅ catàleg i imatges |
-| 35–36 | 16/05 – 23/05/2027 | U12 Integrals definides | ✅ catàleg i imatges |
+| 32–33 | 25/04 – 02/05/2027 | U6 Angles i distàncies a l'espai | ✅ fet (imatges, catàleg, tasques i pistes) |
+| 34–35? | 09/05 – 16/05/2027 | U11 Integrals indefinides | ✅ catàleg i imatges (falta llista-sel) · ⚠️ a l'Excel era 33–34 |
+| 36–37? | 23/05 – 30/05/2027 | U12 Integrals definides | ✅ catàleg i imatges (falta llista-sel) · ⚠️ a l'Excel era 35–36 |
 
 - [ ] Triar els exercicis de cada setmana (columna D de l'Excel) i afegir-los a `tasques.js`.
 - [ ] Escriure les pistes corresponents a `hints.js`.
