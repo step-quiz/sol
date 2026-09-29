@@ -29,6 +29,21 @@ const PISTES = {
   'u1/81': 'Calcula A², A³ i A⁴ i fixa\'t en quin element canvia i com ho fa: descobriràs un patró que depèn de n. Un cop tinguis l\'expressió de Aⁿ, fes-la servir per a A²² i A² i opera: no cal que calculis les 22 potències una per una.',
   'u1/85': 'A l\'apartat a, calcula A² i comprova que no és la matriu nul·la; després calcula A³ = A²·A. A l\'apartat b, calcula B² en funció d\'a i b i iguala\'l a la matriu nul·la: quina condició han de complir a i b? Recorda que, per ser de grau 2, B mateixa no pot ser la matriu nul·la.',
 
+  /* ── Unitat 2 · Determinants ─────────────────────────────────────────── */
+  'u2/35': 'Un determinant 2×2 és el producte de la diagonal principal menys el de l\'altra diagonal. Per a |A + B| i |A − B|, fes primer la suma o la resta de les matrius i calcula el determinant després: no és el mateix que sumar o restar |A| i |B|.',
+  'u2/36': 'Busca la matriu més senzilla possible: en una matriu diagonal, el determinant és el producte dels elements de la diagonal. Parteix de la matriu identitat i canvia-hi un sol element.',
+  'u2/37': 'Aplica la regla de sempre, producte de la diagonal principal menys producte de l\'altra diagonal, també quan hi ha lletres. Després desenvolupa els productes i agrupa els termes semblants.',
+  'u2/41': 'Fes servir la regla de Sarrus: tres productes en la direcció de la diagonal principal que sumen, i tres en la direcció de l\'altra diagonal que resten. Amb lletres, escriu els sis productes amb calma abans de simplificar.',
+  'u2/44': 'Calcula el determinant deixant m i n com a lletres; si el desenvolupes per la fila que té un zero, t\'estalvies feina. Et quedarà una expressió amb m i n: iguala-la a zero i aïlla una lletra en funció de l\'altra.',
+  'u2/79': 'El rang és l\'ordre del menor més gran que no val zero. Comença per un menor 2×2 no nul i orla\'l amb una fila i una columna més; si tots els menors 3×3 que el contenen valen zero, el rang es queda en 2.',
+  'u2/80': 'Per arribar a rang 3, la fila nova no pot ser combinació de les altres dues: tria\'n una de senzilla i comprova que el determinant 3×3 no val zero. Per quedar-te en rang 2, fes que sigui combinació lineal de les files de A (per exemple, la seva suma).',
+  'u2/83': 'Busca primer un menor d\'ordre 2 que no depengui del paràmetre i que no valgui zero: així ja saps que el rang és almenys 2. Després calcula els menors d\'ordre 3 que el contenen: el rang només baixa per als valors que els anul·len tots alhora.',
+  'u2/87': 'Una matriu 2×2 que no és nul·la té rang 1 exactament quan el seu determinant val zero. Escriu el determinant en funció de a, iguala\'l a zero i resol l\'equació.',
+  'u2/95': 'No cal que calculis cap inversa: multiplica cada matriu per cada candidata i mira quin producte dona la matriu identitat. Si vols anar més de pressa, compara abans els determinants: el de la inversa és l\'invers del de la matriu.',
+  'u2/96': 'Aplica A⁻¹ = (1/|A|)·Adj(A)ᵗ: calcula el determinant (si fos zero, no hi hauria inversa), després la matriu d\'adjunts, transposa-la i divideix per |A|. Al final, comprova que A·A⁻¹ dona la identitat.',
+  'u2/99': 'Una matriu és singular quan el seu determinant val zero: calcula\'l en funció de m, iguala\'l a zero i resol. Per a m = 2, substitueix el valor i calcula la inversa amb la matriu adjunta.',
+  'u2/100': 'Calcula el determinant en funció de a i b i fixa\'t que el pots escriure com una identitat notable: així veuràs de seguida quan val zero. Per a l\'apartat b, substitueix els valors i calcula la inversa de la matriu 2×2.',
+
   /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
   'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
   'u7/43': 'Bolzano parla d\'arrels, o sigui de valors on la funció val 0. Reescriu-ho: defineix g(x) = f(x) − 1 i busca-hi dos punts amb signes contraris. L\'exponencial és contínua a tot ℝ, o sigui que g també ho és.',
