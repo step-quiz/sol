@@ -22,14 +22,13 @@ Setmanes 1–31 ja són a `tasques.js`. Setmanes 32 i següents encara no tenen 
 | 20–22 | 31/01 – 14/02/2027 | U2 Determinants | ✅ fet (imatges, catàleg, tasques i pistes) |
 | 23–26 | 21/02 – 14/03/2027 | U3 Sistemes d'equacions | ✅ fet (imatges, catàleg, tasques i pistes) · ampliada a 4 setmanes |
 | 27–31 | 21/03 – 18/04/2027 | U5 Rectes i plans en l'espai | ✅ fet (imatges, catàleg, tasques i pistes) · 5 setmanes |
-| 31–32 | 18/04 – 25/04/2027 | U6 Angles i distàncies a l'espai | ❌ no n'hi ha · ⚠️ la setmana 31 ara és de la U5: cal replanificar U6, U11 i U12 |
+| 31–32 | 18/04 – 25/04/2027 | U6 Angles i distàncies a l'espai | ✅ imatges i catàleg (falta llista-sel) · ⚠️ la setmana 31 ara és de la U5: cal replanificar U6, U11 i U12 |
 | 33–34 | 02/05 – 09/05/2027 | U11 Integrals indefinides | ✅ catàleg i imatges |
 | 35–36 | 16/05 – 23/05/2027 | U12 Integrals definides | ✅ catàleg i imatges |
 
 - [ ] Triar els exercicis de cada setmana (columna D de l'Excel) i afegir-los a `tasques.js`.
 - [ ] Escriure les pistes corresponents a `hints.js`.
-- [ ] U6: cal crear-ne tot el material (imatges `data/full-*.png`,
-      entrades a `cataleg.js`, `UNITATS_META` i `UNITATS` a `index.html`).
+- [x] Totes les unitats tenen imatges i catàleg.
 - [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
 ## Altres
@@ -37,7 +36,7 @@ Setmanes 1–31 ja són a `tasques.js`. Setmanes 32 i següents encara no tenen 
 - [ ] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
       ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).
       Si mai se'n vol programar alguna, caldrà ampliar el sistema (p. ex. un prefix).
-      El mateix passa a la U2, la U3 i la U5 amb les activitats del text 1–4.
+      El mateix passa a la U2, la U3, la U5 i la U6 amb les activitats del text 1–4.
 
 - [ ] L'Excel encara té l'exercici 92 a la setmana 7 (U8). A `tasques.js` s'ha tret
       perquè ja era a la setmana 5. Actualitzar l'Excel si es vol que quadrin.

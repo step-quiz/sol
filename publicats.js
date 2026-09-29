@@ -37,6 +37,17 @@ const PUBLICATS = {
   'u5/problemes-diferents':           'cap',
   'u5/mon-real':                      'cap',
 
+  'u6/activitats':                    'cap',
+  'u6/practica':                      'cap',
+  'u6/angles':                        'cap',
+  'u6/projeccions':                   'cap',
+  'u6/simetries':                     'cap',
+  'u6/distancies':                    'cap',
+  'u6/esferes':                       'cap',
+  'u6/problemes':                     'cap',
+  'u6/problemes-diferents':           'cap',
+  'u6/mon-real':                      'cap',
+
   'u7/practica':           'cap',
   'u7/limits-funcions':    'cap',
   'u7/limits-punt':        'cap',
