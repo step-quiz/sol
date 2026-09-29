@@ -482,7 +482,7 @@ const CATALEG = {
      77: {t:'Estudia les posicions relatives de trios de plans', d:'●○○', i:['posicions/data/full-3.png','posicions/data/full-4.png']},
      78: {t:'REPTE. Recta que conté l’altura d’un tetraedre des d’un vèrtex', d:'●●●', i:['posicions/data/full-4.png']},
      79: {t:'Valor de m perquè dues rectes es tallin en un punt', d:'●○○', i:['posicions/data/full-4.png']},
-     80: {t:'Valor de m perquè dues rectes siguin coplanàries', d:'●○○', i:['posicions/data/full-4.png','posicions/data/full-5.png']},
+     80: {t:'Valor de m perquè dues rectes siguin paral·leles, i pla que les conté', d:'●○○', i:['posicions/data/full-4.png','posicions/data/full-5.png']},
      81: {t:'Posició relativa de dues rectes segons el paràmetre m', d:'●○○', i:['posicions/data/full-5.png']},
      82: {t:'REPTE. Valor de m perquè dues rectes es tallin, i punt de tall', d:'●●●', i:['posicions/data/full-5.png','posicions/data/full-6.png']},
      83: {t:'Posició relativa d’una recta i un pla segons a, i punt d’intersecció', d:'●○○', i:['posicions/data/full-6.png']},
