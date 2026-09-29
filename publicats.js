@@ -20,6 +20,15 @@ const PUBLICATS = {
   'u2/problemes-diferents':           'cap',
   'u2/mon-real':                      'cap',
 
+  'u3/activitats':                    'cap',
+  'u3/expressa':                      'cap',
+  'u3/gauss':                         'cap',
+  'u3/rouche':                        'cap',
+  'u3/parametre':                     'cap',
+  'u3/problemes':                     'cap',
+  'u3/problemes-diferents':           'cap',
+  'u3/mon-real':                      'cap',
+
   'u7/practica':           'cap',
   'u7/limits-funcions':    'cap',
   'u7/limits-punt':        'cap',
