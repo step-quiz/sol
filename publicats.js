@@ -1,5 +1,6 @@
 const PUBLICATS = {
 
+  'u1/activitats':                 'cap',
   'u1/practica':                   'cap',
   'u1/operacions':                 'cap',
   'u1/rang':                       'cap',
