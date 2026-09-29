@@ -14,14 +14,14 @@
 
 ## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
 
-Setmanes 1–22 ja són a `tasques.js`. Setmanes 23–36 encara no tenen exercicis:
+Setmanes 1–26 ja són a `tasques.js`. Setmanes 27–36 encara no tenen exercicis:
 
 | Setmanes | Dates límit | Unitat | Material al repo |
 |---|---|---|---|
 | 18–19 | 17/01 – 24/01/2027 | U1 Matrius | ✅ fet (imatges, catàleg, tasques i pistes) |
 | 20–22 | 31/01 – 14/02/2027 | U2 Determinants | ✅ fet (imatges, catàleg, tasques i pistes) |
-| 23–25 | 21/02 – 07/03/2027 | U3 Sistemes d'equacions | ✅ imatges i catàleg (falta llista-sel) |
-| 26–30 | 14/03 – 11/04/2027 | U5 Rectes i plans en l'espai | ❌ no n'hi ha |
+| 23–26 | 21/02 – 14/03/2027 | U3 Sistemes d'equacions | ✅ fet (imatges, catàleg, tasques i pistes) · ampliada a 4 setmanes |
+| 27–30 | 21/03 – 11/04/2027 | U5 Rectes i plans en l'espai | ❌ no n'hi ha · ⚠️ l'Excel li donava també la setmana 26, que ara és de la U3 |
 | 31–32 | 18/04 – 25/04/2027 | U6 Angles i distàncies a l'espai | ❌ no n'hi ha |
 | 33–34 | 02/05 – 09/05/2027 | U11 Integrals indefinides | ✅ catàleg i imatges |
 | 35–36 | 16/05 – 23/05/2027 | U12 Integrals definides | ✅ catàleg i imatges |
