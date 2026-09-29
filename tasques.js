@@ -7,7 +7,7 @@ const TASQUES = [
   { unitat:'u7', setmana:4, limit:'2026-10-11', exercicis:[112, 113, 114, 43, 120] },
   { unitat:'u8', setmana:5, limit:'2026-10-18', exercicis:[37,86,87,88,92] },
   { unitat:'u8', setmana:6, limit:'2026-10-25', exercicis:[30,31,32,21,40,41] },
-  { unitat:'u8', setmana:7, limit:'2026-11-01', exercicis:[46,54,58,92,93,97] },
+  { unitat:'u8', setmana:7, limit:'2026-11-01', exercicis:[46,54,58,93,97] },
   { unitat:'u9', setmana:8, limit:'2026-11-08', exercicis:[39, 41, 42, 44, 50, 51, 58] },
   { unitat:'u9', setmana:9, limit:'2026-11-15', exercicis:[30, 66, 67, 70] },
   { unitat:'u9', setmana:10, limit:'2026-11-22', exercicis:[34, 77, 79, 86, 87] },
