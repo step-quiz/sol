@@ -28,7 +28,8 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
 
 - [x] Triar els exercicis de cada setmana i afegir-los a `tasques.js`.
 - [x] Escriure les pistes corresponents a `hints.js`.
-- [ ] L'Excel no reflecteix els canvis de setmanes (U3 4 setmanes, U5 5, U6 2, U11 1, U12 2). Actualitzar-lo si es vol que quadri.
+- [x] L'Excel de `source/` ja reflecteix els canvis de setmanes (U3 4 setmanes, U5 5, U6 2, U11 1, U12 2)
+      i coincideix amb `tasques.js`. El de l'arrel del repositori és l'antic (setmanes 18–36 buides).
 - [x] Totes les unitats tenen imatges i catàleg.
 - [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
@@ -36,6 +37,10 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
 
 - [x] Catàleg antic (u7–u14) revisat: 61 fitxes corregides (u12/88 i 60 més) perquè
       apuntaven a una pàgina equivocada o no incloïen la pàgina on continua la solució.
+- [x] Catàleg complet (u1–u14) comparat amb els solucionaris de `source/`: 14 dificultats
+      corregides (u6: 66, 127 · u8: 116 · u12: 115, 122, 123, 125–131 · u14: 99), afegida la
+      pàgina que faltava a u14 act. 2 i tretes 5 imatges de més (u1/123, u2/33, u2/54, u5/82,
+      u5/128). Ara les 1.471 fitxes quadren amb el llibre.
 - [ ] Les pàgines per tema antigues (`u*/<tema>/<tema>.html`) tenen la seva pròpia llista
       d'imatges amb els mateixos errors. No es fan servir (tots els temes a `'cap'`).
 
