@@ -1,0 +1,73 @@
+% ============================================================
+%  Setmana 8 — Unitat 9 · Aplicacions de les derivades
+%  Exercicis: 39, 41, 42, 44, 50, 51, 58
+% ============================================================
+
+\setmana{8}{Unitat 9 \textperiodcentered{} Aplicacions de les derivades}{8 de novembre de 2026}%
+        {39, 41, 42, 44, 50, 51 i 58}
+
+\begin{errada}{Exercici 41}
+  \ondiu{«A $x=$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»}
+  \hadedir{«A $x=2$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»}
+  \motiu{Hi falta el valor de $x$. És l'últim dels quatre punts on la derivada
+    val $0$ ($x=-4$, $x=-2$, $x=0$ i $x=2$), i a la gràfica $f'$ hi passa de
+    positiva a negativa.}
+\end{errada}
+
+\begin{errada}{Exercici 42 d), valor de $y'(2)$}
+  \ondiu{$y'(2)=80-60-20>0$}
+  \hadedir{$y'(2)=80-60=20>0$}
+  \motiu{$y'(2)=5\cdot 2^4-15\cdot 2^2=80-60=20$. Tal com està imprès,
+    $80-60-20$ valdria $0$.}
+\end{errada}
+
+\begin{errada}{Exercici 42 d), extrems relatius}
+  \ondiu{«Té màxims relatius a $x=-\sqrt{3}$, $x=\sqrt{3}$.»}
+  \hadedir{«Té un màxim relatiu a $x=-\sqrt{3}$ i un mínim relatiu a $x=\sqrt{3}$.»}
+  \motiu{A $x=-\sqrt{3}$ la funció passa de créixer a decréixer (màxim), però
+    a $x=\sqrt{3}$ passa de decréixer a créixer: hi ha un mínim. A $x=0$ la
+    derivada també s'anul·la, però no canvia de signe i no hi ha extrem.}
+\end{errada}
+
+\begin{errada}{Exercici 51}
+  \ondiu{«El signe de $y$ és constant.»}
+  \hadedir{«El signe de $y'$ és constant.»}
+  \motiu{La que no s'anul·la mai i és contínua és la derivada
+    $y'(x)=3x^2-4x+6$, i per això té signe constant (positiu, perquè
+    $y'(0)=6>0$). La funció $y$ sí que canvia de signe: per exemple,
+    $y(0)=-13$ i $y(3)=14$.}
+\end{errada}
+
+\begin{errada}{Exercici 58 b)}
+  \ondiu{$y'(x)=0 \;\rightarrow\; a=\pm 2$}
+  \hadedir{$y'(x)=0 \;\rightarrow\; x=\pm 2$}
+  \motiu{El que es resol és $3x^2-12=0$, i la incògnita és $x$. El paràmetre
+    $a$ ja s'ha trobat a l'apartat a) i val $-12$.}
+\end{errada}
+
+%\senseerrades{39, 44 i 50}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Tres observacions que no són errades de càlcul, però que poden confondre:\par\nopagebreak
+
+\begin{observacio}{Exercici 39 b)}
+  On diu «La derivada té un grau» vol dir «La derivada té grau u»: la derivada
+  d'una paràbola és un polinomi de grau $1$, que s'anul·la en un sol punt, i
+  per això la paràbola té, com a molt, un extrem.
+\end{observacio}
+
+\begin{observacio}{Exercici 41}
+  L'enunciat diu «A partir de la derivada de $f'(x)$». Vol dir: a partir de la
+  gràfica de la derivada $f'(x)$, que és la que es dona.
+\end{observacio}
+
+\begin{observacio}{Exercici 51}
+  La primera frase de la solució enuncia la implicació al revés. El que es fa
+  servir és: si $y'(x)>0$ per a tot $x$, llavors la funció és sempre creixent.
+  La implicació contrària no és certa en general: $y=x^3$ és sempre creixent
+  i, en canvi, $y'(0)=0$.
+\end{observacio}
+\fi

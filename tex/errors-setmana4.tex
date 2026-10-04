@@ -1,0 +1,41 @@
+% ============================================================
+%  Setmana 4 — Unitat 7 · Límits i continuïtat
+%  Exercicis: 112, 113, 114, 43, 120
+% ============================================================
+
+\setmana{4}{Unitat 7 \textperiodcentered{} Límits i continuïtat}{11 d'octubre de 2026}%
+        {112, 113, 114, 43 i 120}
+
+\begin{errada}{Exercici 43}
+  \ondiu{$g(2)-4<0$}
+  \hadedir{$g(2)=-4<0$}
+  \motiu{Hi falta el signe igual: $g(2)=3^{-2+2}-5=1-5=-4$.
+    El teorema de Bolzano necessita que $g$ tingui signes diferents als
+    extrems de l'interval, i els té: $g(0)=4>0$ i $g(2)=-4<0$.}
+\end{errada}
+
+%\senseerrades{112, 113, 114 i 120}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Dues observacions que no són errades, però que poden confondre:
+
+\begin{observacio}{Exercici 113}
+  El valor $x=-3$ és una arrel exacta, perquè
+  $x^3+6x^2+12x+9=(x+2)^3+1$. Si proves amb $x=-3$ trobaràs $f(-3)=0$ en lloc
+  d'un canvi de signe: no t'has equivocat, has trobat l'arrel. Qualsevol
+  interval de longitud $2$ que la contingui, com ara $(-4,-2)$, respon la
+  pregunta.
+\end{observacio}
+
+\begin{observacio}{Exercici 120}
+  L'enunciat anomena $f(x)=x+1$, i la solució torna a fer servir la lletra $f$
+  per a una funció diferent: la resta de les dues funcions que es tallen (per
+  exemple, $f(x)=x+1-e^{x-1}$ a l'apartat a). El punt on aquesta resta val
+  zero és l'abscissa del punt de tall. D'altra banda, l'enunciat només demana
+  demostrar que hi ha un punt de tall; la solució va més enllà i l'aproxima
+  amb un error menor que una dècima.
+\end{observacio}
+\fi

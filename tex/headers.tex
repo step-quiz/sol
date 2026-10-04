@@ -1,0 +1,25 @@
+% ============================================================
+%  headers.tex — paquets i format de pàgina
+%  (el mateix estil que el full «Exemples de funcions no
+%   contínues en un punt»)
+% ============================================================
+
+% ---------- Paquets ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[catalan]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm,headheight=14pt]{geometry}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Capçalera i peu de pàgina ----------
+% \titoldoc i \curs es defineixen a defs.tex
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\titoldoc}
+\fancyhead[R]{\small\curs}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}

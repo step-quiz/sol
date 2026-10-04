@@ -1,0 +1,87 @@
+% ============================================================
+%  Errades del solucionari — Matemàtiques II (2n de Batxillerat)
+% ============================================================
+
+% ---------- OPCIONS ----------
+% De cada parella, deixa sense % només UNA de les dues línies.
+
+% Es veu el «Motiu» de cada errada?
+\newif\ifmotiu \motiufalse     % NO: només «On diu» i «Ha de dir»
+%\newif\ifmotiu \motiutrue     % SÍ: també el «Motiu»
+
+% Es veuen les Observacions (comentaris que no són errades)?
+\newif\ifobs \obsfalse     % NO
+%\newif\ifobs \obstrue     % SÍ
+
+% ------------------------------------------------------------
+%  main.tex és el fitxer principal: només crida els altres.
+%    headers.tex            paquets i format de pàgina
+%    defs.tex               comandes i entorns propis
+%    errors-setmanaN.tex    les errades de la setmana N
+%
+%  PER AFEGIR UNA SETMANA
+%    1. Copia errors-setmana4.tex amb el nom errors-setmana5.tex
+%       i canvia'n el contingut.
+%    2. Afegeix al final d'aquest fitxer, abans de \end{document}:
+%           \newpage
+%           \input{errors-setmana5}
+%
+%  PER FER EL PDF D'UNA SOLA SETMANA
+%    Posa un % davant dels \input (i dels \newpage) de les altres.
+% ------------------------------------------------------------
+
+\documentclass[11pt,a4paper]{article}
+
+\input{headers}
+\input{defs}
+\hypersetup{pdftitle={\titoldoc}}
+
+\title{\titoldoc\\[2mm]\large\curs}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5cm}
+
+% ---------- Setmanes ----------
+\input{errors-setmana1}
+\input{errors-setmana2}
+\input{errors-setmana3}
+%\input{errors-setmana4}
+%\input{errors-setmana5}
+%\input{errors-setmana6}
+%\input{errors-setmana7}
+%\input{errors-setmana8}
+%\input{errors-setmana9}
+%\input{errors-setmana10}
+%\input{errors-setmana11}
+%\input{errors-setmana12}
+%\input{errors-setmana13}
+%\input{errors-setmana14}
+%\input{errors-setmana15}
+%\input{errors-setmana16}
+%\input{errors-setmana17}
+%\input{errors-setmana18}
+%\input{errors-setmana19}
+%\input{errors-setmana20}
+%\input{errors-setmana21}
+%\input{errors-setmana22}
+%\input{errors-setmana23}
+%\input{errors-setmana24}
+%\input{errors-setmana25}
+%\input{errors-setmana26}
+%\input{errors-setmana27}
+%\input{errors-setmana28}
+%\input{errors-setmana29}
+%\input{errors-setmana30}
+%\input{errors-setmana31}
+%\input{errors-setmana32}
+%\input{errors-setmana33}
+%\input{errors-setmana34}
+%\input{errors-setmana35}
+%\input{errors-setmana36}
+
+
+
+\end{document}

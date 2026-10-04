@@ -1,0 +1,82 @@
+% ============================================================
+%  Setmana 17 — Unitat 10 · Representació de funcions
+%  Exercicis: 84, 108, 123, 124
+% ============================================================
+
+\setmana{17}{Unitat 10 \textperiodcentered{} Representació de funcions}{10 de gener de 2027}%
+        {84, 108, 123 i 124}
+
+\begin{errada}{Exercici 84 d)}
+  \ondiu{$f\left(\tfrac{2}{3}\right)=\dfrac{26}{27} \;\rightarrow\;
+    \left(\tfrac{2}{3},\tfrac{26}{27}\right)$ punt d'inflexió}
+  \hadedir{$f\left(\tfrac{2}{3}\right)=\dfrac{20}{27} \;\rightarrow\;
+    \left(\tfrac{2}{3},\tfrac{20}{27}\right)$ punt d'inflexió}
+  \motiu{$f\left(\tfrac{2}{3}\right)=\tfrac{8}{27}-\tfrac{24}{27}-\tfrac{18}{27}
+    +\tfrac{54}{27}=\tfrac{20}{27}$.}
+\end{errada}
+
+\begin{errada}{Exercici 84 g)}
+  \ondiu{«$f''(x)=-2>0$ \; $\forall x\in\R$»}
+  \hadedir{«$f''(x)=-2<0$ \; $\forall x\in\R$»}
+  \motiu{$-2$ és negatiu, i per això la funció és còncava, com diu la mateixa
+    solució.}
+\end{errada}
+
+\begin{errada}{Exercici 108 b)}
+  \ondiu{«Eix $Y$: $f(0)=0 \;\rightarrow\; (0,6)$»}
+  \hadedir{«Eix $Y$: $f(0)=6 \;\rightarrow\; (0,6)$»}
+  \motiu{Per a $x>-2$ la funció és $6-x^2$, i $f(0)=6$. El punt $(0,6)$ ja és
+    correcte.}
+\end{errada}
+
+\begin{errada}{Exercici 108 c), continuïtat}
+  \ondiu{$\dlim_{x\to-2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$}
+  \hadedir{$\dlim_{x\to 2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$}
+  \motiu{El punt que s'estudia és $x=2$, on canvia l'expressió de la funció.}
+\end{errada}
+
+\begin{errada}{Exercici 108 c), derivada segona}
+  \ondiu{$\dfrac{14}{(x-1)^3}$ \; si \; $x<2$}
+  \hadedir{$\dfrac{14}{(x-1)^3}$ \; si \; $x>2$}
+  \motiu{És la derivada segona del tercer tros, $\dfrac{7}{x-1}$, que és el de
+    $x>2$.}
+\end{errada}
+
+\begin{errada}{Exercici 108 d)}
+  \ondiu{«$2-3\cos x=0 \;\rightarrow\; x=\arccos\left(\tfrac{2}{3}\right)
+    \;\rightarrow\; \left(\arccos\left(\tfrac{2}{3}\right),0\right)$»}
+  \hadedir{«$2-3\cos x=0 \;\rightarrow\;
+    x=\pm\arccos\left(\tfrac{2}{3}\right)+2k\pi$, amb $x\leq 0$. El tall més
+    proper a l'origen és $\left(-\arccos\left(\tfrac{2}{3}\right),0\right)$»}
+  \motiu{El tros $2-3\cos x$ només val per a $x\leq 0$, i
+    $\arccos\left(\tfrac{2}{3}\right)\approx 0{,}84$ és positiu: allà la funció
+    és $2^{-x+1}-3$ i no val $0$. Els talls amb l'eix $X$ són tots a
+    l'esquerra de l'origen i n'hi ha infinits, com es veu a la gràfica de la
+    solució.}
+\end{errada}
+
+%\senseerrades{123 i 124}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Tres observacions que no són errades de càlcul:\par\nopagebreak
+
+\begin{observacio}{Exercici 84 d)}
+  Al segon extrem,
+  $\left(\tfrac{2+\sqrt{7}}{3},\tfrac{20-14\sqrt{7}}{27}\right)$, la solució
+  no diu de quin tipus és: és un mínim.
+\end{observacio}
+
+\begin{observacio}{Exercici 108 b) i c)}
+  La solució només hi dona els mínims. També hi ha màxims relatius: a b), el
+  punt $(0,6)$; a c), el punt $(2,7)$, on la funció passa de créixer a
+  decréixer.
+\end{observacio}
+
+\begin{observacio}{Exercici 124 c)}
+  La solució escriu $T'(x)$ i $T(x)$ en lloc de $T'(t)$ i $T(t)$, i dona
+  l'interval $(-\infty,2)$ tot i que el temps comença a $t=0$.
+\end{observacio}
+\fi

@@ -1,0 +1,57 @@
+% ============================================================
+%  Setmana 25 — Unitat 3 · Sistemes d'equacions
+%  Exercicis: 60, 64, 66
+% ============================================================
+
+\setmana{25}{Unitat 3 \textperiodcentered{} Sistemes d'equacions}{7 de març de 2027}%
+        {60, 64 i 66}
+
+\begin{errada}{Exercici 60 a)}
+  \ondiu{«Si $m\neq 3$, $m\neq -3$ $\rightarrow$
+    $\mathrm{Rang}(A)=\mathrm{Rang}(A^*)=2<$ nre. d'incògnites $\rightarrow$
+    Sistema compatible determinat»}
+  \hadedir{«Si $m\neq 3$, $m\neq -3$ $\rightarrow$
+    $\mathrm{Rang}(A)=\mathrm{Rang}(A^*)=2=$ nre. d'incògnites $\rightarrow$
+    Sistema compatible determinat»}
+  \motiu{El sistema té dues incògnites, $x$ i $y$, i el rang és $2$: són
+    iguals, i per això és compatible determinat. Si el rang fos més petit que
+    el nombre d'incògnites, seria indeterminat.}
+\end{errada}
+
+\begin{errada}{Exercici 60 d)}
+  \ondiu{«Si $m=-4$ $\rightarrow$ $\mathrm{Rang}(A)=1$ $\rightarrow$
+    $\mathrm{Rang}(A)\neq\mathrm{Rang}(A)=2$»}
+  \hadedir{«Si $m=-4$ $\rightarrow$ $\mathrm{Rang}(A)=1$ $\rightarrow$
+    $\mathrm{Rang}(A)\neq\mathrm{Rang}(A^*)=2$»}
+  \motiu{La que té rang $2$ és la matriu ampliada $A^*$; hi falta l'asterisc.}
+\end{errada}
+
+\begin{errada}{Exercici 60 f), cas $m=0$}
+  \ondiu{$\begin{vmatrix}-1&2\\1&2\end{vmatrix}=-6\neq 0$}
+  \hadedir{$\begin{vmatrix}-1&2\\2&2\end{vmatrix}=-6\neq 0$}
+  \motiu{El menor surt de les files 2 i 3 de $A$ (columnes 1 i 3), que per a
+    $m=0$ són $(-1\;\;0\;\;2)$ i $(2\;\;0\;\;2)$. Amb un $1$ el determinant
+    valdria $-4$. Al cas $m=3$ la solució l'escriu bé.}
+\end{errada}
+
+%\senseerrades{64 i 66}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Dues observacions que no són errades de càlcul:\par\nopagebreak
+
+\begin{observacio}{Exercici 64}
+  L'enunciat demana resoldre el sistema quan és compatible indeterminat
+  ($a=1$) i la solució només el discuteix. Per a $a=1$ el sistema és
+  $2x+y+z=2$, $x+y=1$, $-y+z=0$, i les solucions són $x=1-\lambda$,
+  $y=\lambda$, $z=\lambda$ amb $\lambda\in\R$.
+\end{observacio}
+
+\begin{observacio}{Exercici 60 d) i e)}
+  Dues errades tipogràfiques sense importància: a d) hi diu «Rango ($A$)» en
+  lloc de «Rang ($A$)», i a e), a «Si $m\neq 1$, $m$ $\rightarrow$», hi sobra
+  la segona $m$.
+\end{observacio}
+\fi

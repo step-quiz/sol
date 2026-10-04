@@ -1,0 +1,59 @@
+% ============================================================
+%  defs.tex — comandes i entorns propis
+% ============================================================
+
+% ---------- Textos generals ----------
+\newcommand{\titoldoc}{Errades del solucionari}
+\newcommand{\curs}{Matemàtiques II \textperiodcentered{} 2n de Batxillerat}
+
+% ---------- Notació ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dlim}{\displaystyle\lim}   % límit amb el subíndex a sota
+
+% ---------- Colors ----------
+\colorlet{fonscaixa}{blue!4}
+\colorlet{marccaixa}{gray!100!black}
+\colorlet{colorondiu}{red!65!black}
+\colorlet{colorhadedir}{green!40!black}
+
+% ---------- Capçalera de cada setmana ----------
+%   \setmana{número}{unitat}{data límit}{exercicis de la setmana}
+\newcommand{\setmana}[4]{%
+  \section*{Setmana #1}%
+  \addcontentsline{toc}{section}{Setmana #1}%
+  \noindent\textbf{#2}\quad\textbullet\quad data límit: #3\par
+  \noindent Exercicis de la setmana: #4.\par
+  \medskip}
+
+% ---------- Una errada ----------
+%   \begin{errada}{Exercici 94 b)}
+%     \ondiu{el que hi ha imprès al solucionari}
+%     \hadedir{el que hi hauria de dir}
+%     \motiu{explicació breu}
+%   \end{errada}
+% El «Motiu» només surt al PDF si la flag de dalt de main.tex és \motiutrue;
+% amb \motiufalse, el text de \motiu{...} s'ignora.
+\newenvironment{errada}[1]{%
+  \begin{tcolorbox}[colback=fonscaixa,colframe=marccaixa,
+    title={#1},fonttitle=\bfseries]
+  \begin{description}[style=multiline,leftmargin=2.3cm,
+    font=\normalfont\bfseries,itemsep=3pt,topsep=0pt,parsep=0pt]}%
+ {\end{description}\end{tcolorbox}}
+
+\newcommand{\ondiu}[1]{\item[{\color{colorondiu}On diu}] #1}
+\newcommand{\hadedir}[1]{\item[{\color{colorhadedir}Ha de dir}] #1}
+\newcommand{\motiu}[1]{\ifmotiu\item[{\color{marccaixa}Motiu}] #1\fi}
+
+% ---------- Una observació (no és cap errada, però pot confondre) ----------
+%   \begin{observacio}{Exercici 120} ... \end{observacio}
+% Al fitxer de cada setmana, el bloc d'observacions va entre \ifobs i \fi:
+% només surt al PDF si la flag de dalt de main.tex és \obstrue.
+\newtcolorbox{observacio}[1]{colback=gray!6,colframe=gray!60!black,
+  title={Observació \textperiodcentered{} #1},fonttitle=\bfseries}
+
+% ---------- Exercicis revisats i sense errades ----------
+%   \senseerrades{103, 40 i 106}
+% Als fitxers de les setmanes aquesta línia hi és escrita però comentada (%):
+% per fer-la sortir al PDF, treu-li el %.
+\newcommand{\senseerrades}[1]{%
+  \medskip\noindent$\checkmark$\ \ \textbf{Revisats i sense errades:} #1.\par}

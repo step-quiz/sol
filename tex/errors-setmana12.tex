@@ -1,0 +1,123 @@
+% ============================================================
+%  Setmana 12 — Unitat 10 · Representació de funcions
+%  Exercicis: 75, 78, 88, 91, 41, 100
+% ============================================================
+
+\setmana{12}{Unitat 10 \textperiodcentered{} Representació de funcions}{6 de desembre de 2026}%
+        {75, 78, 88, 91, 41 i 100}
+
+\begin{errada}{Exercici 75 a), signe de la derivada}
+  \ondiu{«En $(-5,1)$, $y'>0$ $\rightarrow$ Funció decreixent»}
+  \hadedir{«En $(-5,1)$, $y'<0$ $\rightarrow$ Funció decreixent»}
+  \motiu{Entre les dues arrels la derivada és negativa: per exemple,
+    $y'(0)=-15$.}
+\end{errada}
+
+\begin{errada}{Exercici 75 a), màxim}
+  \ondiu{$x=-5 \;\rightarrow\; y=203 \;\rightarrow\; (-5,203)$ màxim}
+  \hadedir{$x=-5 \;\rightarrow\; y=103 \;\rightarrow\; (-5,103)$ màxim}
+  \motiu{$y(-5)=(-5)^3+6\cdot(-5)^2-15\cdot(-5)+3=-125+150+75+3=103$.}
+\end{errada}
+
+\begin{errada}{Exercici 75 b)}
+  \ondiu{$x=-\tfrac{1}{2} \rightarrow y=-6 \rightarrow
+    \left(-\tfrac{1}{2},-6\right)$ màxim;\quad
+    $x=-\tfrac{1}{2} \rightarrow y=6 \rightarrow
+    \left(-\tfrac{1}{2},6\right)$ mínim}
+  \hadedir{$x=-\tfrac{1}{2} \rightarrow y=-4 \rightarrow
+    \left(-\tfrac{1}{2},-4\right)$ màxim;\quad
+    $x=\tfrac{1}{2} \rightarrow y=4 \rightarrow
+    \left(\tfrac{1}{2},4\right)$ mínim}
+  \motiu{El numerador val $4\cdot\tfrac{1}{4}+1=2$ en tots dos punts, i
+    $2:\tfrac{1}{2}=4$. Per tant, $y\left(\tfrac{1}{2}\right)=4$ i
+    $y\left(-\tfrac{1}{2}\right)=-4$. A més, el mínim és a $x=\tfrac{1}{2}$,
+    no a $x=-\tfrac{1}{2}$.}
+\end{errada}
+
+\begin{errada}{Exercici 75 d)}
+  \ondiu{«$y'=4x^3-72x^2=0 \rightarrow x=0$. En $\R-\{0\}$, $y'<0$
+    $\rightarrow$ Funció decreixent»}
+  \hadedir{«$y'=4x^3-72x^2=0 \rightarrow x=0$, $x=18$.
+    En $(-\infty,0)\cup(0,18)$, $y'<0$ $\rightarrow$ Funció decreixent.
+    En $(18,+\infty)$, $y'>0$ $\rightarrow$ Funció creixent.
+    $x=18 \rightarrow y=-34\,992 \rightarrow (18,-34\,992)$ mínim»}
+  \motiu{$y'=4x^2(x-18)$ també s'anul·la en $x=18$, i allà passa de negativa a
+    positiva. En $x=0$ la derivada val $0$ però no canvia de signe: no hi ha
+    extrem.}
+\end{errada}
+
+\begin{errada}{Exercici 78 b), domini}
+  \ondiu{$\mathrm{Dom}=\R$}
+  \hadedir{$\mathrm{Dom}=\R-\{-2\}$}
+  \motiu{El denominador $x+2$ s'anul·la en $x=-2$.}
+\end{errada}
+
+\begin{errada}{Exercici 78 b), interval}
+  \ondiu{«En $(-\infty,2)$, $y''>0$ $\rightarrow$ Funció convexa»}
+  \hadedir{«En $(-\infty,-2)$, $y''>0$ $\rightarrow$ Funció convexa»}
+  \motiu{$y''=\dfrac{-8}{(x+2)^3}$ canvia de signe en $x=-2$: és positiva per a
+    $x<-2$ i negativa per a $x>-2$.}
+\end{errada}
+
+\begin{errada}{Exercici 78 d), derivada segona}
+  \ondiu{$y''=\dfrac{12x^2+4x}{(x^2-1)^3}\neq 0$}
+  \hadedir{$y''=\dfrac{12x^2+4}{(x^2-1)^3}\neq 0$}
+  \motiu{El numerador és $12x^2+4$, que no s'anul·la mai. Amb $4x$ s'anul·laria
+    en $x=0$, i la solució no podria dir que $y''\neq 0$.}
+\end{errada}
+
+\begin{errada}{Exercici 78 d), interval}
+  \ondiu{«En $(1,1)$, $y''<0$ $\rightarrow$ Funció còncava»}
+  \hadedir{«En $(-1,1)$, $y''<0$ $\rightarrow$ Funció còncava»}
+  \motiu{Entre $-1$ i $1$ el denominador $(x^2-1)^3$ és negatiu i el numerador
+    és positiu.}
+\end{errada}
+
+\begin{errada}{Exercici 41}
+  \ondiu{«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ creixent»}
+  \hadedir{«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ decreixent»}
+  \motiu{Si la derivada és negativa, la funció decreix. És el que es veu a la
+    gràfica de la mateixa solució, on les tres branques baixen.}
+\end{errada}
+
+\begin{errada}{Exercici 100 a)}
+  \ondiu{$y''=\dfrac{-1}{2(2-x)\sqrt{2-x}}<0$}
+  \hadedir{$y''=\dfrac{-1}{4(2-x)\sqrt{2-x}}<0$}
+  \motiu{De $y'=-\tfrac{1}{2}(2-x)^{-1/2}$ surt $y''=-\tfrac{1}{4}(2-x)^{-3/2}$.
+    La conclusió (funció còncava) no canvia.}
+\end{errada}
+
+\begin{errada}{Exercici 100 c), límit}
+  \ondiu{$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=1 \;\rightarrow\; m=-1$}
+  \hadedir{$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=-1 \;\rightarrow\; m=-1$}
+  \motiu{Quan $x\to-\infty$, el numerador és positiu i el denominador negatiu:
+    el límit és $-1$, que és el pendent $m$ que la solució fa servir.}
+\end{errada}
+
+\begin{errada}{Exercici 100 c), títol}
+  \ondiu{«Creixement i decreixement:» (a sobre de la derivada segona)}
+  \hadedir{«Concavitat i convexitat:»}
+  \motiu{El títol «Creixement i decreixement» hi surt dues vegades. La segona,
+    la que porta $y''$, és l'estudi de la curvatura.}
+\end{errada}
+
+\begin{errada}{Exercici 100 d)}
+  \ondiu{$y''=\dfrac{-1}{4(x+3)\sqrt{x+3}}>0$}
+  \hadedir{$y''=\dfrac{1}{4(x+3)\sqrt{x+3}}>0$}
+  \motiu{De $y'=-\tfrac{1}{2}(x+3)^{-1/2}$ surt $y''=\tfrac{1}{4}(x+3)^{-3/2}$,
+    que és positiva. La conclusió (funció convexa) és correcta.}
+\end{errada}
+
+%\senseerrades{88 i 91}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Una observació, que no és cap errada:\par\nopagebreak
+
+\begin{observacio}{Exercici 75 e)}
+  La solució estudia el creixement, però no diu l'extrem relatiu que demana
+  l'enunciat: hi ha un mínim a $(0,1)$.
+\end{observacio}
+\fi

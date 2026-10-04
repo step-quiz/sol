@@ -1,0 +1,60 @@
+% ============================================================
+%  Setmana 9 — Unitat 9 · Aplicacions de les derivades
+%  Exercicis: 30, 66, 67, 70
+% ============================================================
+
+\setmana{9}{Unitat 9 \textperiodcentered{} Aplicacions de les derivades}{15 de novembre de 2026}%
+        {30, 66, 67 i 70}
+
+\begin{errada}{Exercici 67 d)}
+  \ondiu{$y''=-\dfrac{6}{x^2}$}
+  \hadedir{$y''=-\dfrac{6}{x^4}$}
+  \motiu{Com que $y'=\dfrac{x^3+2}{x^3}=1+2x^{-3}$, la derivada segona és
+    $y''=-6x^{-4}$. La conclusió no canvia: $y''<0$ per a tot $x\neq 0$ i la
+    funció és còncava a $(-\infty,0)$ i a $(0,+\infty)$.}
+\end{errada}
+
+\begin{errada}{Exercici 67 f)}
+  \ondiu{«$y''>0$ a $(-\infty,-2)$ i a $(2,+\infty)$ $\rightarrow$ $y$ és
+    convexa a $(-\infty,-2)$ i a $(2,+\infty)$.»}
+  \hadedir{Aquestes dues línies sobren.}
+  \motiu{El domini de la funció és $[-2,2]$, com diu la mateixa solució: fora
+    d'aquest interval la funció no existeix i no té sentit parlar-ne de la
+    curvatura. La resposta és només que $y$ és còncava a $(-2,2)$.}
+\end{errada}
+
+\begin{errada}{Exercici 67 h)}
+  \ondiu{$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)}$}
+  \hadedir{$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)^2}$}
+  \motiu{En derivar el quocient, el denominador queda elevat al quadrat. El pas
+    següent de la solució ja el porta bé, perquè $x^2(x-1)^2=(x^2-x)^2$.}
+\end{errada}
+
+\begin{errada}{Exercici 67 n)}
+  \ondiu{$y''(x)>0$ a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$ i a
+    $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$;\quad
+    $y''(x)<0$ a $\left(-\tfrac{\pi}{2},-\tfrac{\pi}{4}\right)$}
+  \hadedir{$y''(x)>0$ a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$;\quad
+    $y''(x)<0$ a $\left(-\tfrac{\pi}{2},-\tfrac{\pi}{4}\right)$ i a
+    $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$}
+  \motiu{$y''=2\cos 2x$. A l'interval
+    $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$ l'angle $2x$ és entre
+    $\tfrac{\pi}{2}$ i $\pi$, on el cosinus és negatiu. Per tant, la funció és
+    convexa a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$ i còncava als
+    altres dos intervals.}
+\end{errada}
+
+%\senseerrades{30, 66 i 70}
+
+% ---------- Observacions (només surten amb \obstrue) ----------
+\ifobs
+\bigskip
+\noindent
+Una observació, que no és cap errada:\par\nopagebreak
+
+\begin{observacio}{Exercici 66 c) i d)}
+  Les respostes «Dos punts d'inflexió» i «$n-2$ punts d'inflexió» són el
+  nombre màxim. Un polinomi de quart grau en pot tenir dos o cap: per exemple,
+  $y=x^4$ no en té cap, perquè $y''=12x^2$ no canvia de signe.
+\end{observacio}
+\fi
