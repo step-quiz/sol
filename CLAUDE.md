@@ -29,6 +29,7 @@ Vegeu `README.md` i `TODO.md`.
 | `errades.js` | Errades del solucionari dels exercicis programats («On diu / Ha de dir / Motiu») i observacions. Clau `'uN/número'`. S'edita a mà |
 | `assets/katex/` | KaTeX 0.16.47: pinta les fórmules de `errades.js`. No s'hi toca res |
 | `marca.js` | Eina del professor per marcar on és una errada dins la imatge. Només es carrega amb `?tot=1&marca=1` |
+| `pegats/` | Trossos de pàgina ja corregits (PNG petits) que `tasca.html` posa a sobre de les imatges. Camp `pegat` de `errades.js` |
 | `index.html` | `UNITATS`: unitats i temes |
 | `publicats.js` | Vista per temes (antiga): tots els temes a `'cap'` |
 | `2Bat - Unitats i feina Classroom.xlsx` | Programació del curs (setmana, data límit, unitat, exercicis) |
@@ -66,5 +67,7 @@ Vegeu `README.md` i `TODO.md`.
 - El camp `marca` de cada errada diu on és dins la imatge (imatge i rectangle en tant per cent).
   Es calcula amb l'eina `tasca.html?tot=1&marca=1` (`marca.js`). Una marca mal posada és pitjor
   que cap marca: s'ha de comprovar sempre a la imatge ampliada.
+- Amb `ERRADES_PEGATS = true`, una errada amb `pegat` no s'anuncia: la imatge ja es veu corregida.
+  Les imatges originals no es toquen mai. Els pegats no es fan a mà.
 - Després de tocar el fitxer, obrir `tasca.html?tot=1#u7/s3` i comprovar que cap fórmula
   surt en vermell (KaTeX pinta en vermell el que no entén).

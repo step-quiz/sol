@@ -6,7 +6,7 @@
 <title>Tasca — Exercicis propis</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/katex/katex.min.css">
-<link rel="stylesheet" href="assets/style.css?v=6">
+<link rel="stylesheet" href="assets/style.css?v=7">
 </head>
 <body>
 
@@ -46,6 +46,7 @@
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <div class="lb-fig" id="lb-fig" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="" onclick="toggleZoom()">
+    <div id="lb-pegats"></div>
     <div id="lb-marques"></div>
   </div>
   <div class="lb-peu" id="lb-peu" hidden onclick="event.stopPropagation()">
@@ -69,7 +70,7 @@
 <script src="cataleg.js"></script>
 <script src="hints.js"></script>
 <script src="assets/katex/katex.min.js"></script>
-<script src="errades.js?v=2"></script>
+<script src="errades.js?v=3"></script>
 <script src="tasques.js"></script>
 <script src="progres.js"></script>
 <script>
@@ -86,6 +87,7 @@ let Y_LLISTA = 0;      // fins on s'havia baixat a la llista en obrir un exercic
    s'ha pogut carregar, la tasca es veu igualment, sense avisos. */
 const AMB_ERRADES = typeof htmlErrades === 'function';
 const AMB_MARQUES = AMB_ERRADES && typeof htmlMarques === 'function';   // les marques sobre la imatge (fase 2)
+const AMB_PEGATS  = AMB_ERRADES && typeof htmlPegats === 'function';    // els trossos ja corregits (fase 3)
 
 function render(){
   const id = location.hash.replace('#','');
@@ -197,15 +199,19 @@ function showExercise(r){
   wrap.innerHTML = f.i.map((p, i) => {
     const src = r.u + '/' + p;
     const quina = f.i.length > 1 ? 'Imatge ' + (i+1) + ' de ' + f.i.length : 'Enunciat i solució';
+    /* Els pegats: trossos de la pàgina ja corregits, a sobre de la imatge. Si
+       n'hi ha, no s'ofereix obrir la imatge sola, que sortiria sense corregir. */
+    const pegats = AMB_PEGATS ? htmlPegats(r.u, p) : '';
     return `
       <div class="page-fig">
         <img src="${src}" alt="Enunciat i solució de l'${esAct ? 'activitat' : 'exercici'} ${r.n}"
              onclick="openLightbox('${src}')">
+        ${pegats}
         ${AMB_MARQUES ? htmlMarques(r.u, r.n, p) : ''}
       </div>
       <div class="page-actions">
         <span class="page-fname">${quina}</span>
-        <a class="page-link" href="${src}" target="_blank">Obre la imatge en nova pestanya ↗</a>
+        ${pegats ? '' : `<a class="page-link" href="${src}" target="_blank">Obre la imatge en nova pestanya ↗</a>`}
       </div>`;
   }).join('');
 
@@ -229,6 +235,8 @@ function openLightbox(src, k){
   const lb = document.getElementById('lightbox');
   lb.classList.remove('zoomed');
   document.getElementById('lightbox-img').src = src;
+  document.getElementById('lb-pegats').innerHTML =
+      (AMB_PEGATS && ACTUAL) ? htmlPegats(ACTUAL.u, src.slice(ACTUAL.u.length + 1)) : '';
   document.getElementById('lb-marques').innerHTML =
       (AMB_MARQUES && ACTUAL) ? htmlMarques(ACTUAL.u, ACTUAL.n, src.slice(ACTUAL.u.length + 1)) : '';
   treuPeu();

@@ -58,6 +58,7 @@ cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
 hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
 errades.js      ← LES ERRADES DEL SOLUCIONARI (s'edita a mà)
 marca.js        ← eina del professor per marcar on és una errada (tasca.html?tot=1&marca=1)
+pegats/         ← trossos de pàgina ja corregits que es posen a sobre de les imatges (pegats/u7/...)
 progres.js      ← les creuetes de "fet" de l'alumne
 publicats.js    ← només governa la vista per temes (vegeu més avall)
 README.md
@@ -147,6 +148,8 @@ const ERRADES = {
   que és a `assets/katex/` (no depèn de cap servei extern). Hi ha definides
   `\dlim` i `\R`. Fora dels dòlars només s'entenen `\quad`, `\;` i `\,`.
 - **`enunciat: 1`** marca una errada que és a l'enunciat i no a la solució.
+- **`pegat`** és un tros de la pàgina ja corregit (un PNG petit de `pegats/<unitat>/`) que es posa
+  a sobre de la imatge, amb la posició en tant per cent. Vegeu *Els pegats*, més avall.
 - **`marca`** diu on és l'errada dins la imatge: la imatge (escrita com a
   `cataleg.js`) i un rectangle en tant per cent de la imatge
   (`marca: ['continuitat/data/full-3.png', 21.0, 74.5, 19.1, 2.1]`). És
@@ -180,13 +183,29 @@ l'errada (dos, si és en dos llocs), prem *Copia* i enganxa la línia dins de
 l'errada, a `errades.js`. L'eina (`marca.js`) no desa res: només calcula la
 línia. Els alumnes no la carreguen mai.
 
-### Els dos interruptors
+### Els pegats
+
+Amb `ERRADES_PEGATS = true`, una errada que té `pegat` **no s'anuncia enlloc**: ni etiqueta a la
+llista, ni targeta, ni requadre. L'alumne veu la pàgina corregida i prou. La imatge original no
+es toca: el pegat és un retall petit que el navegador hi posa a sobre.
+
+- Un pegat només canvia els signes equivocats. Estan fets amb signes copiats de la mateixa
+  pàgina (la lletra del llibre), i la resta de la línia són els píxels originals, desplaçats si cal.
+- Les errades d'enunciat s'anuncien igualment a la llista de la tasca, perquè el llibre de
+  l'alumne continua tenint l'errada.
+- A una imatge amb pegats no s'ofereix *Obre la imatge en nova pestanya*, que sortiria sense corregir.
+- Amb `ERRADES_PEGATS = false` tot torna a ser com abans: etiquetes, targetes i requadres vermells.
+- Els pegats no es poden fer a mà ni amb l'eina de marcar: surten d'un procés a part. Una
+  errada sense pegat es continua veient amb la seva targeta i el seu requadre.
+
+### Els interruptors
 
 A dalt de `errades.js`:
 
 ```js
 const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
+const ERRADES_PEGATS = true;   // true: on hi ha pegat, la imatge es veu corregida i l'errada no s'anuncia
 ```
 
 Les observacions (comentaris que no són errades, però que poden confondre)

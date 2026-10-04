@@ -20,6 +20,15 @@
      ondiu     el que hi ha imprès al solucionari
      hadedir   el que hi hauria de dir
      motiu     l'explicació. Només es veu si ERRADES_MOTIU és true.
+     pegat     un tros de la pàgina ja corregit, que es posa a sobre de la imatge:
+                 pegat: ['continuitat/data/full-2.png', 82.2, 7.4, 5.5, 1.7, '92-1a.png']
+               La imatge, el rectangle (en tant per cent, com a `marca`) i el
+               fitxer, que és a  pegats/<unitat>/ . Amb ERRADES_PEGATS encès,
+               una errada amb pegat no s'anuncia enlloc (ni avís ni targeta ni
+               requadre): l'alumne veu la pàgina corregida i prou. Les errades
+               d'enunciat s'anuncien igualment a la llista, perquè el llibre
+               de l'alumne continua tenint l'errada. Els pegats no es poden
+               fer a mà: surten d'un procés a part.
      enunciat  s'escriu  enunciat: 1  quan l'errada és a l'ENUNCIAT i no a la
                solució. Aquestes es mostren ja a la llista de la tasca,
                abans que l'alumne comenci l'exercici.
@@ -64,6 +73,7 @@
    false per true. */
 const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
+const ERRADES_PEGATS = true;   // true: on hi ha «pegat», la imatge es veu ja corregida i l'errada no s'anuncia
 
 const TEX = String.raw;        // no toquis aquesta línia
 
@@ -289,6 +299,7 @@ const ERRADES = {
     { ondiu:   TEX`$g(2)-4<0$`,
       hadedir: TEX`$g(2)=-4<0$`,
       motiu:   TEX`Hi falta el signe igual: $g(2)=3^{-2+2}-5=1-5=-4$. El teorema de Bolzano necessita que $g$ tingui signes diferents als extrems de l'interval, i els té: $g(0)=4>0$ i $g(2)=-4<0$.`,
+      pegat:   ['practica/data/full-4.png', 34.685, 26.513, 8.858, 1.513, '43-1a.png'],
       marca:   ['practica/data/full-4.png', 30.0, 26.3, 12.5, 2.2] },
   ],
 
@@ -297,6 +308,7 @@ const ERRADES = {
       ondiu:   TEX`$=\dlim_{x\to 3}\dfrac{(3-x)(3+x)}{(x-3)(x+2)} =\dlim_{x\to 3}\dfrac{3-x}{x+2}=0$`,
       hadedir: TEX`$=\dlim_{x\to 3}\dfrac{(3-x)(3+x)}{(x-3)(x+2)} =\dlim_{x\to 3}\dfrac{-(3+x)}{x+2}=-\dfrac{6}{5}$`,
       motiu:   TEX`Els factors que se simplifiquen són $3-x$ i $x-3$, que són oposats: $\dfrac{3-x}{x-3}=-1$. Queda $-\dfrac{3+x}{x+2}$, que en $x=3$ val $-\dfrac{6}{5}$.`,
+      pegat:   ['limits-punt/data/full-4.png', 83.278, 64.709, 10.348, 3.692, '76-1a.png'],
       marca:   ['limits-punt/data/full-4.png', 58.9, 64.5, 34.7, 4.3] },
   ],
 
@@ -305,11 +317,13 @@ const ERRADES = {
       ondiu:   TEX`$\dlim_{x\to 0^-} f(x)=\dlim_{x\to 0^+} f(x)=0{,}5$ \quad i \quad $f(2)=2{,}5$`,
       hadedir: TEX`$\dlim_{x\to 0^-} f(x)=\dlim_{x\to 0^+} f(x)=1$ \quad i \quad $f(2)=5$`,
       motiu:   TEX`A la gràfica de l'enunciat cada quadre és una unitat (a l'eix $Y$, el $2$ és a la segona marca): el punt buit és a alçada $1$ i la corba passa pel punt $(2,5)$. És la mateixa paràbola de l'apartat d), on el solucionari sí que llegeix $f(-1)=2$ i límit $5$ en $x=2$. La conclusió no canvia: discontinuïtat evitable en $x=0$ i funció contínua en $x=2$.`,
+      pegat:   [['continuitat/data/full-2.png', 82.202, 7.446, 5.546, 1.695, '92-1a.png'], ['continuitat/data/full-2.png', 81.788, 9.927, 3.394, 1.695, '92-1b.png'], ['continuitat/data/full-2.png', 67.715, 16.404, 12.169, 2.361, '92-1c.png']],
       marca:   [['continuitat/data/full-2.png', 61.9, 7.1, 23.6, 2.8], ['continuitat/data/full-2.png', 61.9, 16.2, 9.1, 2.2]] },
     { lloc:    TEX`e)`,
       ondiu:   TEX`«La funció no és contínua en $x=-2$; té una discontinuïtat de salt finit.»`,
       hadedir: TEX`«La funció no és contínua en $x=2$; té una discontinuïtat de salt finit.»`,
       motiu:   TEX`És la frase que tanca l'estudi del punt $x=2$, on $f(2)=3$ i els límits laterals valen $-1$ i $3$. El punt $x=-2$ ja s'ha estudiat abans, i hi ha un salt infinit.`,
+      pegat:   ['continuitat/data/full-2.png', 66.142, 78.632, 21.689, 1.755, '92-2a.png'],
       marca:   ['continuitat/data/full-2.png', 61.8, 76.5, 26.4, 5.8] },
   ],
 
@@ -318,11 +332,13 @@ const ERRADES = {
       ondiu:   TEX`contínua en el seu domini, $(-\infty,-2)\cup(2,+\infty)$`,
       hadedir: TEX`contínua en el seu domini, $(-\infty,-2]\cup[2,+\infty)$`,
       motiu:   TEX`La condició és $x^2-4\geq 0$, que també es compleix en $x=-2$ i en $x=2$: allà la funció existeix i val $\sqrt{0}=0$. La mateixa solució ho escriu bé just abans ($x\geq 2$, $x\leq -2$).`,
+      pegat:   ['continuitat/data/full-3.png', 29.47, 74.697, 10.017, 1.755, '93-1a.png'],
       marca:   ['continuitat/data/full-3.png', 21.0, 74.5, 19.1, 2.1] },
     { lloc:    TEX`g)`,
       ondiu:   TEX`$\dlim_{x\to 1} 2\,|x-1| = 0 = y(0)$`,
       hadedir: TEX`$\dlim_{x\to 1} 2\,|x-1| = 0 = y(1)$`,
       motiu:   TEX`El punt que s'estudia és $x=1$, i $y(1)=2\,|1-1|=0$. En canvi, $y(0)=2$.`,
+      pegat:   ['continuitat/data/full-3.png', 80.464, 23.426, 1.987, 1.634, '93-2a.png'],
       marca:   ['continuitat/data/full-3.png', 60.8, 22.9, 21.9, 3.1] },
   ],
 
@@ -331,16 +347,19 @@ const ERRADES = {
       ondiu:   TEX`$x^2-2x=3\neq 0$ per a qualsevol $x$ real`,
       hadedir: TEX`$x^2-2x+3\neq 0$ per a qualsevol $x$ real`,
       motiu:   TEX`El denominador és $x^2-2x+3$, i no s'anul·la mai perquè el discriminant és negatiu: $(-2)^2-4\cdot 1\cdot 3=-8<0$. Per això la funció és contínua en tot $\R$.`,
+      pegat:   ['continuitat/data/full-4.png', 18.626, 31.961, 28.311, 1.755, '94-1a.png'],
       marca:   ['continuitat/data/full-4.png', 11.2, 31.7, 33.0, 2.2] },
     { lloc:    TEX`e), punt $x=-3$`,
       ondiu:   TEX`«No existeix $\dlim_{x\to 3} f(x)$.»`,
       hadedir: TEX`«No existeix $\dlim_{x\to -3} f(x)$.»`,
       motiu:   TEX`Els dos límits laterals que s'acaben de calcular són els del punt $x=-3$.`,
+      pegat:   ['continuitat/data/full-4.png', 39.487, 92.373, 4.387, 1.09, '94-2a.png'],
       marca:   ['continuitat/data/full-4.png', 30.1, 90.9, 16.7, 2.8] },
     { lloc:    TEX`e), punt $x=1$`,
       ondiu:   TEX`«La funció té una discontinuïtat evitable en $x=3$.»`,
       hadedir: TEX`«La funció té una discontinuïtat evitable en $x=1$.»`,
       motiu:   TEX`El límit que s'ha calculat és el de $x\to 1$ (val $\tfrac{1}{8}$), i $x=1$ és el zero del denominador que se simplifica. En $x=3$ la funció és contínua.`,
+      pegat:   ['continuitat/data/full-4.png', 65.646, 15.981, 1.49, 1.513, '94-3a.png'],
       marca:   ['continuitat/data/full-4.png', 58.9, 13.7, 33.7, 3.9] },
   ],
 
@@ -348,6 +367,7 @@ const ERRADES = {
     { ondiu:   TEX`$\dlim_{x\to -1^-} f(x)=5$`,
       hadedir: TEX`$\dlim_{x\to -1^-} f(x)=-5$`,
       motiu:   TEX`Per a $x<-1$ la funció és $3x-2$, i $3\cdot(-1)-2=-5$. La conclusió no canvia: els límits laterals ($-5$ i $-4$) són diferents i en $x=-1$ hi ha una discontinuïtat de salt finit.`,
+      pegat:   ['continuitat/data/full-6.png', 69.371, 36.864, 3.56, 1.453, '102-1a.png'],
       marca:   ['continuitat/data/full-6.png', 58.1, 36.6, 12.9, 2.8] },
   ],
 
@@ -357,6 +377,7 @@ const ERRADES = {
     { ondiu:   TEX`«Els punts de tall de la funció amb els eixos són:»`,
       hadedir: TEX`«Els punts de tall de la recta tangent amb els eixos són:»`,
       motiu:   TEX`Els punts que es calculen a continuació, $(0,7)$ i $\left(\tfrac{7}{2},0\right)$, són els talls de la recta tangent $y=-2x+7$, que és la que forma el triangle amb els eixos. La funció $f$ talla els eixos en uns altres punts: $(0,-1)$ i $(-1,0)$.`,
+      pegat:   ['interpretacio-geometrica/data/full-5.png', 27.228, 42.469, 16.089, 1.914, '58-1a.png'],
       marca:   ['interpretacio-geometrica/data/full-5.png', 8.6, 42.3, 28.9, 4.0] },
   ],
 
@@ -366,6 +387,7 @@ const ERRADES = {
     { ondiu:   TEX`«A $x=$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»`,
       hadedir: TEX`«A $x=2$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»`,
       motiu:   TEX`Hi falta el valor de $x$. És l'últim dels quatre punts on la derivada val $0$ ($x=-4$, $x=-2$, $x=0$ i $x=2$), i a la gràfica $f'$ hi passa de positiva a negativa.`,
+      pegat:   ['creixement/data/full-2.png', 20.323, 87.988, 22.097, 1.829, '41-1a.png'],
       marca:   ['creixement/data/full-2.png', 13.0, 87.8, 29.4, 4.1] },
   ],
 
@@ -374,11 +396,13 @@ const ERRADES = {
       ondiu:   TEX`$y'(2)=80-60-20>0$`,
       hadedir: TEX`$y'(2)=80-60=20>0$`,
       motiu:   TEX`$y'(2)=5\cdot 2^4-15\cdot 2^2=80-60=20$. Tal com està imprès, $80-60-20$ valdria $0$.`,
+      pegat:   ['creixement/data/full-3.png', 26.532, 21.037, 8.468, 1.524, '42-1a.png'],
       marca:   ['creixement/data/full-3.png', 12.3, 20.9, 22.8, 2.1] },
     { lloc:    TEX`d), extrems relatius`,
       ondiu:   TEX`«Té màxims relatius a $x=-\sqrt{3}$, $x=\sqrt{3}$.»`,
       hadedir: TEX`«Té un màxim relatiu a $x=-\sqrt{3}$ i un mínim relatiu a $x=\sqrt{3}$.»`,
       motiu:   TEX`A $x=-\sqrt{3}$ la funció passa de créixer a decréixer (màxim), però a $x=\sqrt{3}$ passa de decréixer a créixer: hi ha un mínim. A $x=0$ la derivada també s'anul·la, però no canvia de signe i no hi ha extrem.`,
+      pegat:   ['creixement/data/full-3.png', 15.0, 32.073, 30.403, 3.72, '42-2a.png'],
       marca:   ['creixement/data/full-3.png', 12.3, 31.9, 17.8, 4.0] },
   ],
 
@@ -386,6 +410,7 @@ const ERRADES = {
     { ondiu:   TEX`«El signe de $y$ és constant.»`,
       hadedir: TEX`«El signe de $y'$ és constant.»`,
       motiu:   TEX`La que no s'anul·la mai i és contínua és la derivada $y'(x)=3x^2-4x+6$, i per això té signe constant (positiu, perquè $y'(0)=6>0$). La funció $y$ sí que canvia de signe: per exemple, $y(0)=-13$ i $y(3)=14$.`,
+      pegat:   ['creixement/data/full-7.png', 42.339, 59.085, 3.79, 1.585, '51-1a.png'],
       marca:   [['creixement/data/full-7.png', 27.7, 58.9, 17.8, 2.2], ['creixement/data/full-7.png', 9.7, 61.0, 8.6, 1.8]] },
   ],
 
@@ -394,6 +419,7 @@ const ERRADES = {
       ondiu:   TEX`$y'(x)=0 \;\rightarrow\; a=\pm 2$`,
       hadedir: TEX`$y'(x)=0 \;\rightarrow\; x=\pm 2$`,
       motiu:   TEX`El que es resol és $3x^2-12=0$, i la incògnita és $x$. El paràmetre $a$ ja s'ha trobat a l'apartat a) i val $-12$.`,
+      pegat:   ['creixement/data/full-8.png', 71.774, 63.476, 7.258, 1.524, '58-1a.png'],
       marca:   ['creixement/data/full-8.png', 60.5, 63.3, 18.9, 2.1] },
   ],
 
@@ -402,16 +428,19 @@ const ERRADES = {
       ondiu:   TEX`$y''=-\dfrac{6}{x^2}$`,
       hadedir: TEX`$y''=-\dfrac{6}{x^4}$`,
       motiu:   TEX`Com que $y'=\dfrac{x^3+2}{x^3}=1+2x^{-3}$, la derivada segona és $y''=-6x^{-4}$. La conclusió no canvia: $y''<0$ per a tot $x\neq 0$ i la funció és còncava a $(-\infty,0)$ i a $(0,+\infty)$.`,
+      pegat:   ['concavitat/data/full-2.png', 22.984, 69.695, 2.016, 1.402, '67-1a.png'],
       marca:   ['concavitat/data/full-2.png', 12.6, 68.0, 12.7, 3.9] },
     { lloc:    TEX`f)`,
       ondiu:   TEX`«$y''>0$ a $(-\infty,-2)$ i a $(2,+\infty)$ $\rightarrow$ $y$ és convexa a $(-\infty,-2)$ i a $(2,+\infty)$.»`,
       hadedir: TEX`Aquestes dues línies sobren.`,
       motiu:   TEX`El domini de la funció és $[-2,2]$, com diu la mateixa solució: fora d'aquest interval la funció no existeix i no té sentit parlar-ne de la curvatura. La resposta és només que $y$ és còncava a $(-2,2)$.`,
+      pegat:   ['concavitat/data/full-2.png', 58.871, 15.61, 29.435, 5.671, '67-2a.png'],
       marca:   ['concavitat/data/full-2.png', 58.5, 15.4, 30.1, 6.0] },
     { lloc:    TEX`h)`,
       ondiu:   TEX`$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)}$`,
       hadedir: TEX`$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)^2}$`,
       motiu:   TEX`En derivar el quocient, el denominador queda elevat al quadrat. El pas següent de la solució ja el porta bé, perquè $x^2(x-1)^2=(x^2-x)^2$.`,
+      pegat:   ['concavitat/data/full-2.png', 80.887, 45.366, 1.129, 1.037, '67-3a.png'],
       marca:   ['concavitat/data/full-2.png', 59.0, 43.2, 31.0, 4.2] },
     { lloc:    TEX`n)`,
       ondiu:   TEX`$y''(x)>0$ a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$ i a $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$;\quad $y''(x)<0$ a $\left(-\tfrac{\pi}{2},-\tfrac{\pi}{4}\right)$`,
@@ -426,6 +455,7 @@ const ERRADES = {
     { ondiu:   TEX`«$f'(x)>0$ en $(-\infty,-2)\cup(2,6)$» \; i \; «$f'(x)<0$ en $(-2,2)\cup(6,+\infty)$»`,
       hadedir: TEX`«$f'(x)>0$ en $(-\infty,x_1)\cup(x_2,x_3)$» \; i \; «$f'(x)<0$ en $(x_1,x_2)\cup(x_3,+\infty)$»`,
       motiu:   TEX`El signe de $f'$ canvia als punts on la gràfica talla l'eix $X$, que l'enunciat anomena $x_1$, $x_2$ i $x_3$ i que la mateixa solució fa servir a la línia següent. A la gràfica, $x_1$ és entre $-2$ i $-1$ i $x_3$ entre $5$ i $6$: no són $-2$ ni $6$.`,
+      pegat:   [['practica/data/full-2.png', 23.553, 87.925, 13.023, 1.699, '37-1a.png'], ['practica/data/full-2.png', 18.891, 92.233, 17.363, 1.76, '37-1b.png']],
       marca:   [['practica/data/full-2.png', 8.4, 87.7, 28.1, 2.1], ['practica/data/full-2.png', 8.4, 92.0, 28.1, 2.1]] },
   ],
 
@@ -434,6 +464,7 @@ const ERRADES = {
       ondiu:   TEX`«Creixement: $(-\infty,0)\cup(2\;-\infty)$.»`,
       hadedir: TEX`«Creixement: $(-\infty,0)\cup(2,+\infty)$.»`,
       motiu:   TEX`És una errada de l'enunciat. La funció creix abans del màxim $(0,0)$ i després del mínim $(2,4)$, com es veu a la gràfica de la solució.`,
+      pegat:   ['practica/data/full-2.png', 79.019, 26.76, 6.19, 1.699, '38-1a.png'],
       marca:   ['practica/data/full-2.png', 54.6, 26.5, 30.1, 2.1] },
   ],
 
@@ -441,6 +472,7 @@ const ERRADES = {
     { ondiu:   TEX`«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ creixent»`,
       hadedir: TEX`«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ decreixent»`,
       motiu:   TEX`Si la derivada és negativa, la funció decreix. És el que es veu a la gràfica de la mateixa solució, on les tres branques baixen.`,
+      pegat:   ['practica/data/full-4.png', 34.968, 49.211, 9.084, 1.578, '41-1a.png'],
       marca:   ['practica/data/full-4.png', 10.3, 48.0, 32.0, 4.2] },
   ],
 
@@ -449,6 +481,7 @@ const ERRADES = {
       ondiu:   TEX`$\mathrm{Dom}\,f=\R-\{3\}$`,
       hadedir: TEX`$\mathrm{Dom}\,f=\R-\{-3\}$`,
       motiu:   TEX`El denominador és $x+3$, que s'anul·la en $x=-3$.`,
+      pegat:   ['domini-recorregut/data/full-1.png', 73.071, 46.177, 4.019, 1.76, '45-1a.png'],
       marca:   ['domini-recorregut/data/full-1.png', 57.7, 46.0, 17.6, 2.1] },
   ],
 
@@ -457,11 +490,13 @@ const ERRADES = {
       ondiu:   TEX`$\dlim_{x\to-\infty}\,(x^4+2x^3-2x-1)=-\infty$`,
       hadedir: TEX`$\dlim_{x\to-\infty}\,(x^4+2x^3-2x-1)=+\infty$`,
       motiu:   TEX`El terme dominant és $x^4$, que és positiu tant si $x\to-\infty$ com si $x\to+\infty$.`,
+      pegat:   ['asimptotes/data/full-2.png', 37.379, 32.16, 4.421, 1.456, '62-1a.png'],
       marca:   ['asimptotes/data/full-2.png', 11.6, 31.8, 29.9, 2.8] },
     { lloc:    TEX`d)`,
       ondiu:   TEX`$\dlim_{x\to+\infty}\,(-2x^4+3x^2-x-1)=+\infty$`,
       hadedir: TEX`$\dlim_{x\to+\infty}\,(-2x^4+3x^2-x-1)=-\infty$`,
       motiu:   TEX`El terme dominant és $-2x^4$, que tendeix a $-\infty$ tant si $x\to-\infty$ com si $x\to+\infty$.`,
+      pegat:   ['asimptotes/data/full-2.png', 39.309, 39.745, 3.859, 1.456, '62-2a.png'],
       marca:   ['asimptotes/data/full-2.png', 14.1, 39.4, 29.2, 2.7] },
   ],
 
@@ -478,16 +513,19 @@ const ERRADES = {
       ondiu:   TEX`«En $(-5,1)$, $y'>0$ $\rightarrow$ Funció decreixent»`,
       hadedir: TEX`«En $(-5,1)$, $y'<0$ $\rightarrow$ Funció decreixent»`,
       motiu:   TEX`Entre les dues arrels la derivada és negativa: per exemple, $y'(0)=-15$.`,
+      pegat:   ['creixement/data/full-1.png', 24.196, 71.056, 5.707, 1.396, '75-1a.png'],
       marca:   ['creixement/data/full-1.png', 12.3, 70.8, 18.3, 3.8] },
     { lloc:    TEX`a), màxim`,
       ondiu:   TEX`$x=-5 \;\rightarrow\; y=203 \;\rightarrow\; (-5,203)$ màxim`,
       hadedir: TEX`$x=-5 \;\rightarrow\; y=103 \;\rightarrow\; (-5,103)$ màxim`,
       motiu:   TEX`$y(-5)=(-5)^3+6\cdot(-5)^2-15\cdot(-5)+3=-125+150+75+3=103$.`,
+      pegat:   ['creixement/data/full-1.png', 25.804, 75.425, 19.534, 1.517, '75-2a.png'],
       marca:   ['creixement/data/full-1.png', 12.1, 75.2, 33.8, 2.2] },
     { lloc:    TEX`b)`,
       ondiu:   TEX`$x=-\tfrac{1}{2} \rightarrow y=-6 \rightarrow \left(-\tfrac{1}{2},-6\right)$ màxim;\quad $x=-\tfrac{1}{2} \rightarrow y=6 \rightarrow \left(-\tfrac{1}{2},6\right)$ mínim`,
       hadedir: TEX`$x=-\tfrac{1}{2} \rightarrow y=-4 \rightarrow \left(-\tfrac{1}{2},-4\right)$ màxim;\quad $x=\tfrac{1}{2} \rightarrow y=4 \rightarrow \left(\tfrac{1}{2},4\right)$ mínim`,
       motiu:   TEX`El numerador val $4\cdot\tfrac{1}{4}+1=2$ en tots dos punts, i $2:\tfrac{1}{2}=4$. Per tant, $y\left(\tfrac{1}{2}\right)=4$ i $y\left(-\tfrac{1}{2}\right)=-4$. A més, el mínim és a $x=\tfrac{1}{2}$, no a $x=-\tfrac{1}{2}$.`,
+      pegat:   [['creixement/data/full-1.png', 89.068, 6.25, 3.778, 1.456, '75-3a.png'], ['creixement/data/full-1.png', 68.248, 12.439, 8.521, 2.791, '75-3b.png'], ['creixement/data/full-1.png', 62.46, 15.959, 27.412, 8.192, '75-3c.png'], ['creixement/data/full-1.png', 61.897, 24.575, 12.54, 4.005, '75-3d.png']],
       marca:   ['creixement/data/full-1.png', 58.4, 2.4, 35.0, 26.3] },
     { lloc:    TEX`d)`,
       ondiu:   TEX`«$y'=4x^3-72x^2=0 \rightarrow x=0$. En $\R-\{0\}$, $y'<0$ $\rightarrow$ Funció decreixent»`,
@@ -501,21 +539,25 @@ const ERRADES = {
       ondiu:   TEX`$\mathrm{Dom}=\R$`,
       hadedir: TEX`$\mathrm{Dom}=\R-\{-2\}$`,
       motiu:   TEX`El denominador $x+2$ s'anul·la en $x=-2$.`,
+      pegat:   ['concavitat/data/full-1.png', 21.383, 54.248, 6.27, 1.699, '78-1a.png'],
       marca:   ['concavitat/data/full-1.png', 9.7, 54.1, 11.7, 1.9] },
     { lloc:    TEX`b), interval`,
       ondiu:   TEX`«En $(-\infty,2)$, $y''>0$ $\rightarrow$ Funció convexa»`,
       hadedir: TEX`«En $(-\infty,-2)$, $y''>0$ $\rightarrow$ Funció convexa»`,
       motiu:   TEX`$y''=\dfrac{-8}{(x+2)^3}$ canvia de signe en $x=-2$: és positiva per a $x<-2$ i negativa per a $x>-2$.`,
+      pegat:   ['concavitat/data/full-1.png', 20.338, 66.505, 12.621, 1.76, '78-2a.png'],
       marca:   ['concavitat/data/full-1.png', 12.3, 66.3, 19.1, 3.7] },
     { lloc:    TEX`d), derivada segona`,
       ondiu:   TEX`$y''=\dfrac{12x^2+4x}{(x^2-1)^3}\neq 0$`,
       hadedir: TEX`$y''=\dfrac{12x^2+4}{(x^2-1)^3}\neq 0$`,
       motiu:   TEX`El numerador és $12x^2+4$, que no s'anul·la mai. Amb $4x$ s'anul·laria en $x=0$, i la solució no podria dir que $y''\neq 0$.`,
+      pegat:   ['concavitat/data/full-1.png', 64.148, 45.085, 8.682, 2.124, '78-3a.png'],
       marca:   ['concavitat/data/full-1.png', 58.4, 45.4, 21.7, 4.2] },
     { lloc:    TEX`d), interval`,
       ondiu:   TEX`«En $(1,1)$, $y''<0$ $\rightarrow$ Funció còncava»`,
       hadedir: TEX`«En $(-1,1)$, $y''<0$ $\rightarrow$ Funció còncava»`,
       motiu:   TEX`Entre $-1$ i $1$ el denominador $(x^2-1)^3$ és negatiu i el numerador és positiu.`,
+      pegat:   ['concavitat/data/full-1.png', 61.897, 56.493, 28.055, 1.82, '78-4a.png'],
       marca:   ['concavitat/data/full-1.png', 58.5, 56.3, 29.8, 2.2] },
   ],
 
@@ -524,11 +566,13 @@ const ERRADES = {
       ondiu:   TEX`$f\left(\tfrac{2}{3}\right)=\dfrac{26}{27} \;\rightarrow\; \left(\tfrac{2}{3},\tfrac{26}{27}\right)$ punt d'inflexió`,
       hadedir: TEX`$f\left(\tfrac{2}{3}\right)=\dfrac{20}{27} \;\rightarrow\; \left(\tfrac{2}{3},\tfrac{20}{27}\right)$ punt d'inflexió`,
       motiu:   TEX`$f\left(\tfrac{2}{3}\right)=\tfrac{8}{27}-\tfrac{24}{27}-\tfrac{18}{27} +\tfrac{54}{27}=\tfrac{20}{27}$.`,
+      pegat:   [['representacio/data/full-3.png', 73.633, 47.451, 1.447, 1.517, '84-1a.png'], ['representacio/data/full-3.png', 69.775, 51.456, 1.447, 1.517, '84-1b.png']],
       marca:   ['representacio/data/full-3.png', 50.3, 47.1, 34.8, 8.3] },
     { lloc:    TEX`g)`,
       ondiu:   TEX`«$f''(x)=-2>0$ \; $\forall x\in\R$»`,
       hadedir: TEX`«$f''(x)=-2<0$ \; $\forall x\in\R$»`,
       motiu:   TEX`$-2$ és negatiu, i per això la funció és còncava, com diu la mateixa solució.`,
+      pegat:   ['representacio/data/full-5.png', 26.608, 12.257, 14.228, 1.638, '84-2a.png'],
       marca:   ['representacio/data/full-5.png', 15.9, 12.1, 25.2, 2.1] },
   ],
 
@@ -537,21 +581,25 @@ const ERRADES = {
       ondiu:   TEX`$y''=\dfrac{-1}{2(2-x)\sqrt{2-x}}<0$`,
       hadedir: TEX`$y''=\dfrac{-1}{4(2-x)\sqrt{2-x}}<0$`,
       motiu:   TEX`De $y'=-\tfrac{1}{2}(2-x)^{-1/2}$ surt $y''=-\tfrac{1}{4}(2-x)^{-3/2}$. La conclusió (funció còncava) no canvia.`,
+      pegat:   ['altres-funcions/data/full-1.png', 19.855, 79.369, 13.666, 1.456, '100-1a.png'],
       marca:   ['altres-funcions/data/full-1.png', 14.0, 77.0, 26.9, 4.2] },
     { lloc:    TEX`c), límit`,
       ondiu:   TEX`$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=1 \;\rightarrow\; m=-1$`,
       hadedir: TEX`$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=-1 \;\rightarrow\; m=-1$`,
       motiu:   TEX`Quan $x\to-\infty$, el numerador és positiu i el denominador negatiu: el límit és $-1$, que és el pendent $m$ que la solució fa servir.`,
+      pegat:   ['altres-funcions/data/full-2.png', 31.511, 25.789, 13.344, 1.396, '100-2a.png'],
       marca:   ['altres-funcions/data/full-2.png', 15.9, 24.0, 27.5, 4.4] },
     { lloc:    TEX`c), títol`,
       ondiu:   TEX`«Creixement i decreixement:» (a sobre de la derivada segona)`,
       hadedir: TEX`«Concavitat i convexitat:»`,
       motiu:   TEX`El títol «Creixement i decreixement» hi surt dues vegades. La segona, la que porta $y''$, és l'estudi de la curvatura.`,
+      pegat:   ['altres-funcions/data/full-2.png', 16.399, 66.201, 22.91, 1.638, '100-3a.png'],
       marca:   ['altres-funcions/data/full-2.png', 14.1, 66.0, 25.6, 1.9] },
     { lloc:    TEX`d)`,
       ondiu:   TEX`$y''=\dfrac{-1}{4(x+3)\sqrt{x+3}}>0$`,
       hadedir: TEX`$y''=\dfrac{1}{4(x+3)\sqrt{x+3}}>0$`,
       motiu:   TEX`De $y'=-\tfrac{1}{2}(x+3)^{-1/2}$ surt $y''=\tfrac{1}{4}(x+3)^{-3/2}$, que és positiva. La conclusió (funció convexa) és correcta.`,
+      pegat:   ['altres-funcions/data/full-2.png', 73.312, 46.42, 3.135, 1.396, '100-4a.png'],
       marca:   ['altres-funcions/data/full-2.png', 62.1, 46.2, 26.9, 4.2] },
   ],
 
@@ -560,16 +608,19 @@ const ERRADES = {
       ondiu:   TEX`«Eix $Y$: $f(0)=0 \;\rightarrow\; (0,6)$»`,
       hadedir: TEX`«Eix $Y$: $f(0)=6 \;\rightarrow\; (0,6)$»`,
       motiu:   TEX`Per a $x>-2$ la funció és $6-x^2$, i $f(0)=6$. El punt $(0,6)$ ja és correcte.`,
+      pegat:   ['trossos/data/full-2.png', 26.768, 22.694, 8.682, 1.578, '108-1a.png'],
       marca:   ['trossos/data/full-2.png', 16.0, 22.5, 19.8, 2.1] },
     { lloc:    TEX`c), continuïtat`,
       ondiu:   TEX`$\dlim_{x\to-2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$`,
       hadedir: TEX`$\dlim_{x\to 2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$`,
       motiu:   TEX`El punt que s'estudia és $x=2$, on canvia l'expressió de la funció.`,
+      pegat:   ['trossos/data/full-2.png', 62.379, 6.493, 4.662, 1.032, '108-2a.png'],
       marca:   ['trossos/data/full-2.png', 62.1, 4.9, 26.5, 2.8] },
     { lloc:    TEX`c), derivada segona`,
       ondiu:   TEX`$\dfrac{14}{(x-1)^3}$ \; si \; $x<2$`,
       hadedir: TEX`$\dfrac{14}{(x-1)^3}$ \; si \; $x>2$`,
       motiu:   TEX`És la derivada segona del tercer tros, $\dfrac{7}{x-1}$, que és el de $x>2$.`,
+      pegat:   ['trossos/data/full-2.png', 84.486, 93.507, 3.778, 1.517, '108-3a.png'],
       marca:   ['trossos/data/full-2.png', 68.7, 92.3, 19.8, 4.2] },
     { lloc:    TEX`d)`,
       ondiu:   TEX`«$2-3\cos x=0 \;\rightarrow\; x=\arccos\left(\tfrac{2}{3}\right) \;\rightarrow\; \left(\arccos\left(\tfrac{2}{3}\right),0\right)$»`,
@@ -829,7 +880,7 @@ const _ICONA_AVIS = '<svg class="err-ico" viewBox="0 0 24 24" aria-hidden="true"
    d'enunciat es mostren senceres allà mateix (vegeu htmlErradesEnunciat).
    Cadena buida si la solució no té cap errada. */
 function avisErrades(u, n){
-  const k = erradesDe(u, n).filter(e => !e.enunciat).length;
+  const k = erradesDe(u, n).filter(e => !e.enunciat && !_callada(e)).length;
   if(!k) return '';
   return k === 1 ? '1 errada al solucionari' : k + ' errades al solucionari';
 }
@@ -963,6 +1014,52 @@ function _filaErrada(classe, etiqueta, text){
 
 /* Les marques d'una errada: llista de {img, x, y, w, h}, en percentatges de
    la imatge. Accepta un rectangle sol o una llista de rectangles. */
+/* ── Els pegats ─────────────────────────────────────────────────────────
+   Trossos de la pàgina ja corregits que es posen a sobre de la imatge. */
+
+/* Els pegats d'una errada, sempre com a llista de {img, x, y, w, h, f}. */
+function pegatsDe(e){
+  const p = e && e.pegat;
+  if(!Array.isArray(p) || !p.length) return [];
+  return (Array.isArray(p[0]) ? p : [p])
+    .filter(r => r && r.length >= 6)
+    .map(r => ({img: r[0], x: +r[1], y: +r[2], w: +r[3], h: +r[4], f: r[5]}));
+}
+
+/* Una errada «callada»: la imatge ja es veu corregida i no cal anunciar-la. */
+function _callada(e){
+  return ERRADES_PEGATS && pegatsDe(e).length > 0;
+}
+
+/* El número que porta una errada: la seva posició entre les que s'anuncien. */
+function _numero(errs, k){
+  let n = 0;
+  for(let i = 0; i <= k; i++) if(!_callada(errs[i])) n++;
+  return n;
+}
+
+/* Tots els pegats que van sobre una imatge (`img`, escrita com a cataleg.js),
+   siguin de l'exercici que siguin: la pàgina s'ha de veure corregida es miri
+   des d'on es miri. Cadena buida si no n'hi ha o si l'interruptor és apagat. */
+let _PEGATS_PER_IMATGE = null;
+function htmlPegats(u, img){
+  if(!ERRADES_PEGATS) return '';
+  if(!_PEGATS_PER_IMATGE){
+    _PEGATS_PER_IMATGE = {};
+    Object.keys(ERRADES).forEach(clau => {
+      const un = clau.split('/')[0];
+      ERRADES[clau].forEach(e => pegatsDe(e).forEach(q => {
+        const k = un + '/' + q.img;
+        (_PEGATS_PER_IMATGE[k] = _PEGATS_PER_IMATGE[k] || []).push('<img class="pegat" alt="" src="pegats/' + un + '/' + q.f
+          + '" style="left:' + q.x + '%;top:' + q.y + '%;width:' + q.w + '%;height:' + q.h + '%">');
+      }));
+    });
+  }
+  return (_PEGATS_PER_IMATGE[u + '/' + img] || []).join('');
+}
+
+/* ── Les marques ──────────────────────────────────────────────────────── */
+
 function marquesDe(e){
   const m = e && e.marca;
   if(!m || !m.length) return [];
@@ -976,12 +1073,15 @@ function marquesDe(e){
    errada, el mateix que la targeta. */
 function htmlMarques(u, n, img){
   let h = '';
-  erradesDe(u, n).forEach((e, k) => {
+  const errs = erradesDe(u, n);
+  errs.forEach((e, k) => {
+    if(_callada(e)) return;
+    const num = _numero(errs, k);
     marquesDe(e).forEach(r => {
       if(r.img !== img) return;
       h += '<button type="button" class="marca" data-k="' + k + '" style="left:' + r.x + '%;top:' + r.y
-         + '%;width:' + r.w + '%;height:' + r.h + '%" aria-label="Errada ' + (k + 1)
-         + ': amplia la imatge i mostra la correcció"><span class="marca-num">' + (k + 1) + '</span></button>';
+         + '%;width:' + r.w + '%;height:' + r.h + '%" aria-label="Errada ' + num
+         + ': amplia la imatge i mostra la correcció"><span class="marca-num">' + num + '</span></button>';
     });
   });
   return h;
@@ -992,14 +1092,14 @@ function htmlMarques(u, n, img){
    perquè ja ho diu el títol del bloc. `k` és la posició de l'errada dins de
    l'exercici: si es passa i l'errada té marca a la imatge, la targeta porta
    el mateix número que el requadre i un botó per anar-hi. */
-function _htmlErrada(e, senseEnunciat, k){
+function _htmlErrada(e, senseEnunciat, k, num){
   let lloc = _llocAHtml(e.lloc);
   if(e.enunciat && !senseEnunciat) lloc = 'Enunciat' + (lloc ? ' · ' + lloc : '');
   const ambMarca = k !== undefined && k !== null && marquesDe(e).length > 0;
   let h = '<div class="err-card"' + (ambMarca ? ' data-k="' + k + '"' : '') + '>';
   if(lloc || ambMarca){
     h += '<div class="err-lloc">'
-       + (ambMarca ? '<span class="err-num" aria-hidden="true">' + (k + 1) + '</span>' : '')
+       + (ambMarca ? '<span class="err-num" aria-hidden="true">' + (num || k + 1) + '</span>' : '')
        + '<span class="err-lloc-text">' + lloc + '</span>'
        + (ambMarca ? '<button type="button" class="err-veure" data-k="' + k + '">Mostra-ho a la imatge</button>' : '')
        + '</div>';
@@ -1016,7 +1116,7 @@ function htmlErradaSola(u, n, k){
   if(!e) return '';
   let lloc = _llocAHtml(e.lloc);
   if(e.enunciat) lloc = 'Enunciat' + (lloc ? ' · ' + lloc : '');
-  let h = '<div class="err-lloc"><span class="err-num" aria-hidden="true">' + (k + 1) + '</span>'
+  let h = '<div class="err-lloc"><span class="err-num" aria-hidden="true">' + _numero(erradesDe(u, n), k) + '</span>'
         + '<span class="err-lloc-text">' + (lloc || 'Errada del solucionari') + '</span></div>';
   h += _filaErrada('err-et-on', 'On diu', e.ondiu);
   h += _filaErrada('err-et-ha', 'Ha de dir', e.hadedir);
@@ -1042,7 +1142,8 @@ function _titolBloc(text){
 /* El bloc que surt dins de l'exercici, abans de la imatge: totes les errades
    i, si l'interruptor és encès, les observacions. Cadena buida si no hi ha res. */
 function htmlErrades(u, n){
-  const errs = erradesDe(u, n);
+  const totes = erradesDe(u, n);
+  const errs = totes.filter(e => !_callada(e));          // les que tenen pegat ja es veuen corregides: no s'anuncien
   const obs  = observacionsDe(u, n);
   let h = '';
   if(errs.length){
@@ -1051,7 +1152,7 @@ function htmlErrades(u, n){
                 : k === 0           ? 'El solucionari té ' + _quantes(errs.length) + ' en aquest exercici'
                 :                     'Aquest exercici té ' + _quantes(errs.length);
     h += '<div class="err-panel" role="note">' + _titolBloc(titol)
-       + errs.map((e, i) => _htmlErrada(e, k === errs.length, i)).join('')
+       + errs.map(e => _htmlErrada(e, k === errs.length, totes.indexOf(e), _numero(totes, totes.indexOf(e)))).join('')
        + '</div>';
   }
   if(obs.length){

@@ -141,6 +141,11 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
   .err-punt{font-size:.9091em;}
 }
 
+/* Pegats: trossos de la pàgina ja corregits, posats a sobre de la imatge. No es noten ni es poden tocar
+   (el clic passa a la imatge de sota). La mida i la posició venen en tant per cent, a cada pegat. */
+.page-fig img.pegat,.lightbox img.pegat{position:absolute;display:block;max-width:none;max-height:none;border-radius:0;
+  pointer-events:none;-webkit-user-select:none;user-select:none;}
+
 /* Lightbox */
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;
   align-items:center;justify-content:center;padding:16px;cursor:zoom-out;}
