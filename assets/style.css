@@ -2,6 +2,7 @@
   --bg:#f8fafc; --surface:#ffffff; --border:#cbd5e1;
   --txt:#1e293b; --muted:#64748b; --accent:#3b82f6; --hd-bg:#1e293b;
   --ana:#7c5cbf; --ana-tint:rgba(124,92,191,.07);
+  --err:#b42318; --err-tint:#fef3f2; --err-border:#f1b4ad; --ok:#166534;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Libre Baskerville',Georgia,serif;background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:68px;}
@@ -55,7 +56,7 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .done-btn:hover{border-color:#000;}
 
 .pista-wrap{flex:1 1 100%;margin-top:11px;padding-top:11px;border-top:1px dashed var(--border);}
-.ex-botons{display:flex;flex-wrap:wrap;gap:10px;}
+.ex-botons{display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
 .pista-btn,.sol-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Libre Baskerville',serif;font-size:.78rem;
   padding:6px 14px;min-height:44px;border-radius:6px;cursor:pointer;border:1px solid var(--ana);background:none;color:var(--ana);
   transition:background .15s,color .15s;}
@@ -74,11 +75,86 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
   padding:5px 10px;border:1px solid var(--accent);border-radius:3px;transition:background .15s,color .15s;}
 .page-link:hover{background:var(--accent);color:#fff;}
 
+/* Errades del solucionari (errades.js)
+   El vermell només es fa servir aquí: a la web, vermell vol dir «errada del solucionari». */
+.err-ico{width:1.05em;height:1.05em;flex-shrink:0;}
+
+/* L'avís de la llista de la tasca */
+/* Va al costat del botó «Veure solució». És una etiqueta, no un botó: més petita i sense el contorn d'un botó. */
+.ex-err{display:inline-flex;align-items:center;gap:6px;font-family:'Libre Baskerville',Georgia,serif;font-size:.74rem;font-weight:700;
+  line-height:1.35;color:var(--err);background:var(--err-tint);border:1px solid var(--err-border);border-radius:3px;padding:4px 9px;
+  cursor:default;}
+
+/* El bloc d'errades: un títol i una targeta per errada */
+.err-panel{border:1px solid var(--err-border);background:var(--err-tint);border-radius:6px;padding:12px 14px 14px;
+  margin-bottom:14px;cursor:default;}
+.err-cap{display:flex;align-items:flex-start;gap:8px;font-size:.86rem;font-weight:700;line-height:1.4;color:var(--err);}
+.err-cap .err-ico{margin-top:.17em;}
+.err-card{background:var(--surface);border:1px solid var(--err-border);border-radius:6px;padding:5px 14px;margin-top:10px;}
+.err-lloc{display:flex;align-items:center;flex-wrap:wrap;gap:6px 9px;font-size:.82rem;font-weight:700;line-height:1.4;padding-top:6px;}
+.err-lloc-text{flex:1 1 auto;min-width:0;}
+/* El número lliga la targeta amb el seu requadre a la imatge. */
+.err-num,.marca-num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;
+  background:var(--err);color:#fff;font-family:'Source Code Pro',monospace;font-size:.72rem;font-weight:700;line-height:1;flex-shrink:0;}
+.err-veure{font-family:'Source Code Pro',monospace;font-size:.7rem;color:var(--err);background:none;border:1px solid var(--err-border);
+  border-radius:3px;padding:6px 11px;min-height:36px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
+.err-veure:hover{background:var(--err);border-color:var(--err);color:#fff;}
+.err-veure:focus-visible,.marca:focus-visible,.lb-tanca:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+/* «On diu» i «Ha de dir», un sota l'altre i amb el text alineat, perquè la diferència es vegi d'un cop d'ull. */
+.err-fila{display:grid;grid-template-columns:5.4em minmax(0,1fr);column-gap:12px;align-items:baseline;padding:1px 0;}
+.err-fila + .err-fila{border-top:1px dashed var(--border);}
+.err-et{font-size:.8rem;font-weight:700;}
+.err-et-on{color:var(--err);}
+.err-et-ha{color:var(--ok);}
+.err-et-mo{color:var(--muted);}
+/* El farciment vertical dona aire a les fraccions i matrius, que sobresurten una mica de la línia. */
+.err-val{font-size:.86rem;line-height:1.75;overflow-x:auto;overflow-y:hidden;padding:7px 0;}
+.err-tex{font-family:'Source Code Pro',monospace;font-size:.76rem;}
+/* Puntuació enganxada a una fórmula (va dins de KaTeX): recupera la lletra i la mida del text. */
+.err-punt{font-family:'Libre Baskerville',Georgia,serif;font-size:.8264em;}
+
+/* Requadres sobre la imatge, al lloc de cada errada. Van en percentatges: valen a qualsevol mida. */
+.page-fig{position:relative;}
+.marca{position:absolute;box-sizing:border-box;margin:0;padding:0;border:2px solid var(--err);border-radius:3px;
+  background:rgba(180,35,24,.1);cursor:zoom-in;-webkit-tap-highlight-color:transparent;transition:background .15s,box-shadow .15s;}
+.marca:hover,.marca.activa{background:rgba(180,35,24,.2);box-shadow:0 0 0 3px rgba(180,35,24,.22);}
+.marca-num{position:absolute;left:-12px;top:-12px;box-shadow:0 0 0 2px #fff;}
+
+/* A la llista de la tasca (errades d'enunciat): un sol nivell, sense targeta dins de la targeta */
+.err-llista{margin-bottom:12px;padding-bottom:6px;}
+.err-llista .err-card{background:none;border:0;padding:0;margin-top:4px;}
+.err-llista .err-card + .err-card{border-top:1px solid var(--err-border);padding-top:6px;margin-top:6px;}
+
+/* Observacions: el mateix bloc, en gris */
+.err-obs{border-color:var(--border);background:var(--bg);}
+.err-obs .err-cap{color:var(--muted);}
+.err-obs .err-card{border-color:var(--border);}
+
+@media (max-width:520px){
+  .err-panel{padding:10px 10px 12px;}
+  .err-card{padding:4px 11px;}
+  .err-fila{grid-template-columns:minmax(0,1fr);}
+  .err-fila .err-et{padding-top:7px;}
+  .err-fila .err-val{padding-top:4px;}
+  /* Al mòbil, les fórmules una mica més petites: n'hi caben més de senceres en una línia. */
+  .err-panel .katex{font-size:1.1em;}
+  .err-punt{font-size:.9091em;}
+}
+
 /* Lightbox */
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;
   align-items:center;justify-content:center;padding:16px;cursor:zoom-out;}
 .lightbox.active{display:flex;}
-.lightbox img{max-width:100%;max-height:100%;border-radius:4px;cursor:zoom-in;}
+.lb-fig{position:relative;flex-shrink:0;line-height:0;}
+.lightbox img{max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);border-radius:4px;cursor:zoom-in;}
+/* El peu de la imatge ampliada: la correcció de l'errada que s'està mirant. */
+.lb-peu{position:fixed;left:0;right:0;bottom:0;max-height:46vh;overflow:auto;background:var(--surface);border-top:3px solid var(--err);
+  padding:6px 16px 10px;cursor:default;box-shadow:0 -6px 18px rgba(0,0,0,.28);}
+.lb-peu[hidden]{display:none;}
+.lb-peu-cos{max-width:784px;margin:0 auto;padding-right:46px;}
+.lb-tanca{position:absolute;top:8px;right:10px;width:40px;height:40px;border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);color:var(--txt);font-size:1.4rem;line-height:1;cursor:pointer;}
+.lb-tanca:hover{background:var(--bg);}
 /* Toca la imatge per ampliar-la a mida real amb desplaçament (scroll).
    align-items/justify-content passen a flex-start perquè, amb overflow:auto,
    una imatge centrada no es pot desplaçar bé fins a les vores. */

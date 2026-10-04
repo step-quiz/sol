@@ -56,12 +56,15 @@ tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
 tasques.js      ← LA PROGRAMACIÓ
 cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
 hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
+errades.js      ← LES ERRADES DEL SOLUCIONARI (s'edita a mà)
+marca.js        ← eina del professor per marcar on és una errada (tasca.html?tot=1&marca=1)
 progres.js      ← les creuetes de "fet" de l'alumne
 publicats.js    ← només governa la vista per temes (vegeu més avall)
 README.md
 assets/
   style.css     ← compartit per totes les pàgines
   icon.png
+  katex/        ← KaTeX: pinta les fórmules de les errades (no s'hi toca res)
 u7/  u8/  u9/  u10/
   <tema>/
     <tema>.html     ← pàgina del tema (ja no enllaçada des del menú)
@@ -116,6 +119,86 @@ sense obrir l'exercici. **No** apareix dins la pàgina de detall de
 l'exercici: aquella pàgina ja ensenya la imatge amb l'enunciat (i sovint la
 solució treballada del llibre), així que oferir-hi la pista arribaria tard —
 per això es mostra abans, a la llista, on l'alumne encara no ha vist res.
+
+## Les errades del solucionari
+
+El solucionari té errades. Les dels exercicis programats viuen a
+**`errades.js`**, amb la mateixa clau que les pistes, `'unitat/exercici'`:
+
+```js
+const ERRADES = {
+
+  'u7/76': [
+    { lloc:    TEX`f)`,
+      ondiu:   TEX`$\dlim_{x\to 3}\dfrac{3-x}{x+2}=0$`,
+      hadedir: TEX`$\dlim_{x\to 3}\dfrac{-(3+x)}{x+2}=-\dfrac{6}{5}$`,
+      motiu:   TEX`Els factors $3-x$ i $x-3$ són oposats.` },
+  ],
+
+};
+```
+
+- **Cada exercici porta una llista d'errades** (entre `[ ]`), en l'ordre en què
+  surten a la solució. De cada errada: `lloc` (l'apartat i, si cal, un detall;
+  si no cal dir res, la línia no es posa), `ondiu`, `hadedir` i `motiu`.
+- **El text va sempre entre accents greus i amb `TEX` al davant.** Així el
+  LaTeX s'escriu tal qual, sense doblar cap barra invertida.
+- **Les fórmules van entre dòlars**, com en un fitxer `.tex`. Les pinta KaTeX,
+  que és a `assets/katex/` (no depèn de cap servei extern). Hi ha definides
+  `\dlim` i `\R`. Fora dels dòlars només s'entenen `\quad`, `\;` i `\,`.
+- **`enunciat: 1`** marca una errada que és a l'enunciat i no a la solució.
+- **`marca`** diu on és l'errada dins la imatge: la imatge (escrita com a
+  `cataleg.js`) i un rectangle en tant per cent de la imatge
+  (`marca: ['continuitat/data/full-3.png', 21.0, 74.5, 19.1, 2.1]`). És
+  opcional: sense marca, l'errada només surt a la targeta.
+- **Exercici sense entrada = sense avís.** No cal deixar-hi cap llista buida.
+- **Helpers:** `erradesDe(u, n)` retorna la llista (buida si no n'hi ha) i
+  `texAHtml(text)` converteix un text amb fórmules en HTML.
+
+### On es veu
+
+- A la **llista d'exercicis d'una tasca** (`tasca.html`): una etiqueta vermella
+  al costat del botó *Veure solució* («2 errades al solucionari»). Si l'errada
+  és a l'enunciat, es mostra sencera allà mateix, perquè l'alumne l'ha de
+  saber abans de començar.
+- A la **pàgina de detall de l'exercici**: una targeta «On diu / Ha de dir»
+  per errada, just abans de la imatge. En obrir un exercici la pàgina comença
+  sempre per dalt, perquè les errades quedin a la vista; en tornar, la llista
+  és on s'havia deixat.
+- **Sobre la imatge**: un requadre vermell al lloc de cada errada que té
+  `marca`, amb el mateix número que la seva targeta. Tocar el requadre (o
+  *Mostra-ho a la imatge*, a la targeta) obre la imatge ampliada en aquell
+  punt, amb la correcció a sota.
+
+Les errades es veuen quan es veu la tasca: no cal publicar-les a part.
+
+### Marcar on és una errada
+
+Obre `tasca.html?tot=1&marca=1` i entra a l'exercici. Al quadre de baix a la
+dreta tria l'errada, arrossega un rectangle sobre la imatge al lloc de
+l'errada (dos, si és en dos llocs), prem *Copia* i enganxa la línia dins de
+l'errada, a `errades.js`. L'eina (`marca.js`) no desa res: només calcula la
+línia. Els alumnes no la carreguen mai.
+
+### Els dos interruptors
+
+A dalt de `errades.js`:
+
+```js
+const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
+const ERRADES_OBS   = false;   // true: es veuen també les observacions
+```
+
+Les observacions (comentaris que no són errades, però que poden confondre)
+són al mateix fitxer, a `OBSERVACIONS`. Amb l'interruptor apagat, el text
+dels motius i de les observacions no es mostra, però continua dins del
+fitxer: qui miri el codi de la pàgina el pot llegir.
+
+### D'on surten
+
+Del projecte d'Overleaf «Errades del solucionari» (`errors-setmanaN.tex`),
+convertit un sol cop. A partir d'ara s'editen a `errades.js`: el PDF
+d'Overleaf i la web ja no se sincronitzen sols.
 
 <!-- atribucio-centre:inici -->
 

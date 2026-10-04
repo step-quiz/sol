@@ -33,6 +33,18 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
 - [x] Totes les unitats tenen imatges i catàleg.
 - [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
+## Errades del solucionari
+
+- [x] Fase 1: etiqueta a la llista de la tasca i targetes «On diu / Ha de dir» dins de
+      l'exercici (`errades.js`, amb KaTeX a `assets/katex/`). 83 errades en 51 exercicis.
+- [x] Fase 2: requadre vermell numerat sobre la imatge, al lloc de cada errada (camp `marca` de
+      `errades.js`, en tant per cent de la imatge). Tocar-lo, o *Mostra-ho a la imatge* a la
+      targeta, obre la imatge ampliada en aquell punt amb la correcció a sota. Les 83 errades
+      tenen marca (87 requadres). Eina per marcar-ne de noves: `tasca.html?tot=1&marca=1`.
+- [ ] Dins d'un exercici, el botó «enrere» del navegador surt de la tasca en lloc de tornar a
+      la llista d'exercicis (ja passava abans de les errades).
+- [ ] Opcional: una pàgina `errades.html` amb totes les errades per setmana.
+
 ## Altres
 
 - [x] Catàleg antic (u7–u14) revisat: 61 fitxes corregides (u12/88 i 60 més) perquè

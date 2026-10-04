@@ -1,0 +1,16 @@
+KaTeX 0.16.47  —  https://katex.org
+Pinta les fórmules de les errades del solucionari (errades.js).
+
+Són els fitxers del paquet oficial (npm: katex@0.16.47, carpeta dist/),
+sense cap canvi:
+
+  katex.min.js     el programa
+  katex.min.css    els estils
+  fonts/*.woff2    les fonts
+  LICENSE          la llicència (MIT)
+
+De les fonts només hi ha el format woff2, que és el que fan servir tots els
+navegadors actuals. El CSS també anomena els formats woff i ttf: no hi són
+i no fan falta.
+
+No s'ha de tocar res d'aquesta carpeta.

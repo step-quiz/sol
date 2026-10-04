@@ -26,6 +26,9 @@ Vegeu `README.md` i `TODO.md`.
 | `tasques.js` | Programació: una línia per setmana (`unitat`, `setmana`, `limit`, `exercicis`) |
 | `cataleg.js` | Fitxa de **cada** exercici de la unitat (títol `t`, dificultat `d`, imatges `i`, `a:1` si és activitat del món real). Mantingut a mà, no es genera |
 | `hints.js` | Pistes, **només** dels exercicis programats a `tasques.js` |
+| `errades.js` | Errades del solucionari dels exercicis programats («On diu / Ha de dir / Motiu») i observacions. Clau `'uN/número'`. S'edita a mà |
+| `assets/katex/` | KaTeX 0.16.47: pinta les fórmules de `errades.js`. No s'hi toca res |
+| `marca.js` | Eina del professor per marcar on és una errada dins la imatge. Només es carrega amb `?tot=1&marca=1` |
 | `index.html` | `UNITATS`: unitats i temes |
 | `publicats.js` | Vista per temes (antiga): tots els temes a `'cap'` |
 | `2Bat - Unitats i feina Classroom.xlsx` | Programació del curs (setmana, data límit, unitat, exercicis) |
@@ -51,3 +54,17 @@ Vegeu `README.md` i `TODO.md`.
 
 - Clau `'uN/número'`. Apòstrofs escapats (`d\'una`) o tipogràfics (’).
 - Orienten cap al mètode o el concepte clau; no donen el resultat numèric ni el pas final.
+
+## Errades del solucionari
+
+- Viuen a `errades.js`: una llista d'errades per exercici. El format és a la capçalera
+  del fitxer i al `README.md`.
+- El text s'escriu entre accents greus amb `TEX` al davant, i les fórmules entre `$...$`
+  (LaTeX). No s'hi pot posar cap accent greu ni la parella `${`.
+- Es veuen a `tasca.html`: etiqueta al costat del botó *Veure solució* a la llista de la tasca
+  (les errades d'enunciat, senceres) i targetes «On diu / Ha de dir» abans de la imatge.
+- El camp `marca` de cada errada diu on és dins la imatge (imatge i rectangle en tant per cent).
+  Es calcula amb l'eina `tasca.html?tot=1&marca=1` (`marca.js`). Una marca mal posada és pitjor
+  que cap marca: s'ha de comprovar sempre a la imatge ampliada.
+- Després de tocar el fitxer, obrir `tasca.html?tot=1#u7/s3` i comprovar que cap fórmula
+  surt en vermell (KaTeX pinta en vermell el que no entén).
