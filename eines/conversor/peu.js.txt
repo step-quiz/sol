@@ -1,0 +1,327 @@
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   A PARTIR D'AQUÍ NO CAL QUE TOQUIS RES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Les dues comandes pròpies de defs.tex que fan servir els textos. */
+const ERRADES_MACROS = { '\\dlim': '\\displaystyle\\lim', '\\R': '\\mathbb{R}' };
+
+/* Les errades d'un exercici (llista buida si no en té). */
+function erradesDe(u, n){
+  return ERRADES[u + '/' + n] || [];
+}
+
+/* Les observacions d'un exercici. Cap, si l'interruptor és apagat. */
+function observacionsDe(u, n){
+  return ERRADES_OBS ? (OBSERVACIONS[u + '/' + n] || []) : [];
+}
+
+/* La icona d'avís: un triangle amb un signe d'admiració. Es dibuixa aquí, i
+   no amb el caràcter ⚠, perquè es vegi igual a tots els mòbils i ordinadors. */
+const _ICONA_AVIS = '<svg class="err-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M12 3.6 21.7 20.4H2.3Z" fill="currentColor" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>'
+  + '<path d="M12 9.4v5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/>'
+  + '<circle cx="12" cy="18" r="1.35" fill="#fff"/></svg>';
+
+/* L'avís que surt a la targeta de l'exercici, a la llista de la tasca:
+   «2 errades al solucionari». Només compta les errades de la SOLUCIÓ: les
+   d'enunciat es mostren senceres allà mateix (vegeu htmlErradesEnunciat).
+   Cadena buida si la solució no té cap errada. */
+function avisErrades(u, n){
+  const k = erradesDe(u, n).filter(e => !e.enunciat && !_callada(e)).length;
+  if(!k) return '';
+  return k === 1 ? '1 errada al solucionari' : k + ' errades al solucionari';
+}
+
+function htmlAvisErrades(u, n){
+  const text = avisErrades(u, n);
+  return text ? '<span class="ex-err">' + _ICONA_AVIS + '<span>' + text + '</span></span>' : '';
+}
+
+/* ── De text amb fórmules a HTML ──────────────────────────────────────── */
+
+function _escapa(s){
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* Un tros de text normal (fora dels dòlars). */
+function _textAHtml(t){
+  return _escapa(t)
+    .replace(/\\quad\s*/g, '&emsp;')
+    .replace(/\\;/g, '&ensp;')
+    .replace(/\\,/g, '&thinsp;')
+    .replace(/\\([$%])/g, '$1');
+}
+
+/* Una fórmula (el que hi ha entre dos dòlars), amb la puntuació que porta
+   enganxada: `abans` («, parèntesi d'obrir) i `despres` (punt, coma, »...).
+   Aquesta puntuació es posa DINS de la fórmula perquè, en pantalles estretes,
+   no quedi mai sola en una altra línia.
+   Si KaTeX no s'ha pogut carregar, es mostra el LaTeX tal qual: es llegeix
+   pitjor, però no es perd res. */
+const _KATEX_FI   = '</span></span></span>';     // tanca l'últim tros, .katex-html i .katex
+const _KATEX_TROS = '<span class="base">';       // obre el primer tros de la fórmula
+
+function _formulaAHtml(tex, abans, despres){
+  abans = abans || ''; despres = despres || '';
+  let h = null;
+  if(typeof katex !== 'undefined'){
+    try{
+      h = katex.renderToString(tex, {
+        throwOnError: false,
+        macros: Object.assign({}, ERRADES_MACROS)
+      });
+    }catch(e){ h = null; }
+  }
+  if(h === null){
+    return _escapa(abans) + '<code class="err-tex">' + _escapa(tex) + '</code>' + _escapa(despres);
+  }
+  if(despres && h.endsWith(_KATEX_FI)){
+    h = h.slice(0, -_KATEX_FI.length) + '<span class="err-punt">' + _escapa(despres) + '</span>' + _KATEX_FI;
+    despres = '';
+  }
+  const i = abans ? h.indexOf(_KATEX_TROS) : -1;
+  if(i >= 0){
+    const tall = i + _KATEX_TROS.length;
+    h = h.slice(0, tall) + '<span class="err-punt">' + _escapa(abans) + '</span>' + h.slice(tall);
+    abans = '';
+  }
+  return _escapa(abans) + h + _escapa(despres);
+}
+
+/* Text amb fórmules entre $...$  →  HTML. */
+function texAHtml(s){
+  if(!s) return '';
+  s = String(s);
+
+  /* 1) Es talla en trossos: text, fórmula, text, fórmula... */
+  const trossos = [];
+  let tros = '', mates = false;
+  for(let i = 0; i < s.length; i++){
+    const c = s[i];
+    if(c === '\\' && i + 1 < s.length){ tros += c + s[i + 1]; i++; continue; }
+    if(c === '$'){
+      trossos.push({mates: mates, s: tros});
+      tros = ''; mates = !mates;
+      continue;
+    }
+    tros += c;
+  }
+  /* Si ha quedat un dòlar sense tancar, el que venia darrere es mostra com
+     a text, amb el dòlar al davant, perquè es vegi que falta l'altre. */
+  trossos.push({mates: false, s: (mates ? '$' : '') + tros});
+
+  /* 2) Cada fórmula s'emporta la puntuació que té enganxada a banda i banda. */
+  let html = '';
+  for(let i = 0; i < trossos.length; i++){
+    const t = trossos[i];
+    if(!t.mates){ html += _textAHtml(t.s); continue; }
+    let abans = '', despres = '';
+    const m = /[«(\[¿¡]+$/.exec(html);
+    if(m){ abans = m[0]; html = html.slice(0, m.index); }
+    const seg = trossos[i + 1];
+    if(seg && !seg.mates){
+      const d = /^[.,;:!?»)\]]+/.exec(seg.s);
+      if(d){ despres = d[0]; seg.s = seg.s.slice(d[0].length); }
+    }
+    html += _formulaAHtml(t.s, abans, despres);
+  }
+  return html;
+}
+
+/* Demana per endavant les dues lletres que fan servir totes les fórmules.
+   tasca.html ho crida quan la tasca té alguna errada: així, quan l'alumne
+   obre un exercici, les fórmules surten de cop i no després d'un instant
+   en blanc. Si el navegador no ho sap fer, no passa res. */
+function preparaFormules(){
+  try{
+    if(document.fonts && document.fonts.load){
+      document.fonts.load('1em KaTeX_Main');
+      document.fonts.load('italic 1em KaTeX_Math');
+    }
+  }catch(e){}
+}
+
+/* ── Les targetes ─────────────────────────────────────────────────────── */
+
+/* «f)» → «Apartat f)»,  «b) i c)» → «Apartats b) i c)»,
+   «segon punt» → «Segon punt». */
+function _llocAHtml(lloc){
+  const l = String(lloc || '').trim();
+  if(!l) return '';
+  if(/^[a-z]\)/.test(l)){
+    return (/^[a-z]\)\s+i\s+[a-z]\)/.test(l) ? 'Apartats ' : 'Apartat ') + texAHtml(l);
+  }
+  return texAHtml(l.charAt(0).toUpperCase() + l.slice(1));
+}
+
+function _filaErrada(classe, etiqueta, text){
+  return '<div class="err-fila"><div class="err-et ' + classe + '">' + etiqueta + '</div>'
+       + '<div class="err-val">' + texAHtml(text) + '</div></div>';
+}
+
+/* Les marques d'una errada: llista de {img, x, y, w, h}, en percentatges de
+   la imatge. Accepta un rectangle sol o una llista de rectangles. */
+/* ── Els pegats ─────────────────────────────────────────────────────────
+   Trossos de la pàgina ja corregits que es posen a sobre de la imatge. */
+
+/* Els pegats d'una errada, sempre com a llista de {img, x, y, w, h, f}. */
+function pegatsDe(e){
+  const p = e && e.pegat;
+  if(!Array.isArray(p) || !p.length) return [];
+  return (Array.isArray(p[0]) ? p : [p])
+    .filter(r => r && r.length >= 6)
+    .map(r => ({img: r[0], x: +r[1], y: +r[2], w: +r[3], h: +r[4], f: r[5]}));
+}
+
+/* Una errada «callada»: la imatge ja es veu corregida i no cal anunciar-la. */
+function _callada(e){
+  return ERRADES_PEGATS && pegatsDe(e).length > 0;
+}
+
+/* El número que porta una errada: la seva posició entre les que s'anuncien. */
+function _numero(errs, k){
+  let n = 0;
+  for(let i = 0; i <= k; i++) if(!_callada(errs[i])) n++;
+  return n;
+}
+
+/* Tots els pegats que van sobre una imatge (`img`, escrita com a cataleg.js),
+   siguin de l'exercici que siguin: la pàgina s'ha de veure corregida es miri
+   des d'on es miri. Cadena buida si no n'hi ha o si l'interruptor és apagat. */
+let _PEGATS_PER_IMATGE = null;
+function htmlPegats(u, img){
+  if(!ERRADES_PEGATS) return '';
+  if(!_PEGATS_PER_IMATGE){
+    _PEGATS_PER_IMATGE = {};
+    Object.keys(ERRADES).forEach(clau => {
+      const un = clau.split('/')[0];
+      ERRADES[clau].forEach(e => pegatsDe(e).forEach(q => {
+        const k = un + '/' + q.img;
+        (_PEGATS_PER_IMATGE[k] = _PEGATS_PER_IMATGE[k] || []).push('<img class="pegat" alt="" src="pegats/' + un + '/' + q.f
+          + '" style="left:' + q.x + '%;top:' + q.y + '%;width:' + q.w + '%;height:' + q.h + '%">');
+      }));
+    });
+  }
+  return (_PEGATS_PER_IMATGE[u + '/' + img] || []).join('');
+}
+
+/* ── Les marques ──────────────────────────────────────────────────────── */
+
+function marquesDe(e){
+  const m = e && e.marca;
+  if(!m || !m.length) return [];
+  return (Array.isArray(m[0]) ? m : [m])
+    .filter(r => r && r.length >= 5)
+    .map(r => ({img: r[0], x: +r[1], y: +r[2], w: +r[3], h: +r[4]}));
+}
+
+/* Els requadres vermells d'un exercici que cauen sobre una imatge (`img` és
+   el camí tal com surt al catàleg). Cada requadre porta el número de la seva
+   errada, el mateix que la targeta. */
+function htmlMarques(u, n, img){
+  let h = '';
+  const errs = erradesDe(u, n);
+  errs.forEach((e, k) => {
+    if(_callada(e)) return;
+    const num = _numero(errs, k);
+    marquesDe(e).forEach(r => {
+      if(r.img !== img) return;
+      h += '<button type="button" class="marca" data-k="' + k + '" style="left:' + r.x + '%;top:' + r.y
+         + '%;width:' + r.w + '%;height:' + r.h + '%" aria-label="Errada ' + num
+         + ': amplia la imatge i mostra la correcció"><span class="marca-num">' + num + '</span></button>';
+    });
+  });
+  return h;
+}
+
+/* Una errada: on és i les dues files «On diu» i «Ha de dir» (i «Motiu», si
+   l'interruptor és encès). Amb `senseEnunciat`, no s'hi escriu «Enunciat»
+   perquè ja ho diu el títol del bloc. `k` és la posició de l'errada dins de
+   l'exercici: si es passa i l'errada té marca a la imatge, la targeta porta
+   el mateix número que el requadre i un botó per anar-hi. */
+function _htmlErrada(e, senseEnunciat, k, num){
+  let lloc = _llocAHtml(e.lloc);
+  if(e.enunciat && !senseEnunciat) lloc = 'Enunciat' + (lloc ? ' · ' + lloc : '');
+  const ambMarca = k !== undefined && k !== null && marquesDe(e).length > 0;
+  let h = '<div class="err-card"' + (ambMarca ? ' data-k="' + k + '"' : '') + '>';
+  if(lloc || ambMarca){
+    h += '<div class="err-lloc">'
+       + (ambMarca ? '<span class="err-num" aria-hidden="true">' + (num || k + 1) + '</span>' : '')
+       + '<span class="err-lloc-text">' + lloc + '</span>'
+       + (ambMarca ? '<button type="button" class="err-veure" data-k="' + k + '">Mostra-ho a la imatge</button>' : '')
+       + '</div>';
+  }
+  h += _filaErrada('err-et-on', 'On diu', e.ondiu);
+  h += _filaErrada('err-et-ha', 'Ha de dir', e.hadedir);
+  if(ERRADES_MOTIU && e.motiu) h += _filaErrada('err-et-mo', 'Motiu', e.motiu);
+  return h + '</div>';
+}
+
+/* La targeta d'una sola errada, per al peu de la imatge ampliada. */
+function htmlErradaSola(u, n, k){
+  const e = erradesDe(u, n)[k];
+  if(!e) return '';
+  let lloc = _llocAHtml(e.lloc);
+  if(e.enunciat) lloc = 'Enunciat' + (lloc ? ' · ' + lloc : '');
+  let h = '<div class="err-lloc"><span class="err-num" aria-hidden="true">' + _numero(erradesDe(u, n), k) + '</span>'
+        + '<span class="err-lloc-text">' + (lloc || 'Errada del solucionari') + '</span></div>';
+  h += _filaErrada('err-et-on', 'On diu', e.ondiu);
+  h += _filaErrada('err-et-ha', 'Ha de dir', e.hadedir);
+  if(ERRADES_MOTIU && e.motiu) h += _filaErrada('err-et-mo', 'Motiu', e.motiu);
+  return h;
+}
+
+function _htmlObservacio(o){
+  const lloc = _llocAHtml(o.lloc);
+  return '<div class="err-card">'
+       + (lloc ? '<div class="err-lloc">' + lloc + '</div>' : '')
+       + '<div class="err-val">' + texAHtml(o.text) + '</div></div>';
+}
+
+function _quantes(n){
+  return n === 1 ? 'una errada' : n + ' errades';
+}
+
+function _titolBloc(text){
+  return '<div class="err-cap">' + _ICONA_AVIS + '<span>' + text + '</span></div>';
+}
+
+/* El bloc que surt dins de l'exercici, abans de la imatge: totes les errades
+   i, si l'interruptor és encès, les observacions. Cadena buida si no hi ha res. */
+function htmlErrades(u, n){
+  const totes = erradesDe(u, n);
+  const errs = totes.filter(e => !_callada(e));          // les que tenen pegat ja es veuen corregides: no s'anuncien
+  const obs  = observacionsDe(u, n);
+  let h = '';
+  if(errs.length){
+    const k = errs.filter(e => e.enunciat).length;      // quantes són a l'enunciat
+    const titol = k === errs.length ? 'L’enunciat d’aquest exercici té ' + _quantes(k)
+                : k === 0           ? 'El solucionari té ' + _quantes(errs.length) + ' en aquest exercici'
+                :                     'Aquest exercici té ' + _quantes(errs.length);
+    h += '<div class="err-panel" role="note">' + _titolBloc(titol)
+       + errs.map(e => _htmlErrada(e, k === errs.length, totes.indexOf(e), _numero(totes, totes.indexOf(e)))).join('')
+       + '</div>';
+  }
+  if(obs.length){
+    const titol = obs.length === 1 ? 'Una observació sobre aquest exercici'
+                                   : obs.length + ' observacions sobre aquest exercici';
+    h += '<div class="err-panel err-obs" role="note">'
+       + '<div class="err-cap"><span>' + titol + '</span></div>'
+       + obs.map(_htmlObservacio).join('')
+       + '</div>';
+  }
+  return h;
+}
+
+/* El bloc que surt a la llista de la tasca: només les errades d'enunciat,
+   que l'alumne ha de conèixer abans de començar. Cadena buida si no n'hi ha. */
+function htmlErradesEnunciat(u, n){
+  const errs = erradesDe(u, n).filter(e => e.enunciat);
+  if(!errs.length) return '';
+  return '<div class="err-panel err-llista" role="note">'
+       + _titolBloc(errs.length === 1 ? 'L’enunciat té una errada' : 'L’enunciat té ' + errs.length + ' errades')
+       + errs.map(e => _htmlErrada(e, true)).join('')
+       + '</div>';
+}

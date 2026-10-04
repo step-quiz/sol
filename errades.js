@@ -28,7 +28,7 @@
                requadre): l'alumne veu la pàgina corregida i prou. Les errades
                d'enunciat s'anuncien igualment a la llista, perquè el llibre
                de l'alumne continua tenint l'errada. Els pegats no es poden
-               fer a mà: surten d'un procés a part.
+               fer a mà: els fa  eines/pegats/  (vegeu eines/LLEGEIX-ME.md).
      enunciat  s'escriu  enunciat: 1  quan l'errada és a l'ENUNCIAT i no a la
                solució. Aquestes es mostren ja a la llista de la tasca,
                abans que l'alumne comenci l'exercici.
@@ -64,8 +64,13 @@
        lloc de l'errada. En tocar el requadre (o «Mostra-ho a la imatge»),
        la imatge s'amplia en aquell punt amb la correcció a sota.
 
-   Les errades surten del projecte d'Overleaf «Errades del solucionari»
-   (errors-setmanaN.tex), convertit un sol cop. A partir d'ara s'editen aquí.
+   D'ON SURT AQUEST FITXER
+     Les errades surten dels .tex de  tex/  (errors-setmanaN.tex). Aquest
+     fitxer es pot tornar a fer sencer amb  eines/conversor/genera.py , que
+     ajunta tex/, les marques (eines/localitzador/marques.json) i els pegats
+     (eines/pegats/pegats.json). Vegeu ERRADES.md.
+     Si hi canvies res a mà, passa també el canvi a aquestes fonts: si no,
+     es perdrà el dia que algú torni a generar el fitxer.
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ── Interruptors ───────────────────────────────────────────────────────

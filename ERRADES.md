@@ -26,8 +26,8 @@
   87 requadres (les 83 errades en tenen) · **77 errades amb pegat (93 pegats)** · 6 sense pegat.
 - **Les imatges de les pàgines no es toquen mai.** Tot el que es veu a sobre (requadres i
   pegats) ho posa el navegador.
-- Les eines amb què es van generar les dades, les posicions i els pegats **no són al repo**
-  (vegeu l'apartat 9).
+- Les eines amb què es van generar les dades, les posicions i els pegats són a `eines/`
+  (apartat 9 i `eines/LLEGEIX-ME.md`).
 
 ---
 
@@ -44,6 +44,7 @@
 | `pegats/<unitat>/` | Els pegats: PNG petits amb el tros de pàgina ja corregit |
 | `uN/<tema>/data/full-K.png` | Les imatges de les pàgines. **No es toquen** |
 | `source/` | Els PDF del solucionari, un per unitat (d'aquí surten les imatges) |
+| `eines/` | El conversor, el localitzador i el motor de pegats (apartat 9) |
 | `tasques.js`, `cataleg.js` | Quins exercicis hi ha cada setmana i quines imatges té cada exercici |
 
 La clau d'un exercici és sempre `'unitat/exercici'`, per exemple `'u7/92'` (la mateixa que a `hints.js`).
@@ -90,11 +91,22 @@ Quan es va fer la conversió hi havia 36 `\setmana`, 83 entorns `errada` i 22 en
 | `\begin{observacio}{...}` | Una entrada a `OBSERVACIONS` (25, perquè algunes parlen de més d'un exercici) |
 | Diverses errades del mateix exercici | Una llista, en l'ordre en què surten a la solució |
 
-**Relació entre tots dos.** La conversió es va fer **un sol cop** i es va comprovar que
-quadrava (les 83 errades, text per text, i les 597 fórmules pintades amb KaTeX sense cap
-error). Des de llavors `errades.js` s'edita a mà i és l'únic que llegeix el web. `tex/` és
-l'origen i la referència. Si l'un i l'altre no diuen el mateix, **no ho arreglis pel teu
-compte: pregunta al professor quin és el bo.** No hi ha cap conversor al repo.
+**Relació entre tots dos.** `errades.js` és l'únic que llegeix el web. Es pot tornar a fer
+sencer amb `python3 eines/conversor/genera.py`, que ajunta `tex/` (els textos),
+`eines/localitzador/marques.json` (les marques) i `eines/pegats/pegats.json` (els pegats). Avui
+el resultat és **idèntic**, byte a byte, a l'`errades.js` del repo, i
+`node eines/conversor/verifica.js` comprova que tots dos diuen el mateix (les 83 errades, text
+per text, i les 597 fórmules, pintades amb KaTeX sense cap error).
+
+Hi ha, doncs, dues maneres de canviar una errada, i no es poden barrejar sense mirar:
+
+- **Per les fonts:** canvia `tex/` (o `marques.json`, o `pegats.json`) i torna a generar.
+- **A mà:** canvia `errades.js` directament. Llavors passa també el canvi a la font: el dia que
+  algú torni a generar, el que només sigui a `errades.js` es perdrà.
+
+Abans de generar amb `--escriu`, genera sense res: t'ensenya les diferències amb el fitxer del
+repo. Si `tex/` i `errades.js` no diuen el mateix i no saps quin és el bo, **pregunta al
+professor**.
 
 ---
 
@@ -193,11 +205,15 @@ aquell punt i la correcció surt a sota (`#lb-peu`). Escape tanca.
 
 **Com es van trobar les 87 posicions.** Amb la capa de text dels PDF de `source/` (on és
 cada lletra) i casant cada imatge amb la seva pàgina del PDF. Després es van revisar **totes
-a ull**. Una marca mal posada és pitjor que cap marca.
+a ull**. Una marca mal posada és pitjor que cap marca. L'eina és
+`eines/localitzador/proposa.py`: proposa, però la referència és
+`eines/localitzador/marques.json` (59 de les 83 propostes coincideixen amb la marca desada;
+les altres 24 es van ajustar a ull).
 
 **Per marcar-ne una de nova** hi ha l'eina del professor: `tasca.html?tot=1&marca=1`. S'entra
 a l'exercici, es tria l'errada, s'arrossega un rectangle sobre la imatge i l'eina dona la
-línia `marca: [...]` per enganxar a `errades.js`. No desa res enlloc.
+línia `marca: [...]` per enganxar a `errades.js`. No desa res enlloc: la marca s'ha de copiar
+també a `marques.json` (clau `'u7/92#0'`: l'exercici i la posició de l'errada, des de 0).
 
 ---
 
@@ -322,20 +338,29 @@ Es veuen amb targeta i requadre. No és un oblit:
 
 ## 9. Com es van fer els pegats, i què no hi ha al repo
 
-### El que no hi ha
+### Les eines són a `eines/`
 
-Aquestes eines van viure només a l'entorn de treball de la IA que va fer la feina:
+| Carpeta | Què fa |
+|---|---|
+| `eines/conversor/` | `genera.py` refà `errades.js`; `verifica.js` el comprova contra `tex/` |
+| `eines/localitzador/` | `proposa.py` proposa on és una errada (`marca`). Les marques bones es desen a `marques.json` |
+| `eines/pegats/` | `fes.py` aplica les «receptes» (`receptes_*.py`: què es canvia per què, errada per errada) i fa els pegats. Les posicions es desen a `pegats.json` |
 
-- el conversor de `tex/` a `errades.js` i el comprovador que tots dos quadren;
-- el localitzador de posicions (per a `marca`);
-- el motor de pegats i les «receptes» (una per errada: què es canvia per què);
-- les proves automàtiques del navegador.
+Com es fan servir, què cal instal·lar i què pot portar una recepta: `eines/LLEGEIX-ME.md`.
+**Cap eina toca el repo sense `--escriu`:** escriuen a `eines/sortida/` i diuen si el resultat
+és igual que el publicat.
 
-**Conseqüència pràctica:** sense reconstruir el motor no pots fer pegats nous. No passa res:
-una errada sense `pegat` es veu amb targeta i requadre, que és un resultat correcte. **Un
-pegat mal fet és pitjor que cap pegat.**
+**El que no hi ha al repo:** les proves automàtiques del navegador (apartat 11).
 
-### El mètode, per si l'has de refer
+**Fins on refan el que hi ha publicat.** `errades.js` surt idèntic. Dels 93 pegats, amb el
+motor d'ara 65 surten idèntics i 28 no: el motor es va anar millorant unitat per unitat, i els
+pegats de les primeres unitats es van fer amb versions anteriors. **Els publicats són els que
+es van mirar un per un, i són la referència:** no en substitueixis cap sense mirar-lo ampliat.
+
+**Un pegat mal fet és pitjor que cap pegat.** Una errada sense `pegat` es veu amb targeta i
+requadre, que és un resultat correcte.
+
+### El mètode (és el que fa `eines/pegats/pegats.py`)
 
 1. **Casar la imatge amb el PDF.** Cada `full-K.png` és un retall d'una pàgina del PDF de
    `source/`, a 200 ppp per un factor que canvia segons la unitat (les imatges fan entre
@@ -411,7 +436,8 @@ pegat mal fet és pitjor que cap pegat.**
 
 - No toquis les imatges `uN/<tema>/data/full-K.png`.
 - No actualitzis KaTeX.
-- No inventis posicions: una `marca` es fa amb l'eina, i un `pegat` no es fa a mà.
+- No inventis posicions: una `marca` es fa amb l'eina, i un `pegat` no es fa a mà (es fa amb `eines/pegats/`).
+- No executis cap eina amb `--escriu` sense haver mirat abans què canviaria.
 - No posis `[skip ci]`, `[ci skip]` ni `[cf-pages-skip]` en cap missatge de commit: el web es
   publica sol a partir de GitHub, i Cloudflare Pages no publica els commits que porten
   aquestes etiquetes.
@@ -420,14 +446,15 @@ pegat mal fet és pitjor que cap pegat.**
 
 | Et demanen… | Què has de fer |
 |---|---|
-| Afegir una errada | Escriu-la a `errades.js` (a la llista del seu exercici, en l'ordre de la solució). Demana al professor que la marqui amb `?tot=1&marca=1`. Sense `pegat`, es veurà amb targeta i requadre |
+| Afegir una errada | Escriu-la a `tex/` i torna a generar (o a `errades.js`, a la llista del seu exercici i en l'ordre de la solució, i passa-la després a `tex/`). Demana al professor que la marqui amb `?tot=1&marca=1`, o proposa la marca amb `eines/localitzador/proposa.py` i mira-la. Sense `pegat`, es veurà amb targeta i requadre |
+| Fer un pegat nou | `eines/LLEGEIX-ME.md`, «Fer un pegat nou». Mira'l ampliat abans de publicar-lo |
 | Canviar el text d'una errada que té `pegat` | Si canvia el que ha de dir la pàgina, **treu-li el `pegat`** (la imatge del pegat ja no seria certa) i avisa el professor |
 | Treure una errada | Esborra l'entrada i els seus fitxers de `pegats/` |
 | Tornar als requadres vermells | `ERRADES_PEGATS = false` |
 | Ensenyar els motius o les observacions | `ERRADES_MOTIU = true`, `ERRADES_OBS = true` |
 | Canviar una imatge de pàgina (un altre retall o una altra mida) | Totes les `marca` i els `pegat` d'aquella imatge deixen de valer: s'han de refer |
 | Canviar el camí d'una imatge a `cataleg.js` | Canvia'l també a `marca` i a `pegat`: han de ser idèntics |
-| El `tex/` i `errades.js` no diuen el mateix | Pregunta quin és el bo. No hi ha conversor |
+| El `tex/` i `errades.js` no diuen el mateix | `node eines/conversor/verifica.js` diu on. Pregunta quin és el bo abans de tornar a generar |
 
 **Limitacions conegudes**
 

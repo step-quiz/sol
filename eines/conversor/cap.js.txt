@@ -1,0 +1,84 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   LES ERRADES DEL SOLUCIONARI
+   ───────────────────────────────────────────────────────────────────────
+   El solucionari té errades. Aquí hi ha les dels exercicis programats a
+   tasques.js. La clau és la mateixa que a hints.js:  'unitat/exercici'.
+
+     'u7/76': [
+       { lloc:    TEX`f)`,
+         ondiu:   TEX`$\dlim_{x\to 3}\dfrac{3-x}{x+2}=0$`,
+         hadedir: TEX`$\dlim_{x\to 3}\dfrac{-(3+x)}{x+2}=-\dfrac{6}{5}$`,
+         motiu:   TEX`Els factors $3-x$ i $x-3$ són oposats.` },
+     ],
+
+   Cada exercici porta una LLISTA d'errades (entre [ ]), en l'ordre en què
+   surten a la solució. De cada errada:
+
+     lloc      on és: l'apartat i, si cal, un detall
+               (TEX`f)` , TEX`e), punt $x=1$` , TEX`segon punt` ...).
+               Si no cal dir res, aquesta línia no es posa.
+     ondiu     el que hi ha imprès al solucionari
+     hadedir   el que hi hauria de dir
+     motiu     l'explicació. Només es veu si ERRADES_MOTIU és true.
+     pegat     un tros de la pàgina ja corregit, que es posa a sobre de la imatge:
+                 pegat: ['continuitat/data/full-2.png', 82.2, 7.4, 5.5, 1.7, '92-1a.png']
+               La imatge, el rectangle (en tant per cent, com a `marca`) i el
+               fitxer, que és a  pegats/<unitat>/ . Amb ERRADES_PEGATS encès,
+               una errada amb pegat no s'anuncia enlloc (ni avís ni targeta ni
+               requadre): l'alumne veu la pàgina corregida i prou. Les errades
+               d'enunciat s'anuncien igualment a la llista, perquè el llibre
+               de l'alumne continua tenint l'errada. Els pegats no es poden
+               fer a mà: els fa  eines/pegats/  (vegeu eines/LLEGEIX-ME.md).
+     enunciat  s'escriu  enunciat: 1  quan l'errada és a l'ENUNCIAT i no a la
+               solució. Aquestes es mostren ja a la llista de la tasca,
+               abans que l'alumne comenci l'exercici.
+     marca     on és l'errada DINS DE LA IMATGE: el fitxer (tal com surt a
+               cataleg.js) i un rectangle en percentatges de la imatge:
+                   marca: ['limits-punt/data/full-4.png', x, y, amplada, alçada],
+               (x, y) és el cantó de dalt a l'esquerra. Si l'errada ocupa dos
+               llocs, una llista de rectangles:  marca: [[...], [...]],
+               No s'escriu a mà: obre  tasca.html?tot=1&marca=1  , entra a
+               l'exercici, arrossega un rectangle sobre la imatge i copia la
+               línia que et dona. Una errada sense `marca` es veu igualment,
+               només que sense senyal a la imatge.
+
+   Un exercici sense entrada aquí no mostra res: no cal deixar-hi cap
+   llista buida.
+
+   COM S'ESCRIU EL TEXT
+     · Sempre entre accents greus i amb TEX al davant:  TEX`...`
+       Així el LaTeX s'escriu tal qual, sense doblar cap barra invertida.
+     · Les fórmules van entre dòlars, $...$, com en un fitxer .tex.
+       Les pinta KaTeX (assets/katex). Hi ha definides \dlim (límit amb el
+       subíndex a sota) i \R (els nombres reals), com a defs.tex.
+     · Fora dels dòlars és text normal. Només s'hi entenen tres comandes
+       d'espai:  \quad   \;   \,
+     · Dins del text no hi pot haver cap accent greu ni la parella ${
+
+   ON ES VEU (tasca.html)
+     · A la llista de la tasca: una etiqueta vermella al costat del botó
+       «Veure solució» («2 errades al solucionari»). Les errades d'enunciat
+       hi surten senceres, perquè s'han de saber abans de començar.
+     · Dins de l'exercici: una targeta «On diu / Ha de dir» per errada, just
+       abans de la imatge, i un requadre vermell numerat sobre la imatge, al
+       lloc de l'errada. En tocar el requadre (o «Mostra-ho a la imatge»),
+       la imatge s'amplia en aquell punt amb la correcció a sota.
+
+   D'ON SURT AQUEST FITXER
+     Les errades surten dels .tex de  tex/  (errors-setmanaN.tex). Aquest
+     fitxer es pot tornar a fer sencer amb  eines/conversor/genera.py , que
+     ajunta tex/, les marques (eines/localitzador/marques.json) i els pegats
+     (eines/pegats/pegats.json). Vegeu ERRADES.md.
+     Si hi canvies res a mà, passa també el canvi a aquestes fonts: si no,
+     es perdrà el dia que algú torni a generar el fitxer.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Interruptors ───────────────────────────────────────────────────────
+   Són els dos que hi havia a dalt de main.tex. Per encendre'n un, canvia
+   false per true. */
+const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
+const ERRADES_OBS   = false;   // true: es veuen també les observacions
+const ERRADES_PEGATS = true;   // true: on hi ha «pegat», la imatge es veu ja corregida i l'errada no s'anuncia
+
+const TEX = String.raw;        // no toquis aquesta línia
+
