@@ -41,15 +41,10 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
       `errades.js`, en tant per cent de la imatge). Tocar-lo, o *Mostra-ho a la imatge* a la
       targeta, obre la imatge ampliada en aquell punt amb la correcció a sota. Les 83 errades
       tenen marca (87 requadres). Eina per marcar-ne de noves: `tasca.html?tot=1&marca=1`.
-- [x] Fase 3, unitats 7, 8, 9 i 10: «pegats». A 41 errades la imatge es veu ja corregida (48 pegats
-      a `pegats/u7/` ... `pegats/u10/`) i l'errada no s'anuncia. Interruptor: `ERRADES_PEGATS`.
-      Es queden amb targeta i requadre, perquè no es poden tapar bé: U9 ex. 67 n); U10 ex. 63 c),
-      75 d) i 108 d).
-- [ ] Fase 3, resta d'unitats (1, 2, 3, 5, 6, 11, 12, 13 i 14): fer els pegats de les altres
-      38 errades. Les que no es puguin tapar bé es queden amb targeta i requadre.
-- [ ] Fase 3: el constructor de fraccions del motor de pegats va fallar en regenerar l'exercici 76
-      de la unitat 7 (s'hi han deixat els pegats antics, que eren bons). Cal arreglar-lo per poder
-      fer U10 ex. 63 c).
+- [x] Fase 3, totes les unitats: «pegats». A 77 de les 83 errades la imatge es veu ja corregida
+      (93 pegats, a `pegats/<unitat>/`) i l'errada no s'anuncia. Interruptor: `ERRADES_PEGATS`.
+      Sis errades es queden amb targeta i requadre, perquè la correcció no hi cap o l'error
+      s'arrossega a més línies: U9 ex. 67 n); U10 ex. 75 d) i 108 d); U6 ex. 88 (equació) i 139 b) i c).
 - [ ] Dins d'un exercici, el botó «enrere» del navegador surt de la tasca en lloc de tornar a
       la llista d'exercicis (ja passava abans de les errades).
 - [ ] Opcional: una pàgina `errades.html` amb totes les errades per setmana.
