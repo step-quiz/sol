@@ -98,7 +98,7 @@ const PISTES = {
 
   /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
   'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
-  'u7/43': 'Defineix g(x) = f(x) − 1 i troba dos valors <i>a</i> i <i>b</i> tals que <i>f(a)</i> i <i>f(b)</i> tinguin signe contrari. Podràs aplicar Bolzano perquè la funció <i>f</i> és contínua a tot ℝ - ja que és suma d\'una exponencial i d\'una polinòmica - i per tant <i>g</i> també és contínua a tot ℝ.',
+  'u7/43': 'Defineix g(x) = f(x) − 1 i troba dos valors <i>a</i> i <i>b</i> tals que <i>f(a)</i> i <i>f(b)</i> tinguin signe contrari.<br>Podràs aplicar Bolzano perquè la funció <i>f</i> és contínua a tot ℝ - ja que és suma d\'una exponencial i d\'una polinòmica - i per tant <i>g</i> també és contínua a tot ℝ.',
   'u7/44': 'Estudia, per a cada gràfica, la banda dreta (x → +∞) i l\'esquerra (x → −∞).<br>Has d\'observar si la corba s\'apropa a una alçada fixa (llavors tenim una asímptota horitzontal), o bé puja o baixa sense parar, o bé no s\'estabilitza. No fa falta calcular res, només cal llegir el dibuix.',
   'u7/45': 'Pensa en qui "guanya" quan x es fa molt gran: una exponencial d\'una base més gran que 1 creix molt més de pressa que qualsevol potència de x, i una arrel creix més a poc a poc que allò que hi ha a dins. Simplifica quedant-te només amb els termes que realment dominen.',
   'u7/46': 'Compara el grau del numerador amb el del denominador: si són iguals, el límit és el quocient dels coeficients del terme de grau més alt; si el numerador té grau més gran, dona infinit; si en té menys, dona 0. Per al signe a −∞, vigila si les potències són parelles o senars.',
@@ -122,11 +122,11 @@ const PISTES = {
   'u7/120': 'Que dues corbes es tallin vol dir que la diferència de les dues funcions s\'anul·la. Per a cada apartat, defineix h(x) com la resta de les dues i busca-hi un canvi de signe. Quan hi hagi un logaritme, mira\'t primer on està definit.',
 
   /* ── Unitat 8 · Derivades ─────────────────────────────────── */
-  'u8/21': 'Et calen dues coses: el punt, que és f(e), i el pendent, que és f′(e). Per derivar un producte de dues funcions aplica la regla del producte. Amb això, la recta surt de y − f(e) = f′(e)·(x − e).',
+  'u8/21': 'L\'equació de la recta tangent és: y − f(<i>e</i>) = f ′ (<i>e</i>)·(x − <i>e</i>).<br> Per tant, hauràs de calcular f(<i>e</i>), i f ′ (<i>e</i>).',
   'u8/30': 'La taxa de variació mitjana en [a, b] és [f(b) − f(a)] dividit per (b − a). Calcula-la als quatre intervals i després mira\'t els quatre resultats junts: en una funció afí passa una cosa que val la pena que notis.',
   'u8/31': 'És la mateixa fórmula per als tres casos. Abans de calcular la de la funció constant, pensa quant ha de donar; i quan tinguis les altres dues, compara-les amb el pendent de cada recta.',
   'u8/32': 'Els dos primers apartats són taxa de variació mitjana; el tercer és la derivada, que és el límit de la taxa quan l\'interval es fa tan petit com vulguis. Pots fer-ho amb la definició en x = 1 o derivant la funció i substituint.',
-  'u8/37': 'Fes servir la definició al punt: f′(a) és el límit, quan h tendeix a 0, de [f(a+h) − f(a)]/h. Substitueix, desenvolupa el numerador i simplifica la h abans de fer el límit; si et continua quedant 0/0, és que encara no has simplificat prou.',
+  'u8/37': 'Fes servir la definició de derivada d\'una funció en un punt (consulta el llibre).<br>Substitueix els valors <i>f(a+h)</i> i <i>f(a)</i>.<br>Atenció, sempre obtindràs una indeterminació 0/0. Has d\'aconseguir simplificar-ho per no tenir un 0/0, i poder obtenir el límit.',
   'u8/40': 'Calcula f(2) per tenir el punt i f′(2) per tenir el pendent, i escriu la recta en forma punt-pendent. Per al dibuix, de la paràbola en necessites el vèrtex i els talls amb els eixos, i la tangent l\'ha de tocar només en aquest punt.',
   'u8/41': 'El punt P és damunt de la corba: substitueix les seves coordenades a f(x) i te\'n sortirà el valor d\'a. Un cop el tinguis, deriva la funció i calcula el pendent en x = 1.',
   'u8/46': 'Primer has de saber quin és el punt: la gràfica talla l\'eix d\'abscisses on f(x) = 0, és a dir on s\'anul·la el numerador. Deriva amb la regla del quocient per tenir el pendent m de la tangent; la normal hi és perpendicular, o sigui que el seu pendent és −1/m.',
