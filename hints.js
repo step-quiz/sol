@@ -18,7 +18,7 @@
 const PISTES = {
 
   /* ── Unitat 1 · Matrius ──────────────────────────────────────────────── */
-  'u1/12': 'Abans de calcular, simplifica l\'expressió com si A, B i C fossin lletres: treu parèntesis, vigila els signes i agrupa. Et quedarà una combinació del tipus aA + bB + cC, i llavors només has de multiplicar cada matriu pel seu nombre i sumar element a element.',
+  'u1/12': 'La segona operació es pot simplificar fent aquest pas previ: (-2)(A-C) - 3(B+2C) = -2A+2C-3B-6C = -2A-3B-4C',
   'u1/13': 'Una matriu fila 1×3 per una matriu columna 3×1 dona una matriu 1×1, és a dir, un sol nombre: multiplica els elements que ocupen la mateixa posició i suma els tres productes. Els nombres que multipliquen (2, 5 i 3) els pots deixar per al final.',
   'u1/15': 'Comença per les dimensions, sense fer cap càlcul: el producte d\'una matriu 2×2 per una de 2×3 dona una matriu 2×3, i només es poden sumar matrius de la mateixa dimensió. Després comprova-ho fent primer el producte, multiplicant pels nombres i, finalment, sumant.',
   'u1/16': 'Per saber si commuten, calcula AB i BA per separat i compara-les: n\'hi ha prou que un sol element sigui diferent. Per a la propietat distributiva, calcula els dos costats per separat: a l\'esquerra suma primer B + C i després multiplica per A; a la dreta fes AB i AC i suma\'ls.',
@@ -98,8 +98,8 @@ const PISTES = {
 
   /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
   'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
-  'u7/43': 'Bolzano parla d\'arrels, o sigui de valors on la funció val 0. Reescriu-ho: defineix g(x) = f(x) − 1 i busca-hi dos punts amb signes contraris. L\'exponencial és contínua a tot ℝ, o sigui que g també ho és.',
-  'u7/44': 'Mira cada gràfica per separat a la banda dreta (x → +∞) i a l\'esquerra (x → −∞): la corba s\'apropa a una alçada fixa (asímptota horitzontal), puja o baixa sense parar, o no s\'estabilitza? No cal calcular res, només llegir el dibuix.',
+  'u7/43': 'Defineix g(x) = f(x) − 1 i troba dos valors <i>a</i> i <i>b</i> tals que <i>f(a)</i> i <i>f(b)</i> tinguin signe contrari. Podràs aplicar Bolzano perquè la funció <i>f</i> és contínua a tot ℝ - ja que és suma d\'una exponencial i d\'una polinòmica - i per tant <i>g</i> també és contínua a tot ℝ.',
+  'u7/44': 'Estudia, per a cada gràfica, la banda dreta (x → +∞) i l\'esquerra (x → −∞).<br>Has d\'observar si la corba s\'apropa a una alçada fixa (llavors tenim una asímptota horitzontal), o bé puja o baixa sense parar, o bé no s\'estabilitza. No fa falta calcular res, només cal llegir el dibuix.',
   'u7/45': 'Pensa en qui "guanya" quan x es fa molt gran: una exponencial d\'una base més gran que 1 creix molt més de pressa que qualsevol potència de x, i una arrel creix més a poc a poc que allò que hi ha a dins. Simplifica quedant-te només amb els termes que realment dominen.',
   'u7/46': 'Compara el grau del numerador amb el del denominador: si són iguals, el límit és el quocient dels coeficients del terme de grau més alt; si el numerador té grau més gran, dona infinit; si en té menys, dona 0. Per al signe a −∞, vigila si les potències són parelles o senars.',
   'u7/47': 'Fes-ho al revés: per a cada límit que et demanen, quina és la funció més senzilla que el produeix? Un límit finit no nul suggereix numerador i denominador del mateix grau; un límit infinit, un numerador de grau més gran (o una exponencial); un límit 0, un denominador de grau més gran. No busquis res complicat.',
@@ -210,7 +210,7 @@ const PISTES = {
   'u13/108': 'Comença ordenant les dades: quina proporció fa dieta, quina fa esport i quina fa totes dues coses. Amb això pots omplir una taula de doble entrada i, un cop plena, cada apartat és mirar la casella o la fila que toca. Vigila si l\'enunciat et dona una probabilitat ja condicionada, perquè aleshores no és una casella, és una divisió feta.',
 
   /* ── Unitat 14 · Distribucions de probabilitat ───────────────────────── */
-  'u14/21': 'Comprova primer que és binomial: un nombre fix de casos, dos resultats possibles a cadascun, la mateixa probabilitat sempre i sense influir-se entre ells. Un cop identificats n i p, les probabilitats surten de la fórmula, i la mitjana i la variància no cal calcular-les sumant: són n·p i n·p·q.',
+  'u14/21': 'Comprova primer que és <binomial: un nombre fix de casos, dos resultats possibles a cadascun, la mateixa probabilitat sempre i sense influir-se entre ells. Un cop identificats n i p, les probabilitats surten de la fórmula, i la mitjana i la variància no cal calcular-les sumant: són n·p i n·p·q.',
   'u14/43': 'No cal fer cap càlcul, només comprovar quatre condicions a cada cas: que el nombre de repeticions estigui fixat, que a cada repetició només hi hagi èxit o fracàs, que la probabilitat sigui sempre la mateixa i que un resultat no afecti els altres. Si n\'hi falla una, ja no és binomial; l\'extracció sense reposició és el parany típic.',
   'u14/44': 'Aplica la fórmula per a cada valor de 0 a 4, sense oblidar el número combinatori del davant, que és el que compta de quantes maneres pot passar. Quan tinguis la taula feta, suma totes les probabilitats: si no et dona 1, és que t\'has equivocat en algun terme.',
   'u14/46': 'A cada situació, identifica dues coses: quantes vegades es repeteix l\'experiment, que serà la n, i quina és la probabilitat d\'èxit en una sola repetició, que serà la p. Compte a l\'hora de decidir què consideres «èxit»: ha de ser el fet del qual et pregunten la quantitat.',
