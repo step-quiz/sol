@@ -48,51 +48,82 @@ Vegeu `README.md` i `TODO.md`.
      les activitats del text amb el mateix número no hi caben.
 4. L'usuari passa la **llista-sel** (exercicis de cada setmana, segons l'Excel).
 5. Afegir les setmanes a `tasques.js` i **una pista per exercici** a `hints.js`
-   (una o dues frases que apuntin al mètode, **mai** el resultat).
+   (que apunti al mètode, **mai** el resultat; segons l'apartat «Estil de les pistes»).
 6. Provar-ho al navegador amb `?tot=1` i crear la pull request.
 
 ## Estil de les pistes
 
 - Clau `'uN/número'`. Apòstrofs escapats (`d\'una`) o tipogràfics (’).
 - Orienten cap al mètode o el concepte clau; no donen el resultat numèric ni el pas final.
-- **Format.** La pista es mostra com a HTML (`innerHTML` a `tasca.html`): només s'hi poden fer servir
-  `<i>`, `<b>` i `<br>`. Cap altre `<` (un `<` perdut fa desaparèixer part del text). No s'hi pinten
-  fórmules `$...$`: les expressions s'escriuen en text pla.
-- **`<i>` per a la notació matemàtica**: paràmetres, variables, funcions i punts (*a*, *b*, *m*, *f(a)*, *x=1*,
-  *g*). No per a nombres sols ni per a text corrent.
-- **`<b>` gairebé mai**: només per ressaltar de debò una paraula o un avís («**Atenció**», «**normal**»).
-  El professor no abusa de la negreta.
-- **`<br>` separa els passos** de la pista. Una pista és una sola línia de `hints.js`: no s'hi posa cap
-  salt de línia real.
-- **Estil del professor** (és el model per a qualsevol pista nova o revisada): senzill, directe i pedagògic.
-  Segona persona del singular («Calcula», «Fixa't»). Seqüència clara: *primer… després… finalment…*, un pas
-  per línia. Verbs d'acció. Sense frases llargues ni to de màquina. Escurça sempre que es pugui.
-  El guionet i el signe menys «−» els fa servir indistintament: no el corregeixis.
-- **Què el diferencia d'una màquina** (extret de com el professor va retocar els esborranys de Claude):
-  - **Activa l'alumne.** No li dona la regla feta: li deixa el descobriment. Preguntes («saps per què
-    funciona?», «pot haver-hi una arrel positiva?»), «comprova per quin motiu…», «pensa bé si és −∞ o +∞»,
-    «a veure si ja desapareix la indeterminació». Treu les frases que expliquen què veuran els alumnes.
-  - **Retalla.** Elimina les frases de cloenda («Simplifica l'expressió…», «No busquis res complicat»), les
-    introduccions meta («Fes-ho al revés») i el que l'alumne ja sap. Si només un passi desbloqueja, només
-    hi posa aquest.
-  - **Enllaça amb el que ja saben**: «recorda que has de comparar els graus» (exercici anterior), «fes el
-    mateix que amb la <i>f</i>», «fes el mateix que a l'exercici 40».
-  - **Un exemple concret** quan la regla és abstracta (dividir 3 entre un polinomi de grau 2).
-  - **Precisió matemàtica**: «polinomi» i no «potència de x»; «el límit no és finit» i no «és infinit»;
-    escriu els dos casos (−∞ i +∞) en comptes de «±∞»; «tant grans com vulguem» en comptes de «molt grans».
-  - **Llista amb «- »** (cada ítem separat per `<br>`) quan hi ha casos paral·lels o passos; `<br>` sol per
-    a una narració seguida. Una línia en blanc (`<br><br>`) abans d'un avís final.
-  - **Negreta**: per al **terme tècnic** la primera vegada que s'anomena («<b>indeterminació</b>»,
-    «<b>definida a trossos</b>», «<b>funció lineal</b>») i per a un qualificatiu clau («<b>sempre</b>»,
-    «<b>no és finit</b>»). Mai per decorar.
-  - **Llengua oral i amable**: «molt i molt gran», «a la llarga», «és ben senzill», «a veure si…»; verbs
-    «obtenir», «deduir», «comprovar». Si una pista ja és curta i clara, la deixa tal com és.
-- Les pistes que el professor ha escrit a mà (tota la unitat 8 i `u7/40`, `u7/43`, `u7/44`) no es
-  reescriuen si ell no ho demana.
+
+### Format
+
+- La pista es mostra com a HTML (`innerHTML` a `tasca.html`): només s'hi poden fer servir `<i>`, `<b>` i
+  `<br>`. Cap altre `<` (un `<` perdut fa desaparèixer part del text). No s'hi pinten fórmules `$...$`:
+  les expressions s'escriuen en text pla.
+- Una pista és **una sola línia** de `hints.js`: cap salt de línia real. `<br>` separa els passos.
+- `<i>` per a la notació matemàtica: paràmetres, variables, funcions i punts (*a*, *b*, *m*, *f(a)*, *x=1*,
+  *h(x)*, *log(3)*). No per a nombres sols ni per a text corrent.
+- `<b>` amb mesura. Només per a: el **terme tècnic** la primera vegada que s'anomena («<b>indeterminació</b>»,
+  «<b>definida a trossos</b>», «<b>evitable</b>», «<b>de salt infinit</b>»), un **qualificatiu clau**
+  («<b>sempre</b>», «<b>no és finit</b>») o l'**etiqueta d'un avís** («<b>Atenció</b>:»). Mai per decorar.
+- Llista amb «- » (cada ítem separat per `<br>`) quan hi ha casos paral·lels o passos. Si la llista és
+  precedida d'una frase, aquesta acaba amb dos punts («…tingues en compte això:»). `<br>` sol per a una
+  narració seguida. Un avís final va després d'una línia en blanc (`<br><br>`).
+- El guionet i el signe menys «−» els fa servir indistintament: no el corregeixis.
+
+### Com escriu el professor (el model per a qualsevol pista nova o revisada)
+
+Extret de com va refer, una per una, les propostes de Claude. Tot i que la forma és senzilla, la diferència
+amb una màquina és de fons:
+
+1. **Activa l'alumne i li deixa el descobriment.** No li dona la regla feta ni el resultat del raonament.
+   Tanca amb una pregunta de **comprensió**, no de càlcul: «saps per què…?», «entens el motiu?», «realment
+   creus que pot tenir alguna arrel positiva?», «pensa bé si és −∞ o +∞», «a veure si ja desapareix…».
+   Una pregunta que obliga a fer un càlcul («quantes vegades has de repetir-ho?») la substitueix per
+   **mostrar el patró** (1; 0,5; 0,25; 0,125…) i preguntar pel motiu.
+2. **Explica el perquè, amb la definició.** Una regla no va sola: «en un punt que no sigui del domini la
+   funció no pot ser contínua perquè la imatge d'aquell punt no existeix»; «(el motiu: és suma d'una
+   exponencial i d'una polinòmica)»; «(saps per què en la resta de punts és contínua?)».
+3. **Anomena el concepte, el teorema o el mètode pel seu nom.** «El teorema de Bolzano», «la funció
+   auxiliar *h(x)*», «una indeterminació 0/0», «(per bisecció)», «límits laterals», «sistema d'equacions»,
+   «la imatge *f(x)*». No el substitueix per una paràfrasi procedimental («passa quan pots simplificar…»).
+4. **Digues l'objectiu tal com el demana l'enunciat**: «fins que la longitud de l'interval sigui 1/2 o
+   inferior», «l'interval que et demanen ha de tenir longitud 2», «les dues funcions valen el mateix».
+5. **Concreció.** Un exemple o unes dades en lloc d'una descripció: «*log(3)* existeix, però *log(−3)* i
+   *log(0)* no», «comprova que *f(−3)* i *f(−2)* tenen signes diferents» (no «als dos extrems»), dividir
+   3 entre un polinomi de grau 2.
+6. **No repeteix el que l'alumne ja sap.** Treu les frases de cloenda («Simplifica l'expressió…»), les
+   introduccions meta («Fes-ho al revés»), i el procediment d'un mètode ja treballat (a la bisecció no
+   explica com es calcula el punt mig). Enllaça amb el que ja han fet: «recorda que has de comparar els
+   graus», «fes el mateix que amb la *f*», «fes el mateix que a l'exercici 40».
+7. **La llargada la mana el contingut, no un màxim.** Retalla el que sobra, però allarga quan afegeix un
+   perquè o un exemple (algunes pistes seves són més llargues que l'esborrany). Una pista que ja és curta i
+   clara es deixa tal com és.
+8. **Un fet es diu com a fet.** Si és coneixement a recordar (el domini d'una arrel, d'un logaritme, del
+   valor absolut), l'afirma; la pregunta es reserva per al raonament.
+9. **Llenguatge precís i, alhora, oral i amable.** Precisió: «polinomi» per a l'expressió i «una exponencial
+   i una polinòmica» per a tipus de funció; «el límit no és finit» i no «és infinit» (podria ser −∞ o +∞);
+   −∞ i +∞ per separat en lloc de «±∞»; «tant grans com vulguem» en lloc de «molt grans». Oral:
+   «molt i molt gran», «a la llarga», «és ben senzill», «llavors», «Per tant…»; verbs «obtenir»,
+   «deduir», «comprovar», «parar atenció». L'ànim, en positiu: «això et permet deduir…», «i podràs trobar
+   els valors que et demanen».
+
+Les pistes del professor poden tenir errades d'escriptura («en primer llocs», «quan a domini»): són
+descuits, no estil. No les copiïs.
+
+### Qui toca què
+
+- Les pistes que el professor ha escrit o revisat a mà **no es reescriuen** si ell no ho demana: tota la
+  unitat 8 i la unitat 7 (`u7/40`–`u7/120`).
 - **Flux de treball.** El professor edita les pistes amb l'artifact «Editor de pistes» (que parteix de
   `hints.js`) i en copia el text complet cap a GitHub. Si Claude proposa pistes noves, les deixa com a
-  **esborranys a la base de dades de l'artifact** (col·lecció `hints`, document `uN_número`, camps
-  `key` i `text`) perquè ell les revisi; Claude no les posa a `hints.js` si no li ho demana.
+  **esborranys a la base de dades de l'artifact** (col·lecció `hints`, document `uN_número`, camps `key` i
+  `text`) perquè ell les revisi; Claude no les posa a `hints.js` si no li ho demana. Abans de tornar a
+  escriure un esborrany, comprova que la versió del document encara és la que va escriure Claude (si el
+  professor l'ha tocat, no el trepitgis).
+- Quan el professor retoca els esborranys, Claude compara la seva versió amb la final i actualitza aquest
+  apartat amb el que n'aprèn.
 
 ## Errades del solucionari
 
