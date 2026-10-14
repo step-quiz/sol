@@ -1,157 +1,243 @@
-
-const TASQUES = [
-
-  { unitat:'u7', setmana:1, limit:'2026-09-20', exercicis:[44, 45, 46, 47, 48] },
-  { unitat:'u7', setmana:2, limit:'2026-09-27', exercicis:[66, 68, 70, 76, 88, 90] },
-  { unitat:'u7', setmana:3, limit:'2026-10-04', exercicis:[92, 93, 94, 102, 103, 40, 106] },
-  { unitat:'u7', setmana:4, limit:'2026-10-11', exercicis:[112, 113, 114, 43, 120] },
-  { unitat:'u8', setmana:5, limit:'2026-10-18', visible:'mai', exercicis:[37,86,87,88,92] },
-  { unitat:'u8', setmana:6, limit:'2026-10-25', exercicis:[30,31,32,21,40,41] },
-  { unitat:'u8', setmana:7, limit:'2026-11-01', exercicis:[46,54,58,93,97] },
-  { unitat:'u9', setmana:8, limit:'2026-11-08', exercicis:[39, 41, 42, 44, 50, 51, 58] },
-  { unitat:'u9', setmana:9, limit:'2026-11-15', exercicis:[30, 66, 67, 70] },
-  { unitat:'u9', setmana:10, limit:'2026-11-22', exercicis:[34, 77, 79, 86, 87] },
-  { unitat:'u10', setmana:11, limit:'2026-11-29', exercicis:[37, 38, 43, 45, 62, 63] },
-  { unitat:'u10', setmana:12, limit:'2026-12-06', exercicis:[75, 78, 88, 91, 41, 100] },
-  { unitat:'u13', setmana:13, limit:'2026-12-13', exercicis:[28, 29, 40, 60, 62, 32, 33, 35] },
-  { unitat:'u13', setmana:14, limit:'2026-12-20', exercicis:[36, 96, 103, 104, 105, 106, 107, 108] },
-  { unitat:'u14', setmana:15, limit:'2026-12-27', exercicis:[43, 46, 44, 50] },
-  { unitat:'u14', setmana:16, limit:'2027-01-03', exercicis:[21, 53, 100, 101] },
-  { unitat:'u10', setmana:17, limit:'2027-01-10', exercicis:[84, 108, 123, 124] },
-  { unitat:'u1', setmana:18, limit:'2027-01-17', exercicis:[12, 13, 15, 16, 17] },
-  { unitat:'u1', setmana:19, limit:'2027-01-24', exercicis:[42, 49, 69, 81, 85] },
-  { unitat:'u2', setmana:20, limit:'2027-01-31', exercicis:[35, 36, 37, 41, 44] },
-  { unitat:'u2', setmana:21, limit:'2027-02-07', exercicis:[79, 80, 83, 87] },
-  { unitat:'u2', setmana:22, limit:'2027-02-14', exercicis:[95, 96, 99, 100] },
-  { unitat:'u3', setmana:23, limit:'2027-02-21', exercicis:[38, 41, 42, 39, 43] },
-  { unitat:'u3', setmana:24, limit:'2027-02-28', exercicis:[55, 56] },
-  { unitat:'u3', setmana:25, limit:'2027-03-07', exercicis:[60, 64, 66] },
-  { unitat:'u3', setmana:26, limit:'2027-03-14', exercicis:[90, 92, 94, 100] },
-  { unitat:'u5', setmana:27, limit:'2027-03-21', exercicis:[43, 45, 46, 47, 49] },
-  { unitat:'u5', setmana:28, limit:'2027-03-28', exercicis:[53, 54, 55, 56, 59] },
-  { unitat:'u5', setmana:29, limit:'2027-04-04', exercicis:[63, 66, 71, 72, 73] },
-  { unitat:'u5', setmana:30, limit:'2027-04-11', exercicis:[74, 76, 77, 79] },
-  { unitat:'u5', setmana:31, limit:'2027-04-18', exercicis:[80, 81, 84, 85] },
-  { unitat:'u6', setmana:32, limit:'2027-04-25', exercicis:[74, 76, 86, 88] },
-  { unitat:'u6', setmana:33, limit:'2027-05-02', exercicis:[90, 92, 97, 115, 139] },
-  { unitat:'u11', setmana:34, limit:'2027-05-09', exercicis:[52, 54] },
-  { unitat:'u12', setmana:35, limit:'2027-05-16', exercicis:[35, 39, 55, 79] },
-  { unitat:'u12', setmana:36, limit:'2027-05-23', exercicis:[80, 88, 96, 111, 114] }
-];
-
-
-const DIES_ABANS = 3;
-
 /* ═══════════════════════════════════════════════════════════════════════
-   LA PROGRAMACIÓ D'EXERCICIS
+   LES PISTES
    ───────────────────────────────────────────────────────────────────────
-   Aquest és l'ÚNIC fitxer que has de tocar per programar el curs.
-   Edita'l, desa i fes commit: la web s'actualitza sola.
+   Una línia per pista. La clau és   'unitat/exercici'   i el valor, el text
+   que veurà l'alumne quan premi el botó 💡.
 
-   Cada línia és una TASCA (una setmana de feina):
+     'u7/44': 'Fixa\'t en el grau del numerador i el del denominador...',
 
-     { unitat:'u7', setmana:3, limit:'2026-10-04',
-       exercicis:[92, 93, 94, 102, 103, 40, 106] },
+   Un exercici sense línia aquí simplement no mostra cap botó de pista: no
+   cal escriure-hi res ni deixar-la buida.
 
-     unitat     quina unitat didàctica (u7, u8, u9, u10)
-     setmana    el número que veurà l'alumne
-     limit      data límit, sempre en format AAAA-MM-DD
-     exercicis  els exercicis, EN L'ORDRE QUE VOLS QUE ELS FACIN
+   L'apòstrof s'ha d'escapar amb barra invertida:  d\'una  ,  fixa\'t
+   (o fes servir l'apòstrof tipogràfic ’, que no cal escapar).
 
-   L'ORDRE MANA. Si escrius [112, 113, 114, 43, 120], l'alumne els veurà
-   exactament així, encara que el 43 sigui d'una altra part del llibre.
-   No cal que estiguin ordenats per número.
-
-   ── Barrejar unitats en una mateixa tasca ──────────────────────────────
-   Un exercici d'una altra unitat s'escriu amb el prefix:
-
-     exercicis:[112, 113, 'u9:44', 120]
-
-   El 112, el 113 i el 120 són de la unitat de la tasca; el 44 és de la u9.
-   Útil per a setmanes de repàs abans d'un examen.
-
-   ── Quan es fa visible una tasca ───────────────────────────────────────
-   Per defecte, s'obre DIES_ABANS dies abans de la data límit (ara: 3).
-   Ho pots canviar tasca per tasca:
-
-     obre:'2026-09-10'     s'obre aquest dia concret
-     visible:'sempre'      visible ja, passi el que passi
-     visible:'mai'         amagada (per preparar-la amb antelació)
-
-   Una tasca oberta ja no es torna a tancar: passada la data límit segueix
-   consultable, marcada com a vençuda.
+   Es pot editar des del mòbil: GitHub → hints.js → llapis → Commit changes.
    ═══════════════════════════════════════════════════════════════════════ */
 
+const PISTES = {
+
+  /* ── Unitat 1 · Matrius ──────────────────────────────────────────────── */
+  'u1/12': 'La segona operació es pot simplificar fent aquest pas previ: (-2)(A-C) - 3(B+2C) = -2A+2C-3B-6C = -2A-3B-4C',
+  'u1/13': 'Una matriu fila 1×3 per una matriu columna 3×1 dona una matriu 1×1, és a dir, un sol nombre: multiplica els elements que ocupen la mateixa posició i suma els tres productes. Els nombres que multipliquen (2, 5 i 3) els pots deixar per al final.',
+  'u1/15': 'Comença per les dimensions, sense fer cap càlcul: el producte d\'una matriu 2×2 per una de 2×3 dona una matriu 2×3, i només es poden sumar matrius de la mateixa dimensió. Després comprova-ho fent primer el producte, multiplicant pels nombres i, finalment, sumant.',
+  'u1/16': 'Per saber si commuten, calcula AB i BA per separat i compara-les: n\'hi ha prou que un sol element sigui diferent. Per a la propietat distributiva, calcula els dos costats per separat: a l\'esquerra suma primer B + C i després multiplica per A; a la dreta fes AB i AC i suma\'ls.',
+  'u1/17': 'Decideix primer què posaràs a les files i què a les columnes (per exemple, els dies a les files i les línies a les columnes) i mantén-ho fins al final: cada element de la matriu és el nombre d\'autobusos d\'una línia en un dia concret.',
+  'u1/42': 'Recorda la definició de cadascuna: una matriu fila només té una fila; una quadrada té tantes files com columnes; una diagonal és quadrada i fora de la diagonal principal només hi ha zeros; una triangular inferior té zeros per sobre de la diagonal principal. Els nombres, inventa\'ls tu.',
+  'u1/49': 'Abans de multiplicar, escriu la dimensió de cada matriu. Un producte només és possible si el nombre de columnes de la primera coincideix amb el nombre de files de la segona; si és així, el resultat té les files de la primera i les columnes de la segona. Si no coincideixen, justifica per què no es pot fer.',
+  'u1/69': 'Calcula AB i BA, sempre fila de la primera per columna de la segona, i compara-les element a element. El producte de matrius, en general, no és commutatiu: n\'hi ha prou que un sol element sigui diferent per dir que no ho compleix.',
+  'u1/81': 'Calcula A², A³ i A⁴ i fixa\'t en quin element canvia i com ho fa: descobriràs un patró que depèn de n. Un cop tinguis l\'expressió de Aⁿ, fes-la servir per a A²² i A² i opera: no cal que calculis les 22 potències una per una.',
+  'u1/85': 'A l\'apartat a, calcula A² i comprova que no és la matriu nul·la; després calcula A³ = A²·A. A l\'apartat b, calcula B² en funció d\'a i b i iguala\'l a la matriu nul·la: quina condició han de complir a i b? Recorda que, per ser de grau 2, B mateixa no pot ser la matriu nul·la.',
+
+  /* ── Unitat 2 · Determinants ─────────────────────────────────────────── */
+  'u2/35': 'Un determinant 2×2 és el producte de la diagonal principal menys el de l\'altra diagonal. Per a |A + B| i |A − B|, fes primer la suma o la resta de les matrius i calcula el determinant després: no és el mateix que sumar o restar |A| i |B|.',
+  'u2/36': 'Busca la matriu més senzilla possible: en una matriu diagonal, el determinant és el producte dels elements de la diagonal. Parteix de la matriu identitat i canvia-hi un sol element.',
+  'u2/37': 'Aplica la regla de sempre, producte de la diagonal principal menys producte de l\'altra diagonal, també quan hi ha lletres. Després desenvolupa els productes i agrupa els termes semblants.',
+  'u2/41': 'Fes servir la regla de Sarrus: tres productes en la direcció de la diagonal principal que sumen, i tres en la direcció de l\'altra diagonal que resten. Amb lletres, escriu els sis productes amb calma abans de simplificar.',
+  'u2/44': 'Calcula el determinant deixant m i n com a lletres; si el desenvolupes per la fila que té un zero, t\'estalvies feina. Et quedarà una expressió amb m i n: iguala-la a zero i aïlla una lletra en funció de l\'altra.',
+  'u2/79': 'El rang és l\'ordre del menor més gran que no val zero. Comença per un menor 2×2 no nul i orla\'l amb una fila i una columna més; si tots els menors 3×3 que el contenen valen zero, el rang es queda en 2.',
+  'u2/80': 'Per arribar a rang 3, la fila nova no pot ser combinació de les altres dues: tria\'n una de senzilla i comprova que el determinant 3×3 no val zero. Per quedar-te en rang 2, fes que sigui combinació lineal de les files de A (per exemple, la seva suma).',
+  'u2/83': 'Busca primer un menor d\'ordre 2 que no depengui del paràmetre i que no valgui zero: així ja saps que el rang és almenys 2. Després calcula els menors d\'ordre 3 que el contenen: el rang només baixa per als valors que els anul·len tots alhora.',
+  'u2/87': 'Una matriu 2×2 que no és nul·la té rang 1 exactament quan el seu determinant val zero. Escriu el determinant en funció de a, iguala\'l a zero i resol l\'equació.',
+  'u2/95': 'No cal que calculis cap inversa: multiplica cada matriu per cada candidata i mira quin producte dona la matriu identitat. Si vols anar més de pressa, compara abans els determinants: el de la inversa és l\'invers del de la matriu.',
+  'u2/96': 'Aplica A⁻¹ = (1/|A|)·Adj(A)ᵗ: calcula el determinant (si fos zero, no hi hauria inversa), després la matriu d\'adjunts, transposa-la i divideix per |A|. Al final, comprova que A·A⁻¹ dona la identitat.',
+  'u2/99': 'Una matriu és singular quan el seu determinant val zero: calcula\'l en funció de m, iguala\'l a zero i resol. Per a m = 2, substitueix el valor i calcula la inversa amb la matriu adjunta.',
+  'u2/100': 'Calcula el determinant en funció de a i b i fixa\'t que el pots escriure com una identitat notable: així veuràs de seguida quan val zero. Per a l\'apartat b, substitueix els valors i calcula la inversa de la matriu 2×2.',
+
+  /* ── Unitat 3 · Sistemes d'equacions ─────────────────────────────────── */
+  'u3/38': 'Redueix cada sistema (substitució, reducció o Gauss) fins que vegis què passa: si surt una única solució, és compatible determinat; si una equació desapareix (0 = 0) i queden menys equacions que incògnites, és compatible indeterminat; si surt una igualtat impossible com 0 = 3, és incompatible.',
+  'u3/39': 'La manera més segura d\'afegir una equació sense trencar la compatibilitat és fer-la combinació lineal de les que ja tens: suma-les, resta-les o multiplica-les per un nombre. Una altra opció: resol primer el sistema i inventa una equació que aquesta solució compleixi.',
+  'u3/41': 'Multiplica cada fila de la matriu de coeficients per la columna d\'incògnites: cada fila dona una equació, i el terme independent és l\'element corresponent de la columna de la dreta. Fixa\'t bé en quines són les incògnites de cada sistema, que no sempre són x, y, z.',
+  'u3/42': 'Separa cada sistema en tres parts: la matriu de coeficients (una fila per equació i una columna per incògnita), la columna de les incògnites i la columna dels termes independents. Si a una equació li falta una incògnita, el seu coeficient és 0.',
+  'u3/43': 'Escriu la matriu ampliada i fes zeros per sota de la diagonal amb operacions entre files, columna a columna. Quan la tinguis escalonada, resol de baix a dalt. Si una fila es fa tota zero o surt 0 = k, atura\'t i pensa què vol dir.',
+  'u3/55': 'Per a cada sistema, escriu la matriu de coeficients A i l\'ampliada A*, i calcula\'n els rangs. Si són diferents, és incompatible; si són iguals i coincideixen amb el nombre d\'incògnites, compatible determinat; si són iguals però més petits, compatible indeterminat.',
+  'u3/56': 'Compara sempre tres nombres: Rang(A), Rang(A*) i el nombre d\'incògnites. Si A és quadrada, comença pel seu determinant: si no és zero, el rang ja és màxim. Vigila els sistemes amb més equacions que incògnites, perquè l\'ampliada hi pot tenir un rang més gran.',
+  'u3/60': 'Calcula el determinant de la matriu de coeficients en funció de m i troba els valors que l\'anul·len. Per a la resta de valors, el sistema és compatible determinat; per a cadascun dels valors especials, substitueix-lo i estudia per separat els rangs de A i de A*.',
+  'u3/64': 'Busca primer els valors d\'a que anul·len |A|: per als altres, el sistema és compatible determinat. Per als valors crítics, compara Rang(A) i Rang(A*). En el cas compatible indeterminat, elimina l\'equació que sobra i passa una incògnita a la dreta com a paràmetre.',
+  'u3/66': 'a) Estudia |A| en funció de m i analitza a part els valors que l\'anul·len, comparant Rang(A) i Rang(A*). b) Abans de resoldre per a m = −1 i m = 2, mira a l\'apartat a quin tipus de sistema és en cada cas: així sabràs si has d\'esperar una solució única o infinites.',
+  'u3/90': 'Anomena x, y, z el preu d\'una medalla d\'or, de plata i de bronze. Cada comanda de la taula et dona una equació: quantitat de cada medalla per preu, tot sumat, igual al total de la comanda. Resol el sistema de tres equacions pel mètode de Gauss.',
+  'u3/92': 'Planteja una equació per a cada compra: nombre d\'accions per preu, tot sumat, igual al que es paga. Tindràs dues equacions i tres incògnites: estudia\'n els rangs per saber quantes solucions hi ha, i després fes servir que els preus són enters entre 1 i 12 € per trobar la bona.',
+  'u3/94': 'Anomena x, y, z els alumnes d\'ESO, Batxillerat i Cicles i tradueix cada frase en una equació: «excedeix en 100» vol dir que una quantitat és igual a l\'altra més 100, i els percentatges s\'escriuen com a decimals (40 % = 0,4). No t\'oblidis de l\'equació del total d\'estudiants.',
+  'u3/100': 'Llegeix amb calma què cal per produir cada producte i escriu una equació per a cada empresa amb les unitats p₁, p₂ i p₃. Després hi incorpores les demandes i resols el sistema de tres equacions que en surt, per Cramer o per Gauss.',
+
+  /* ── Unitat 5 · Rectes i plans en l'espai ────────────────────────────── */
+  'u5/43': 'Amb un punt i un vector director ja ho tens tot. La vectorial és punt + t·vector; les paramètriques surten de separar-la per coordenades; i la contínua, d\'aïllar t a cada paramètrica i igualar les tres expressions.',
+  'u5/45': 'Cada valor del paràmetre t et dona un punt de la recta. Tria\'n tres de fàcils (t = 0, t = 1, t = −1) i substitueix-los a l\'equació.',
+  'u5/46': 'Comença per la vectorial (punt + t·vector) i passa d\'una forma a l\'altra: paramètriques, contínua i, finalment, les implícites, que surten d\'igualar dues a dues les fraccions de la contínua i treure denominadors.',
+  'u5/47': 'Et falta el vector director: és el vector que va d\'un punt a l\'altre, AB = B − A. Amb A i aquest vector, escriu totes les formes de l\'equació.',
+  'u5/49': 'Si la recta que busques és paral·lela a r, té el mateix vector director que r. Treu-lo de l\'equació de r (si r ve donada per dos plans, resol-la passant-la a paramètriques) i fes-lo servir amb el punt P.',
+  'u5/53': 'Un pla queda determinat per un punt i dos vectors directors (que no siguin paral·lels), o per un punt i un vector normal. a) Fes vectors amb els tres punts. b) Ja ho tens tot. c) El vector normal et dona els coeficients A, B i C de l\'equació general; D surt d\'imposar que hi passi el punt.',
+  'u5/54': 'Que el pla passi pel punt vol dir que les coordenades del punt compleixen l\'equació del pla. Substitueix-les i aïlla m.',
+  'u5/55': 'Dos plans paral·lels tenen el mateix vector normal, és a dir, els mateixos coeficients de x, y i z. Només canvia el terme independent, que surt d\'imposar que el pla passi pel punt P.',
+  'u5/56': 'Si el pla és perpendicular a la recta, el vector director de la recta fa de vector normal del pla. Escriu l\'equació general amb aquests coeficients i troba el terme independent imposant que hi passi el punt.',
+  'u5/59': 'Cada eix té dues coordenades nul·les: per a l\'eix X, fes y = 0 i z = 0 a l\'equació i aïlla x; el mateix per als altres eixos. Si en algun cas no pots aïllar la coordenada (surt una contradicció), el pla no talla aquell eix.',
+  'u5/63': 'Tres punts estan alineats si els vectors AB i AC són proporcionals. Calcula\'ls, planteja la proporcionalitat de les coordenades i resol-la per trobar a.',
+  'u5/66': 'a) Fes dos vectors amb els tres punts i escriu el pla amb un determinant igualat a zero. b) Els quatre punts són coplanaris quan D pertany al pla ABC: substitueix les coordenades de D a l\'equació i aïlla k.',
+  'u5/71': 'Per a cada parella, pren un punt i el vector director de cada recta. Compara els rangs de la matriu dels dos vectors directors i de la matriu que també inclou el vector que uneix els dos punts: així distingeixes si es tallen, són paral·leles, coincideixen o es creuen.',
+  'u5/72': 'Primer comprova que els vectors directors no són proporcionals i que les rectes són coplanàries (el vector entre els dos punts depèn dels altres dos). Si es tallen, iguala les paramètriques coordenada a coordenada i resol el sistema en λ i μ.',
+  'u5/73': 'Estudia els rangs amb els vectors directors i el vector PQ per veure si són secants. Si ho són, el pla que les conté passa per un punt de qualsevol de les dues rectes i té com a vectors directors els de les dues rectes.',
+  'u5/74': 'Escriu la recta com a dues equacions implícites i ajunta-les amb l\'equació del pla: tens un sistema de tres equacions. Compara el rang de la matriu de coeficients amb el de l\'ampliada per decidir si es tallen, són paral·lels o la recta és continguda al pla.',
+  'u5/76': 'Passa els dos plans a equació general i estudia el sistema que formen: si els coeficients de x, y, z són proporcionals, els plans són paral·lels o coincidents (depèn del terme independent); si no, es tallen en una recta.',
+  'u5/77': 'Tres plans formen un sistema de tres equacions. Calcula el rang de la matriu de coeficients i el de l\'ampliada: si tots dos valen 3, es tallen en un punt; si valen 2, en una recta; i si són diferents, no tenen cap punt comú als tres.',
+  'u5/79': 'Si es tallen, les rectes són coplanàries: el determinant format pels dos vectors directors i el vector que uneix un punt de cada recta ha de valer zero. Planteja\'l en funció de m, iguala\'l a zero i comprova que els vectors directors no són proporcionals.',
+  'u5/80': 'Perquè siguin paral·leles, els vectors directors han de ser proporcionals: d\'aquí surt m. Comprova també que no siguin la mateixa recta (el vector entre un punt de cada una no ha de ser proporcional). El pla que les conté té com a vectors el director i aquest vector PQ.',
+  'u5/81': 'Troba un punt i un vector director de cada recta (la primera, resolent el sistema de dos plans). Després estudia els rangs de la matriu dels vectors directors i de la que també inclou PQ, separant els valors de m que fan canviar aquests rangs.',
+  'u5/84': 'Ajunta les dues equacions de la recta amb la del pla en un sistema de tres equacions. El determinant de la matriu de coeficients depèn de a: on no s\'anul·la es tallen en un punt; quan s\'anul·la, mira l\'ampliada, que depèn de b, per decidir si la recta és paral·lela o continguda al pla.',
+  'u5/85': 'Tot depèn dels vectors normals dels dos plans. a) Paral·lels: vectors normals proporcionals. b) Perpendiculars: vectors normals perpendiculars, és a dir, producte escalar igual a zero.',
+
+  /* ── Unitat 6 · Angles i distàncies a l'espai ────────────────────────── */
+  'u6/74': 'Primer troba la projecció de P sobre la recta: el pla perpendicular a r que passa per P (el vector director de r en fa de vector normal) talla r en un punt Q. Aquest Q és el punt mitjà entre P i el simètric P′, o sigui que P′ = 2Q − P.',
+  'u6/76': 'Traça la recta perpendicular al pla que passa per P (el vector normal del pla en fa de vector director) i troba el punt Q on talla el pla. Aquest Q és el punt mitjà entre P i el seu simètric: P′ = 2Q − P.',
+  'u6/86': 'Aplica la fórmula de la distància d\'un punt a un pla: substitueix les coordenades del punt a l\'equació del pla, pren el valor absolut del resultat i divideix-lo pel mòdul del vector normal, √(A² + B² + C²).',
+  'u6/88': 'Escriu el punt genèric de la recta en paramètriques, en funció d\'un paràmetre, i imposa que la seva distància al pla sigui √6. Com que la fórmula porta un valor absolut, l\'equació |…| = k et donarà dues solucions.',
+  'u6/90': 'El punt del pla més proper a A és la projecció ortogonal de A: traça la recta perpendicular al pla que passa per A i troba on el talla. La distància la pots calcular amb la fórmula de punt a pla, o com la distància entre A i aquest punt.',
+  'u6/92': 'Escriu el punt genèric de la recta en funció del paràmetre i aplica-li la fórmula de la distància a un pla, igualada a 1/3. El valor absolut et donarà dues equacions i, per tant, dos punts.',
+  'u6/97': 'Estudia primer la posició relativa: si la recta talla el pla, la distància és 0. Si és paral·lela (el vector director és perpendicular al vector normal del pla), agafa qualsevol punt de la recta i calcula\'n la distància al pla.',
+  'u6/115': 'Escriu el punt genèric de la recta en funció del paràmetre i iguala les seves distàncies als dos plans. Com que hi ha valors absoluts, en surten dues equacions (una per a cada signe) i, per tant, dos punts.',
+  'u6/139': 'a) El vector normal del pla fa de vector director de la recta perpendicular. b) Substitueix les paramètriques de la recta a l\'equació del pla per trobar el punt de tall. c) La distància de P al pla és la distància de P a aquest punt, o bé la de la fórmula de punt a pla.',
+
+  /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
+  'u7/40': 'A cada punt de canvi de tros, iguala el límit per l\'esquerra amb el límit per la dreta (i amb el valor que dona la fórmula en aquell punt): cada punt et dona una equació. Resol el sistema resultant per trobar a i b.',
+  'u7/43': 'Defineix g(x) = f(x) − 1 i troba dos valors <i>a</i> i <i>b</i> tals que <i>f(a)</i> i <i>f(b)</i> tinguin signe contrari.<br>Podràs aplicar Bolzano perquè la funció <i>f</i> és contínua a tot ℝ - ja que és suma d\'una exponencial i d\'una polinòmica - i per tant <i>g</i> també és contínua a tot ℝ.',
+  'u7/44': 'Estudia, per a cada gràfica, la banda dreta (x → +∞) i l\'esquerra (x → −∞).<br>Has d\'observar si la corba s\'apropa a una alçada fixa (llavors tenim una asímptota horitzontal), o bé puja o baixa sense parar, o bé no s\'estabilitza. No fa falta calcular res, només cal llegir el dibuix.',
+  'u7/45': 'Pensa en qui "guanya" quan x es fa molt gran: una exponencial d\'una base més gran que 1 creix molt més de pressa que qualsevol potència de x, i una arrel creix més a poc a poc que allò que hi ha a dins. Simplifica quedant-te només amb els termes que realment dominen.',
+  'u7/46': 'Compara el grau del numerador amb el del denominador: si són iguals, el límit és el quocient dels coeficients del terme de grau més alt; si el numerador té grau més gran, dona infinit; si en té menys, dona 0. Per al signe a −∞, vigila si les potències són parelles o senars.',
+  'u7/47': 'Fes-ho al revés: per a cada límit que et demanen, quina és la funció més senzilla que el produeix? Un límit finit no nul suggereix numerador i denominador del mateix grau; un límit infinit, un numerador de grau més gran (o una exponencial); un límit 0, un denominador de grau més gran. No busquis res complicat.',
+  'u7/48': 'Fixa\'t que les dues funcions comparteixen denominador (grau 2) i només canvia el grau del numerador (1 i 2, respectivament): aplica la regla de comparar graus a cadascuna i observa com aquest únic canvi altera el resultat.',
+  'u7/66': 'Per a cada punt que et demanen, mira si per l\'esquerra i per la dreta la gràfica s\'acosta a la mateixa alçada; si no coincideixen, dona els dos límits laterals per separat en lloc d\'un únic valor.',
+  'u7/68': 'Igual que amb f: comprova els límits laterals a cada punt marcat i, per a ±∞, fixa\'t cap a on tendeix la corba pels dos extrems del dibuix (puja, baixa o s\'estabilitza en una alçada).',
+  'u7/70': 'Comprova que √(x²+1) mai és zero: la funció és contínua a tot arreu, així que en cada punt només cal substituir directament el valor de x, sense cap indeterminació.',
+  'u7/76': 'Quan en substituir surt 0/0, factoritza numerador i denominador (factor comú o Ruffini) per trobar l\'arrel que els anul·la, simplifica i torna a substituir.',
+  'u7/88': 'Com que la funció és a trossos, en x=−1 i x=3 calcula per separat el límit amb l\'expressió que val a l\'esquerra i la que val a la dreta de cada punt; en +∞ fixa\'t només en el tros vàlid per a x grans.',
+  'u7/90': 'Igual que en l\'exercici anterior: identifica quin tros s\'aplica a cada banda dels 4 punts de canvi i calcula els límits laterals per separat; per a ±∞ mira només el tros vàlid per a x molt grans o molt petites.',
+  'u7/92': 'Per a cada gràfica, mira si el límit per l\'esquerra i el de la dreta coincideixen entre ells i amb l\'alçada del punt: si tot coincideix és contínua; si els laterals no coincideixen entre si és discontinuïtat de salt; si coincideixen però no amb el valor de la funció (o aquest no existeix) és evitable; si algun lateral és infinit, és de salt infinit.',
+  'u7/93': 'Fixa\'t primer en el domini de cada funció: les arrels necessiten l\'interior ≥ 0 i els logaritmes l\'interior > 0; fora d\'aquest domini la funció ja no és contínua perquè no hi és definida. El valor absolut, en canvi, no restringeix mai el domini.',
+  'u7/94': 'Busca els valors de x que anul·len el denominador: només allà hi pot haver discontinuïtat. Calcula el límit en aquest punt; si dona un nombre finit (es pot simplificar el factor que s\'anul·la), és evitable, si dona infinit, és de salt infinit.',
+  'u7/102': 'A x=−1 i x=2, calcula el límit lateral amb el tros que correspon a cada banda (recorda que el logaritme només existeix quan l\'argument és positiu) i compara\'ls entre ells i amb el valor de la funció en aquell punt.',
+  'u7/103': 'A cada punt de canvi, calcula el límit lateral amb el tros corresponent (compte amb el tros exponencial) i compara\'l amb el valor que pren la funció en aquell punt per decidir si hi ha continuïtat.',
+  'u7/106': 'Cada punt de canvi et dona una condició: iguala el límit per l\'esquerra amb el límit per la dreta en aquell punt. Amb les equacions que en surten, planteja i resol el sistema per a a i b.',
+  'u7/112': 'És contínua a tot ℝ (una exponencial més un polinomi), o sigui que pots aplicar Bolzano. Ves provant valors enters fins que f canviï de signe i, a partir d\'aquí, parteix l\'interval per la meitat: cada partició el redueix a la meitat, fins que arribis a la longitud que et demanen.',
+  'u7/113': 'Un polinomi és continu a tot ℝ, així que amb Bolzano n\'hi ha prou: només has de trobar dos valors on f canviï de signe. Com que l\'interval ha de tenir longitud 2, busca\'ls entre enters separats per dues unitats, i prova primer amb els negatius.',
+  'u7/114': 'Comprova abans de res que f canvia de signe als dos extrems de l\'interval. Després aplica bisecció: calcula f al punt mig, queda\'t amb la meitat on continua havent-hi canvi de signe i repeteix. Cada pas divideix la longitud per dos, i has d\'arribar per sota de l\'error demanat.',
+  'u7/120': 'Que dues corbes es tallin vol dir que la diferència de les dues funcions s\'anul·la. Per a cada apartat, defineix h(x) com la resta de les dues i busca-hi un canvi de signe. Quan hi hagi un logaritme, mira\'t primer on està definit.',
+
+  /* ── Unitat 8 · Derivades ─────────────────────────────────── */
+  'u8/21': 'L\'equació de la recta tangent és: y − f(<i>e</i>) = f ′ (<i>e</i>)·(x − <i>e</i>).<br> Per tant, hauràs de calcular f(<i>e</i>), i f ′ (<i>e</i>).',
+  'u8/30': 'La taxa de variació mitjana (TVM) sempre implica fer una divisió. Pots pensar que és com la velocitat mitjana, on divideixes l\'increment de posició entre l\'increment de temps. Calcula la TVM i no t\'has de sorprendre si obtens el mateix resultat numèric: això ocorre perquè <i>f</i> és una <b>funció lineal</b> (és a dir, és un polinomi de primer grau).',
+  'u8/31': 'Fes el càlcul de la taxa de variació mitjana, en els tres casos. Fixa\'t que, en cadascun dels casos, et donarà el pendent de la recta que correspon a aquella funció.',
+  'u8/32': 'En primer lloc, calcula les taxes de variació mitjana: [1,6] i [1,4]. És com si ens anem acostant cada cop més a <i>x=1</i><br>Finalment, has de calcular <i>f \' (1)</i>, que és el límit si cada vegada t\'acostessis més a <i>x=1</i>',
+  'u8/37': 'Fes servir la definició de derivada d\'una funció en un punt (consulta el llibre).<br>Substitueix els valors <i>f(a+h)</i> i <i>f(a)</i>.<br><b>Atenció</b>, sempre obtindràs una indeterminació 0/0. Has d\'aconseguir simplificar-ho per no tenir un 0/0, i poder obtenir el límit.',
+  'u8/40': 'Per obtenir l\'equació d\'aquesta recta tangent, necessites calcula <i>f(2)</i>, i també <i>f ′ (2)</i>.<br>Per representar la paràbola, troba en primer lloc les coordenades del seu vèrtex i calcula els punts de tall de la paràbola amb l\'eix d\'ordenades (calcula <i>f(0)</i>) i amb l\'eix d\'abscisses (resol <i>f(x)=0</i>).',
+  'u8/41': 'Sabem que el punt P és damunt de la corba, i per tant sabem que la imatge de <i>x=1</i> és <i>f(1)=2</i>.<br>A partir d\'aquí podràs trobar el valor del paràmetre <i>a</i>. Un cop el tinguis, pensa com obtenir el pendent de la recta tangent <i>en x = 1</i>.',
+  'u8/46': 'Primer has de saber quin és el punt: la gràfica talla l\'eix d\'abscisses on f(x) = 0, és a dir on s\'anul·la el numerador. Deriva amb la regla del quocient per tenir el pendent m de la tangent; la normal hi és perpendicular, o sigui que el seu pendent és −1/m.',
+  'u8/54': 'Dues rectes són paral·leles quan tenen el mateix pendent, i el de la recta que et donen es llegeix directament. Planteja f′(x) igual a aquest pendent i resol: cada solució és una abscissa, i després calcula la imatge per tenir el punt sencer.',
+  'u8/58': 'Troba primer la recta tangent en el punt indicat. Després calcula on talla cada eix (fes-hi x = 0 i y = 0): aquests dos talls, amb l\'origen, són els vèrtexs del triangle rectangle, i l\'àrea és base per altura entre dos.',
+  'u8/86': 'Estigues alerta perquè en alguns casos cal derivar una composició de funcions i, per tant, cal aplicar la regla de la cadena.',
+  'u8/87': 'Aquí no busques el valor en un punt sinó la funció derivada, o sigui que apliques la definició deixant la x com a lletra: el límit de [f(x+h) − f(x)]/h. Comença per la constant i fixa\'t què passa amb el numerador.',
+  'u8/88': 'A la fracció, fes primer la resta del numerador amb denominador comú i després divideix per h. A l\'arrel, multiplica i divideix pel conjugat per treure-la del numerador: és l\'única manera de fer desaparèixer la h.',
+  'u8/92': 'Abans de derivar, reescriu-ho tot en forma de potència: l\'arrel és x elevat a 1/2 i 1/x és x elevat a −1. Així n\'hi ha prou amb la regla de la potència, que també val amb exponents negatius i fraccionaris.',
+  'u8/93': 'El primer se simplifica molt si abans ajuntes les dues potències de x en una de sola. Els altres tres són productes, i a l\'últim, a més, hi ha una arrel d\'una funció: cal la regla del producte i la de la cadena alhora.',
+  'u8/97': 'La derivada d\'un logaritme és la derivada de dins dividida pel de dins. Al segon, aplica-hi abans la propietat del logaritme d\'una arrel i t\'estalviaràs mitja feina. El tercer és un quocient, i el quart té base 2, o sigui que hi apareixerà un ln 2.',
+
+
+  /* ── Unitat 9 · Aplicacions de les derivades ─────────────────────────── */
+  'u9/30': 'Cada dada et dona una equació. Que hi hagi un extrem en un punt vol dir que la derivada s\'hi anul·la: d\'aquí en surten dues. Que P sigui damunt de la gràfica vol dir que f(1) val 6: aquesta és la tercera. Amb tres equacions i tres incògnites, resol el sistema.',
+  'u9/34': 'Estudia cada tros per separat buscant-hi els punts crítics amb la derivada, però no et quedis aquí: en una funció a trossos, el màxim i el mínim també poden caure al punt on canvia la definició o als extrems de l\'interval, justament allà on la derivada no existeix o no serveix. Compara al final els valors de tots els candidats.',
+  'u9/39': 'Pensa-ho a través de la derivada: si f és un polinomi de grau n, f′ és de grau n − 1, i un polinomi de grau n − 1 no pot tenir més de n − 1 arrels. Com que els extrems només poden ser allà on la derivada s\'anul·la, ja tens el màxim possible. Comprova-ho amb la recta i la paràbola.',
+  'u9/41': 'Els extrems de f són allà on la gràfica de f′ talla l\'eix X. Per saber de quin tipus és cadascun, mira com canvia el signe de f′ en creuar-lo: de positiu a negatiu és un màxim de f, i de negatiu a positiu, un mínim. Si f′ toca l\'eix però no canvia de signe, allà no hi ha extrem.',
+  'u9/42': 'El procediment és sempre el mateix: deriva, resol f′(x) = 0 per tenir els punts crítics, col·loca\'ls damunt d\'una recta i estudia el signe de f′ a cada interval que en surt. Un canvi de positiu a negatiu és un màxim; de negatiu a positiu, un mínim.',
+  'u9/44': 'Ves de la resposta cap enrere: el que vols és que f′ s\'anul·li en aquell punt. Comença decidint com ha de ser f′ (alguna cosa que es faci zero en x = 2, per exemple) i pensa de quina f prové. Amb una paràbola n\'hi ha prou: recorda on té el vèrtex i què decideix si s\'obre cap amunt o cap avall.',
+  'u9/50': 'Primer troba els punts crítics resolent f′(x) = 0 i després decideix-ne el tipus substituint-los a f″: si surt negativa és un màxim i si surt positiva, un mínim. Si f″ hi val zero, aquest criteri no et diu res i has de tornar a mirar el signe de f′ als costats.',
+  'u9/51': 'Sempre creixent vol dir f′(x) > 0 per a qualsevol x. Deriva i et quedarà una paràbola: si el discriminant surt negatiu, no talla mai l\'eix i per tant no pot canviar de signe. Només et faltarà comprovar quin signe té, substituint-hi un valor qualsevol.',
+  'u9/58': 'Que hi hagi un extrem relatiu en x = 2 vol dir que la derivada s\'hi anul·la: planteja f′(2) = 0 i te\'n sortirà el valor d\'a. Amb la a ja coneguda, torna a resoldre f′(x) = 0 per tenir tots els punts crítics i estudia el signe de f′ als intervals que determinen.',
+  'u9/66': 'El mateix raonament que amb els extrems, però un pas més enllà: els punts d\'inflexió es busquen allà on s\'anul·la la segona derivada. Si f és de grau n, f″ és de grau n − 2, i d\'aquí en surt el nombre màxim d\'arrels. Fixa\'t què implica això per a la recta i per a la paràbola.',
+  'u9/67': 'Per a cada funció, calcula f″ i mira\'n el signe: positiu vol dir convexa i negatiu, còncava. Abans de començar, però, mira\'t el domini, sobretot a les racionals, les arrels i els logaritmes: un punt on la funció no existeix també separa trams de curvatura, encara que no sigui un punt d\'inflexió.',
+  'u9/70': 'Tradueix cada condició en una equació: passar per l\'origen vol dir f(0) = 0; tenir un punt d\'inflexió en x = −1 vol dir f″(−1) = 0; i que el pendent de la tangent en x = 1 sigui 3 vol dir f′(1) = 3. Tres condicions per a tres incògnites.',
+  'u9/77': 'Anomena x i y els dos catets. Tens dues coses lligades: l\'àrea, que és x·y/2, i el teorema de Pitàgores, que relaciona els catets amb la hipotenusa. Fes servir Pitàgores per deixar l\'àrea en funció d\'una sola variable i deriva. Si vols estalviar-te l\'arrel, treballa amb el quadrat de l\'àrea: té el màxim al mateix lloc.',
+  'u9/79': 'Anomena x i y les dimensions de la part escrita, que han de complir x·y = 18. La superfície total del full és (x més els marges laterals) per (y més els marges de dalt i de baix). Substitueix-hi y = 18/x per tenir-ho tot en una sola variable i després minimitza derivant.',
+  'u9/86': 'Escriu la superfície del rectangle com a base per altura i fes servir l\'equació de la recta per deixar-ho tot en funció d\'una sola variable. Després deriva, iguala a zero i comprova amb la segona derivada que el que has trobat és realment un màxim i no un mínim.',
+  'u9/87': 'La distància del punt (x, x²) al punt donat surt del teorema de Pitàgores. Un truc que t\'estalvia molta feina: el punt que fa mínima la distància és el mateix que fa mínim el seu quadrat, i el quadrat no porta arrel, o sigui que és molt més còmode de derivar.',
+
+  /* ── Unitat 10 · Representació de funcions ───────────────────────────── */
+  'u10/37': 'El que tens dibuixat és f′, no f. Allà on la corba de f′ va per sobre de l\'eix, f creix; on va per sota, f decreix; i on el talla, f té un extrem. Per a la curvatura, mira si f′ puja o baixa: si f′ creix, f és convexa; si f′ decreix, f és còncava; i els extrems de f′ són els punts d\'inflexió de f.',
+  'u10/38': 'És de resposta oberta: no busquis cap fórmula, dibuixa. Traça primer les dues asímptotes i el punt de tall que et donen, i després encaixa-hi la corba respectant el que et diu del creixement i dels extrems, acostant-se a cada asímptota pel costat que toca.',
+  'u10/41': 'El mateix guió que amb qualsevol altra racional, però aquí la simetria et regala mitja feina: mira primer si f(−x) surt igual a f(x) o a −f(x). Si hi ha simetria, estudia només una banda i reflecteix l\'altra. Compte amb el denominador, que s\'anul·la en dos punts.',
+  'u10/43': 'Repassa què prohibeix cada tipus de funció: un denominador no es pot anul·lar, dins d\'una arrel d\'índex parell hi ha d\'haver un nombre positiu o zero, i dins d\'un logaritme, estrictament positiu. Les exponencials i el sinus no restringeixen res, o sigui que aquestes tenen tot ℝ per domini.',
+  'u10/45': 'Són dues feines diferents. Per al domini, mira només què pot fer petar la fórmula, típicament un denominador que s\'anul·la. Per als talls: amb l\'eix X resol f(x) = 0, i amb l\'eix Y calcula f(0) — si el 0 no és al domini, senzillament no hi ha tall amb l\'eix Y.',
+  'u10/62': 'Totes quatre són polinomis, i això ja et dona mitja resposta: un polinomi no té asímptotes de cap mena. El que sí que has de fer és calcular els límits en +∞ i en −∞ per dir cap on se\'n va cada branca, i això ho decideixen el grau i el signe del coeficient principal.',
+  'u10/63': 'Les verticals surten dels valors que anul·len el denominador (comprova abans que no desapareguin en simplificar). Per a les horitzontals i les obliqües, compara els graus: si el de dalt és més petit hi ha horitzontal y = 0; si són iguals, horitzontal al quocient dels coeficients principals; i si el de dalt supera el de baix en una unitat, no hi ha horitzontal sinó obliqua.',
+  'u10/75': 'Sempre el mateix guió: domini, deriva, resol f′(x) = 0 i estudia el signe de f′ als intervals que en surten. No t\'oblidis de posar damunt de la recta els punts on la funció no existeix: no són extrems, però també separen trams de creixement.',
+  'u10/78': 'Aquí treballes amb la segona derivada: on f″ és positiva la funció és convexa i on és negativa, còncava. Per als punts d\'inflexió no n\'hi ha prou que f″ s\'anul·li, també hi ha de canviar de signe; si s\'anul·la i no canvia, allà no hi ha inflexió.',
+  'u10/84': 'Que siguin polinomis t\'estalvia mitja feina: el domini és tot ℝ i no hi ha cap asímptota, o sigui que pots saltar-te aquest apartat i quedar-te només amb les branques infinites, que les decideixen el grau i el signe del coeficient principal. La resta és el guió de sempre: talls, f′ per a la monotonia i els extrems, f″ per a la curvatura i els punts d\'inflexió, i al final el dibuix.',
+  'u10/88': 'Tres condicions, tres incògnites. Tenir un extrem en x = 2 vol dir f′(2) = 0; tenir un punt d\'inflexió en x = 0 vol dir f″(0) = 0; i passar per (1, −5) vol dir f(1) = −5. Comença per la del punt d\'inflexió, que és la més curta perquè f″ només conté una de les tres lletres.',
+  'u10/91': 'És un estudi complet, o sigui que val la pena seguir sempre el mateix ordre: domini, talls, simetria, asímptotes, monotonia, curvatura i, només al final, el dibuix. Comprova la simetria de bon començament, que et pot estalviar la meitat de la feina; i fixa\'t que el grau de dalt supera en un el de baix, cosa que anuncia asímptota obliqua.',
+  'u10/100': 'Amb les arrels el domini mana, i sovint la gràfica només existeix en un tros de la recta: comença sempre resolent la inequació de dins de l\'arrel. Als extrems del domini la corba s\'acaba de cop, i allà la tangent acostuma a ser vertical perquè la derivada s\'hi dispara.',
+  'u10/108': 'Estudia cada tros pel seu compte, però només dins de l\'interval on mana: un extrem o una asímptota que et surti fora d\'aquell interval no compta. La feina de veritat és als punts de canvi, i n\'hi has de mirar dues coses per separat: si els límits laterals coincideixen (continuïtat) i si les derivades laterals també (derivabilitat). Que hi hagi continuïtat no garanteix que la gràfica hi passi llisa: hi pot quedar una punta.',
+  'u10/123': 'Abans de res mira\'t el denominador: si el completes a quadrat perfecte veuràs que no s\'anul·la mai, o sigui que el domini és tot ℝ i no hi ha asímptotes verticals. Per als talls amb l\'eix X, iguala la funció a zero i comprova si l\'equació té solució; si no en té, la funció no canvia mai de signe. La resta és el guió de sempre amb f′, i el recorregut te\'l donaran els dos extrems que trobis.',
+  'u10/124': 'És la mateixa funció de l\'exercici anterior, ara amb el temps a l\'eix horitzontal: si ja la tens estudiada, aquí només has de traduir. La temperatura inicial és el valor en t = 0; la temperatura a la llarga és el límit quan t tendeix a infinit; i els extrems que vas calcular són els moments en què la peça és més freda i més calenta. Canviar de tendència vol dir passar de refredar-se a escalfar-se, és a dir, els punts on s\'anul·la la derivada.',
+
+  /* ── Unitat 11 · Integrals ───────────────────────────────────────────── */
+  'u11/52': 'Integra terme a terme: la integral d\'una suma és la suma d\'integrals, els coeficients surten fora i cada potència té primitiva xⁿ⁺¹/(n+1). Si hi ha un parèntesi elevat, com (x + 3)², o el desenvolupes o fas servir que (ax + b)ⁿ té primitiva (ax + b)ⁿ⁺¹/(a(n+1)).',
+  'u11/54': 'Separa cada fracció en termes. Les de la forma k/(x − a) donen un logaritme, k·ln|x − a|. Les que tenen el denominador elevat, 1/(x − a)ⁿ, escriu-les com una potència d\'exponent negatiu, (x − a)⁻ⁿ, i integra-les com qualsevol potència.',
+
+  /* ── Unitat 12 · La integral definida ────────────────────────────────── */
+  'u12/35': 'No cal calcular cap primitiva: la integral d\'una funció positiva és l\'àrea entre la gràfica i l\'eix X. Descompon cada regió en triangles, rectangles o trapezis i suma\'n les àrees.',
+  'u12/39': 'Fes servir la linealitat: separa la integral d\'una suma en suma d\'integrals i treu fora les constants. Després aplica la regla de Barrow a cada terme: la primitiva avaluada al límit superior menys l\'avaluada al límit inferior.',
+  'u12/55': 'Per a cada apartat, troba primer una primitiva (amb les integrals immediates o, si cal, per parts o per canvi de variable) i després aplica Barrow, F(b) − F(a). Quan hi ha un valor absolut, mira quin signe té l\'expressió dins l\'interval per poder treure les barres.',
+  'u12/79': 'Troba primer on la corba talla l\'eix X resolent f(x) = 0: aquests punts són els límits d\'integració. Si hi ha més de dos talls, integra per separat cada tros i suma els valors absoluts, perquè les parts que queden per sota de l\'eix donen integrals negatives.',
+  'u12/80': 'Busca on la funció talla l\'eix X: aquest punt i la recta x = 4 són els límits d\'integració. Per trobar la primitiva, escriu l\'arrel com una potència d\'exponent 1/2.',
+  'u12/88': 'a) Per a l\'esbós, estudia el domini, els talls amb els eixos i el creixement. b) Els límits d\'integració són els punts on f(x) = 0; com que entre ells la funció és negativa, pren el valor absolut de la integral.',
+  'u12/96': 'Primer la recta tangent: el pendent és f′(1/2) i el punt és (1/2, f(1/2)). Després dibuixa la paràbola, la tangent i l\'eix Y per veure la regió: l\'àrea és la integral de la diferència entre les dues funcions entre x = 0 i x = 1/2.',
+  'u12/111': 'Iguala les dues funcions per trobar els punts de tall, que seran els límits d\'integració. Després integra la diferència entre les dues funcions en aquest interval i pren-ne el valor absolut.',
+  'u12/114': 'Resol f(x) = g(x) per trobar tots els punts de tall. Si n\'hi ha tres, hi ha dues regions: integra f − g per separat a cada interval i suma els valors absoluts, perquè la funció que queda per sobre canvia d\'una regió a l\'altra.',
+
+  /* ── Unitat 13 · Probabilitat ────────────────────────────────────────── */
+  'u13/28': 'L\'espai mostral són totes les parelles possibles: una cara de la moneda i un número del dau. Com que un llançament no influeix en l\'altre, organitza-ho en una taula de doble entrada o en un diagrama d\'arbre, i el total et sortirà de multiplicar les possibilitats de cada pas.',
+  'u13/29': 'Cada resultat és una parella: primer el color del llapis, després la cara de la moneda. Dibuixa un arbre amb tants grups de branques com colors, i de cada color en fas penjar les dues possibilitats de la moneda; així no te\'n deixaràs cap.',
+  'u13/32': '«No patir cap de les dues» vol dir quedar-se fora de la unió: és el contrari de «patir-ne alguna». Calcula primer P(A∪B), sense oblidar de restar la intersecció perquè els qui pateixen les dues malalties no els comptis dos cops, i després resta el resultat d\'1.',
+  'u13/33': 'Amb una taula de doble entrada, «noi i natació» és una sola casella: la que creua les dues condicions. Divideix-la pel total de persones. Vigila de no confondre-ho amb «entre els nois, quants fan natació», que seria dividir per un total diferent.',
+  'u13/35': 'El resultat de la moneda decideix de quin estoig treus el bolígraf, o sigui que no hi ha una sola manera d\'aconseguir-ne un de negre, sinó dos camins possibles. Dibuixa l\'arbre amb la moneda a la primera branca i el color a la segona, i suma les branques que acaben en negre multiplicant les probabilitats de cada camí.',
+  'u13/36': 'És l\'exercici anterior del revés: allà sabies l\'estoig i buscaves el color, i aquí ja saps que el bolígraf és negre i vols saber d\'on ve. Al numerador hi va només el camí que passa per E₂, i al denominador, la probabilitat total de treure negre que ja vas calcular abans.',
+  'u13/40': 'Abans de comptar res, respon dues preguntes a cada apartat: importa l\'ordre en què surten els elements? es poden repetir? Amb aquestes dues respostes ja saps si toquen variacions (amb repetició o sense), permutacions o combinacions; el que fa fallar aquests exercicis quasi sempre és triar malament, no calcular malament.',
+  'u13/60': 'La independència no s\'endevina, es comprova: dos esdeveniments són independents quan P(A∩B) coincideix amb P(A)·P(B). Calcula les tres probabilitats per separat a partir de les dades i compara. Que dues coses semblin no tenir res a veure no vol dir que els números ho confirmin.',
+  'u13/62': 'Qui es lliga per totes dues fonts pertany als dos grups alhora, o sigui que si sumes les dues probabilitats l\'estàs comptant dues vegades: per això a la unió cal restar-hi la intersecció. Un diagrama de Venn amb les tres zones ben separades t\'estalvia errors.',
+  'u13/96': 'Les tres categories reparteixen tots els alumnes sense solapar-se, i això és el que et permet aplicar la probabilitat total: cada categoria és un camí de l\'arbre. Per a les condicionades, fixa\'t bé en quina de les dues dades és la que ja se sap i quina és la que preguntes, perquè P(A/B) i P(B/A) no són el mateix.',
+  'u13/103': 'Pensa què vol dir «ni l\'un ni l\'altre»: és exactament el contrari que «almenys un dels dos». Per tant, calcula primer la probabilitat de la unió amb la fórmula que inclou la intersecció, i el que et demanen és el que sobra fins a 1.',
+  'u13/104': 'És el mateix esquema que l\'exercici anterior, ara amb esport i instrument: «cap de les dues activitats» és el complementari de «alguna de les dues». Calcula la unió i resta-la d\'1; si les dades et venen en percentatges, passa-les a probabilitats abans de començar.',
+  'u13/105': 'El primer apartat és la fórmula de la unió de sempre. El segon, tot i que sembli complicat, vol dir «exactament un dels dos i no els dos alhora»: si a la unió li treus la intersecció, et queda justament això, i t\'estalvies calcular els dos trossos per separat.',
+  'u13/106': 'Cada tipus d\'energia és una condició que restringeix el grup del qual parles. Abans de dividir, tingues clar quin és el total que et toca posar al denominador: el de tot l\'edifici o només el del grup que ja saps segur. Un diagrama d\'arbre o una taula t\'ho deixarà clar.',
+  'u13/107': 'Són dos passos encadenats. Per a P(B), fixa\'t que B pot arribar per dos camins, segons si A passa o no: aquesta és la probabilitat total. Un cop la tinguis, P(A/B) surt del teorema de Bayes, amb el camí que passa per A al numerador i la P(B) que acabes de calcular al denominador.',
+  'u13/108': 'Comença ordenant les dades: quina proporció fa dieta, quina fa esport i quina fa totes dues coses. Amb això pots omplir una taula de doble entrada i, un cop plena, cada apartat és mirar la casella o la fila que toca. Vigila si l\'enunciat et dona una probabilitat ja condicionada, perquè aleshores no és una casella, és una divisió feta.',
+
+  /* ── Unitat 14 · Distribucions de probabilitat ───────────────────────── */
+  'u14/21': 'Comprova primer que és <binomial: un nombre fix de casos, dos resultats possibles a cadascun, la mateixa probabilitat sempre i sense influir-se entre ells. Un cop identificats n i p, les probabilitats surten de la fórmula, i la mitjana i la variància no cal calcular-les sumant: són n·p i n·p·q.',
+  'u14/43': 'No cal fer cap càlcul, només comprovar quatre condicions a cada cas: que el nombre de repeticions estigui fixat, que a cada repetició només hi hagi èxit o fracàs, que la probabilitat sigui sempre la mateixa i que un resultat no afecti els altres. Si n\'hi falla una, ja no és binomial; l\'extracció sense reposició és el parany típic.',
+  'u14/44': 'Aplica la fórmula per a cada valor de 0 a 4, sense oblidar el número combinatori del davant, que és el que compta de quantes maneres pot passar. Quan tinguis la taula feta, suma totes les probabilitats: si no et dona 1, és que t\'has equivocat en algun terme.',
+  'u14/46': 'A cada situació, identifica dues coses: quantes vegades es repeteix l\'experiment, que serà la n, i quina és la probabilitat d\'èxit en una sola repetició, que serà la p. Compte a l\'hora de decidir què consideres «èxit»: ha de ser el fet del qual et pregunten la quantitat.',
+  'u14/50': '«Més de 2» vol dir 3, 4, 5... fins a 12, o sigui que calcular-ho directament són deu termes. Ves per la contrària: el contrari de «més de 2» és «2 o menys», que són només tres termes (0, 1 i 2). Calcula\'ls, suma\'ls i resta el resultat d\'1.',
+  'u14/53': 'Els dos apartats es resolen de manera diferent a posta. «Exactament 3» és un sol terme de la fórmula. «Com a mínim 10», en canvi, en tindria moltíssims: mira si et surt més curt passar pel complementari, i comprova si els paràmetres permeten fer servir l\'aproximació que heu vist a classe.',
+  'u14/100': 'Per a P(X = 10) fixa\'t que és el valor més alt possible: tots els casos han de ser èxit alhora, i el número combinatori val 1. Per a P(X > 1), no sumis de 2 fins a 10; el contrari és «cap o només un», que són dos termes, i el restes d\'1.',
+  'u14/101': 'És exactament la mateixa distribució de l\'exercici anterior, ara amb els articles de l\'artesà: cada article és una repetició i «sense defecte» és l\'èxit. Si ja tens fets aquells càlculs, aquí només has de traduir cada pregunta al llenguatge de la distribució i reaprofitar-los.',
+};
 
 
 /* ═══════════════════════════════════════════════════════════════════════
    A PARTIR D'AQUÍ NO CAL QUE TOQUIS RES
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* Identificador estable d'una tasca: 'u7/s3'. Surt de la unitat i la
-   setmana, així que no l'has d'escriure ni mantenir. */
-function idTasca(t){ return t.unitat + '/s' + t.setmana; }
-
-function _data(s){ return new Date(s + 'T00:00:00'); }
-
-/* Quan s'obre una tasca: el que digui `obre`, o DIES_ABANS abans del límit. */
-function dataObertura(t){
-  if(t.obre) return _data(t.obre);
-  const d = _data(t.limit);
-  d.setDate(d.getDate() - DIES_ABANS);
-  return d;
+/* La pista d'un exercici, o null si no en té. */
+function pistaDe(u, n){
+  const t = PISTES[u + '/' + n];
+  return t ? t : null;
 }
 
-/* Vista prèvia del professor: afegint  ?tot=1  a l'adreça es veuen totes
-   les tasques, també les que encara no s'han obert. Els alumnes no ho saben. */
-function _preview(){
-  try{ return location.search.indexOf('tot=1') >= 0; }catch(e){ return false; }
-}
+/* Quants dels exercicis d'una llista de refs {u,n} tenen pista.
+   DESACTIVADA: ara mateix no la crida cap pàgina. Es deixa comentada
+   per si algun dia es vol mostrar "N pistes" a la llista de tasques.
 
-function tascaVisible(t, ara){
-  if(_preview()) return true;
-  if(t.visible === 'sempre') return true;
-  if(t.visible === 'mai')    return false;
-  const avui = ara || new Date();
-  avui.setHours(0,0,0,0);
-  return avui >= dataObertura(t);
+function comptaPistes(refs){
+  let k = 0;
+  refs.forEach(r => { if(pistaDe(r.u, r.n)) k++; });
+  return k;
 }
-
-function tascaVencuda(t, ara){
-  const avui = ara || new Date();
-  avui.setHours(0,0,0,0);
-  return avui > _data(t.limit);
-}
-
-/* Dies que falten per a la data límit (negatiu si ja ha passat). */
-function diesRestants(t, ara){
-  const avui = ara || new Date();
-  avui.setHours(0,0,0,0);
-  return Math.round((_data(t.limit) - avui) / 86400000);
-}
-
-/* Els exercicis d'una tasca, resolts a {u, n}. Accepta 44 i 'u9:44'. */
-function refsDe(t){
-  return t.exercicis.map(e => {
-    if(typeof e === 'number') return {u: t.unitat, n: e};
-    const p = String(e).split(':');
-    return {u: p[0], n: parseInt(p[1], 10)};
-  });
-}
-
-function tasquesDe(unitat, ara){
-  return TASQUES.filter(t => t.unitat === unitat && tascaVisible(t, ara))
-                .sort((a,b) => a.setmana - b.setmana);
-}
-
-function tascaPerId(id, ara){
-  return TASQUES.find(t => idTasca(t) === id && tascaVisible(t, ara)) || null;
-}
-
-/* Data en català: "diumenge, 4 d'octubre de 2026" */
-function dataLlarga(s){
-  try{
-    return _data(s).toLocaleDateString('ca-ES',
-      {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-  }catch(e){ return s; }
-}
+*/
