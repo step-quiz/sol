@@ -135,9 +135,9 @@ const PISTES = {
   'u8/86': 'Estigues alerta perquè en alguns casos cal derivar una composició de funcions i, per tant, cal aplicar la regla de la cadena.',
   'u8/87': 'Has d\'aplicar la definició de derivada, deixant la x com a lletra: calcula el límit de [<i>f(x+h)</i> − <i>f(x)</i>]/<i>h</i>, quan <i>h</i> tendeix a <i>0</i>.',
   'u8/88': 'Has d\'aplicar la definició de derivada, deixant la x com a lletra: calcula el límit de [<i>f(x+h)</i> − <i>f(x)</i>]/<i>h</i>, quan <i>h</i> tendeix a <i>0</i>.',
-  'u8/92': 'Recorda que <i>√x=x^(1/2)</i>, i també que <i>1/x = x^(-1)</i>.',
+  'u8/92': 'Recorda que √x=x^(1/2), i també que 1/x = x^(-1).',
   'u8/93': '<i>a)</i> Abans de derivar, pots expressar-ho com una sola potència.<br>En general, has d\'aplicar la fórmula per a derivar un producte de funcions.<br>Atenció, en algun cas cal aplicar la regla de la cadena.',
-  'u8/97': 'La derivada d\'un logaritme és la derivada de dins dividida pel de dins. Al segon, aplica-hi abans la propietat del logaritme d\'una arrel i t\'estalviaràs mitja feina. El tercer és un quocient, i el quart té base 2, o sigui que hi apareixerà un ln 2.',
+  'u8/97': '<i>a)</i> Aplica la regla de la cadena.<br> <i>b)</i> Aplica la regla de la cadena <b>dues vegades</b>.<br> <i>c)</i> Aplica la definició de derivada d\'un quocient de funcions.<br> <i>d)</i> En algun moment, apareixerà un <i>ln 2</i>.',
 
 
   /* ── Unitat 9 · Aplicacions de les derivades ─────────────────────────── */
