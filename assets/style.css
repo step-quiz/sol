@@ -175,3 +175,6 @@ footer span{font-size:.83rem;color:#333;font-family:'Source Code Pro',monospace;
 
 .buit{border:1px dashed var(--border);border-radius:6px;padding:26px 20px;text-align:center;
   color:var(--muted);font-size:.85rem;line-height:1.6;background:var(--surface);}
+
+.vec{position:relative;display:inline-block}
+.vec::after{content:"→";position:absolute;left:0;right:0;top:-.7em;text-align:center;font-size:.7em;font-style:normal;line-height:1}
