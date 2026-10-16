@@ -767,10 +767,20 @@ const OBSERVACIONS = {
     { text: TEX`L'enunciat demana dos exemples de cada tipus de matriu i la solució només en dona un.` },
   ],
 
+  'u1/85': [
+    { lloc: TEX`b)`,
+      text: TEX`La solució no exclou $a=0$ ni $b=0$. Si $a=b=0$, $B$ és la matriu nul·la, que no és nilpotent de grau 2 perquè ja és nul·la amb l'exponent 1. Cal afegir-hi $a\neq 0$ a la primera família de matrius i $b\neq 0$ a la segona.` },
+  ],
+
   /* ── Unitat 2 · Determinants ─────────────────────────────────────────── */
 
   'u2/44': [
     { text: TEX`A l'enunciat hi ha una paraula repetida: «perquè que el determinant» ha de ser «perquè el determinant».` },
+  ],
+
+  'u2/79': [
+    { lloc: TEX`d)`,
+      text: TEX`El rang 2 és correcte, però la justificació és incompleta. Dels dos determinants d'ordre 3 que es calculen, només el segon és un menor orlat del menor $\begin{vmatrix}1&3\\0&5\end{vmatrix}$ que s'agafa al final. N'hi falta l'altre, $\begin{vmatrix}2&1&3\\-2&0&5\\2&3&19\end{vmatrix}$, que també val $0$.` },
   ],
 
   /* ── Unitat 3 · Sistemes d'equacions ─────────────────────────────────── */
@@ -782,6 +792,10 @@ const OBSERVACIONS = {
 
   'u3/64': [
     { text: TEX`L'enunciat demana resoldre el sistema quan és compatible indeterminat ($a=1$) i la solució només el discuteix. Per a $a=1$ el sistema és $2x+y+z=2$, $x+y=1$, $-y+z=0$, i les solucions són $x=1-\lambda$, $y=\lambda$, $z=\lambda$ amb $\lambda\in\R$.` },
+  ],
+
+  'u3/100': [
+    { text: TEX`El plantejament de la solució no és el model de Leontief. La producció de cada empresa ha de ser igual al que en consumeixen les tres empreses més la demanda: $p_1=0{,}4p_2+0{,}5p_3+44$, $p_2=0{,}2p_1+0{,}2p_3+24$, $p_3=0{,}3p_1+0{,}1p_2+36$. La solució correcta és $p_1=\dfrac{18700}{179}\approx 104{,}5$, $p_2=\dfrac{10660}{179}\approx 59{,}6$ i $p_3=\dfrac{13120}{179}\approx 73{,}3$. La solució del llibre escriu $10p_1=2p_2+3p_3$ i hi posa la demanda al primer membre ($2p_2+3p_3=440$), una equació que no té sentit: per produir 44 unitats de $x_1$ calen $8{,}8$ unitats de $x_2$ i $13{,}2$ de $x_3$.` },
   ],
 
   /* ── Unitat 5 · Rectes i plans en l'espai ────────────────────────────── */
