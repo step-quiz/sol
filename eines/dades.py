@@ -42,7 +42,7 @@ def numeros(titol):
 def tasques():
     """setmana -> unitat, data límit i exercicis (unitat, número), segons tasques.js"""
     tjs = open(os.path.join(ARREL, 'tasques.js'), encoding='utf-8').read(); T = {}
-    for m in re.finditer(r"\{\s*unitat:'(u\d+)',\s*setmana:(\d+),\s*limit:'([\d-]+)',\s*exercicis:\[(.*?)\]\s*\}", tjs):
+    for m in re.finditer(r"\{\s*unitat:'(u\d+)',\s*setmana:(\d+),\s*limit:'([\d-]+)',(?:\s*\w+:'[^']*',)*\s*exercicis:\[(.*?)\]\s*\}", tjs):
         refs = []
         for e in m.group(4).split(','):
             e = e.strip().strip("'")

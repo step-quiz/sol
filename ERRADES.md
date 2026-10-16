@@ -23,7 +23,7 @@
   | 3 | Un «pegat»: la imatge es veu **ja corregida**, sense cap senyal, i l'errada deixa d'anunciar-se | `pegat` |
 
 - **Xifres actuals:** 83 errades en 51 exercicis (2 són d'enunciat) · 25 observacions ·
-  87 requadres (les 83 errades en tenen) · **77 errades amb pegat (93 pegats)** · 6 sense pegat.
+  87 requadres (les 83 errades en tenen) · **78 errades amb pegat (94 pegats)** · 5 sense pegat.
 - **Les imatges de les pàgines no es toquen mai.** Tot el que es veu a sobre (requadres i
   pegats) ho posa el navegador.
 - Les eines amb què es van generar les dades, les posicions i els pegats són a `eines/`
@@ -284,7 +284,7 @@ sense. Anuncia «1 errada al solucionari» i ensenya una sola targeta, amb el n�
 
 ## 8. Estat errada per errada
 
-### Les sis que no tenen pegat (i per què)
+### Les cinc que no tenen pegat (i per què)
 
 Es veuen amb targeta i requadre. No és un oblit:
 
@@ -293,8 +293,11 @@ Es veuen amb targeta i requadre. No és un oblit:
 | `u9/67`, apartat n) | Cal passar un tros de text d'una frase a una altra, en línies diferents |
 | `u10/75`, apartat d) | La correcció afegeix línies noves que no caben on és l'original |
 | `u10/108`, apartat d) | El mateix: la correcció és molt més llarga |
-| `u6/88`, l'equació | Una línia es converteix en una fracció de dos pisos, i no hi ha lloc entre les veïnes |
 | `u6/139`, apartats b) i c) | L'error ve de l'apartat a) i s'arrossega per passos intermedis que no són a la llista. Tapar només el resultat deixaria la pàgina incoherent |
+
+`u6/88`, l'equació, sí que en té des del 16/10/2026, fet a part del motor de receptes
+(`eines/pegats/a_part_u6_88.py`): en lloc de la fracció de dos pisos, que no hi cap, el pegat escriu
+l'equació equivalent en una sola línia, «→ |λ + 4| = √6 · √6», copiant el «·» i el «√6» de la mateixa pàgina.
 
 ### Decisions que no es dedueixen de «On diu / Ha de dir»
 
@@ -488,6 +491,6 @@ targeta, i a la imatge, a l'apartat b), hi ha de dir «= 1» i «f(2) = 5».
   llista d'exercicis (ja passava abans de les errades).
 - Opcional: una pàgina `errades.html` amb totes les errades per setmana.
 - Provar-ho amb Safari (iPhone) i Firefox.
-- Les sis errades sense pegat (apartat 8), si mai es troba la manera de tapar-les bé.
+- Les cinc errades sense pegat (apartat 8), si mai es troba la manera de tapar-les bé.
 
 La resta de pendents del projecte és a `TODO.md`.

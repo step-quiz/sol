@@ -281,6 +281,7 @@ const ERRADES = {
       ondiu:   TEX`$|\lambda+4|=\sqrt{6}$`,
       hadedir: TEX`$\dfrac{|\lambda+4|}{\sqrt{6}}=\sqrt{6}$`,
       motiu:   TEX`Hi falta el denominador $\sqrt{6}$ de la fórmula de la distància. La línia següent, $|\lambda+4|=6$, ja és correcta.`,
+      pegat:   ['distancies/data/full-2.png', 24.731, 62.657, 4.632, 2.015, '88-1a.png'],
       marca:   ['distancies/data/full-2.png', 10.2, 62.3, 15.1, 2.6] },
     { lloc:    TEX`segon punt`,
       ondiu:   TEX`$\lambda+4=-6 \;\rightarrow\; \lambda=-8 \;\rightarrow\; P(-6,19,-8)$`,

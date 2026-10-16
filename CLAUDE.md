@@ -226,6 +226,14 @@ descuits, no estil. No les copiïs.
 
 - Viuen a `errades.js`: una llista d'errades per exercici. El format és a la capçalera
   del fitxer i al `README.md`.
+- **`errades.js` es genera** amb `eines/conversor/genera.py` a partir de `tex/errors-setmanaN.tex`
+  (text), `eines/localitzador/marques.json` (marques) i `eines/pegats/pegats.json` (pegats). Una errada o
+  observació nova s'escriu a `tex/` i després `genera.py --escriu` i `verifica.js`; si només es toca
+  `errades.js`, es perd el dia que es torna a generar. Vegeu `eines/LLEGEIX-ME.md`.
+- **Pegats** (el solucionari «pintat» ja corregit): amb les receptes d'`eines/pegats/` i `fes.py`, i
+  mirant sempre el full ampliat abans de donar-lo per bo. Quan la correcció no hi cap tal com és, es pot
+  escriure una forma equivalent que sí que hi càpiga (u6/88: «√6 · √6» en lloc d'una fracció de dos pisos).
+  Després de canviar `errades.js`, puja el número de `errades.js?v=` a `tasca.html`.
 - El text s'escriu entre accents greus amb `TEX` al davant, i les fórmules entre `$...$`
   (LaTeX). No s'hi pot posar cap accent greu ni la parella `${`.
 - Es veuen a `tasca.html`: etiqueta al costat del botó *Veure solució* a la llista de la tasca
