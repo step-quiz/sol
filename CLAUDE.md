@@ -17,7 +17,7 @@
 
 ## Què és el projecte
 
-Web estàtica (GitHub Pages, sense servidor) d'exercicis de Matemàtiques II (2n de Batxillerat).
+Web estàtica (publicada des de GitHub, sense servidor) d'exercicis de Matemàtiques II (2n de Batxillerat).
 L'alumne navega **unitat → tasca setmanal → exercici** i veu la imatge de l'enunciat i la solució.
 Vegeu `README.md` i `TODO.md`.
 
@@ -26,7 +26,7 @@ Vegeu `README.md` i `TODO.md`.
 | `tasques.js` | Programació: una línia per setmana (`unitat`, `setmana`, `limit`, `exercicis`) |
 | `cataleg.js` | Fitxa de **cada** exercici de la unitat (títol `t`, dificultat `d`, imatges `i`, `a:1` si és activitat del món real). Mantingut a mà, no es genera |
 | `hints.js` | Pistes, **només** dels exercicis programats a `tasques.js` |
-| `errades.js` | Errades del solucionari dels exercicis programats («On diu / Ha de dir / Motiu») i observacions. Clau `'uN/número'`. S'edita a mà |
+| `errades.js` | Errades del solucionari dels exercicis programats («On diu / Ha de dir / Motiu») i observacions. Clau `'uN/número'`. **Es genera** amb `eines/conversor/genera.py` (vegeu més avall); no s'edita a mà |
 | `assets/katex/` | KaTeX 0.16.47: pinta les fórmules de `errades.js`. No s'hi toca res |
 | `marca.js` | Eina del professor per marcar on és una errada dins la imatge. Només es carrega amb `?tot=1&marca=1` |
 | `pegats/` | Trossos de pàgina ja corregits (PNG petits) que `tasca.html` posa a sobre de les imatges. Camp `pegat` de `errades.js` |

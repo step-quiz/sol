@@ -53,7 +53,7 @@ const DIES_ABANS = 3;
      { unitat:'u7', setmana:3, limit:'2026-10-04',
        exercicis:[92, 93, 94, 102, 103, 40, 106] },
 
-     unitat     quina unitat didàctica (u7, u8, u9, u10)
+     unitat     quina unitat didàctica (u1, u2, u3, u5 … u14)
      setmana    el número que veurà l'alumne
      limit      data límit, sempre en format AAAA-MM-DD
      exercicis  els exercicis, EN L'ORDRE QUE VOLS QUE ELS FACIN

@@ -2,15 +2,16 @@
 
 ## Documentació pendent d'actualitzar
 
-- [ ] **README.md · Estructura**: només parla de `u7/ u8/ u9/ u10/`; hi falten `u11/ … u14/`.
-- [ ] **README.md · línia de `cataleg.js`**: diu "generat". Ara és un fitxer mantingut a mà.
-- [ ] **README.md · paràgraf "tornar a generar el catàleg no fa perdre res"**: ja no té sentit (el catàleg no es genera).
-- [ ] **tasques.js · comentari de capçalera**: `unitat  quina unitat didàctica (u7, u8, u9, u10)` → hi falten les altres unitats.
-- [ ] **hint-feature-change.md**: és un registre històric desfasat:
+- [x] **README.md · Estructura**: només parla de `u7/ u8/ u9/ u10/`; hi falten `u11/ … u14/`.
+- [x] **README.md · línia de `cataleg.js`**: diu "generat". Ara és un fitxer mantingut a mà.
+- [x] **README.md · paràgraf "tornar a generar el catàleg no fa perdre res"**: ja no té sentit (el catàleg no es genera).
+- [x] **tasques.js · comentari de capçalera**: `unitat  quina unitat didàctica (u7, u8, u9, u10)` → hi falten les altres unitats.
+- [x] **hint-feature-change.md**: és un registre històric desfasat (resolt: s'hi ha afegit un avís a dalt):
   - diu que la pista surt a la pàgina de detall de l'exercici (ara surt a la llista de la tasca);
   - parla d'una pista d'exemple provisional a `u7/44` que ja no existeix;
   - diu que `cataleg.js` és "hand-maintained" en un lloc i "generated" en un altre.
   Decidir si s'actualitza, es resumeix dins del README o s'esborra.
+- [x] **README.md · errades**: deia que `errades.js` s'edita a mà; ara es genera amb `eines/conversor/genera.py`.
 
 ## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
 

@@ -1,5 +1,11 @@
 # Change log: exercise hint ("pista") scaffolding
 
+> **Historical document (status on 2026-10-17).** The current behaviour is described in
+> `README.md` («Les pistes dels exercicis»). Three things below are out of date: the hint is
+> shown in the task list (`tasca.html`), not on the exercise detail page; the provisional
+> example hint for `u7/44` no longer exists; and `cataleg.js` is **hand-maintained**, not a
+> derived or generated file.
+
 > **SUPERSEDED (later change) — read this first.**
 > Hints no longer live in `cataleg.js` as a per-exercise `p` field. They were
 > moved to a dedicated file **`hints.js`**, a flat map keyed by

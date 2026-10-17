@@ -1,6 +1,6 @@
 # Exercicis propis — 2n de Batxillerat
 
-Web estàtica (GitHub Pages). No hi ha servidor ni base de dades.
+Web estàtica, publicada des de GitHub. No hi ha servidor ni base de dades.
 
 L'alumne navega **unitat → tasca → exercici**. Una *tasca* és una setmana de
 feina: una llista ordenada d'exercicis amb una data límit.
@@ -54,30 +54,36 @@ les que encara no toquen. Els alumnes no ho saben.
 index.html      ← únic index.html del projecte. Unitats → tasques.
 tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
 tasques.js      ← LA PROGRAMACIÓ
-cataleg.js      ← generat: títol, dificultat i imatges de cada exercici
+cataleg.js      ← títol, dificultat i imatges de cada exercici (es manté a mà; cap programa el genera)
 hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
-errades.js      ← LES ERRADES DEL SOLUCIONARI (s'edita a mà)
+errades.js      ← LES ERRADES DEL SOLUCIONARI (generat amb eines/conversor/genera.py a partir de tex/)
 marca.js        ← eina del professor per marcar on és una errada (tasca.html?tot=1&marca=1)
 pegats/         ← trossos de pàgina ja corregits que es posen a sobre de les imatges (pegats/u7/...)
 progres.js      ← les creuetes de "fet" de l'alumne
 publicats.js    ← només governa la vista per temes (vegeu més avall)
-README.md
+README.md       ← aquest fitxer
+CLAUDE.md       ← instruccions per a Claude (flux per afegir una unitat, estil de les pistes)
+ERRADES.md      ← com es van fer les errades i els pegats
+TODO.md         ← feina pendent
+hint-feature-change.md ← especificació (en anglès) de quan es van afegir les pistes
+2Bat - Unitats i feina Classroom.xlsx ← programació del curs (també a source/)
 assets/
   style.css     ← compartit per totes les pàgines
   icon.png
   katex/        ← KaTeX: pinta les fórmules de les errades (no s'hi toca res)
-u7/  u8/  u9/  u10/
+u1/ u2/ u3/ u5/ u6/ u7/ u8/ u9/ u10/ u11/ u12/ u13/ u14/   (no hi ha u4)
   <tema>/
     <tema>.html     ← pàgina del tema (ja no enllaçada des del menú)
     data/full-1.png … full-K.png
+tex/            ← errors-setmanaN.tex i defs.tex: la FONT de les errades
+eines/          ← conversor (genera errades.js), localitzador (marques) i pegats (vegeu eines/LLEGEIX-ME.md)
+source/         ← PDF del solucionari de cada unitat i l'Excel de programació
+.github/workflows/unzip-upload.yml ← descomprimeix els ZIP de _uploads/ (no fer-lo servir aquí: vegeu CLAUDE.md)
 ```
 
 `cataleg.js` és el que permet que una tasca agafi exercicis d'on sigui: hi ha
 el títol, la dificultat i les imatges de cada exercici, un sol cop. Les tasques
 només guarden números.
-
-Com que les pistes viuen en un fitxer a part (`hints.js`), tornar a generar el
-catàleg no fa perdre res.
 
 ## Les pistes dels exercicis
 
@@ -179,9 +185,10 @@ Les errades es veuen quan es veu la tasca: no cal publicar-les a part.
 
 Obre `tasca.html?tot=1&marca=1` i entra a l'exercici. Al quadre de baix a la
 dreta tria l'errada, arrossega un rectangle sobre la imatge al lloc de
-l'errada (dos, si és en dos llocs), prem *Copia* i enganxa la línia dins de
-l'errada, a `errades.js`. L'eina (`marca.js`) no desa res: només calcula la
-línia. Els alumnes no la carreguen mai.
+l'errada (dos, si és en dos llocs) i prem *Copia*. L'eina (`marca.js`) no desa
+res: només calcula la línia. Perquè no es perdi en tornar a generar
+`errades.js`, la marca s'ha de passar a `eines/localitzador/marques.json`. Els
+alumnes no carreguen mai aquesta eina.
 
 ### Els pegats
 
@@ -215,9 +222,20 @@ fitxer: qui miri el codi de la pàgina el pot llegir.
 
 ### D'on surten
 
-Del projecte d'Overleaf «Errades del solucionari» (`errors-setmanaN.tex`),
-convertit un sol cop. A partir d'ara s'editen a `errades.js`: el PDF
-d'Overleaf i la web ja no se sincronitzen sols.
+`errades.js` **es genera**: no s'ha d'editar a mà. La font del text són els
+`tex/errors-setmanaN.tex` (del projecte d'Overleaf «Errades del solucionari»); les
+marques i els pegats surten de `eines/localitzador/marques.json` i
+`eines/pegats/pegats.json`. Per afegir o canviar una errada, es toca la font i es
+torna a generar:
+
+```bash
+python3 eines/conversor/genera.py            # escriu a eines/sortida/ i diu què canviaria
+python3 eines/conversor/genera.py --escriu   # substitueix errades.js
+node eines/conversor/verifica.js             # comprova que quadra
+```
+
+Un canvi fet directament a `errades.js` es perd el dia que es torna a generar.
+Detalls a `eines/LLEGEIX-ME.md` i `ERRADES.md`.
 
 <!-- atribucio-centre:inici -->
 
