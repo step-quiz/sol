@@ -78,7 +78,7 @@ u1/ u2/ u3/ u5/ u6/ u7/ u8/ u9/ u10/ u11/ u12/ u13/ u14/   (no hi ha u4)
 tex/            ← errors-setmanaN.tex i defs.tex: la FONT de les errades
 eines/          ← conversor (genera errades.js), localitzador (marques) i pegats (vegeu eines/LLEGEIX-ME.md)
 source/         ← PDF del solucionari de cada unitat i l'Excel de programació
-.github/workflows/unzip-upload.yml ← descomprimeix els ZIP de _uploads/ (no fer-lo servir aquí: vegeu CLAUDE.md)
+.github/workflows/unzip-upload.yml ← descomprimeix els ZIP de _uploads/ i en fa commit
 ```
 
 `cataleg.js` és el que permet que una tasca agafi exercicis d'on sigui: hi ha

@@ -12,8 +12,10 @@
 - **El professor puja ell mateix els fitxers** a GitHub: *Add file* → *Upload files* a l'arrel del
   repositori, i *Commit changes*. Claude no hi té permís d'escriptura ni hi fa pull requests: prepara els
   fitxers definitius (`hints.js`, `errades.js`, `cataleg.js`…), els envia i dona el missatge de commit.
-- **No** feu servir un ZIP a `_uploads/` en aquest repositori: l'acció `unzip-upload.yml` crida
-  comprovacions de `1eso/` i `4eso/`, que aquí no existeixen, i fallaria.
+- També es pot lliurar un **ZIP** perquè el professor el pugi a `_uploads/`: l'acció `unzip-upload.yml`
+  el descomprimeix a l'arrel i en fa commit. Les rutes del ZIP han de ser les del repositori (per exemple
+  `hints.js` o `u7/…`), sense cap carpeta que ho contingui tot. (Fins al 18/10/2026 aquesta acció
+  fallava, perquè cridava comprovacions de `1eso/` i `4eso/` copiades d'un altre repositori.)
 
 ## Què és el projecte
 
