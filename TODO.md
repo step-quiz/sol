@@ -13,7 +13,7 @@
   Decidir si s'actualitza, es resumeix dins del README o s'esborra.
 - [x] **README.md · errades**: deia que `errades.js` s'edita a mà; ara es genera amb `eines/conversor/genera.py`.
 
-## Programació pendent (segons `2Bat - Unitats i feina Classroom.xlsx`)
+## Programació pendent (segons `source/2Bat - Unitats i feina Classroom.xlsx`)
 
 Totes les setmanes (1–36) ja són a `tasques.js`:
 

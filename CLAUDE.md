@@ -34,7 +34,7 @@ Vegeu `README.md` i `TODO.md`.
 | `pegats/` | Trossos de pàgina ja corregits (PNG petits) que `tasca.html` posa a sobre de les imatges. Camp `pegat` de `errades.js` |
 | `index.html` | `UNITATS`: unitats i temes |
 | `publicats.js` | Vista per temes (antiga): tots els temes a `'cap'` |
-| `2Bat - Unitats i feina Classroom.xlsx` | Programació del curs (setmana, data límit, unitat, exercicis) |
+| `source/2Bat - Unitats i feina Classroom.xlsx` | Programació del curs (setmana, data límit, unitat, exercicis) |
 
 ## Com s'afegeix una unitat nova (workflow)
 

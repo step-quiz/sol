@@ -66,7 +66,6 @@ CLAUDE.md       ← instruccions per a Claude (flux per afegir una unitat, estil
 ERRADES.md      ← com es van fer les errades i els pegats
 TODO.md         ← feina pendent
 hint-feature-change.md ← especificació (en anglès) de quan es van afegir les pistes
-2Bat - Unitats i feina Classroom.xlsx ← programació del curs (també a source/)
 assets/
   style.css     ← compartit per totes les pàgines
   icon.png
@@ -77,7 +76,7 @@ u1/ u2/ u3/ u5/ u6/ u7/ u8/ u9/ u10/ u11/ u12/ u13/ u14/   (no hi ha u4)
     data/full-1.png … full-K.png
 tex/            ← errors-setmanaN.tex i defs.tex: la FONT de les errades
 eines/          ← conversor (genera errades.js), localitzador (marques) i pegats (vegeu eines/LLEGEIX-ME.md)
-source/         ← PDF del solucionari de cada unitat i l'Excel de programació
+source/         ← PDF del solucionari de cada unitat i l'Excel de programació (2Bat - Unitats i feina Classroom.xlsx)
 .github/workflows/unzip-upload.yml ← descomprimeix els ZIP de _uploads/ i en fa commit
 ```
 
