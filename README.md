@@ -65,7 +65,7 @@ README.md       ← aquest fitxer
 CLAUDE.md       ← instruccions per a Claude (flux per afegir una unitat, estil de les pistes)
 ERRADES.md      ← com es van fer les errades i els pegats
 TODO.md         ← feina pendent
-hint-feature-change.md ← especificació (en anglès) de quan es van afegir les pistes
+docs/historic/  ← documents històrics: hint-feature-change.md, l'especificació (en anglès) de quan es van afegir les pistes
 assets/
   style.css     ← compartit per totes les pàgines
   icon.png
