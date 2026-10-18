@@ -78,6 +78,7 @@ tex/            ← errors-setmanaN.tex i defs.tex: la FONT de les errades
 eines/          ← conversor (genera errades.js), localitzador (marques) i pegats (vegeu eines/LLEGEIX-ME.md)
 source/         ← PDF del solucionari de cada unitat i l'Excel de programació (2Bat - Unitats i feina Classroom.xlsx)
 .github/workflows/unzip-upload.yml ← descomprimeix els ZIP de _uploads/ i en fa commit
+.github/workflows/verifica-errades.yml ← comprova errades.js (verifica.js i genera.py) a cada push i PR
 ```
 
 `cataleg.js` és el que permet que una tasca agafi exercicis d'on sigui: hi ha

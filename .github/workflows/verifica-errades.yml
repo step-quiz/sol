@@ -1,0 +1,43 @@
+# Comprova les errades del solucionari: que errades.js quadri amb les fonts
+# (tex/, marques i pegats) i que estigui al dia amb el que generaria
+# eines/conversor/genera.py.
+# S'executa a cada canvi a main, a cada pull request i a mà (Actions → Verifica les errades →
+# Run workflow). No escriu res al repositori.
+# Els commits del bot dels ZIP no el disparen per si sols (regla de GitHub):
+# per això unzip-upload.yml el llança després de desar.
+name: Verifica les errades
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proves:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: errades.js quadra
+        run: node eines/conversor/verifica.js
+
+      - name: errades.js està al dia amb les fonts
+        run: |
+          python3 eines/conversor/genera.py | tee "$RUNNER_TEMP/genera.txt"
+          if ! grep -q '^IDÈNTIC' "$RUNNER_TEMP/genera.txt"; then
+            echo "::error::errades.js no coincideix amb el que surt de les fonts. Executa «python3 eines/conversor/genera.py --escriu»."
+            exit 1
+          fi
