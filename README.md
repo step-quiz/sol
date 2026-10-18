@@ -241,7 +241,7 @@ Detalls a `eines/LLEGEIX-ME.md` i `ERRADES.md`.
 
 ---
 
-Material desenvolupat per **David Arso Civil** 
-Contingut i codi sota llicència CC BY-NC-ND 4.0.
+Material desenvolupat per **David Arso Civil** per al Departament de Matemàtiques de l'INS Miquel Tarradell.
+Contingut sota CC BY-NC-ND 4.0, codi sota llicència MIT. Vegeu [`LLICENCIA.md`](LLICENCIA.md).
 
 <!-- atribucio-centre:final -->
