@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Errades del solucionari — Exercicis propis</title>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css?v=9">
+<style>
+  .setmana{margin:22px 0 8px;font-size:.95rem;font-weight:700;color:var(--ana);}
+  .setmana a{color:inherit;}
+  .ex-errades{margin:10px 0 0;}
+  .ex-errades h3{margin:0 0 4px;font-size:.88rem;}
+  .ja-corregida{display:inline-block;margin-top:6px;font-size:.75rem;color:var(--muted);}
+  .resum-errades{font-size:.82rem;color:var(--muted);margin-bottom:6px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <h1 id="hd-title">Errades del solucionari</h1>
+  </div>
+</header>
+
+<!-- Totes les errades del solucionari dels exercicis programats, per setmanes.
+     Fa servir les mateixes dades i targetes que tasca.html (errades.js), i les
+     mateixes tasques (tasques.js): només les setmanes que ja es veuen, o totes
+     amb ?tot=1 (vista del professor). Les errades que ja es veuen corregides a
+     la imatge (pegats) també hi surten, amb una nota. -->
+<div class="view active">
+  <a class="back-btn" href="index.html">← Torna a les unitats</a>
+  <div class="cat-title">Les errades del solucionari, setmana a setmana</div>
+  <div class="cat-sub" id="resum"></div>
+  <div id="llista"></div>
+  <div class="buit" id="buit" style="display:none">Encara no hi ha cap errada a les tasques publicades.</div>
+</div>
+
+<footer>
+  <span>
+    © 2026 <strong>David Arso Civil</strong>. Ús educatiu lliure.
+    Prohibida la comercialització i la modificació
+    (<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>).
+  </span>
+</footer>
+
+<script src="cataleg.js"></script>
+<script src="assets/katex/katex.min.js"></script>
+<script src="errades.js?v=4"></script>
+<script src="tasques.js"></script>
+<script>
+(function(){
+  const tot = location.search.indexOf('tot=1') >= 0;
+  const tasques = TASQUES.filter(t => tot || tascaVisible(t));
+  const llista = document.getElementById('llista');
+  let nErrades = 0, nExercicis = 0;
+  let h = '';
+  for(const t of tasques){
+    const refs = refsDe(t).filter(r => erradesDe(r.u, r.n).length);
+    if(!refs.length) continue;
+    const meta = UNITATS_META[t.unitat] || {nom: t.unitat};
+    h += '<h2 class="setmana"><a href="tasca.html#' + idTasca(t) + '">Setmana ' + t.setmana + ' · '
+       + meta.nom + '</a> · data límit: ' + dataLlarga(t.limit) + '</h2>';
+    for(const r of refs){
+      const errs = erradesDe(r.u, r.n);
+      const f = fitxaDe(r.u, r.n);
+      nExercicis++; nErrades += errs.length;
+      h += '<div class="ex-errades err-panel" role="note"><h3>' + (f && f.a ? 'Activitat ' : 'Exercici ') + r.n
+         + (r.u !== t.unitat ? ' (' + (UNITATS_META[r.u] || {nom: r.u}).nom + ')' : '') + '</h3>'
+         + errs.map(e => _htmlErrada(e, false)
+             + (pegatsDe(e).length && ERRADES_PEGATS ? '<span class="ja-corregida">✓ A la imatge ja es veu corregida.</span>' : '')).join('')
+         + '</div>';
+    }
+  }
+  llista.innerHTML = h;
+  document.getElementById('buit').style.display = h ? 'none' : 'block';
+  document.getElementById('resum').textContent = h
+    ? nErrades + (nErrades === 1 ? ' errada' : ' errades') + ' en ' + nExercicis + (nExercicis === 1 ? ' exercici' : ' exercicis')
+      + (tot ? ' (totes les setmanes: vista del professor)' : ' de les tasques publicades')
+    : '';
+  if(h) preparaFormules();
+})();
+</script>
+</body>
+</html>

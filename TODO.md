@@ -47,9 +47,11 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
       Cinc errades es queden amb targeta i requadre, perquè la correcció no hi cap o l'error
       s'arrossega a més línies: U9 ex. 67 n); U10 ex. 75 d) i 108 d); U6 ex. 139 b) i c).
       (U6 ex. 88 ja té pegat des del 16/10/2026: vegeu `ERRADES.md` §8.)
-- [ ] Dins d'un exercici, el botó «enrere» del navegador surt de la tasca en lloc de tornar a
-      la llista d'exercicis (ja passava abans de les errades).
-- [ ] Opcional: una pàgina `errades.html` amb totes les errades per setmana.
+- [x] Dins d'un exercici, el botó «enrere» del navegador sortia de la tasca en lloc de tornar a
+      la llista d'exercicis. Arreglat (18/10/2026): obrir un exercici afegeix una entrada a
+      l'historial, i «enrere» (o «← Torna a la llista») torna a la llista.
+- [x] Una pàgina `errades.html` amb totes les errades per setmana (18/10/2026). Enllaçada des de
+      la portada. Mostra les setmanes publicades; amb `?tot=1`, totes.
 
 ## Altres
 
@@ -62,10 +64,11 @@ Totes les setmanes (1–36) ja són a `tasques.js`:
 - [ ] Les pàgines per tema antigues (`u*/<tema>/<tema>.html`) tenen la seva pròpia llista
       d'imatges amb els mateixos errors. No es fan servir (tots els temes a `'cap'`).
 
-- [ ] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
+- [x] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
       ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).
-      Si mai se'n vol programar alguna, caldrà ampliar el sistema (p. ex. un prefix).
       El mateix passa a la U2, la U3, la U5 i la U6 amb les activitats del text 1–4.
+      Cap tasca no les programa, així que ara no cal fer res. Si mai se'n vol programar
+      alguna, caldrà ampliar el sistema (p. ex. un prefix).
 
-- [ ] L'Excel encara té l'exercici 92 a la setmana 7 (U8). A `tasques.js` s'ha tret
-      perquè ja era a la setmana 5. Actualitzar l'Excel si es vol que quadrin.
+- [x] L'Excel tenia l'exercici 92 a la setmana 7 (U8), que a `tasques.js` es va treure perquè
+      ja era a la setmana 5. Tret també de l'Excel (18/10/2026): ara les 36 setmanes quadren.

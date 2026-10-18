@@ -188,6 +188,9 @@ function showExercise(r){
   ACTUAL = r;
   Y_LLISTA = window.scrollY;
   show('v-detail');
+  /* Una entrada a l'historial: així el botó «enrere» del navegador (o del
+     mòbil) torna a la llista de la tasca, i no surt de la tasca. */
+  if(!(history.state && history.state.ex)) history.pushState({ex: r.u + '/' + r.n}, '');
 
   const esAct = !!f.a;
   document.getElementById('det-title').textContent =
@@ -303,7 +306,13 @@ function obreErrada(k, src){
   if(q.length) openLightbox(src || (ACTUAL.u + '/' + q[0].img), k);
 }
 
+/* «← Torna a la llista»: fa el mateix que el botó «enrere» del navegador */
 function goBack(){
+  if(history.state && history.state.ex){ history.back(); return; }   // → popstate
+  tancaExercici();
+}
+
+function tancaExercici(){
   ACTUAL = null;
   show('v-list');
   renderList();
@@ -354,6 +363,12 @@ if(location.search.indexOf('marca=1') >= 0){
 }
 
 window.addEventListener('hashchange', () => { show('v-list'); render(); });
+/* «Enrere» des d'un exercici: torna a la llista (i, si hi ha la imatge ampliada, la tanca) */
+window.addEventListener('popstate', () => {
+  if(!ACTUAL) return;
+  closeLightbox();
+  tancaExercici();
+});
 render();
 </script>
 </body>

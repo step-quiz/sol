@@ -53,6 +53,7 @@ les que encara no toquen. Els alumnes no ho saben.
 ```
 index.html      ← únic index.html del projecte. Unitats → tasques.
 tasca.html      ← visor genèric d'una tasca. Es governa per l'adreça: #u7/s3
+errades.html    ← totes les errades del solucionari, per setmanes (les publicades; amb ?tot=1, totes)
 tasques.js      ← LA PROGRAMACIÓ
 cataleg.js      ← títol, dificultat i imatges de cada exercici (es manté a mà; cap programa el genera)
 hints.js        ← LES PISTES (una línia per pista; s'edita a mà)
