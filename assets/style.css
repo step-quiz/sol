@@ -1,6 +1,6 @@
 :root{
   --bg:#f8fafc; --surface:#ffffff; --border:#cbd5e1;
-  --txt:#1e293b; --muted:#64748b; --accent:#3b82f6; --hd-bg:#1e293b;
+  --txt:#1e293b; --muted:#475569; --accent:#2563eb; --hd-bg:#1e293b;
   --ana:#7c5cbf; --ana-tint:rgba(124,92,191,.07);
   --err:#b42318; --err-tint:#fef3f2; --err-border:#f1b4ad; --ok:#166534;
 }
@@ -32,7 +32,7 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .ex-item:hover{box-shadow:inset 4px 0 0 var(--ana);background:var(--ana-tint);
   border-color:color-mix(in srgb,var(--ana) 30%,var(--border));transform:translateX(3px);}
 .ex-badge{font-family:'Source Code Pro',monospace;font-size:.84rem;padding:4px 10px;border-radius:3px;color:#fff;
-  white-space:nowrap;flex-shrink:0;opacity:.88;background:var(--ana);}
+  white-space:nowrap;flex-shrink:0;background:var(--ana);}
 .ex-info{flex:1;min-width:0;}
 .ex-title{font-size:.87rem;line-height:1.4;}
 .ex-sub{font-family:'Source Code Pro',monospace;font-size:.66rem;color:var(--muted);margin-top:3px;}
@@ -99,7 +99,7 @@ header h1{font-size:.98rem;font-weight:700;line-height:1.25;}
 .err-veure{font-family:'Source Code Pro',monospace;font-size:.7rem;color:var(--err);background:none;border:1px solid var(--err-border);
   border-radius:3px;padding:6px 11px;min-height:36px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
 .err-veure:hover{background:var(--err);border-color:var(--err);color:#fff;}
-.err-veure:focus-visible,.marca:focus-visible,.lb-tanca:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+.ex-item:focus-visible,.err-veure:focus-visible,.marca:focus-visible,.lb-tanca:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
 /* «On diu» i «Ha de dir», un sota l'altre i amb el text alineat, perquè la diferència es vegi d'un cop d'ull. */
 .err-fila{display:grid;grid-template-columns:5.4em minmax(0,1fr);column-gap:12px;align-items:baseline;padding:1px 0;}
 .err-fila + .err-fila{border-top:1px dashed var(--border);}

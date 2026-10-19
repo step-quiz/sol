@@ -56,7 +56,7 @@
 </div>
 
 <footer>
-  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;">
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" style="flex-shrink:0;" aria-label="Llicència Creative Commons BY-NC-ND 4.0">
     <img class="cc-img" alt="Llicència Creative Commons BY-NC-ND 4.0"
          src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" onerror="this.style.display='none'">
   </a>
@@ -208,7 +208,7 @@ function showExercise(r){
     return `
       <div class="page-fig">
         <img src="${src}" alt="Enunciat i solució de l'${esAct ? 'activitat' : 'exercici'} ${r.n}"
-             onclick="openLightbox('${src}')">
+             ${i ? 'loading="lazy" ' : ''}decoding="async" onclick="openLightbox('${src}')">
         ${pegats}
         ${AMB_MARQUES ? htmlMarques(r.u, r.n, p) : ''}
       </div>
