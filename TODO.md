@@ -1,154 +1,74 @@
 # ToDo
 
-Les unitats del web són les **UD del llibre propi** (vistiplau del 7/11/2026). Es carreguen UD a UD,
-unes setmanes abans de fer-les, en l'ordre del curs: UD1, UD2, UD3, UD4, UD11, UD5, UD10, UD6, UD7,
-UD8, UD9. La llista d'exercicis de Santillana de cada UD és a l'artifact «Vistiplau · Mapa de
-continguts 4t A ↔ Santillana» (punts P1–P11) i, més detallada, al doc «Mapa de continguts».
+## Documentació pendent d'actualitzar
 
-## 4t ESO Aplicades · UD1 (Nombres reals des de l'estimació)
+- [x] **README.md · Estructura**: només parla de `u7/ u8/ u9/ u10/`; hi falten `u11/ … u14/`.
+- [x] **README.md · línia de `cataleg.js`**: diu "generat". Ara és un fitxer mantingut a mà.
+- [x] **README.md · paràgraf "tornar a generar el catàleg no fa perdre res"**: ja no té sentit (el catàleg no es genera).
+- [x] **tasques.js · comentari de capçalera**: `unitat  quina unitat didàctica (u7, u8, u9, u10)` → hi falten les altres unitats.
+- [x] **hint-feature-change.md**: és un registre històric desfasat (resolt: s'hi ha afegit un avís a dalt):
+  - diu que la pista surt a la pàgina de detall de l'exercici (ara surt a la llista de la tasca);
+  - parla d'una pista d'exemple provisional a `u7/44` que ja no existeix;
+  - diu que `cataleg.js` és "hand-maintained" en un lloc i "generated" en un altre.
+  Decidir si s'actualitza, es resumeix dins del README o s'esborra.
+- [x] **README.md · errades**: deia que `errades.js` s'edita a mà; ara es genera amb `eines/conversor/genera.py`.
 
-- [x] U1 · Act. 3–12, 20–23 i 27–31; ex. 34, 40, 41, 43–60, 79–107 i la fake news (70 fitxes,
-      22 imatges a `apl-ud1/`). Fora: U1 · 42 (el solucionari diu «Resuelta en el libro de texto»).
-      Els ex. 82, 87, 88 i 89 demanen error absolut i relatiu; es carreguen perquè són a P1.
-- [x] Errades de la llista: 45 a), 48 c), 57 c) i d), 89 (kg i g barrejats), 90 b), 99 d), 101
-      (hi ha 5 solucions).
-- [x] Tres setmanes (S2–S4) amagades, per al curs 2027-28. Els intervals, a la UD10; l'error, només com a repte (U1 · 82).
+## Programació pendent (segons `source/2Bat - Unitats i feina Classroom.xlsx`)
 
-## 4t ESO Aplicades · UD2 (Percentatges i matemàtica financera)
+Totes les setmanes (1–36) ja són a `tasques.js`:
 
-- [x] U2 · Act. 27–39; ex. 89–105, 107, 108 i la fake news (33 fitxes, 10 imatges a `apl-ud2/`).
-- [x] Errades de la llista: 35, 94 b) i 103.
-- [x] Llibre propi (S2): 2.5.1–2.5.6 i 2.6.1–2.6.5 (11 fitxes), amb l'enunciat i la solució en KaTeX.
-      Fora: els «Per al Quadern d'eines». En total, 44 fitxes.
-- [x] Cinc setmanes (S5–S9) amagades, per al curs 2027-28.
-- [ ] Quan es facin visibles les tasques de la UD1 i la UD2: transcriure els enunciats que falten (`comprova.js` avisa).
+| Setmanes | Dates límit | Unitat | Material al repo |
+|---|---|---|---|
+| 18–19 | 17/01 – 24/01/2027 | U1 Matrius | ✅ fet (imatges, catàleg, tasques i pistes) |
+| 20–22 | 31/01 – 14/02/2027 | U2 Determinants | ✅ fet (imatges, catàleg, tasques i pistes) |
+| 23–26 | 21/02 – 14/03/2027 | U3 Sistemes d'equacions | ✅ fet (imatges, catàleg, tasques i pistes) · ampliada a 4 setmanes |
+| 27–31 | 21/03 – 18/04/2027 | U5 Rectes i plans en l'espai | ✅ fet (imatges, catàleg, tasques i pistes) · 5 setmanes |
+| 32–33 | 25/04 – 02/05/2027 | U6 Angles i distàncies a l'espai | ✅ fet (imatges, catàleg, tasques i pistes) |
+| 34 | 09/05/2027 | U11 Integrals indefinides | ✅ fet (tasques i pistes) · 1 setmana |
+| 35–36 | 16/05 – 23/05/2027 | U12 Integrals definides | ✅ fet (tasques i pistes) |
 
-## 4t ESO Aplicades · UD3 (Proporcionalitat i escales)
+- [x] Triar els exercicis de cada setmana i afegir-los a `tasques.js`.
+- [x] Escriure les pistes corresponents a `hints.js`.
+- [x] L'Excel de `source/` ja reflecteix els canvis de setmanes (U3 4 setmanes, U5 5, U6 2, U11 1, U12 2)
+      i coincideix amb `tasques.js`. El de l'arrel del repositori és l'antic (setmanes 18–36 buides).
+- [x] Totes les unitats tenen imatges i catàleg.
+- [x] L'Excel no té cap unitat 4 programada: és intencionat (confirmat).
 
-- [x] U2 · Act. 1–12; ex. 45–51 i 58–65. U5 · Act. 22, 23, 28, 32 i 34; ex. 67–71 i 79. U3 · ex. 61
-      (39 fitxes, 15 imatges a `apl-ud3/`). Fora: U5 · Act. 24, 25, 29 i 33 (volums × k³, F1).
-- [x] Errades: U2 · 59 a) (de la llista) i, noves de la revisió de la U5, 22 a) (81 000 000 cm) i 69
-      (les escales 1:500 000 i 1:250 000 no hi caben en un DIN A4).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
+## Errades del solucionari
 
-## 4t ESO Aplicades · UD4 (Mesura indirecta)
+- [x] Fase 1: etiqueta a la llista de la tasca i targetes «On diu / Ha de dir» dins de
+      l'exercici (`errades.js`, amb KaTeX a `assets/katex/`). 83 errades en 51 exercicis.
+- [x] Fase 2: requadre vermell numerat sobre la imatge, al lloc de cada errada (camp `marca` de
+      `errades.js`, en tant per cent de la imatge). Tocar-lo, o *Mostra-ho a la imatge* a la
+      targeta, obre la imatge ampliada en aquell punt amb la correcció a sota. Les 83 errades
+      tenen marca (87 requadres). Eina per marcar-ne de noves: `tasca.html?tot=1&marca=1`.
+- [x] Fase 3, totes les unitats: «pegats». A 78 de les 83 errades la imatge es veu ja corregida
+      (94 pegats, a `pegats/<unitat>/`) i l'errada no s'anuncia. Interruptor: `ERRADES_PEGATS`.
+      Cinc errades es queden amb targeta i requadre, perquè la correcció no hi cap o l'error
+      s'arrossega a més línies: U9 ex. 67 n); U10 ex. 75 d) i 108 d); U6 ex. 139 b) i c).
+      (U6 ex. 88 ja té pegat des del 16/10/2026: vegeu `ERRADES.md` §8.)
+- [x] Dins d'un exercici, el botó «enrere» del navegador sortia de la tasca en lloc de tornar a
+      la llista d'exercicis. Arreglat (18/10/2026): obrir un exercici afegeix una entrada a
+      l'historial, i «enrere» (o «← Torna a la llista») torna a la llista.
+- [x] Una pàgina `errades.html` amb totes les errades per setmana (18/10/2026). Enllaçada des de
+      la portada. Mostra les setmanes publicades; amb `?tot=1`, totes.
 
-Comença a finals de novembre de 2026.
+## Altres
 
-- [x] Santillana: U5 · Activitats 19–21; ex. 57, 61, 63–66, 77, 80 i 81. U7 · ex. 91 (13 fitxes,
-      9 imatges a `apl-ud4/`).
-- [x] Llibre propi: els exercicis de les activitats 4.1–4.4 i 4.6 (33 fitxes), amb l'enunciat i la
-      solució en KaTeX (`enunciats.js`). Fora: els «Per al Quadern d'eines» i la reflexió final.
-      La 4.5 (producte) no té exercicis i la 4.7 (prova escrita) no es publica.
-- [x] Errades del solucionari: U5 · 64 (6 cm per 8 cm) i U5 · 77 (CB per CD).
-- [ ] Setmanes de debò (`tasques.js`). Ara hi ha una setmana d'**exemple**, amagada (`visible:'mai'`).
-- [ ] Enunciats en català dels exercicis de Santillana que es programin (ara: U5 · 57, 64 i 81).
-- [ ] Pistes dels exercicis programats (`hints.js`).
+- [x] Catàleg antic (u7–u14) revisat: 61 fitxes corregides (u12/88 i 60 més) perquè
+      apuntaven a una pàgina equivocada o no incloïen la pàgina on continua la solució.
+- [x] Catàleg complet (u1–u14) comparat amb els solucionaris de `source/`: 14 dificultats
+      corregides (u6: 66, 127 · u8: 116 · u12: 115, 122, 123, 125–131 · u14: 99), afegida la
+      pàgina que faltava a u14 act. 2 i tretes 5 imatges de més (u1/123, u2/33, u2/54, u5/82,
+      u5/128). Ara les 1.471 fitxes quadren amb el llibre.
+- [ ] Les pàgines per tema antigues (`u*/<tema>/<tema>.html`) tenen la seva pròpia llista
+      d'imatges amb els mateixos errors. No es fan servir (tots els temes a `'cap'`).
 
-## 4t ESO Aplicades · UD11 (Idea de polinomi)
+- [x] U1: les activitats del text 1–5 no són al catàleg perquè els números 1–5
+      ja els fan servir les activitats de "Matemàtiques en el món real" (grafs).
+      El mateix passa a la U2, la U3, la U5 i la U6 amb les activitats del text 1–4.
+      Cap tasca no les programa, així que ara no cal fer res. Si mai se'n vol programar
+      alguna, caldrà ampliar el sistema (p. ex. un prefix).
 
-- [x] Annex de Polinomis: Què saps ja 1, Act. 1–4; ex. 32, 33, 35, 36, 38, 71–77, 80 i 81 (19 fitxes,
-      8 imatges a `apl-ud11/`). Atenció: l'Act. 3 (multiplicar) i alguns apartats dels ex. 32 i 33 són
-      productes de polinomis; eren a la llista aprovada (P5), però potser no cal posar-los a cap tasca.
-- [x] Errades: AP · 74 (17 686 i 13 384 per 17,686 i 13,384, a l'enunciat i a la solució) i AP · 77
-      (1 460 € per 1 460 000 €: l'enunciat és en milers d'euros).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD5 (Equacions de 2n grau)
-
-- [x] U3 · Què saps ja 1–2, Act. 1–9, 11 i 20; ex. 32–46, 48, 49, 51, 63, 71 i 77. U7 · ex. 94–95.
-      Annex de Polinomis · Act. 8–11 i ex. 49–57 (49 fitxes, 18 imatges a `apl-ud5/`). Fora: Act. 10,
-      ex. 47, 50 i 52 (paràmetres), biquadrades i grau 3 (F9).
-- [x] Errades de la U3 ja detectades que toquen aquests exercicis (vistiplau E5): 33 e) (enunciat),
-      41 e), 44 i 63. Noves: U7 · 95 (la paràbola té el vèrtex com a mínim) i AP · 52 d) (signe de
-      2x³/5 i 51x³/125).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD10 (Sistemes d'equacions i inequacions)
-
-- [x] Santillana U4, tret dels exclosos (vistiplau F10–F12, F18): paràmetres (30, 33, 41–43),
-      sistemes d'inequacions (13–18, 50–56, 84–85, R2, AV5), semiplans (19–23, 57–61), R1 i el
-      sistema no lineal (72). Queden 63 fitxes a `apl-ud10/`.
-- [x] Afegits (vistiplau P7): U3 · Act. 24–26; ex. 58–59, 64–66, 73–75, 80–81. U2 · ex. 68–69.
-      U7 · ex. 93. Cap no té errades de la llista. Fora: U2 · 67 (el solucionari diu «Resuelta en el
-      libro de texto» i no en dona la solució). En total, 79 fitxes.
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD6 (La paràbola)
-
-- [x] U7 · Què saps ja 1, Act. 8–10; ex. 45–49, 51, 52, 54, 55, 86, 94–96, 100, 105 i 106. U6 · Act. 23,
-      24 i 28; ex. 72. U3 · ex. 45 (25 fitxes, 21 imatges a `apl-ud6/`). Fora: U6 · Act. 25–27, que
-      eren a la llista P8 però demanen Ruffini o biquadrades (F1 i F9).
-- [x] Errades noves: U7 · 45 (taula: −1 i −2 per 1 i 2), 46 c) (vèrtex (−1, −2)), 47 d) (l'equació no
-      passa pel vèrtex), 49 f) (vèrtex (−9/2, −9/4)), 51 d) (taula de valors), 95 (com a la UD5) i 100
-      (es demana h = v²/20, no v = √(20h)).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD7 (Funcions: llegim gràfics)
-
-- [x] U6 · Act. 1–7; ex. 47–55, 58, 78–87, 89, 90 i 100–112. U7 · ex. 35–44, 62–65, 74–77, 83,
-      85–92, 97 i 104. U2 · Act. 40–44; ex. 109–111 (79 fitxes, 38 imatges a `apl-ud7/`). Fora:
-      U6 · 56 (mòdul d'un vector), 57 (trigonometria, F1) i 88 (el solucionari diu «Resuelta en el
-      libro de texto»).
-- [x] Errades de la llista que toquen aquests exercicis: U2 · 42 i 43 b). Noves: U6 · 7 (els punts no
-      es poden unir), 52 f) (−12/15 per −12/5), 82 a) (no hi ha cap tram constant), 89 (la TVR
-      divideix per f(a): −225 %, −225 %, −150 %), 106 (v = 340 i d = 340t), 112 (< 990, no < 900);
-      U7 · 90 (a) i b) intercanviats; 301,4375 i 574,5875); U2 · 110 (10 048,68 € i 10 462,42 €).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD8 (Estadística)
-
-- [x] U8 · Act. 1–10; ex. 33–63, 67, 69–71, 73–77, 80–85, 88, 89 i la fake news (59 fitxes, 21 imatges
-      a `apl-ud8/`). Fora: 68 i 72 (el solucionari diu «Resuelta en el libro de texto»). Els ex. 75 i 76
-      pregunten també per quartils i percentils (F16), però eren a la llista P10.
-- [x] Errades noves: Act. 7 (21 · 12,5 per 21 · 17,5), 9 a) (Me = 7) i 9 b) (la taula són F, no f),
-      10 b) (F: 4, 12, 24, 34); ex. 35 (H arrodonides: 50 %, no 49,9 %), 48 (h no és f/1 030), 51
-      (histograma acumulat amb el doble d'altura), 59 b) (/14, no /28), 60 b) (9 dades, no 10), 81
-      (el preu és per quilo: 75,53 €, 1,85 €/kg i, a e), 2,08 €/kg), 83 (19 i 21 intercanviats a l'eix),
-      84 (30 marques i n'hi ha 33; F₁ = 9) i 85 (a l'enunciat hi falta la parella 6–6).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## 4t ESO Aplicades · UD9 (Atzar i decisions)
-
-- [x] U9 · Act. 1–3, 17, 23–30, 33, 34 i 40–44; ex. 45–48, 57–59, 61, 63–65, 76–82, 84–89, 93 i 96–103
-      (52 fitxes, 22 imatges a `apl-ud9/`). Fora: 83 («Resuelta en el libro de texto»).
-- [x] Errades noves: Act. 42 (exactament 3 cavalls en 4 cartes: 0,0036 i 0,0016), ex. 76 b) («moreno»,
-      no «rubio») i 88 c) (7/8, no 6/8).
-- [ ] Setmanes de debò. Ara n'hi ha una d'exemple amagada.
-
-## Les altres UD (vistiplau P1–P3, P5–P6, P8–P11)
-
-- [ ] Després de les UD d'Aplicades, Acadèmiques.
-- [x] Exercicis propis sense pràctica a Santillana (vistiplau S2–S5): 2.5–2.6 (UD2), 8.3.1–8.3.11 (UD8,
-      mitjana ponderada) i 9.5.1–9.5.12 (UD9, joc just), amb l'enunciat i la solució en KaTeX. Fora: els
-      «Per al Quadern d'eines». A 9.5.1–9.5.4 l'enunciat porta el context de la teoria, que a la fitxa no hi és.
-- [ ] Altres continguts propis, quan surtin a una tasca.
-- [ ] Marca «Ampliació» (vistiplau E6): més endavant. Ara no es carrega cap ampliació (F2, F3, F6–F9,
-      F11, F16, F18: no).
-
-## Acadèmiques
-
-- [ ] Quan comenci: el PDF del solucionari a `source/`, la UD a `eines/retalls.json`, les imatges
-      (`eines/retalla.py`), el catàleg i `UNITATS_META` (`materia:'aca'`). Vegeu `CLAUDE.md`.
-
-## Pendent de decidir
-
-- [ ] U4 · SA1 (situació d'aprenentatge 1): l'enunciat parla del «vuelo de la mañana», però la
-      solució (i la resta de la situació) fa servir el vol de la tarda. Possible errada de l'enunciat:
-      preguntar-ho a l'editorial. Ara es transcriu tal com és.
-- [ ] U5 · 18 (no és al catàleg, però surt a la mateixa pàgina que l'activitat 19): B′(3, 24),
-      C′(1, 2), D′(1, 6) i G′(3, 64) haurien de ser B′(2, 3), C′(2, 1), D′(6, 1) i G′(6, 3). Per a la llista d'errades de
-      l'editorial.
-- [x] Els pegats: motor portat de `sol` i adaptat (`eines/pegats/`). Les 62 errades de 4t porten pegat.
-- [ ] U5 · 68 c): 12,85 cm (truncat); arrodonit seria 12,86. No s'ha posat a `errades.js`.
-- [ ] Annex de Polinomis, pàg. 332 del llibre: hi ha dos exercicis numerats 68 (el segon és el 69).
-      Per a la llista d'errades de l'editorial.
-- [ ] U7 · 104 (substància radioactiva): «se va desintegrando en cuatro partes iguales al cabo de una
-      hora» i la solució és f(t) = 4ᵗ (el nombre de parts). Si es pensa en la quantitat que queda,
-      seria (1/4)ᵗ. L'enunciat és ambigu: preguntar-ho a l'editorial.
-- [ ] U8 · 48: l'eix del gràfic té els mesos «J A J» (juliol i agost intercanviats), i els valors que
-      llegeix la solució no quadren del tot amb les barres. Mirar-ho amb l'editorial.
-- [ ] U9 · 77: A = «múltiple de 3» no compta el 0 (que també ho és). Criteri a decidir.
-- [ ] L'enllaç a `errades.html` de la portada és comentat (com a `sol`). Destapar-lo quan hi hagi errades
-      d'exercicis programats.
-- [ ] Provar el web amb Safari (iPhone) i Firefox. Només s'ha provat amb Chrome.
+- [x] L'Excel tenia l'exercici 92 a la setmana 7 (U8), que a `tasques.js` es va treure perquè
+      ja era a la setmana 5. Tret també de l'Excel (18/10/2026): ara les 36 setmanes quadren.

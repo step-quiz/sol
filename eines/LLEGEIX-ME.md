@@ -1,59 +1,146 @@
-# Les eines
+# Les eines de les errades del solucionari
 
-Totes s'executen des de l'arrel del repo. **Cap eina toca el repo si no li ho dius:** sense
-`--escriu`, el que fan va a `eines/sortida/` (que no es puja a GitHub).
+Aquí hi ha les tres eines amb què es van fer les dades de les errades (vegeu `ERRADES.md`, a l'arrel):
 
-| Eina | Què fa |
-|---|---|
-| `comprova.js` | Les proves: catàleg, imatges, tasques, pistes, errades, enunciats i fórmules (pinta totes les fórmules amb el KaTeX del web). GitHub la passa a cada canvi |
-| `retalla.py` + `retalls.json` | Fa les imatges de les pàgines d'una unitat a partir del PDF de `source/` |
-| `figura.py` | Retalla una figura del PDF (gràfica, taula, dibuix) per posar-la dins d'un enunciat |
-| `optimitza_png.py` | Comprimeix les imatges sense cap pèrdua (només si el resultat és idèntic píxel a píxel) |
-| `pegats/` | Motor de pegats: `fes.py` fa els PNG a partir de les receptes (`receptes_udN.py`) i `aplica.py` els posa a `errades.js`. Referència tècnica: `pegats/README.md` |
+| Carpeta | Eina | Què fa |
+|---|---|---|
+| `conversor/` | `genera.py`, `verifica.js` | Torna a fer `errades.js` a partir de `tex/`, i comprova que quadra |
+| `localitzador/` | `proposa.py` (amb `loc.py` i `loc2.py`) | Troba on és cada errada dins la imatge: proposa el camp `marca` |
+| `pegats/` | `fes.py` (amb `pegats.py` i les `receptes_*.py`) | Fa els pegats: els retalls de pàgina ja corregits |
+
+A més: `dades.py` (llegeix `tex/`, `tasques.js` i `cataleg.js`; el fan servir totes) i `camins.py`.
+
+**Cap eina toca el repo si no li ho dius.** Sense `--escriu`, tot el que fan va a `eines/sortida/`
+(que no es puja a GitHub) i et diuen si el resultat és igual que el que hi ha publicat.
 
 ## Què cal
 
-- Node (per a `comprova.js`). No cal instal·lar res més.
-- Python 3.10 o més nou i `pip install -r eines/requisits.txt` (per a `retalla.py` i `optimitza_png.py`).
-- `pdftoppm` (paquet `poppler-utils`) per a `retalla.py`.
+- Python 3.10 o més nou, i les llibreries: `pip install -r eines/requisits.txt`
+- Node (només per a `verifica.js`). No cal instal·lar res més: fa servir el KaTeX de `assets/katex/`.
+- La carpeta `tex/` amb els `errors-setmanaN.tex`, i els PDF del solucionari a `source/`.
+- `pdftoppm` (paquet `poppler-utils`) **només** si s'ha de casar amb el PDF una imatge que no és a
+  `localitzador/casa.json` (una pàgina nova). Per a les imatges que ja hi ha, no cal.
+
+## D'on surt cada cosa (les fonts)
+
+| El que es veu a `errades.js` | La font |
+|---|---|
+| `ondiu`, `hadedir`, `motiu`, `lloc`, `enunciat` i les observacions | `tex/errors-setmanaN.tex` |
+| `marca` | `eines/localitzador/marques.json` |
+| `pegat` | `eines/pegats/pegats.json` (i els PNG de `pegats/<unitat>/`) |
+| La capçalera, els interruptors i les funcions | `eines/conversor/cap.js.txt` i `peu.js.txt` |
+
+`genera.py` refà `errades.js` **sencer** a partir d'aquestes fonts. Per tant:
+
+- Si canvies `errades.js` a mà (per exemple, enganxant-hi una `marca` feta amb `?tot=1&marca=1`),
+  passa el canvi a la font que toqui abans de tornar a generar. Si no, es perd.
+- Per canviar una funció o un interruptor, toca `cap.js.txt` o `peu.js.txt`, no `errades.js`.
+- Abans de generar amb `--escriu`, genera sense res i **mira les diferències**: tot el que hi surti
+  és el que canviaria.
+
+Les claus de `marques.json` i `pegats.json` són `'u7/92#0'`: l'exercici i, darrere del `#`, la
+posició de l'errada dins de la llista d'aquell exercici, **començant per 0**.
 
 ## Les ordres
 
+Totes s'executen des de l'arrel del repo.
+
 ```
-node eines/comprova.js                       # passa les proves
+python3 eines/dades.py                               # què ha llegit de tex/, i avisos
+python3 eines/conversor/genera.py                    # refà errades.js a eines/sortida/ i el compara amb el del repo
+python3 eines/conversor/genera.py --escriu           # ... i substitueix el del repo
+node eines/conversor/verifica.js                     # comprova l'errades.js del repo
 
-python3 eines/retalla.py apl-ud4             # fa les imatges a eines/sortida/apl-ud4/ (per mirar-les)
-python3 eines/retalla.py apl-ud4 --escriu    # ... i les escriu a apl-ud4/<tema>/data/full-K.png
+python3 eines/localitzador/proposa.py u7/92          # proposa la marca de les errades d'un exercici
+python3 eines/localitzador/proposa.py --tot --full   # totes, amb fulls per mirar-les
 
-python3 eines/figura.py apl-ud10 U4.34-1 109 30 112 235 330           # retalla una figura (a eines/sortida/)
-python3 eines/figura.py apl-ud10 U4.34-1 109 30 112 235 330 --escriu # ... a apl-ud10/enunciats/U4.34-1.png
-
-python3 eines/optimitza_png.py               # comprimeix totes les imatges del web
+python3 eines/pegats/fes.py receptes_u10             # fa els pegats d'un fitxer de receptes (a eines/sortida/)
+python3 eines/pegats/fes.py receptes_u10 u10/63#0    # només una errada
+python3 eines/pegats/fes.py receptes_u10 --escriu    # ... i substitueix els del repo i pegats.json
 ```
 
-## Com es fan les imatges (`retalls.json`)
+`verifica.js` comprova: que `errades.js` diu el mateix que `tex/`; que totes les fórmules es
+pinten amb el KaTeX del web; que avisos, targetes, requadres i pegats surten quan toca, amb els
+pegats encesos i apagats; i que les imatges i els fitxers que s'hi anomenen existeixen.
 
-Per a cada UD: el PDF, la **caixa** del retall i, per a cada tema (carpeta), les **pàgines del PDF**
-(no del llibre: a aquest PDF, pàgina del PDF = pàgina del llibre + 1) que hi van, en ordre. La primera
-pàgina de la llista és `full-1.png`, la segona `full-2.png`… Una pàgina amb exercicis de dos temes va a
-les dues llistes.
+## Fer un pegat nou
 
-La caixa `[40, 270, 1930, 2680]` (en píxels a 300 ppp) treu la capçalera «SOLUCIONARIO» i el número de
-pàgina, i deixa tot el text, tant a les pàgines parells com a les senars. L'eina tria la resolució perquè el
-retall faci just **1208 px** d'amplada (unes 192 ppp): així la imatge no es redimensiona i pesa la meitat.
-També treu el blanc sobrant de sota i avisa si hi ha tinta tallada a les vores.
+1. L'errada ha de ser a `tex/` i tenir marca a `localitzador/marques.json` (la recepta busca el
+   text vell dins del rectangle de la marca).
+2. Escriu la recepta en un `receptes_*.py`:
+   ```python
+   'u7/92#0': [('S', dict(m=0, vell='0,5', nou='1')),            # a la primera marca, «0,5» passa a ser «1»
+               ('S', dict(fila='existeixlim', vell='0,5', nou='1')),   # a la línia que conté aquest text
+               ('S', dict(m=1, vell='2,5', nou='5'))],
+   ```
+3. `python3 eines/pegats/fes.py receptes_u7 u7/92#0` i **mira el full** de `eines/sortida/`, ampliat.
+4. Quan estigui bé: `--escriu`, després `genera.py --escriu`, `verifica.js`, i puja el número de
+   `errades.js?v=` a `tasca.html`.
 
-Una UD agafa pàgines de diverses unitats de Santillana: el nom del tema porta la unitat al davant
-(`u5-semblanca`, `u7-problemes`, `u4-sistemes`). Només hi van les pàgines que tenen algun exercici del
-catàleg de la UD.
+### Les operacions d'una recepta
 
-Les figures dels exercicis del llibre propi (`apl-ud4/enunciats/4.1.4.png`) no surten del PDF de
-Santillana: són la `tikzpicture` del `.tex` de l'Overleaf compilada a part (`standalone`) i passada a PNG.
+Cada operació és `('NOM', dict(...))`. A totes s'hi pot posar `m=` (número de marca, si l'errada en
+té més d'una), `fila='text'` (buscar en la línia que conté aquest text, encara que sigui fora de la
+marca) i `img=` (la imatge, si no és la de la primera marca).
 
-**Atenció:** si es tornen a fer les imatges d'una unitat amb una altra caixa, les marques i els pegats
-d'errades d'aquella unitat deixen de valer.
+| Operació | Què fa | Arguments propis |
+|---|---|---|
+| `S` | Substitueix `vell` per `nou`. La resta de la línia es desplaça el que calgui | `nth` (quina aparició, des de 0), `mou=False` (no desplacis res), `alinea='c'`/`'d'` (centrat o a la dreta d'on era), `buit=False` (sense l'espai que hi havia darrere), `enganxat=True` (comença on acaba el signe anterior), `franja=(dalt, baix)` (mou la línia sencera, en ems respecte de la línia de base), `centra=True` (torna a centrar la fila: numeradors) |
+| `APP` | Afegeix `nou` darrere de `despres` | `nth` |
+| `INS` | Hi enganxa un signe (la prima de y′), copiat d'una parella igual | `despres`, `lletra`, `tipus` |
+| `SUP` | Posa un exponent darrere de `despres` | `nou`, `nth` |
+| `SUB` | Canvia tot un subíndex (el de sota d'un «lim») | `nou`, `nth` |
+| `COPG` | Substitueix un subíndex per un altre de la mateixa marca | `de`, `a` |
+| `FR1` | Refà una fracció senzilla (barra inclosa) | `des_de` (text del numerador vell), `num`, `den` |
+| `RF` | Refà des d'una fracció fins al final de la línia | `des_de`, `nou` (llista: text o `('f', num, den)`) |
+| `E` | Esborra les línies de la marca | — |
 
-## Les errades
+`nth` compta les aparicions entre els caràcters triats, ordenats per columna, línia de base i posició.
+Per saber què hi ha a cada línia de base (i com es diu cada signe al PDF), mira `pag.files` d'una
+`pegats.pagina(u, imatge)`.
 
-El motor de pegats és a `eines/pegats/`. Les altres dues eines de `sol` per a les errades (conversor i
-localitzador) no s'han portat: les errades i les marques s'escriuen directament a `errades.js`. Vegeu `ERRADES.md`, apartat 6.
+### Com s'escriu el text nou (`nou`)
+
+| S'escriu | Vol dir |
+|---|---|
+| `12,5` `(` `]` `=` `+` `-` `<` `>` | Xifres, puntuació i signes, tal qual |
+| `x` | Una lletra és una variable (cursiva) |
+| `t:recta tangent` | Amb `t:` al davant, és text (lletra recta) i els espais són espais de paraula |
+| `x_1` | Subíndex |
+| `x^2` | Exponent |
+| `→` `′` `·` `∪` `∩` | Fletxa, prima, punt de multiplicar, unió i intersecció |
+| un espai | Un espai |
+
+Cada signe es copia d'un signe igual de la mateixa pàgina (o, si no n'hi ha, d'una altra pàgina
+de la unitat). Si no es troba enlloc, l'eina s'atura i ho diu.
+
+### Quan hi ha més d'un canvi a la mateixa línia
+
+Les posicions es llegeixen sempre del PDF original. Si un canvi desplaça la línia, el següent
+s'ha de fer **més a l'esquerra** (ordre de dreta a esquerra) i amb `franja`, o bé canviar el tros
+sencer d'un sol cop. Els paranys coneguts són a l'apartat 9 d'`ERRADES.md`.
+
+## Fins on es pot refer el que hi ha publicat (mesurat el 4 d'octubre de 2026)
+
+- **`errades.js`:** `genera.py` el refà **idèntic**, byte a byte.
+- **Marques:** de les 83 errades, 59 propostes de `proposa.py` coincideixen amb la marca desada.
+  Les altres 24 es van ajustar a ull. **La referència és `marques.json`**, no la proposta.
+- **Pegats:** el motor es va anar millorant unitat per unitat, i els pegats de les primeres
+  unitats es van fer amb versions anteriors. Amb el motor d'ara:
+
+  | Receptes | Pegats | Idèntics | Diferents |
+  |---|---|---|---|
+  | `receptes_u11u12` | 7 | 7 | 0 |
+  | `receptes_u3u5u6` | 30 | 30 | 0 |
+  | `receptes_u13u14u1u2` | 7 | 6 | 1 |
+  | `receptes_u8u9` | 9 | 4 | 5 |
+  | `receptes_u10` | 28 | 16 | 12 |
+  | `receptes_u7` | 12 | 2 | 10 |
+  | **Total** | **93** | **65** | **28** |
+
+  Dels 28 diferents: 12 canvien entre 1 i 8 píxels febles (no es nota); 3 canvien més píxels amb
+  la mateixa mida; i 13 canvien de mida o de lloc (uns quants píxels, tret de `u7/76`, on la
+  fracció surt força més ampla).
+
+  **Els pegats publicats són els que es van mirar un per un: són la referència.** No en
+  substitueixis cap pel que surt ara sense mirar el full ampliat, com si fos nou.

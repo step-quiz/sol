@@ -4,7 +4,7 @@
    El solucionari té errades. Aquí hi ha les dels exercicis programats a
    tasques.js. La clau és la mateixa que a hints.js:  'unitat/exercici'.
 
-     'apl-ud10/U4.76': [
+     'u7/76': [
        { lloc:    TEX`f)`,
          ondiu:   TEX`$\dlim_{x\to 3}\dfrac{3-x}{x+2}=0$`,
          hadedir: TEX`$\dlim_{x\to 3}\dfrac{-(3+x)}{x+2}=-\dfrac{6}{5}$`,
@@ -65,9 +65,10 @@
        la imatge s'amplia en aquell punt amb la correcció a sota.
 
    D'ON SURT AQUEST FITXER
-     Les errades i les marques s'escriuen a mà, aquí mateix. Els camps
-     `pegat` i la taula PAGINES_IGUALS els posa  eines/pegats/aplica.py  a
-     partir de  eines/pegats/pegats.json : no s'editen a mà. Vegeu ERRADES.md.
+     Les errades surten dels .tex de  tex/  (errors-setmanaN.tex). Aquest
+     fitxer es pot tornar a fer sencer amb  eines/conversor/genera.py , que
+     ajunta tex/, les marques (eines/localitzador/marques.json) i els pegats
+     (eines/pegats/pegats.json). Vegeu ERRADES.md.
      Si hi canvies res a mà, passa també el canvi a aquestes fonts: si no,
      es perdrà el dia que algú torni a generar el fitxer.
    ═══════════════════════════════════════════════════════════════════════ */
@@ -79,684 +80,666 @@ const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
 const ERRADES_PEGATS = true;   // true: on hi ha «pegat», la imatge es veu ja corregida i l'errada no s'anuncia
 
-/* pagines-iguals:inici (ho fa eines/pegats/aplica.py) */
-const PAGINES_IGUALS = {
-  'apl-ud1/u1-aproximacio/data/full-5.png': 'p26',
-  'apl-ud1/u1-intervals/data/full-1.png': 'p26',
-  'apl-ud2/u2-percentatges/data/full-3.png': 'p40',
-  'apl-ud7/u2-activitats/data/full-1.png': 'p40',
-  'apl-ud2/u2-problemes/data/full-6.png': 'p57',
-  'apl-ud7/u2-interes/data/full-1.png': 'p57',
-  'apl-ud5/u3-equacions/data/full-4.png': 'p77',
-  'apl-ud6/u3-equacions/data/full-1.png': 'p77',
-  'apl-ud10/u3-problemes/data/full-1.png': 'p84',
-  'apl-ud5/u3-problemes/data/full-1.png': 'p84',
-  'apl-ud3/u5-escales/data/full-1.png': 'p135',
-  'apl-ud4/u5-activitats/data/full-2.png': 'p135',
-  'apl-ud3/u5-problemes/data/full-1.png': 'p149',
-  'apl-ud4/u5-semblanca/data/full-4.png': 'p149',
-  'apl-ud3/u5-problemes/data/full-3.png': 'p152',
-  'apl-ud4/u5-problemes/data/full-2.png': 'p152',
-  'apl-ud6/u7-paraboles/data/full-1.png': 'p204',
-  'apl-ud7/u7-lineals/data/full-4.png': 'p204',
-  'apl-ud10/u7-problemes/data/full-2.png': 'p225',
-  'apl-ud5/u7-problemes/data/full-1.png': 'p225',
-  'apl-ud6/u7-problemes/data/full-2.png': 'p225',
-  'apl-ud7/u7-situacions/data/full-5.png': 'p225',
-};
-/* pagines-iguals:fi */
-
 const TEX = String.raw;        // no toquis aquesta línia
 
 const ERRADES = {
 
-  /* ── 4t ESO Aplicades · UD4 · Mesura indirecta (Santillana U5) ────────── */
+  /* ── Unitat 1 · Matrius ──────────────────────────────────────────────── */
 
-  /* ── 4t ESO Aplicades · UD1 ── */
-
-  'apl-ud1/U1.45': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`$\dfrac{\sqrt{3}}{2} < \dfrac{\sqrt{6}}{2} < \sqrt{3}$`,
-      hadedir: TEX`$\dfrac{\sqrt{3}}{3} < \dfrac{\sqrt{6}}{2} < \sqrt{3}$`,
-      motiu:   TEX`El nombre de l’enunciat és $\dfrac{\sqrt{3}}{3}$, no $\dfrac{\sqrt{3}}{2}$.`,
-      marca:   ['u1-reals/data/full-4.png', 14.2, 35.2, 4.9, 4.0],
-      pegat:   [['u1-reals/data/full-4.png', 15.563, 37.736, 1.49, 1.627, 'U1.45-1a.png']] },
-  ],
-
-  'apl-ud1/U1.48': [
-    { lloc:    TEX`c)`,
-      ondiu:   TEX`$\sqrt{\dfrac{7}{3}} = 1{,}527525231\ldots$`,
-      hadedir: TEX`per exemple, $\sqrt{\dfrac{12}{5}} = 1{,}549193338\ldots$`,
-      motiu:   TEX`Cal un irracional entre $1{,}5\widehat{3} = 1{,}533\ldots$ i $1{,}\widehat{5} = 1{,}555\ldots$, i $1{,}5275\ldots$ és menor que tots dos.`,
-      marca:   ['u1-reals/data/full-4.png', 57.4, 63.5, 23.8, 4.7],
-      pegat:   [['u1-reals/data/full-4.png', 62.666, 62.85, 18.791, 4.294, 'U1.48-1a.png']] },
-  ],
-
-  'apl-ud1/U1.57': [
-    { lloc:    TEX`c) i d)`,
-      ondiu:   TEX`$\sqrt{2}\,a$ és irracional i $\pi a$ és irracional`,
-      hadedir: TEX`$\sqrt{2}\,a$ i $\pi a$ són irracionals només si $a \neq 0$. Si $a = 0$, tots dos valen $0$, que és racional`,
-      motiu:   TEX`Per aïllar $\sqrt{2}$ o $\pi$ es divideix per $a = \dfrac{b}{c}$, i això demana que $b \neq 0$.`,
-      marca:   [['u1-reals/data/full-7.png', 12.4, 28.0, 34.4, 4.3], ['u1-reals/data/full-7.png', 12.4, 45.3, 28.0, 5.7]],
-      pegat:   [['u1-reals/data/full-7.png', 22.93, 30.313, 8.195, 1.695, 'U1.57-1a.png'],
-               ['u1-reals/data/full-7.png', 25.911, 49.087, 8.195, 1.695, 'U1.57-1b.png']] },
-  ],
-
-  'apl-ud1/U1.89': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`$m = 1{,}6726\cdot 10^{-27}$ g, $E_a = 1{,}998\cdot 10^{-24}$, $E_r = 1\,194{,}74$. És un error molt gran`,
-      hadedir: TEX`$m = 1{,}6726\cdot 10^{-24}$ g, $E_a = 3{,}274\cdot 10^{-25}$ g, $E_r \approx 0{,}196$ (un $19{,}6\,\%$)`,
-      motiu:   TEX`La massa del protó és $1{,}6726\cdot 10^{-27}$ kg, és a dir, $1{,}6726\cdot 10^{-24}$ g. El solucionari barreja quilograms i grams.`,
-      marca:   ['u1-aproximacio/data/full-5.png', 9.1, 22.6, 36.8, 15.6],
-      pegat:   [['u1-aproximacio/data/full-5.png', 31.623, 23.157, 1.159, 1.109, 'U1.89-1a.png'],
-               ['u1-aproximacio/data/full-5.png', 28.808, 25.962, 1.159, 1.109, 'U1.89-1b.png'],
-               ['u1-aproximacio/data/full-5.png', 17.301, 28.376, 11.175, 1.826, 'U1.89-1c.png'],
-               ['u1-aproximacio/data/full-5.png', 18.626, 31.05, 22.765, 3.392, 'U1.89-1d.png'],
-               ['u1-aproximacio/data/full-5.png', 22.434, 35.943, 11.01, 1.957, 'U1.89-1e.png']] },
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$m = 9{,}1\cdot 10^{-31}$ g, $E_a = 8{,}99\cdot 10^{-28}$, $E_r = 988{,}01$. És un error molt gran`,
-      hadedir: TEX`$m = 9{,}1\cdot 10^{-28}$ g, $E_a = 10^{-29}$ g, $E_r \approx 0{,}011$ (un $1{,}1\,\%$): és un error petit`,
-      motiu:   TEX`La massa de l’electró és $9{,}1\cdot 10^{-31}$ kg, és a dir, $9{,}1\cdot 10^{-28}$ g.`,
-      marca:   ['u1-aproximacio/data/full-5.png', 9.1, 38.6, 36.8, 14.9],
-      pegat:   [['u1-aproximacio/data/full-5.png', 28.56, 38.682, 1.738, 1.174, 'U1.89-2a.png'],
-               ['u1-aproximacio/data/full-5.png', 25, 41.487, 1.738, 1.174, 'U1.89-2b.png'],
-               ['u1-aproximacio/data/full-5.png', 17.384, 43.77, 10.017, 1.957, 'U1.89-2c.png'],
-               ['u1-aproximacio/data/full-5.png', 17.964, 46.314, 19.95, 4.436, 'U1.89-2d.png'],
-               ['u1-aproximacio/data/full-5.png', 22.517, 51.272, 10.927, 2.022, 'U1.89-2e.png']] },
-  ],
-
-  'apl-ud1/U1.90': [
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$2{,}8 = [0;\ 2{,}8]$`,
-      hadedir: TEX`$[0;\ 2{,}8]$`,
-      motiu:   TEX`El «$2{,}8 =$» del davant sobra: l’interval és $[0;\ 2{,}8]$.`,
-      marca:   ['u1-intervals/data/full-1.png', 11.3, 94.5, 12.6, 2.8],
-      pegat:   [['u1-intervals/data/full-1.png', 11.921, 95.238, 11.589, 1.892, 'U1.90-1a.png']] },
-  ],
-
-  'apl-ud1/U1.99': [
+  'u1/49': [
     { lloc:    TEX`d)`,
-      ondiu:   TEX`$0 = 0\cdot 0 < x\cdot y$ \quad i \quad $0 = 0\cdot 0 > x\cdot y$`,
-      hadedir: TEX`$0 = 0\cdot 0 \leq x\cdot y$ \quad i \quad $0 = 0\cdot 0 \geq x\cdot y$`,
-      motiu:   TEX`$y$ pot valer $0$, i llavors $x\cdot y = 0$. El resultat final, $(-2, 6)$, és correcte.`,
-      marca:   [['u1-intervals/data/full-2.png', 61.8, 74.9, 26.9, 2.6], ['u1-intervals/data/full-2.png', 64.7, 79.9, 31.5, 2.6]],
-      pegat:   [['u1-intervals/data/full-2.png', 70.364, 75.211, 1.904, 1.496, 'U1.99-1a.png'],
-               ['u1-intervals/data/full-2.png', 73.262, 80.221, 1.904, 1.496, 'U1.99-1b.png']] },
+      ondiu:   TEX`$BC=\begin{pmatrix}-7 & 3 & 3\\ -1 & -1 & 8\end{pmatrix}$`,
+      hadedir: TEX`$BC=\begin{pmatrix}-8 & 3 & 3\\ -4 & -1 & 8\end{pmatrix}$`,
+      motiu:   TEX`Els dos elements de la primera columna estan malament: $(-2)\cdot 4+1\cdot 0+1\cdot 0=-8$ i $(-1)\cdot 4+0\cdot 0+3\cdot 0=-4$.`,
+      pegat:   [['operacions/data/full-3.png', 17.452, 27.708, 1.406, 1.511, '49-1a.png'], ['operacions/data/full-3.png', 17.37, 29.471, 1.489, 1.511, '49-1b.png']],
+      marca:   ['operacions/data/full-3.png', 12.7, 27.3, 15.0, 4.0] },
   ],
 
-  'apl-ud1/U1.101': [
-    { ondiu:   TEX`Milena $9$, Ismael $10$, Elisa $11$, Pilar $12$, Javier $13$, Cristina $14$, com a única solució`,
-      hadedir: TEX`el problema té cinc solucions. En l’ordre Milena, Elisa, Pilar, Javier, Cristina, Ismael: $9, 11, 12, 13, 14, 10$ · $9, 10, 12, 13, 14, 11$ · $8, 9, 11, 12, 13, 10$ · $8, 9, 10, 12, 13, 11$ · $7, 8, 9, 11, 12, 10$`,
-      motiu:   TEX`Les condicions no fixen on va l’Ismael dins de l’ordre Milena $<$ Elisa $<$ Pilar $<$ Javier $<$ Cristina.`,
-      marca:   ['u1-intervals/data/full-3.png', 9.8, 28.6, 20.5, 15.2],
-      pegat:   [['u1-intervals/data/full-3.png', 9.934, 28.562, 39.321, 1.952, 'U1.101-1a.png'],
-               ['u1-intervals/data/full-3.png', 9.934, 31.165, 36.424, 1.887, 'U1.101-1b.png'],
-               ['u1-intervals/data/full-3.png', 9.851, 33.767, 37.5, 2.017, 'U1.101-1c.png'],
-               ['u1-intervals/data/full-3.png', 9.851, 36.435, 36.507, 1.952, 'U1.101-1d.png'],
-               ['u1-intervals/data/full-3.png', 9.768, 39.037, 17.715, 1.952, 'U1.101-1e.png'],
-               ['u1-intervals/data/full-3.png', 9.851, 41.64, 19.288, 1.692, 'U1.101-1f.png']] },
-  ],
+  /* ── Unitat 2 · Determinants ─────────────────────────────────────────── */
 
-  /* ── 4t ESO Aplicades · UD2 ── */
-
-  'apl-ud2/U2.35': [
-    { ondiu:   TEX`un $3\,\%$ menys aproximadament`,
-      hadedir: TEX`un $2{,}25\,\%$ menys`,
-      motiu:   TEX`$1 - 0{,}9775 = 0{,}0225$.`,
-      marca:   ['u2-percentatges/data/full-2.png', 88.3, 18.1, 4.4, 2.4],
-      pegat:   [['u2-percentatges/data/full-2.png', 89.073, 18.253, 5.877, 1.825, 'U2.35-1a.png'],
-               ['u2-percentatges/data/full-2.png', 62.5, 20.469, 29.801, 1.956, 'U2.35-1b.png'],
-               ['u2-percentatges/data/full-2.png', 56.209, 22.751, 5.629, 1.695, 'U2.35-1c.png']] },
-  ],
-
-  'apl-ud2/U2.94': [
+  'u2/80': [
     { lloc:    TEX`b)`,
-      ondiu:   TEX`$8\,\% = \dfrac{0{,}8}{100} = 0{,}008$`,
-      hadedir: TEX`$0{,}8\,\% = \dfrac{0{,}8}{100} = 0{,}008$`,
-      motiu:   TEX`La comissió de l’enunciat és el $0{,}8\,\%$. La conclusió és correcta.`,
-      marca:   ['u2-problemes/data/full-2.png', 59.8, 31.5, 5.3, 3.6],
-      pegat:   [['u2-problemes/data/full-2.png', 59.851, 30.429, 19.454, 3.836, 'U2.94-1a.png']] },
+      ondiu:   TEX`$\begin{vmatrix}3&-5&1\\4&1&-2\\7&-4&-2\end{vmatrix}=0$`,
+      hadedir: TEX`$\begin{vmatrix}3&-5&1\\4&1&-2\\7&-4&-1\end{vmatrix}=0$`,
+      motiu:   TEX`La fila que s'ha afegit a la matriu és $(7,-4,-1)$, la suma de les altres dues, i per això el determinant és $0$. Amb $-2$ al final, el determinant valdria $-23$.`,
+      pegat:   ['rang/data/full-1.png', 81.307, 83.375, 1.406, 1.448, '80-1a.png'],
+      marca:   ['rang/data/full-1.png', 71.5, 79.5, 15.9, 5.7] },
   ],
 
-  'apl-ud2/U2.103': [
-    { ondiu:   TEX`Com que l’IVA i el guany es calculen sobre el preu inicial`,
-      hadedir: TEX`Com que l’IVA es calcula sobre el preu que ja porta el guany`,
-      motiu:   TEX`Multiplicar per $1{,}21\cdot 1{,}10 = 1{,}331$ vol dir aplicar un increment sobre l’altre, i el resultat, $45{,}08$ €, és correcte. Si tots dos es calculessin sobre el preu inicial, seria $\dfrac{60}{1{,}31} = 45{,}80$ €.`,
-      marca:   ['u2-problemes/data/full-4.png', 57.0, 57.1, 30.0, 4.5],
-      pegat:   [['u2-problemes/data/full-4.png', 57.368, 56.966, 29.801, 1.953, 'U2.103-1a.png'],
-               ['u2-problemes/data/full-4.png', 57.285, 59.245, 31.374, 1.953, 'U2.103-1b.png']] },
-  ],
-
-  /* ── 4t ESO Aplicades · UD3 ── */
-
-  'apl-ud3/U2.59': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`$\dfrac{x}{61} = \dfrac{15}{25} \to x = 36{,}6$, i la columna «Distancia (cm)»`,
-      hadedir: TEX`$61$ pals fan $60$ separacions, $60\cdot 15 = 900$ m, i $\dfrac{900}{25} = 36$ separacions: $37$ pals. La distància és en metres`,
-      motiu:   TEX`La proporcionalitat inversa és entre les separacions i la distància de cada separació, no entre els pals. El $37$ només surt per l’arrodoniment.`,
-      marca:   ['u2-problemes/data/full-4.png', 10.9, 26.0, 39.0, 9.5],
-      pegat:   [['u2-problemes/data/full-4.png', 36.424, 16.97, 8.775, 2.016, 'U2.59-1a.png'],
-               ['u2-problemes/data/full-4.png', 9.272, 24.577, 20.695, 1.56, 'U2.59-1b.png'],
-               ['u2-problemes/data/full-4.png', 12.5, 26.788, 1.573, 1.691, 'U2.59-1c.png'],
-               ['u2-problemes/data/full-4.png', 29.884, 29.064, 2.483, 1.691, 'U2.59-1d.png'],
-               ['u2-problemes/data/full-4.png', 33.609, 31.144, 13.162, 3.901, 'U2.59-1e.png'],
-               ['u2-problemes/data/full-4.png', 12.583, 36.151, 32.947, 2.081, 'U2.59-1f.png']] },
-  ],
-
-  'apl-ud3/U5.22': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`$x = 8\,100\,000$ cm i $\dfrac{8\,100\,000}{100\,000} = 810$ km`,
-      hadedir: TEX`$x = 81\,000\,000$ cm i $\dfrac{81\,000\,000}{100\,000} = 810$ km`,
-      motiu:   TEX`$4{,}5\cdot 18\,000\,000 = 81\,000\,000$. El resultat, $810$ km, és correcte.`,
-      marca:   ['u5-escales/data/full-1.png', 58.7, 12.2, 24.7, 7.1],
-      pegat:   [['u5-escales/data/full-1.png', 76.821, 12.842, 11.838, 1.63, 'U5.22-1a.png'],
-               ['u5-escales/data/full-1.png', 59.768, 15.711, 18.295, 3.846, 'U5.22-1b.png']] },
-  ],
-
-  'apl-ud3/U5.69': [
-    { ondiu:   TEX`Les escales $1{:}500\,000$ ($39{,}2 \times 42{,}2$ cm) i $1{:}250\,000$ ($78{,}4 \times 84{,}4$ cm)`,
-      hadedir: TEX`Han de ser escales que hi càpiguen, per exemple $1{:}1\,000\,000$ ($19{,}6 \times 21{,}1$ cm), $1{:}1\,500\,000$ ($13{,}1 \times 14{,}1$ cm) i $1{:}2\,000\,000$ ($9{,}8 \times 10{,}6$ cm)`,
-      motiu:   TEX`Un DIN A4 fa $21 \times 29{,}7$ cm. Amb aquestes tres escales Galícia hi cap, però en un pòsit de $10 \times 10$ cm no.`,
-      marca:   ['u5-problemes/data/full-1.png', 57.4, 32.4, 34.2, 13.9],
-      pegat:   [['u5-problemes/data/full-1.png', 66.805, 32.466, 16.722, 2.017, 'U5.69-1a.png'],
-               ['u5-problemes/data/full-1.png', 59.272, 34.873, 3.974, 1.757, 'U5.69-1b.png'],
-               ['u5-problemes/data/full-1.png', 60.679, 37.085, 4.056, 1.822, 'U5.69-1c.png'],
-               ['u5-problemes/data/full-1.png', 66.805, 39.623, 16.722, 2.017, 'U5.69-1d.png'],
-               ['u5-problemes/data/full-1.png', 59.272, 41.9, 23.427, 1.952, 'U5.69-1e.png'],
-               ['u5-problemes/data/full-1.png', 60.762, 44.242, 4.056, 1.757, 'U5.69-1f.png']] },
-  ],
-
-
-  /* ── 4t ESO Aplicades · UD4 ── */
-
-  'apl-ud4/U5.64': [
-    { ondiu:   TEX`Els costats mesuraran $6$; $9{,}6$ i $12{,}8$ cm.`,
-      hadedir: TEX`Els costats mesuraran $8$; $9{,}6$ i $12{,}8$ cm.`,
-      motiu:   TEX`$5\cdot 1{,}6 = 8$, no $6$.`,
-      marca:   ['u5-semblanca/data/full-3.png', 55.2, 34.6, 31.0, 4.4],
-      pegat:   [['u5-semblanca/data/full-3.png', 71.606, 34.655, 1.49, 1.625, 'U5.64-1a.png']] },
-  ],
-
-  'apl-ud4/U5.77': [
-    { ondiu:   TEX`$\dfrac{\overline{AB}}{\overline{CB}} = \dfrac{n}{m}$, i després $\dfrac{\overline{AB}}{h} = 1 + \dfrac{\overline{AB}}{\overline{CB}}$`,
-      hadedir: TEX`$\dfrac{\overline{AB}}{\overline{CD}} = \dfrac{n}{m}$, i després $\dfrac{\overline{AB}}{h} = 1 + \dfrac{\overline{AB}}{\overline{CD}}$`,
-      motiu:   TEX`La raó és entre les dues columnes, $\overline{AB}$ i $\overline{CD}$; $\overline{CB}$ és un dels cables. El resultat final, $h = \dfrac{\overline{AB}\cdot\overline{CD}}{\overline{AB}+\overline{CD}}$, és correcte.`,
-      marca:   [['u5-problemes/data/full-1.png', 57.0, 90.0, 10.5, 4.8],
-                ['u5-problemes/data/full-2.png', 9.0, 0.5, 20.0, 10.0]],
-      pegat:   [['u5-problemes/data/full-1.png', 58.94, 92.82, 7.616, 1.567, 'U5.77-1a.png'],
-               ['u5-problemes/data/full-2.png', 24.669, 3.52, 1.821, 1.565, 'U5.77-1b.png'],
-               ['u5-problemes/data/full-2.png', 23.344, 8.149, 1.821, 1.63, 'U5.77-1c.png']] },
-  ],
-
-  /* ── 4t ESO Aplicades · UD11 · Idea de polinomi (annex de Polinomis) ─── */
-
-  'apl-ud11/AP.74': [
+  'u2/95': [
     { enunciat: 1,
-      lloc:    TEX`la taula de l’OMS`,
-      ondiu:   TEX`$17\,686\cdot\text{pes} + 658{,}2$ \quad i \quad $13\,384\cdot\text{pes} + 692{,}6$`,
-      hadedir: TEX`$17{,}686\cdot\text{pes} + 658{,}2$ \quad i \quad $13{,}384\cdot\text{pes} + 692{,}6$`,
-      motiu:   TEX`Són els coeficients de l’OMS: $17{,}686$ i $13{,}384$. Amb $17\,686$, una persona de $50$ kg necessitaria més de $880\,000$ kcal al dia.`,
-      marca:   ['ap-problemes/data/full-2.png', 15.5, 72.8, 30.8, 5.0],
-      pegat:   [['ap-problemes/data/full-2.png', 16.887, 73.667, 28.146, 1.756, 'AP.74-1a.png']] },
-    { ondiu:   TEX`$1{,}40\cdot(17\,686\cdot x + 658{,}2)$, $1{,}40\cdot(13\,384\cdot x + 692{,}6)$…`,
-      hadedir: TEX`$1{,}40\cdot(17{,}686\, x + 658{,}2)$, $1{,}40\cdot(13{,}384\, x + 692{,}6)$…`,
-      motiu:   TEX`La mateixa errada de la taula, a les vuit expressions de la solució.`,
-      marca:   ['ap-problemes/data/full-2.png', 55.2, 19.4, 31.5, 28.6],
-      pegat:   [['ap-problemes/data/full-2.png', 69.04, 19.896, 16.97, 1.886, 'AP.74-2a.png'],
-               ['ap-problemes/data/full-2.png', 67.219, 22.432, 16.722, 1.886, 'AP.74-2b.png'],
-               ['ap-problemes/data/full-2.png', 69.04, 27.763, 16.97, 1.886, 'AP.74-2c.png'],
-               ['ap-problemes/data/full-2.png', 67.219, 30.299, 16.722, 1.886, 'AP.74-2d.png'],
-               ['ap-problemes/data/full-2.png', 69.04, 35.696, 16.97, 1.886, 'AP.74-2e.png'],
-               ['ap-problemes/data/full-2.png', 67.219, 38.231, 16.722, 1.886, 'AP.74-2f.png'],
-               ['ap-problemes/data/full-2.png', 66.639, 43.563, 16.722, 1.886, 'AP.74-2g.png'],
-               ['ap-problemes/data/full-2.png', 64.57, 46.099, 16.805, 1.886, 'AP.74-2h.png']] },
+      ondiu:   TEX`III) $-\dfrac{1}{2}\begin{pmatrix}4&-3\\-2&2\end{pmatrix}$`,
+      hadedir: TEX`III) $-\dfrac{1}{2}\begin{pmatrix}4&-3\\-2&1\end{pmatrix}$`,
+      motiu:   TEX`És una errada de l'enunciat. La inversa de $\begin{pmatrix}1&3\\2&4\end{pmatrix}$ és $\dfrac{1}{-2}\begin{pmatrix}4&-3\\-2&1\end{pmatrix}$: l'últim element és $1$. Tal com està impresa, l'opció III) no és la inversa de cap de les tres matrius; la relació b) $\rightarrow$ III) de la solució és la que es volia.`,
+      pegat:   ['inversa/data/full-1.png', 24.318, 65.68, 1.406, 1.448, '95-1a.png'],
+      marca:   ['inversa/data/full-1.png', 10.3, 63.5, 16.6, 4.1] },
   ],
 
-  'apl-ud11/AP.77': [
-    { ondiu:   TEX`$B(365) = 1\,460$ € de benefici`,
-      hadedir: TEX`$B(365) = 1\,460$ milers d’euros, és a dir, $1\,460\,000$ € de benefici`,
-      motiu:   TEX`L’enunciat diu que els ingressos i les despeses són en milers d’euros.`,
-      marca:   ['ap-problemes/data/full-3.png', 57.0, 8.6, 30.8, 4.6],
-      pegat:   [['ap-problemes/data/full-3.png', 65.728, 8.919, 25.083, 1.953, 'AP.77-1a.png']] },
-  ],
+  /* ── Unitat 3 · Sistemes d'equacions ─────────────────────────────────── */
 
-  /* ── 4t ESO Aplicades · UD5 · Equacions de 2n grau (Santillana U3, U7 i annex) ─ */
-
-  'apl-ud5/U3.33': [
-    { enunciat: 1,
-      lloc:    TEX`e)`,
-      ondiu:   TEX`$x^2 + x - 1 = 0$`,
-      hadedir: TEX`$x^2 + x - 6 = 0$`,
-      motiu:   TEX`Les solucions de $x^2 + x - 1 = 0$ són $\dfrac{-1 \pm \sqrt{5}}{2}$, que no són a la llista. La solució resol $x^2 + x - 6 = 0$.`,
-      marca:   ['u3-equacions/data/full-1.png', 9.6, 67.6, 17.8, 3.2],
-      pegat:   [['u3-equacions/data/full-1.png', 21.192, 68.12, 1.49, 1.627, 'U3.33-1a.png']] },
-  ],
-
-  'apl-ud5/U3.41': [
-    { lloc:    TEX`e)`,
-      ondiu:   TEX`$(x - 12) \to x^2 + x - 2 + 3x = \ldots$`,
-      hadedir: TEX`$x^2 + x - 2 + 3x = \ldots$`,
-      motiu:   TEX`Al principi de la línia sobra «$(x - 12) \to$». La resolució és correcta.`,
-      marca:   ['u3-equacions/data/full-4.png', 11.2, 0.2, 13.5, 3.2],
-      pegat:   [['u3-equacions/data/full-4.png', 13.99, 0.718, 27.649, 2.023, 'U3.41-1a.png']] },
-  ],
-
-  'apl-ud5/U3.44': [
-    { ondiu:   TEX`$\dfrac{(10 - 6\sqrt{2})(\sqrt{2} + 1)}{(\sqrt{2} - 1)(\sqrt{2} + 1)} = \dfrac{6 - 6\sqrt{2} + 3 + 1}{2 - 1}$`,
-      hadedir: TEX`$\dfrac{(10 - 6\sqrt{2})(\sqrt{2} + 1)}{(\sqrt{2} - 1)(\sqrt{2} + 1)} = \dfrac{10\sqrt{2} + 10 - 12 - 6\sqrt{2}}{2 - 1}$`,
-      motiu:   TEX`El numerador de la línia del mig és $3(\sqrt{2} - 1)^2 + 1$ sense desenvolupar, i no el producte de la línia anterior. El resultat, $a = 4\sqrt{2} - 2$, és correcte.`,
-      marca:   ['u3-equacions/data/full-4.png', 56.8, 67.0, 23.5, 4.6],
-      pegat:   [['u3-equacions/data/full-4.png', 57.202, 67.167, 36.341, 4.243, 'U3.44-1a.png'],
-               ['u3-equacions/data/full-4.png', 57.202, 71.997, 36.341, 4.243, 'U3.44-1b.png']] },
-  ],
-
-  'apl-ud5/U3.63': [
-    { ondiu:   TEX`$(x - 1)x = 36 \to x^2 - 2x - 35 = 0 \to x = 7$`,
-      hadedir: TEX`$(x - 1)x = 36 \to x^2 - x - 36 = 0 \to x = \dfrac{1 \pm 12{,}04}{2}$: cap solució entera, no es poden reunir $36$ regals`,
-      motiu:   TEX`Amb $36$ regals el problema no té solució. Amb $7$ persones hi ha $7\cdot 6 = 42$ regals: si l’enunciat digués $42$, $x^2 - x - 42 = 0 \to x = 7$.`,
-      marca:   ['u3-problemes/data/full-1.png', 9.2, 34.0, 36.0, 7.0],
-      pegat:   [['u3-problemes/data/full-1.png', 29.884, 34.658, 14.487, 1.629, 'U3.63-1a.png'],
-               ['u3-problemes/data/full-1.png', 16.805, 36.547, 23.758, 4.365, 'U3.63-1b.png'],
-               ['u3-problemes/data/full-1.png', 9.851, 41.759, 33.692, 2.02, 'U3.63-1c.png'],
-               ['u3-problemes/data/full-1.png', 9.851, 44.039, 21.937, 2.02, 'U3.63-1d.png']] },
-  ],
-
-  'apl-ud5/U7.95': [
-    { ondiu:   TEX`Una paràbola d’equació $y = x^2 + bx + c$ … $y = x^2 - 4{,}6x + 8{,}79$`,
-      hadedir: TEX`Una paràbola $y = a(x - 2{,}3)^2 + 3{,}5$ amb $a < 0$`,
-      motiu:   TEX`Amb el coeficient de $x^2$ igual a $1$, el vèrtex $(2{,}3;\ 3{,}5)$ és el punt més baix de la paràbola, no el més alt. Per trobar $a$ cal una altra dada: per exemple, que la pilota entra a la cistella, a $3{,}05$ m d’alçada.`,
-      marca:   [['u7-problemes/data/full-1.png', 56.8, 25.6, 26.5, 4.6],
-                ['u7-problemes/data/full-1.png', 59.4, 46.0, 33.5, 2.9]],
-      pegat:   [['u7-problemes/data/full-1.png', 59.685, 27.763, 26.573, 2.016, 'U7.95-1a.png'],
-               ['u7-problemes/data/full-1.png', 59.768, 37.386, 37.417, 10.923, 'U7.95-1b.png']] },
-  ],
-
-  'apl-ud5/AP.52': [
+  'u3/41': [
     { lloc:    TEX`d)`,
-      ondiu:   TEX`$\ldots + \dfrac{2x^3}{5} = \ldots + \dfrac{51x^3}{125} + \ldots$`,
-      hadedir: TEX`$\ldots - \dfrac{2x^3}{5} = \ldots - \dfrac{51x^3}{125} + \ldots$`,
-      motiu:   TEX`El doble producte dels tres termes és $6\cdot\dfrac{x^2}{3}\cdot\left(-\dfrac{x}{5}\right)\cdot 1 = -\dfrac{2x^3}{5}$, i $-\dfrac{x^3}{125} - \dfrac{2x^3}{5} = -\dfrac{51x^3}{125}$.`,
-      marca:   [['ap-igualtats/data/full-2.png', 32.3, 5.2, 4.8, 4.2],
-                ['ap-igualtats/data/full-2.png', 32.0, 9.7, 8.0, 4.4]],
-      pegat:   [['ap-igualtats/data/full-2.png', 30.464, 6.502, 1.987, 1.56, 'AP.52-1a.png'],
-               ['ap-igualtats/data/full-2.png', 32.947, 10.988, 1.987, 1.56, 'AP.52-1b.png']] },
+      ondiu:   TEX`$2x-z=2$`,
+      hadedir: TEX`$2x+z=2$`,
+      motiu:   TEX`La segona fila de la matriu és $(2\;\;0\;\;1)$: el coeficient de $z$ és $1$.`,
+      pegat:   ['expressa/data/full-3.png', 19.024, 44.584, 1.902, 1.448, '41-1a.png'],
+      marca:   ['expressa/data/full-3.png', 16.1, 44.1, 11.4, 2.5] },
   ],
 
-  /* ── 4t ESO Aplicades · UD6 · La paràbola (Santillana U7, U6 i U3) ────── */
-
-  'apl-ud6/U7.45': [
-    { lloc:    TEX`la taula`,
-      ondiu:   TEX`$x$: \quad $-2$ \quad $-1$ \quad $0$ \quad $-1$ \quad $-2$`,
-      hadedir: TEX`$x$: \quad $-2$ \quad $-1$ \quad $0$ \quad $1$ \quad $2$`,
-      motiu:   TEX`Els dos últims valors de $x$ són positius; els valors de $y$ de la taula són correctes.`,
-      marca:   ['u7-paraboles/data/full-1.png', 81.6, 65.4, 10.2, 2.9],
-      pegat:   [['u7-paraboles/data/full-1.png', 82.864, 65.909, 7.864, 1.429, 'U7.45-1a.png']] },
-  ],
-
-  'apl-ud6/U7.46': [
-    { lloc:    TEX`c)`,
-      ondiu:   TEX`el vèrtex és $(-1, -1)$`,
-      hadedir: TEX`el vèrtex és $(-1, -2)$`,
-      motiu:   TEX`$y = 2(x + 1)^2 - 2$ té el vèrtex a $(-1, -2)$; la gràfica rosa ho mostra bé.`,
-      marca:   ['u7-paraboles/data/full-2.png', 38.0, 57.4, 8.9, 2.9],
-      pegat:   [['u7-paraboles/data/full-2.png', 44.288, 57.737, 1.49, 1.56, 'U7.46-1a.png']] },
-  ],
-
-  'apl-ud6/U7.47': [
-    { lloc:    TEX`d)`,
-      ondiu:   TEX`Tall amb l’eix $X$: $\left(\dfrac{1}{2}, 0\right)$ … $y = -\dfrac{8}{9}x^2 - \dfrac{32}{9}x + 2$ … i $\left(-\dfrac{9}{2}, 0\right)$`,
-      hadedir: TEX`$y = -(x + 2)^2 + 6 = -x^2 - 4x + 2$, que talla l’eix $X$ a $x = -2 \pm \sqrt{6}$, és a dir, a $x \approx 0{,}45$ i $x \approx -4{,}45$`,
-      motiu:   TEX`Amb el vèrtex $(-2, 6)$ i el tall $(0, 2)$, $a = -1$. L’equació del llibre surt de llegir $\tfrac{1}{2}$ a la gràfica en lloc de $0{,}45$, i no passa pel vèrtex: hi dona $\tfrac{50}{9} \approx 5{,}6$, no $6$.`,
-      marca:   ['u7-paraboles/data/full-3.png', 10.8, 20.6, 33.6, 19.2],
-      pegat:   [['u7-paraboles/data/full-3.png', 11.175, 22.497, 7.202, 4.356, 'U7.47-1a.png'],
-               ['u7-paraboles/data/full-3.png', 11.424, 28.999, 30.215, 3.771, 'U7.47-1b.png'],
-               ['u7-paraboles/data/full-3.png', 13.907, 34.98, 9.52, 4.356, 'U7.47-1c.png']] },
-  ],
-
-  'apl-ud6/U7.49': [
+  'u3/43': [
     { lloc:    TEX`f)`,
-      ondiu:   TEX`Vèrtex: $\left(-\dfrac{9}{2}, \dfrac{9}{4}\right)$`,
-      hadedir: TEX`Vèrtex: $\left(-\dfrac{9}{2}, -\dfrac{9}{4}\right)$`,
-      motiu:   TEX`$\left(-\tfrac{9}{2}\right)^2 + 9\cdot\left(-\tfrac{9}{2}\right) + 18 = \tfrac{81}{4} - \tfrac{162}{4} + \tfrac{72}{4} = -\tfrac{9}{4}$. La taula i la gràfica ja ho mostren.`,
-      marca:   ['u7-paraboles/data/full-4.png', 66.0, 0.5, 9.8, 4.6],
-      pegat:   [['u7-paraboles/data/full-4.png', 72.517, 0.714, 4.967, 4.351, 'U7.49-1a.png']] },
+      ondiu:   TEX`$F_3=F_3-2F_1$`,
+      hadedir: TEX`$F_3=F_3-2F_2$`,
+      motiu:   TEX`L'operació que anul·la la tercera fila, $(0\;\;10\;\;34\mid 2)$, és restar-li el doble de la segona, $(0\;\;5\;\;17\mid 1)$. La matriu que surt a continuació ja és la correcta.`,
+      pegat:   ['gauss/data/full-2.png', 41.108, 85.516, 0.993, 0.945, '43-1a.png'],
+      marca:   ['gauss/data/full-2.png', 31.0, 83.2, 12.4, 3.7] },
   ],
 
-  'apl-ud6/U7.51': [
-    { lloc:    TEX`d), la taula`,
-      ondiu:   TEX`$y$: \quad $-16$ \quad $-9$ \quad $0$ \quad $-1$ \quad $0$ \quad $5$`,
-      hadedir: TEX`$y$: \quad $-\dfrac{56}{3}$ \quad $-11$ \quad $0$ \quad $-\dfrac{1}{3}$ \quad $0$ \quad $-\dfrac{8}{3}$`,
-      motiu:   TEX`Són els valors de $y = -x^2 + \tfrac{2}{3}x$ per a $x = -4, -3, 0, 1, \tfrac{2}{3}, 2$. Per exemple, per a $x = 2$: $-4 + \tfrac{4}{3} = -\tfrac{8}{3}$. La gràfica és correcta.`,
-      marca:   ['u7-paraboles/data/full-6.png', 22.2, 31.2, 24.0, 3.2],
-      pegat:   [['u7-paraboles/data/full-6.png', 22.93, 27.792, 25, 6.688, 'U7.51-1a.png']] },
+  'u3/55': [
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$\begin{vmatrix}1&1\\0&-1\end{vmatrix}=1\neq 0$`,
+      hadedir: TEX`$\begin{vmatrix}1&1\\0&1\end{vmatrix}=1\neq 0$`,
+      motiu:   TEX`El menor es pren de la matriu $A$, i l'element de la segona fila és $1$. Amb $-1$ el determinant valdria $-1$.`,
+      pegat:   ['rouche/data/full-2.png', 14.971, 35.453, 1.902, 0.504, '55-1a.png'],
+      marca:   ['rouche/data/full-2.png', 10.8, 32.9, 18.7, 3.9] },
   ],
 
-  'apl-ud6/U7.95': [
-    { ondiu:   TEX`Una paràbola d’equació $y = x^2 + bx + c$ … $y = x^2 - 4{,}6x + 8{,}79$`,
-      hadedir: TEX`Una paràbola $y = a(x - 2{,}3)^2 + 3{,}5$ amb $a < 0$`,
-      motiu:   TEX`Amb el coeficient de $x^2$ igual a $1$, el vèrtex $(2{,}3;\ 3{,}5)$ és el punt més baix de la paràbola, no el més alt. Per trobar $a$ cal una altra dada: per exemple, que la pilota entra a la cistella, a $3{,}05$ m d’alçada.`,
-      marca:   [['u7-problemes/data/full-2.png', 56.8, 25.6, 26.5, 4.6],
-                ['u7-problemes/data/full-2.png', 59.4, 46.0, 33.5, 2.9]],
-      pegat:   [['u7-problemes/data/full-2.png', 59.685, 27.763, 26.573, 2.016, 'U7.95-1a.png'],
-               ['u7-problemes/data/full-2.png', 59.768, 37.386, 37.417, 10.923, 'U7.95-1b.png']] },
+  'u3/56': [
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$\begin{vmatrix}3&2&7\\1&-1&6\\6&-1&-3\end{vmatrix}=110\neq 0$`,
+      hadedir: TEX`$\begin{vmatrix}3&2&7\\1&-1&6\\6&-1&3\end{vmatrix}=110\neq 0$`,
+      motiu:   TEX`L'última columna és la dels termes independents, $7$, $6$ i $3$. Amb $3$ el determinant val $110$; amb $-3$ valdria $140$.`,
+      pegat:   ['rouche/data/full-3.png', 20.844, 16.436, 1.902, 0.504, '56-1a.png'],
+      marca:   ['rouche/data/full-3.png', 12.7, 12.1, 24.6, 5.7] },
   ],
 
-  'apl-ud6/U7.100': [
-    { ondiu:   TEX`La taula i la gràfica de $v = \sqrt{20h}$: la velocitat en funció de l’altura`,
-      hadedir: TEX`L’altura en funció de la velocitat: $h = \dfrac{v^2}{20}$, una paràbola`,
-      motiu:   TEX`L’enunciat demana l’altura des de la qual s’ha de llançar l’objecte perquè arribi amb una velocitat donada: la variable independent és $v$. Per exemple, per arribar a $10$ m/s cal llançar-lo des de $5$ m.`,
-      marca:   [['u7-problemes/data/full-3.png', 55.2, 89.6, 34.8, 9.6],
-                ['u7-problemes/data/full-4.png', 11.4, 0.4, 30.4, 19.4]],
-      pegat:   [['u7-problemes/data/full-4.png', 11.507, 2.276, 28.146, 15.8, 'U7.100-1a.png'],
-               ['u7-problemes/data/full-4.png', 28.808, 18.466, 10.679, 1.56, 'U7.100-1b.png']] },
+  'u3/60': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`«Si $m\neq 3$, $m\neq -3$ $\rightarrow$ $\mathrm{Rang}(A)=\mathrm{Rang}(A^*)=2<$ nre. d'incògnites $\rightarrow$ Sistema compatible determinat»`,
+      hadedir: TEX`«Si $m\neq 3$, $m\neq -3$ $\rightarrow$ $\mathrm{Rang}(A)=\mathrm{Rang}(A^*)=2=$ nre. d'incògnites $\rightarrow$ Sistema compatible determinat»`,
+      motiu:   TEX`El sistema té dues incògnites, $x$ i $y$, i el rang és $2$: són iguals, i per això és compatible determinat. Si el rang fos més petit que el nombre d'incògnites, seria indeterminat.`,
+      pegat:   [['parametre/data/full-2.png', 37.552, 35.264, 1.985, 1.385, '60-1a.png'], ['parametre/data/full-2.png', 12.986, 37.091, 18.61, 1.826, '60-1b.png']],
+      marca:   ['parametre/data/full-2.png', 12.6, 33.0, 29.4, 8.1] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`«Si $m=-4$ $\rightarrow$ $\mathrm{Rang}(A)=1$ $\rightarrow$ $\mathrm{Rang}(A)\neq\mathrm{Rang}(A)=2$»`,
+      hadedir: TEX`«Si $m=-4$ $\rightarrow$ $\mathrm{Rang}(A)=1$ $\rightarrow$ $\mathrm{Rang}(A)\neq\mathrm{Rang}(A^*)=2$»`,
+      motiu:   TEX`La que té rang $2$ és la matriu ampliada $A^*$; hi falta l'asterisc.`,
+      pegat:   ['parametre/data/full-3.png', 29.529, 43.325, 8.437, 1.7, '60-2a.png'],
+      marca:   ['parametre/data/full-3.png', 10.7, 41.2, 26.7, 4.2] },
+    { lloc:    TEX`f), cas $m=0$`,
+      ondiu:   TEX`$\begin{vmatrix}-1&2\\1&2\end{vmatrix}=-6\neq 0$`,
+      hadedir: TEX`$\begin{vmatrix}-1&2\\2&2\end{vmatrix}=-6\neq 0$`,
+      motiu:   TEX`El menor surt de les files 2 i 3 de $A$ (columnes 1 i 3), que per a $m=0$ són $(-1\;\;0\;\;2)$ i $(2\;\;0\;\;2)$. Amb un $1$ el determinant valdria $-4$. Al cas $m=3$ la solució l'escriu bé.`,
+      pegat:   ['parametre/data/full-3.png', 59.305, 28.841, 1.406, 1.448, '60-3a.png'],
+      marca:   ['parametre/data/full-3.png', 56.7, 26.8, 17.1, 3.9] },
   ],
 
-  /* ── 4t ESO Aplicades · UD7 · Funcions: llegim gràfics (Santillana U6, U7 i U2) ─ */
+  'u3/90': [
+    { ondiu:   TEX`$F_2=2F_1-F_2$ \; (primera operació)`,
+      hadedir: TEX`$F_1=2F_1-F_2$`,
+      motiu:   TEX`La fila que canvia és la primera: $2F_1-F_2=(10\;\;10\;\;0\mid 42)$, i les altres dues queden igual.`,
+      pegat:   ['problemes/data/full-1.png', 27.709, 89.673, 0.993, 0.945, '90-1a.png'],
+      marca:   ['problemes/data/full-1.png', 25.6, 88.5, 11.7, 2.3] },
+  ],
 
-  'apl-ud7/U6.7': [
+  'u3/100': [
+    { ondiu:   TEX`$A=\begin{pmatrix}0&2&3\\4&0&3\\5&2&1\end{pmatrix}$ \; (i el mateix a la matriu $A^*$)`,
+      hadedir: TEX`$A=\begin{pmatrix}0&2&3\\4&0&1\\5&2&0\end{pmatrix}$`,
+      motiu:   TEX`Les files són els coeficients de $2p_2+3p_3=440$, $4p_1+p_3=240$ i $5p_1+2p_2=360$. Els determinants de Cramer que venen després ja fan servir la matriu correcta.`,
+      pegat:   [['problemes/data/full-6.png', 22.002, 56.864, 1.406, 1.574, '100-1a.png'], ['problemes/data/full-6.png', 22.084, 58.69, 1.406, 1.511, '100-1b.png'], ['problemes/data/full-6.png', 22.498, 62.72, 1.406, 1.511, '100-1c.png'], ['problemes/data/full-6.png', 22.581, 64.547, 1.489, 1.511, '100-1d.png']],
+      marca:   ['problemes/data/full-6.png', 10.2, 54.8, 20.1, 11.6] },
+  ],
+
+  /* ── Unitat 5 · Rectes i plans en l'espai ────────────────────────────── */
+
+  'u5/46': [
+    { ondiu:   TEX`$\dfrac{x-1}{1}=\dfrac{y-2}{2}$ \; (equació implícita)`,
+      hadedir: TEX`$\dfrac{x-1}{-1}=\dfrac{y-2}{2}$`,
+      motiu:   TEX`El denominador és la primera coordenada del vector director, $-1$. Amb $-1$ surt $2x+y-4=0$, que és el resultat de la solució; amb $1$ sortiria $2x-y=0$.`,
+      pegat:   ['equacions/data/full-1.png', 56.162, 86.461, 2.647, 1.448, '46-1a.png'],
+      marca:   ['equacions/data/full-1.png', 54.2, 83.8, 15.6, 4.0] },
+  ],
+
+  'u5/49': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$\dfrac{x=0}{2}=\dfrac{y-3}{5}=\dfrac{z-0}{1}$`,
+      hadedir: TEX`$\dfrac{x-0}{2}=\dfrac{y-3}{5}=\dfrac{z-0}{1}$`,
+      motiu:   TEX`Al primer numerador hi ha d'haver un signe menys, no un igual.`,
+      pegat:   [['equacions/data/full-2.png', 80.066, 2.33, 1.902, 0.756, '49-1a.png'], ['equacions/data/full-2.png', 79.901, 3.463, 2.399, 0.441, '49-1b.png']],
+      marca:   ['equacions/data/full-2.png', 77.5, 1.8, 17.6, 3.9] },
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$x-2\lambda$; \; $y=\lambda$; \; $z=\lambda$`,
+      hadedir: TEX`$x=2\lambda$; \; $y=\lambda$; \; $z=\lambda$`,
+      motiu:   TEX`De $x-2y=0$ amb $y=\lambda$ surt $x=2\lambda$.`,
+      pegat:   ['equacions/data/full-2.png', 73.284, 27.141, 1.902, 0.756, '49-2a.png'],
+      marca:   ['equacions/data/full-2.png', 70.1, 25.3, 22.2, 4.3] },
+  ],
+
+  'u5/56': [
+    { ondiu:   TEX`$z=\lambda$; \; $y=\lambda$; \; $z=\lambda$`,
+      hadedir: TEX`$x=\lambda$; \; $y=\lambda$; \; $z=\lambda$`,
+      motiu:   TEX`La primera equació paramètrica és la de $x$.`,
+      pegat:   ['equacions/data/full-4.png', 20.761, 7.809, 1.654, 1.322, '56-1a.png'],
+      marca:   ['equacions/data/full-4.png', 18.3, 7.2, 11.4, 6.4] },
+  ],
+
+  'u5/59': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$-z+6=0 \;\rightarrow\; z=-6 \;\rightarrow\; P_Z(0,0,6)$`,
+      hadedir: TEX`$-z+6=0 \;\rightarrow\; z=6 \;\rightarrow\; P_Z(0,0,6)$`,
+      motiu:   TEX`De $-z+6=0$ surt $z=6$. El punt $P_Z(0,0,6)$ ja és correcte.`,
+      pegat:   ['equacions/data/full-4.png', 78.164, 58.438, 13.565, 1.763, '59-1a.png'],
+      marca:   ['equacions/data/full-4.png', 58.6, 58.3, 33.4, 2.1] },
+  ],
+
+  'u5/63': [
+    { ondiu:   TEX`$\dfrac{x-4}{2}=\dfrac{y+2}{4}=\dfrac{z-1}{-2}$`,
+      hadedir: TEX`$\dfrac{x-4}{-2}=\dfrac{y+2}{4}=\dfrac{z-1}{-2}$`,
+      motiu:   TEX`El vector director és $\overrightarrow{AB}=(-2,4,-2)$. A la línia següent, quan s'hi substitueix el punt $C$, la solució ja hi posa $-2$.`,
+      pegat:   ['equacions/data/full-5.png', 10.174, 59.698, 3.06, 1.448, '63-1a.png'],
+      marca:   ['equacions/data/full-5.png', 8.3, 57.5, 23.4, 3.8] },
+  ],
+
+  'u5/77': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$M^*=\begin{pmatrix}1&-2&-1&-1\\2&1&5&5\\7&-4&7&7\end{pmatrix}$`,
+      hadedir: TEX`$M^*=\begin{pmatrix}1&-2&3&-1\\2&1&-1&5\\7&-4&7&7\end{pmatrix}$`,
+      motiu:   TEX`La tercera columna és la dels coeficients de $z$ ($3$, $-1$ i $7$); a la solució hi surt repetida la dels termes independents.`,
+      pegat:   [['posicions/data/full-4.png', 25.476, 23.804, 3.06, 1.511, '77-1a.png'], ['posicions/data/full-4.png', 25.31, 25.63, 3.143, 1.511, '77-1b.png']],
+      marca:   ['posicions/data/full-4.png', 10.9, 23.5, 26.6, 5.7] },
+  ],
+
+  'u5/80': [
+    { ondiu:   TEX`«Les rectes són paral·leles quan $m=2$.»`,
+      hadedir: TEX`«Les rectes són paral·leles quan $m=-2$.»`,
+      motiu:   TEX`És el valor que surt del sistema de la línia anterior. Amb $m=2$ es compleix $m^2=4$, però no $2-m\neq 0$: les dues rectes serien la mateixa. El pla que es calcula després ja fa servir $m=-2$.`,
+      pegat:   ['posicions/data/full-5.png', 40.612, 21.914, 3.722, 1.448, '80-1a.png'],
+      marca:   ['posicions/data/full-5.png', 10.3, 21.7, 32.5, 2.1] },
+  ],
+
+  /* ── Unitat 6 · Angles i distàncies a l'espai ────────────────────────── */
+
+  'u6/74': [
+    { ondiu:   TEX`«c) Trobem la projecció ortogonal del punt sobre la recta.»`,
+      hadedir: TEX`«b) Trobem la projecció ortogonal del punt sobre la recta.»`,
+      motiu:   TEX`L'exercici només té dos apartats; aquest és el b), el del punt $P(-1,2,13)$.`,
+      pegat:   ['simetries/data/full-3.png', 8.602, 13.35, 1.489, 1.574, '74-1a.png'],
+      marca:   ['simetries/data/full-3.png', 8.4, 13.2, 35.2, 3.9] },
+  ],
+
+  'u6/86': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$\vec{n}=(2,-2,1)$`,
+      hadedir: TEX`$\vec{n}=(2,-2,-1)$`,
+      motiu:   TEX`El coeficient de $z$ del pla $2x-2y-z+1=0$ és $-1$. El mòdul, $3$, i la distància, $1$ u, no canvien.`,
+      pegat:   ['distancies/data/full-1.png', 69.892, 84.446, 13.482, 2.141, '86-1a.png'],
+      marca:   ['distancies/data/full-1.png', 56.7, 84.3, 15.2, 2.3] },
+  ],
+
+  'u6/88': [
+    { lloc:    TEX`equació`,
+      ondiu:   TEX`$|\lambda+4|=\sqrt{6}$`,
+      hadedir: TEX`$\dfrac{|\lambda+4|}{\sqrt{6}}=\sqrt{6}$`,
+      motiu:   TEX`Hi falta el denominador $\sqrt{6}$ de la fórmula de la distància. La línia següent, $|\lambda+4|=6$, ja és correcta.`,
+      pegat:   ['distancies/data/full-2.png', 24.731, 62.657, 4.632, 2.015, '88-1a.png'],
+      marca:   ['distancies/data/full-2.png', 10.2, 62.3, 15.1, 2.6] },
+    { lloc:    TEX`segon punt`,
+      ondiu:   TEX`$\lambda+4=-6 \;\rightarrow\; \lambda=-8 \;\rightarrow\; P(-6,19,-8)$`,
+      hadedir: TEX`$\lambda+4=-6 \;\rightarrow\; \lambda=-10 \;\rightarrow\; P(-8,23,-10)$`,
+      motiu:   TEX`De $\lambda+4=-6$ surt $\lambda=-10$. El punt $(-6,19,-8)$ és a distància $\tfrac{4}{\sqrt{6}}$ del pla, no a $\sqrt{6}$.`,
+      pegat:   ['distancies/data/full-2.png', 31.844, 69.647, 18.445, 1.763, '88-2a.png'],
+      marca:   ['distancies/data/full-2.png', 10.2, 69.3, 38.5, 2.3] },
+  ],
+
+  'u6/90': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$r:\ \dfrac{x}{1}=\dfrac{y+1}{-1}=\dfrac{z+1}{-1}$`,
+      hadedir: TEX`$r:\ \dfrac{x}{1}=\dfrac{y+1}{-1}=\dfrac{z-1}{-1}$`,
+      motiu:   TEX`La recta passa per $A(0,-1,1)$, on $z=1$. La línia següent, $x=-z+1$, ja és correcta.`,
+      pegat:   ['distancies/data/full-2.png', 63.193, 31.864, 1.902, 1.448, '90-1a.png'],
+      marca:   ['distancies/data/full-2.png', 58.6, 31.7, 8.5, 3.8] },
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$d(A,\pi)=\dfrac{|3\cdot(-2)+5\cdot 5-2\cdot(-4)+7|} {\sqrt{3^2+5^2+(-2)^2}}=\dfrac{34}{\sqrt{38}}$ u`,
+      hadedir: TEX`$d(A,\pi)=\dfrac{|3\cdot(-2)+5\cdot 1-2\cdot(-4)+7|} {\sqrt{3^2+5^2+(-2)^2}}=\dfrac{14}{\sqrt{38}}$ u`,
+      motiu:   TEX`La segona coordenada del punt $A(-2,1,-4)$ és $1$, no $5$. La distància és $\tfrac{14}{\sqrt{38}}=\tfrac{7\sqrt{38}}{19}\approx 2{,}27$ u, que és també la distància de $A$ al punt $Q$ que s'ha trobat.`,
+      pegat:   [['distancies/data/full-3.png', 26.137, 4.156, 1.406, 1.574, '90-2a.png'], ['distancies/data/full-3.png', 14.557, 8.438, 1.737, 1.511, '90-2b.png']],
+      marca:   ['distancies/data/full-3.png', 10.8, 1.8, 33.0, 10.6] },
+  ],
+
+  'u6/139': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$r:\ \dfrac{x-1}{1}=\dfrac{y-2}{2}=\dfrac{z-1}{3}$`,
+      hadedir: TEX`$r:\ \dfrac{x-1}{1}=\dfrac{y-2}{1}=\dfrac{z-1}{3}$`,
+      motiu:   TEX`El vector director de la recta és el normal del pla, $\vec{n}=(1,1,3)$: el segon denominador és $1$.`,
+      pegat:   ['problemes-diferents/data/full-2.png', 73.863, 57.053, 1.406, 1.448, '139-1a.png'],
+      marca:   ['problemes-diferents/data/full-2.png', 58.6, 54.8, 27.5, 3.9] },
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$Q\left(\tfrac{1}{2},\,1,\,-\tfrac{1}{2}\right)$`,
+      hadedir: TEX`$Q\left(\tfrac{5}{11},\,\tfrac{16}{11},\,-\tfrac{7}{11}\right)$`,
+      motiu:   TEX`Amb la recta correcta, $(1+t,\;2+t,\;1+3t)$, el pla dona $6+11t=0$, és a dir, $t=-\tfrac{6}{11}$.`,
+      marca:   ['problemes-diferents/data/full-2.png', 58.6, 68.1, 15.1, 4.3] },
     { lloc:    TEX`c)`,
-      ondiu:   TEX`Una recta contínua, i no es respon si es poden unir els punts`,
-      hadedir: TEX`Punts aïllats, un per a cada nombre enter: $(-12, 2)$, $(-8, 3)$, … No es poden unir.`,
-      motiu:   TEX`L’enunciat diu que la funció associa un valor a cada nombre enter: entre dos enters no hi ha cap valor de la funció.`,
-      marca:   ['u6-activitats/data/full-3.png', 11.0, 59.4, 31.5, 15.0],
-      pegat:   [['u6-activitats/data/full-3.png', 11.672, 63.168, 31.126, 6.91, 'U6.7-1a.png'],
-               ['u6-activitats/data/full-3.png', 8.775, 74.055, 37.417, 2.021, 'U6.7-1b.png']] },
+      ondiu:   TEX`$d(P,\pi)=\sqrt{\dfrac{7}{2}}$ u`,
+      hadedir: TEX`$d(P,\pi)=\dfrac{6}{\sqrt{11}}=\dfrac{6\sqrt{11}}{11}$ u`,
+      motiu:   TEX`Amb la fórmula, $d=\dfrac{|1+2+3\cdot 1|}{\sqrt{1+1+9}}= \dfrac{6}{\sqrt{11}}\approx 1{,}81$ u. El valor de la solució és la distància de $P$ a un punt del pla que no és el peu de la perpendicular.`,
+      marca:   ['problemes-diferents/data/full-2.png', 58.6, 74.7, 33.6, 4.8] },
   ],
 
-  'apl-ud7/U6.52': [
+  /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
+
+  'u7/43': [
+    { ondiu:   TEX`$g(2)-4<0$`,
+      hadedir: TEX`$g(2)=-4<0$`,
+      motiu:   TEX`Hi falta el signe igual: $g(2)=3^{-2+2}-5=1-5=-4$. El teorema de Bolzano necessita que $g$ tingui signes diferents als extrems de l'interval, i els té: $g(0)=4>0$ i $g(2)=-4<0$.`,
+      pegat:   ['practica/data/full-4.png', 34.685, 26.513, 8.858, 1.513, '43-1a.png'],
+      marca:   ['practica/data/full-4.png', 30.0, 26.3, 12.5, 2.2] },
+  ],
+
+  'u7/76': [
     { lloc:    TEX`f)`,
-      ondiu:   TEX`$f(3) = \dfrac{-12}{15}$`,
-      hadedir: TEX`$f(3) = \dfrac{-12}{5}$`,
-      motiu:   TEX`$f(3) = \dfrac{9}{3} - 6 + \dfrac{3}{5} = -3 + \dfrac{3}{5} = -\dfrac{12}{5}$.`,
-      marca:   ['u6-funcions/data/full-3.png', 12.0, 24.6, 12.0, 5.0],
-      pegat:   [['u6-funcions/data/full-3.png', 19.536, 27.314, 2.401, 1.63, 'U6.52-1a.png']] },
+      ondiu:   TEX`$=\dlim_{x\to 3}\dfrac{(3-x)(3+x)}{(x-3)(x+2)} =\dlim_{x\to 3}\dfrac{3-x}{x+2}=0$`,
+      hadedir: TEX`$=\dlim_{x\to 3}\dfrac{(3-x)(3+x)}{(x-3)(x+2)} =\dlim_{x\to 3}\dfrac{-(3+x)}{x+2}=-\dfrac{6}{5}$`,
+      motiu:   TEX`Els factors que se simplifiquen són $3-x$ i $x-3$, que són oposats: $\dfrac{3-x}{x-3}=-1$. Queda $-\dfrac{3+x}{x+2}$, que en $x=3$ val $-\dfrac{6}{5}$.`,
+      pegat:   ['limits-punt/data/full-4.png', 83.278, 64.709, 10.348, 3.692, '76-1a.png'],
+      marca:   ['limits-punt/data/full-4.png', 58.9, 64.5, 34.7, 4.3] },
   ],
 
-  'apl-ud7/U6.82': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`Creixent a $(-\infty, 0)$ i a $(0, 3)$. Constant a $(3, 5)$ i decreixent a $(5, +\infty)$.`,
-      hadedir: TEX`Creixent a $(-3, 0)$ i a $(0, 3)$, i decreixent a partir de $x = 3$. Assoleix el valor màxim a $x = 0$ i a $x = 3$, però només $x = 3$ és un màxim: a $x = 0$ no passa de créixer a decréixer.`,
-      motiu:   TEX`A la gràfica, la funció comença a $x = -3$ i, després de $x = 3$, baixa en línia recta: no hi ha cap tram constant. A $x = 3$ passa de créixer a decréixer, i hi té un màxim de valor $3$.`,
-      marca:   ['u6-creixement/data/full-3.png', 13.8, 37.4, 32.5, 7.2],
-      pegat:   [['u6-creixement/data/full-3.png', 37.5, 37.891, 7.699, 1.888, 'U6.82-1a.png'],
-               ['u6-creixement/data/full-3.png', 14.238, 40.104, 30.712, 2.018, 'U6.82-1b.png'],
-               ['u6-creixement/data/full-3.png', 14.238, 42.318, 31.457, 1.953, 'U6.82-1c.png'],
-               ['u6-creixement/data/full-3.png', 14.238, 44.596, 30.464, 2.018, 'U6.82-1d.png'],
-               ['u6-creixement/data/full-3.png', 14.321, 46.81, 32.119, 2.018, 'U6.82-1e.png']] },
-  ],
-
-  'apl-ud7/U6.89': [
-    { ondiu:   TEX`$TVR = \dfrac{f(2) - f(-1)}{2 - (-1)}\cdot 100$: \; a) $300\,\%$; \; b) $-300\,\%$; \; c) $-400\,\%$`,
-      hadedir: TEX`$TVR = \dfrac{f(2) - f(-1)}{f(-1)}\cdot 100$: \; a) $\dfrac{9}{-4}\cdot 100 = -225\,\%$; \; b) $\dfrac{-9}{4}\cdot 100 = -225\,\%$; \; c) $\dfrac{-12}{8}\cdot 100 = -150\,\%$`,
-      motiu:   TEX`La taxa de variació relativa, tal com la defineix el llibre a l’exercici 88, divideix per $f(a)$, no per $b - a$. El solucionari calcula la taxa de variació mitjana multiplicada per $100$.`,
-      marca:   ['u6-creixement/data/full-4.png', 55.5, 71.8, 33.0, 27.8],
-      pegat:   [['u6-creixement/data/full-4.png', 65.977, 74.17, 8.195, 1.887, 'U6.89-1a.png'],
-               ['u6-creixement/data/full-4.png', 67.301, 77.619, 21.026, 2.798, 'U6.89-1b.png'],
-               ['u6-creixement/data/full-4.png', 65.977, 83.474, 8.195, 1.952, 'U6.89-1c.png'],
-               ['u6-creixement/data/full-4.png', 67.467, 86.923, 17.384, 2.798, 'U6.89-1d.png'],
-               ['u6-creixement/data/full-4.png', 65.977, 92.778, 8.195, 1.952, 'U6.89-1e.png'],
-               ['u6-creixement/data/full-4.png', 67.467, 96.226, 16.308, 2.798, 'U6.89-1f.png']] },
-  ],
-
-  'apl-ud7/U6.106': [
-    { lloc:    TEX`a) i b)`,
-      ondiu:   TEX`a) $f(t) = \dfrac{340}{t}$ \quad b) $g(t) = \dfrac{340t}{t} = 340$`,
-      hadedir: TEX`a) $v(t) = 340$ (funció constant) \quad b) $d(t) = 340t$ (proporcionalitat directa)`,
-      motiu:   TEX`La velocitat del so no depèn del temps, i la distància recorreguda és velocitat per temps. La corba $\dfrac{340}{t}$ de la gràfica no representa cap de les dues relacions.`,
-      marca:   ['u6-a-trossos/data/full-3.png', 11.5, 0.0, 20.5, 9.2],
-      pegat:   [['u6-a-trossos/data/full-3.png', 14.238, 0.715, 9.851, 3.836, 'U6.106-1a.png'],
-               ['u6-a-trossos/data/full-3.png', 14.156, 5.592, 17.301, 3.836, 'U6.106-1b.png'],
-               ['u6-a-trossos/data/full-3.png', 17.715, 11.183, 20.695, 17.815, 'U6.106-1c.png']] },
-    { lloc:    TEX`c)`,
-      ondiu:   TEX`$f(t) = \dfrac{22{,}22}{t}$ \quad i \quad $g(t) = \dfrac{22{,}22t}{t} = 22{,}22$`,
-      hadedir: TEX`$v(t) = 22{,}22$ \quad i \quad $d(t) = 22{,}22t$`,
-      motiu:   TEX`La mateixa errada que als apartats a) i b).`,
-      marca:   ['u6-a-trossos/data/full-3.png', 11.5, 33.4, 24.5, 9.0],
-      pegat:   [['u6-a-trossos/data/full-3.png', 14.238, 34.005, 11.424, 3.836, 'U6.106-2a.png'],
-               ['u6-a-trossos/data/full-3.png', 14.073, 38.817, 20.364, 3.836, 'U6.106-2b.png'],
-               ['u6-a-trossos/data/full-3.png', 17.715, 44.343, 20.695, 17.685, 'U6.106-2c.png']] },
-  ],
-
-  'apl-ud7/U6.112': [
-    { ondiu:   TEX`$0{,}10x$ \quad si $400 \le x < 900$`,
-      hadedir: TEX`$0{,}10x$ \quad si $400 \le x < 990$`,
-      motiu:   TEX`El cartell diu «$400$ € – $990$ €». Amb $900$, els pedidos d’entre $900$ i $990$ € quedarien sense preu.`,
-      marca:   ['u6-a-trossos/data/full-5.png', 25.0, 37.9, 16.5, 2.8],
-      pegat:   [['u6-a-trossos/data/full-5.png', 37.583, 38.492, 3.477, 1.691, 'U6.112-1a.png']] },
-  ],
-
-  'apl-ud7/U7.90': [
-    { ondiu:   TEX`a) $y = 32 + \dfrac{180}{100}x$ \quad b) $y = 273{,}15 + x$`,
-      hadedir: TEX`a) $y = 273{,}15 + x$ \quad b) $y = 32 + \dfrac{180}{100}x$`,
-      motiu:   TEX`L’apartat a) demana passar de Celsius a Kelvin, i el b), de Celsius a Fahrenheit: les dues funcions estan intercanviades.`,
-      marca:   ['u7-situacions/data/full-3.png', 56.5, 39.6, 30.5, 7.4],
-      pegat:   [['u7-situacions/data/full-3.png', 71.689, 40.312, 13.99, 7.152, 'U7.90-1a.png'],
-               ['u7-situacions/data/full-3.png', 66.308, 59.428, 1.407, 1.495, 'U7.90-1b.png'],
-               ['u7-situacions/data/full-3.png', 71.109, 63.134, 1.325, 1.495, 'U7.90-1c.png']] },
-    { ondiu:   TEX`$x = 301{,}39375$ °C $\to$ $y = 574{,}54375$`,
-      hadedir: TEX`$x = 301{,}4375$ °C $\to$ $y = 574{,}5875$`,
-      motiu:   TEX`$0{,}8x = 241{,}15 \to x = \dfrac{241{,}15}{0{,}8} = 301{,}4375$, i $273{,}15 + 301{,}4375 = 574{,}5875$.`,
-      marca:   ['u7-situacions/data/full-3.png', 56.5, 91.2, 37.0, 8.4],
-      pegat:   [['u7-situacions/data/full-3.png', 64.901, 91.808, 28.228, 1.886, 'U7.90-2a.png'],
-               ['u7-situacions/data/full-3.png', 64.57, 97.334, 21.358, 1.886, 'U7.90-2b.png']] },
-  ],
-
-  'apl-ud7/U2.42': [
-    { ondiu:   TEX`$1{,}05^3 = 1{,}158 \to C_f = 3\,531{,}90$ €, \; $I = 481{,}90$ €`,
-      hadedir: TEX`$1{,}05^3 = 1{,}157625 \to C_f = 3\,530{,}76$ €, \; $I = 480{,}76$ €`,
-      motiu:   TEX`Arrodonir $1{,}05^3$ a tres decimals fa una diferència d’$1{,}14$ €.`,
-      marca:   ['u2-activitats/data/full-1.png', 53.5, 8.8, 26.0, 8.0],
-      pegat:   [['u2-activitats/data/full-1.png', 62.5, 9.629, 19.95, 1.822, 'U2.42-1a.png'],
-               ['u2-activitats/data/full-1.png', 55.712, 14.509, 22.185, 1.822, 'U2.42-1b.png']] },
-  ],
-
-  'apl-ud7/U2.43': [
+  'u7/92': [
     { lloc:    TEX`b)`,
-      ondiu:   TEX`Al cap de $5$ anys: $1\,126{,}23\cdot 1{,}04^{5} = 1\,126{,}23\cdot 1{,}2167 = 1\,370{,}28$ €`,
-      hadedir: TEX`Al cap de $10$ anys: $1\,126{,}23\cdot 1{,}04^{10} = 1\,126{,}23\cdot 1{,}480244 = 1\,667{,}10$ €`,
-      motiu:   TEX`L’enunciat demana «al cabo de otros 5 años», és a dir, $10$ anys en total, però la solució calcula els $5$ primers.`,
-      marca:   ['u2-activitats/data/full-1.png', 56.0, 57.4, 28.5, 3.2],
-      pegat:   [['u2-activitats/data/full-1.png', 66.474, 48.796, 21.854, 2.017, 'U2.43-1a.png'],
-               ['u2-activitats/data/full-1.png', 72.93, 51.204, 1.821, 1.171, 'U2.43-1b.png'],
-               ['u2-activitats/data/full-1.png', 76.076, 55.758, 4.056, 1.431, 'U2.43-1c.png'],
-               ['u2-activitats/data/full-1.png', 67.467, 58.035, 19.785, 1.822, 'U2.43-1d.png']] },
-  ],
-
-  'apl-ud7/U2.110': [
-    { ondiu:   TEX`$10\,000\cdot 1{,}06^{\frac{1}{12}} = 10\,048$ € \; i, al final, $10\,461{,}70$ €`,
-      hadedir: TEX`$10\,000\cdot 1{,}06^{\frac{1}{12}} = 10\,048{,}68$ € \; i, al final, $10\,048{,}68\cdot 1{,}045^{\frac{11}{12}} = 10\,462{,}42$ €`,
-      motiu:   TEX`El capital del primer mes s’ha truncat a $10\,048$ €: la diferència final és de $0{,}72$ €.`,
-      marca:   [['u2-interes/data/full-1.png', 11.5, 91.6, 26.5, 3.4],
-                ['u2-interes/data/full-1.png', 56.5, 15.6, 31.0, 3.8]],
-      pegat:   [['u2-interes/data/full-1.png', 59.685, 10.078, 23.096, 5.332, 'U2.110-1a.png'],
-               ['u2-interes/data/full-1.png', 59.851, 16.125, 29.222, 2.731, 'U2.110-1b.png'],
-               ['u2-interes/data/full-1.png', 29.636, 92.328, 10.017, 1.886, 'U2.110-1c.png']] },
-  ],
-
-  /* ── 4t ESO Aplicades · UD8 · Estadística (Santillana U8) ─────────────── */
-
-  'apl-ud8/U8.7': [
-    { ondiu:   TEX`$\bar{x} = \dfrac{10\cdot 2{,}5 + 12\cdot 7{,}5 + 37\cdot 12{,}5 + 21\cdot 12{,}5}{80}$`,
-      hadedir: TEX`$\bar{x} = \dfrac{10\cdot 2{,}5 + 12\cdot 7{,}5 + 37\cdot 12{,}5 + 21\cdot 17{,}5}{80} = \dfrac{945}{80} = 11{,}81$`,
-      motiu:   TEX`La marca de classe de $[15, 20)$ és $17{,}5$. El resultat, $11{,}81$, és correcte: l’errada és només a la fórmula.`,
-      marca:   ['u8-activitats/data/full-3.png', 60.4, 84.2, 26.5, 3.4],
-      pegat:   [['u8-activitats/data/full-3.png', 74.421, 84.906, 3.891, 1.757, 'U8.7-1a.png']] },
-  ],
-
-  'apl-ud8/U8.9': [
-    { lloc:    TEX`a)`,
-      ondiu:   TEX`$Me = 6$`,
-      hadedir: TEX`$Me = \dfrac{6 + 8}{2} = 7$`,
-      motiu:   TEX`Hi ha $18$ dades: la mediana és la mitjana de la $9$a i la $10$a. La $9$a val $6$ ($F = 9$) i la $10$a, $8$.`,
-      marca:   ['u8-activitats/data/full-4.png', 58.2, 3.2, 8.0, 2.8],
-      pegat:   [['u8-activitats/data/full-4.png', 64.404, 3.585, 1.49, 1.63, 'U8.9-1a.png']] },
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$f_i = 6,\ 9,\ 14,\ 20$; \ $N = 49$; \ $\bar{x} = 37{,}19$; \ interval modal $[45, 60)$`,
-      hadedir: TEX`$f_i = 6,\ 3,\ 5,\ 6$; \ $N = 20$; \ $\bar{x} = \dfrac{615}{20} = 30{,}75$; \ dos intervals modals, $[0, 15)$ i $[45, 60)$; \ interval medià $[30, 45)$`,
-      motiu:   TEX`La taula de l’enunciat dona les freqüències acumulades $F_i$, no les absolutes: $f_i = F_i - F_{i-1}$.`,
-      marca:   ['u8-activitats/data/full-4.png', 55.8, 7.4, 38.0, 31.4],
-      pegat:   [['u8-activitats/data/full-4.png', 77.235, 13.82, 14.735, 1.63, 'U8.9-2a.png'],
-               ['u8-activitats/data/full-4.png', 76.407, 16.819, 15.646, 1.695, 'U8.9-2b.png'],
-               ['u8-activitats/data/full-4.png', 76.325, 19.883, 15.728, 1.499, 'U8.9-2c.png'],
-               ['u8-activitats/data/full-4.png', 76.325, 22.881, 10.679, 1.63, 'U8.9-2d.png'],
-               ['u8-activitats/data/full-4.png', 63.245, 26.467, 14.487, 3.846, 'U8.9-2e.png'],
-               ['u8-activitats/data/full-4.png', 58.692, 31.16, 35.43, 1.956, 'U8.9-2f.png'],
-               ['u8-activitats/data/full-4.png', 58.775, 33.833, 27.566, 1.956, 'U8.9-2g.png'],
-               ['u8-activitats/data/full-4.png', 58.692, 36.05, 37.914, 1.956, 'U8.9-2h.png']] },
-  ],
-
-  'apl-ud8/U8.10': [
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$F_i$: \quad $2$ \quad $10$ \quad $22$ \quad $32$`,
-      hadedir: TEX`$F_i$: \quad $4$ \quad $12$ \quad $24$ \quad $34$`,
-      motiu:   TEX`Amb $f_i = 4, 8, 12, 10$ (el gràfic i la mateixa taula), les acumulades són $4, 12, 24, 34$. La mitjana, $\dfrac{294}{34} = 8{,}65$, és correcta.`,
-      marca:   ['u8-activitats/data/full-5.png', 41.0, 14.6, 6.0, 11.6],
-      pegat:   [['u8-activitats/data/full-5.png', 43.129, 15.094, 1.407, 1.431, 'U8.10-1a.png'],
-               ['u8-activitats/data/full-5.png', 42.301, 18.152, 2.318, 1.496, 'U8.10-1b.png'],
-               ['u8-activitats/data/full-5.png', 42.301, 21.145, 2.235, 1.431, 'U8.10-1c.png'],
-               ['u8-activitats/data/full-5.png', 42.301, 24.203, 2.235, 1.431, 'U8.10-1d.png']] },
-  ],
-
-  'apl-ud8/U8.35': [
-    { ondiu:   TEX`$h_4 = 0{,}266$; \ $H_i$: $0{,}334$; $0{,}401$; $0{,}501$… \quad c) $43{,}2\,\%$ \quad d) $49{,}9\,\%$`,
-      hadedir: TEX`$h_4 = 0{,}267$; \ $H_i$: $0{,}333$; $0{,}4$; $0{,}5$… \quad c) $\dfrac{13}{30} = 43{,}3\,\%$ \quad d) $\dfrac{15}{30} = 50\,\%$`,
-      motiu:   TEX`Les $H_i$ s’han fet sumant les $h_i$ arrodonides, i l’error s’acumula. Cal calcular $H_i = \dfrac{F_i}{N}$.`,
-      marca:   [['u8-taules/data/full-2.png', 83.2, 7.5, 5.4, 8.0],
-                ['u8-taules/data/full-2.png', 61.8, 37.2, 33.0, 7.6]],
-      pegat:   [['u8-taules/data/full-2.png', 83.526, 7.802, 4.553, 1.625, 'U8.35-1a.png'],
-               ['u8-taules/data/full-2.png', 83.526, 10.793, 4.305, 1.625, 'U8.35-1b.png'],
-               ['u8-taules/data/full-2.png', 83.526, 13.784, 4.305, 1.625, 'U8.35-1c.png'],
-               ['u8-taules/data/full-2.png', 71.44, 16.84, 4.553, 1.625, 'U8.35-1d.png'],
-               ['u8-taules/data/full-2.png', 79.884, 37.516, 12.831, 1.821, 'U8.35-1e.png'],
-               ['u8-taules/data/full-2.png', 62.169, 39.792, 4.056, 1.756, 'U8.35-1f.png'],
-               ['u8-taules/data/full-2.png', 72.93, 42.523, 20.695, 1.886, 'U8.35-1g.png']] },
-  ],
-
-  'apl-ud8/U8.48': [
-    { ondiu:   TEX`$h_i$: $0{,}1$; $0{,}06$; $0{,}06$; $0{,}08$; $0{,}06$… \quad i \quad $H_i$: $0{,}1$; $0{,}16$; $0{,}22$; $0{,}3$; $0{,}36$; $0{,}46$…`,
-      hadedir: TEX`$h_i = \dfrac{f_i}{1\,030}$, amb dos decimals: $0{,}1$; $0{,}06$; $0{,}07$; $0{,}08$; $0{,}07$; $0{,}1$; $0{,}12$; $0{,}11$; $0{,}08$; $0{,}07$; $0{,}09$; $0{,}08$ \quad i \quad $H_i = \dfrac{F_i}{1\,030}$: $0{,}1$; $0{,}16$; $0{,}22$; $0{,}3$; $0{,}37$; $0{,}47$; $0{,}58$; $0{,}69$; $0{,}77$; $0{,}83$; $0{,}92$; $1$`,
-      motiu:   TEX`El total és $N = 1\,030$ cotxes. Les $h_i$ del solucionari no són $\dfrac{f_i}{1\,030}$ (al març i al maig, amb $f = 70$, hi posa $0{,}06$), i les $H_i$ tampoc no quadren.`,
-      marca:   ['u8-taules/data/full-5.png', 81.6, 63.0, 12.8, 35.6],
-      pegat:   [['u8-taules/data/full-5.png', 82.285, 69.616, 3.642, 1.627, 'U8.48-1a.png'],
-               ['u8-taules/data/full-5.png', 82.285, 75.602, 8.609, 1.627, 'U8.48-1b.png'],
-               ['u8-taules/data/full-5.png', 87.252, 78.66, 3.642, 1.627, 'U8.48-1c.png'],
-               ['u8-taules/data/full-5.png', 87.252, 90.696, 3.642, 1.627, 'U8.48-1d.png'],
-               ['u8-taules/data/full-5.png', 87.252, 93.754, 3.642, 1.627, 'U8.48-1e.png'],
-               ['u8-taules/data/full-5.png', 82.285, 96.747, 3.642, 1.627, 'U8.48-1f.png']] },
-  ],
-
-  'apl-ud8/U8.51': [
-    { lloc:    TEX`l’histograma de freqüències acumulades`,
-      ondiu:   TEX`Barres d’altura $6$, $16$, $28$, $36$ i $40$`,
-      hadedir: TEX`Barres d’altura $3$, $8$, $14$, $18$ i $20$`,
-      motiu:   TEX`Són les $F_i$ de la taula. Les barres del gràfic fan el doble.`,
-      marca:   ['u8-taules/data/full-6.png', 56.5, 16.2, 34.0, 18.0],
-      pegat:   [['u8-taules/data/full-6.png', 57.285, 18.306, 2.152, 11.596, 'U8.51-1a.png']] },
-  ],
-
-  'apl-ud8/U8.59': [
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$\bar{x} = \dfrac{10 + 6 + 24 + x_4\cdot 3}{28}$`,
-      hadedir: TEX`$\bar{x} = \dfrac{10 + 6 + 24 + x_4\cdot 3}{14}$`,
-      motiu:   TEX`$N = 5 + 2 + 4 + 3 = 14$. A la línia següent ja hi ha $14$, i el resultat, $x_4 = 10$, és correcte.`,
-      marca:   ['u8-parametres/data/full-1.png', 72.0, 33.2, 3.8, 2.8],
-      pegat:   [['u8-parametres/data/full-1.png', 72.517, 33.746, 2.483, 1.694, 'U8.59-1a.png']] },
-  ],
-
-  'apl-ud8/U8.60': [
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`$5, 5, 6, 6, 6, 7, 7, 8, 8$`,
-      hadedir: TEX`$10$ dades, per exemple: $5, 5, 6, 6, 6, 6, 7, 7, 8, 8$`,
-      motiu:   TEX`L’enunciat demana $10$ dades, i l’exemple en té $9$.`,
-      marca:   ['u8-parametres/data/full-1.png', 56.5, 62.0, 25.0, 2.8],
-      pegat:   [['u8-parametres/data/full-1.png', 69.785, 62.541, 11.507, 1.824, 'U8.60-1a.png']] },
-  ],
-
-  'apl-ud8/U8.81': [
-    { lloc:    TEX`a) i b)`,
-      ondiu:   TEX`$1\cdot 1{,}20 + 6\cdot 1{,}50 + 19\cdot 1{,}80 + 7\cdot 2{,}10 = 59{,}10$ € \quad b) $\dfrac{59{,}10}{40{,}75} = 1{,}45$ €/kg`,
-      hadedir: TEX`$0{,}25\cdot 1{,}20 + 4{,}5\cdot 1{,}50 + 23{,}75\cdot 1{,}80 + 12{,}25\cdot 2{,}10 = 75{,}53$ € \quad b) $\dfrac{75{,}53}{40{,}75} = 1{,}85$ €/kg`,
-      motiu:   TEX`El preu és per quilo: cal multiplicar-lo pels quilos de cada classe ($f_i\cdot x_i$), no pel nombre de coliflors. (Amb els pesos exactes, $75{,}08$ € i $1{,}84$ €/kg.)`,
-      marca:   ['u8-informacio/data/full-2.png', 11.5, 19.6, 30.0, 11.6],
-      pegat:   [['u8-informacio/data/full-2.png', 12.417, 20.286, 35.513, 1.821, 'U8.81-1a.png'],
-               ['u8-informacio/data/full-2.png', 14.901, 22.497, 19.702, 1.886, 'U8.81-1b.png'],
-               ['u8-informacio/data/full-2.png', 12.748, 24.772, 11.258, 2.796, 'U8.81-1c.png'],
-               ['u8-informacio/data/full-2.png', 30.629, 29.259, 3.808, 1.756, 'U8.81-1d.png']] },
+      ondiu:   TEX`$\dlim_{x\to 0^-} f(x)=\dlim_{x\to 0^+} f(x)=0{,}5$ \quad i \quad $f(2)=2{,}5$`,
+      hadedir: TEX`$\dlim_{x\to 0^-} f(x)=\dlim_{x\to 0^+} f(x)=1$ \quad i \quad $f(2)=5$`,
+      motiu:   TEX`A la gràfica de l'enunciat cada quadre és una unitat (a l'eix $Y$, el $2$ és a la segona marca): el punt buit és a alçada $1$ i la corba passa pel punt $(2,5)$. És la mateixa paràbola de l'apartat d), on el solucionari sí que llegeix $f(-1)=2$ i límit $5$ en $x=2$. La conclusió no canvia: discontinuïtat evitable en $x=0$ i funció contínua en $x=2$.`,
+      pegat:   [['continuitat/data/full-2.png', 82.202, 7.446, 5.546, 1.695, '92-1a.png'], ['continuitat/data/full-2.png', 81.788, 9.927, 3.394, 1.695, '92-1b.png'], ['continuitat/data/full-2.png', 67.715, 16.404, 12.169, 2.361, '92-1c.png']],
+      marca:   [['continuitat/data/full-2.png', 61.9, 7.1, 23.6, 2.8], ['continuitat/data/full-2.png', 61.9, 16.2, 9.1, 2.2]] },
     { lloc:    TEX`e)`,
-      ondiu:   TEX`$1\cdot 1{,}50 + 10\cdot 1{,}80 + 17\cdot 2{,}10 + 5\cdot 2{,}40 = 67{,}20$ €; \ $1{,}24$ €/kg. «No s’incrementa el preu mitjà per quilo.»`,
-      hadedir: TEX`$0{,}75\cdot 1{,}50 + 12{,}5\cdot 1{,}80 + 29{,}75\cdot 2{,}10 + 11{,}25\cdot 2{,}40 = 113{,}10$ €; \ $\dfrac{113{,}10}{54{,}25} = 2{,}08$ €/kg. El preu mitjà per quilo sí que augmenta.`,
-      motiu:   TEX`La mateixa errada que a l’apartat a): el preu és per quilo. Ara les coliflors pesen més i passen a classes més cares.`,
-      marca:   ['u8-informacio/data/full-2.png', 11.5, 66.0, 30.0, 13.0],
-      pegat:   [['u8-informacio/data/full-2.png', 12.417, 66.71, 36.507, 1.821, 'U8.81-2a.png'],
-               ['u8-informacio/data/full-2.png', 14.983, 68.921, 20.613, 1.886, 'U8.81-2b.png'],
-               ['u8-informacio/data/full-2.png', 12.831, 71.586, 17.384, 4.096, 'U8.81-2c.png'],
-               ['u8-informacio/data/full-2.png', 12.417, 76.398, 32.202, 1.691, 'U8.81-2d.png']] },
+      ondiu:   TEX`«La funció no és contínua en $x=-2$; té una discontinuïtat de salt finit.»`,
+      hadedir: TEX`«La funció no és contínua en $x=2$; té una discontinuïtat de salt finit.»`,
+      motiu:   TEX`És la frase que tanca l'estudi del punt $x=2$, on $f(2)=3$ i els límits laterals valen $-1$ i $3$. El punt $x=-2$ ja s'ha estudiat abans, i hi ha un salt infinit.`,
+      pegat:   ['continuitat/data/full-2.png', 66.142, 78.632, 21.689, 1.755, '92-2a.png'],
+      marca:   ['continuitat/data/full-2.png', 61.8, 76.5, 26.4, 5.8] },
   ],
 
-  'apl-ud8/U8.83': [
-    { lloc:    TEX`l’eix de l’histograma`,
-      ondiu:   TEX`$\ldots\ 15 \quad 17 \quad 21 \quad 19 \quad 23$`,
-      hadedir: TEX`$\ldots\ 15 \quad 17 \quad 19 \quad 21 \quad 23$`,
-      motiu:   TEX`Les etiquetes $19$ i $21$ estan intercanviades.`,
-      marca:   ['u8-informacio/data/full-3.png', 37.8, 45.2, 6.0, 2.4],
-      pegat:   [['u8-informacio/data/full-3.png', 38.162, 45.774, 5.381, 1.3, 'U8.83-1a.png']] },
-  ],
-
-  'apl-ud8/U8.84': [
-    { enunciat: 1,
-      lloc:    TEX`l’enunciat`,
-      ondiu:   TEX`«$30$ marques d’aigua embotellada», i hi ha $33$ dades`,
-      hadedir: TEX`«$33$ marques d’aigua embotellada»`,
-      motiu:   TEX`La llista té tres files d’$11$ dades, i la solució treballa amb $N = 33$.`,
-      marca:   ['u8-informacio/data/full-3.png', 11.4, 74.6, 10.6, 2.6],
-      pegat:   [['u8-informacio/data/full-3.png', 12.831, 74.967, 1.49, 1.625, 'U8.84-1a.png']] },
-    { ondiu:   TEX`$F_1 = 10$`,
-      hadedir: TEX`$F_1 = 9$`,
-      motiu:   TEX`La primera classe té $f_1 = 9$ dades; la resta de la columna ($24$, $32$, $33$) és correcta.`,
-      marca:   ['u8-informacio/data/full-3.png', 78.4, 35.2, 3.4, 2.6],
-      pegat:   [['u8-informacio/data/full-3.png', 78.974, 35.566, 2.235, 1.495, 'U8.84-2a.png']] },
-  ],
-
-  'apl-ud8/U8.85': [
-    { enunciat: 1,
-      lloc:    TEX`les taules de l’enunciat`,
-      ondiu:   TEX`$14$ parelles de notes`,
-      hadedir: TEX`$15$ parelles: hi falta la parella A $= 6$, B $= 6$`,
-      motiu:   TEX`L’enunciat parla de $15$ persones. El diagrama de dispersió de la solució té el punt $(6, 6)$, i els apartats c) i e) el fan servir.`,
-      marca:   ['u8-informacio/data/full-4.png', 10.0, 20.4, 23.5, 12.4],
-      pegat:   [['u8-informacio/data/full-4.png', 26.076, 27.208, 5.215, 6.429, 'U8.85-1a.png']] },
-  ],
-
-  /* ── 4t ESO Aplicades · UD9 · Atzar i decisions (Santillana U9) ───────── */
-
-  'apl-ud9/U9.42': [
-    { lloc:    TEX`«únicament 3 cavalls»`,
-      ondiu:   TEX`$\dfrac{4}{40}\cdot\dfrac{4}{40}\cdot\dfrac{4}{40} = 0{,}001$ \quad i \quad $\dfrac{4}{40}\cdot\dfrac{3}{39}\cdot\dfrac{2}{38} = 0{,}0004$`,
-      hadedir: TEX`Amb reemplaçament: $4\cdot\left(\dfrac{1}{10}\right)^3\cdot\dfrac{9}{10} = 0{,}0036$. \ Sense: $4\cdot\dfrac{4}{40}\cdot\dfrac{3}{39}\cdot\dfrac{2}{38}\cdot\dfrac{36}{37} \approx 0{,}0016$`,
-      motiu:   TEX`Es treuen $4$ cartes i han de ser cavalls exactament $3$: la quarta no ho ha de ser, i aquesta carta pot sortir en $4$ posicions. La solució calcula la probabilitat que $3$ cartes seguides siguin cavalls.`,
-      marca:   ['u9-activitats/data/full-9.png', 10.0, 2.4, 37.5, 12.4],
-      pegat:   [['u9-activitats/data/full-9.png', 10.43, 0.585, 28.891, 2.016, 'U9.42-1a.png'],
-               ['u9-activitats/data/full-9.png', 11.672, 3.446, 34.52, 3.836, 'U9.42-1b.png'],
-               ['u9-activitats/data/full-9.png', 10.43, 8.127, 28.146, 2.016, 'U9.42-1c.png'],
-               ['u9-activitats/data/full-9.png', 11.672, 10.988, 35.679, 3.836, 'U9.42-1d.png']] },
-  ],
-
-  'apl-ud9/U9.76': [
-    { lloc:    TEX`b)`,
-      ondiu:   TEX`«Pelo rubio»: $P = 0{,}46$`,
-      hadedir: TEX`«Pelo moreno»: $P = 0{,}46$`,
-      motiu:   TEX`L’enunciat parla dels joves amb els cabells morens.`,
-      marca:   ['u9-probabilitat/data/full-1.png', 57.5, 48.2, 21.5, 2.8],
-      pegat:   [['u9-probabilitat/data/full-1.png', 64.818, 48.505, 15.232, 1.886, 'U9.76-1a.png']] },
-  ],
-
-  'apl-ud9/U9.88': [
+  'u7/93': [
     { lloc:    TEX`c)`,
-      ondiu:   TEX`$P(C) = \dfrac{6}{8} = 0{,}75$`,
-      hadedir: TEX`$P(C) = \dfrac{7}{8} = 0{,}875$`,
-      motiu:   TEX`«Com a màxim dues creus» és tot menys «tres creus»: $1 - \dfrac{1}{8} = \dfrac{7}{8}$.`,
-      marca:   ['u9-probabilitat/data/full-5.png', 10.0, 10.6, 18.5, 4.4],
-      pegat:   [['u9-probabilitat/data/full-5.png', 19.205, 10.923, 9.603, 2.666, 'U9.88-1a.png']] },
+      ondiu:   TEX`contínua en el seu domini, $(-\infty,-2)\cup(2,+\infty)$`,
+      hadedir: TEX`contínua en el seu domini, $(-\infty,-2]\cup[2,+\infty)$`,
+      motiu:   TEX`La condició és $x^2-4\geq 0$, que també es compleix en $x=-2$ i en $x=2$: allà la funció existeix i val $\sqrt{0}=0$. La mateixa solució ho escriu bé just abans ($x\geq 2$, $x\leq -2$).`,
+      pegat:   ['continuitat/data/full-3.png', 29.47, 74.697, 10.017, 1.755, '93-1a.png'],
+      marca:   ['continuitat/data/full-3.png', 21.0, 74.5, 19.1, 2.1] },
+    { lloc:    TEX`g)`,
+      ondiu:   TEX`$\dlim_{x\to 1} 2\,|x-1| = 0 = y(0)$`,
+      hadedir: TEX`$\dlim_{x\to 1} 2\,|x-1| = 0 = y(1)$`,
+      motiu:   TEX`El punt que s'estudia és $x=1$, i $y(1)=2\,|1-1|=0$. En canvi, $y(0)=2$.`,
+      pegat:   ['continuitat/data/full-3.png', 80.464, 23.426, 1.987, 1.634, '93-2a.png'],
+      marca:   ['continuitat/data/full-3.png', 60.8, 22.9, 21.9, 3.1] },
+  ],
+
+  'u7/94': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$x^2-2x=3\neq 0$ per a qualsevol $x$ real`,
+      hadedir: TEX`$x^2-2x+3\neq 0$ per a qualsevol $x$ real`,
+      motiu:   TEX`El denominador és $x^2-2x+3$, i no s'anul·la mai perquè el discriminant és negatiu: $(-2)^2-4\cdot 1\cdot 3=-8<0$. Per això la funció és contínua en tot $\R$.`,
+      pegat:   ['continuitat/data/full-4.png', 18.626, 31.961, 28.311, 1.755, '94-1a.png'],
+      marca:   ['continuitat/data/full-4.png', 11.2, 31.7, 33.0, 2.2] },
+    { lloc:    TEX`e), punt $x=-3$`,
+      ondiu:   TEX`«No existeix $\dlim_{x\to 3} f(x)$.»`,
+      hadedir: TEX`«No existeix $\dlim_{x\to -3} f(x)$.»`,
+      motiu:   TEX`Els dos límits laterals que s'acaben de calcular són els del punt $x=-3$.`,
+      pegat:   ['continuitat/data/full-4.png', 39.487, 92.373, 4.387, 1.09, '94-2a.png'],
+      marca:   ['continuitat/data/full-4.png', 30.1, 90.9, 16.7, 2.8] },
+    { lloc:    TEX`e), punt $x=1$`,
+      ondiu:   TEX`«La funció té una discontinuïtat evitable en $x=3$.»`,
+      hadedir: TEX`«La funció té una discontinuïtat evitable en $x=1$.»`,
+      motiu:   TEX`El límit que s'ha calculat és el de $x\to 1$ (val $\tfrac{1}{8}$), i $x=1$ és el zero del denominador que se simplifica. En $x=3$ la funció és contínua.`,
+      pegat:   ['continuitat/data/full-4.png', 65.646, 15.981, 1.49, 1.513, '94-3a.png'],
+      marca:   ['continuitat/data/full-4.png', 58.9, 13.7, 33.7, 3.9] },
+  ],
+
+  'u7/102': [
+    { ondiu:   TEX`$\dlim_{x\to -1^-} f(x)=5$`,
+      hadedir: TEX`$\dlim_{x\to -1^-} f(x)=-5$`,
+      motiu:   TEX`Per a $x<-1$ la funció és $3x-2$, i $3\cdot(-1)-2=-5$. La conclusió no canvia: els límits laterals ($-5$ i $-4$) són diferents i en $x=-1$ hi ha una discontinuïtat de salt finit.`,
+      pegat:   ['continuitat/data/full-6.png', 69.371, 36.864, 3.56, 1.453, '102-1a.png'],
+      marca:   ['continuitat/data/full-6.png', 58.1, 36.6, 12.9, 2.8] },
+  ],
+
+  /* ── Unitat 8 · Derivades ────────────────────────────────────────────── */
+
+  'u8/58': [
+    { ondiu:   TEX`«Els punts de tall de la funció amb els eixos són:»`,
+      hadedir: TEX`«Els punts de tall de la recta tangent amb els eixos són:»`,
+      motiu:   TEX`Els punts que es calculen a continuació, $(0,7)$ i $\left(\tfrac{7}{2},0\right)$, són els talls de la recta tangent $y=-2x+7$, que és la que forma el triangle amb els eixos. La funció $f$ talla els eixos en uns altres punts: $(0,-1)$ i $(-1,0)$.`,
+      pegat:   ['interpretacio-geometrica/data/full-5.png', 27.228, 42.469, 16.089, 1.914, '58-1a.png'],
+      marca:   ['interpretacio-geometrica/data/full-5.png', 8.6, 42.3, 28.9, 4.0] },
+  ],
+
+  /* ── Unitat 9 · Aplicacions de les derivades ─────────────────────────── */
+
+  'u9/41': [
+    { ondiu:   TEX`«A $x=$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»`,
+      hadedir: TEX`«A $x=2$, $f'(x)$ passa de positiva a negativa; per tant, és un màxim.»`,
+      motiu:   TEX`Hi falta el valor de $x$. És l'últim dels quatre punts on la derivada val $0$ ($x=-4$, $x=-2$, $x=0$ i $x=2$), i a la gràfica $f'$ hi passa de positiva a negativa.`,
+      pegat:   ['creixement/data/full-2.png', 20.323, 87.988, 22.097, 1.829, '41-1a.png'],
+      marca:   ['creixement/data/full-2.png', 13.0, 87.8, 29.4, 4.1] },
+  ],
+
+  'u9/42': [
+    { lloc:    TEX`d), valor de $y'(2)$`,
+      ondiu:   TEX`$y'(2)=80-60-20>0$`,
+      hadedir: TEX`$y'(2)=80-60=20>0$`,
+      motiu:   TEX`$y'(2)=5\cdot 2^4-15\cdot 2^2=80-60=20$. Tal com està imprès, $80-60-20$ valdria $0$.`,
+      pegat:   ['creixement/data/full-3.png', 26.532, 21.037, 8.468, 1.524, '42-1a.png'],
+      marca:   ['creixement/data/full-3.png', 12.3, 20.9, 22.8, 2.1] },
+    { lloc:    TEX`d), extrems relatius`,
+      ondiu:   TEX`«Té màxims relatius a $x=-\sqrt{3}$, $x=\sqrt{3}$.»`,
+      hadedir: TEX`«Té un màxim relatiu a $x=-\sqrt{3}$ i un mínim relatiu a $x=\sqrt{3}$.»`,
+      motiu:   TEX`A $x=-\sqrt{3}$ la funció passa de créixer a decréixer (màxim), però a $x=\sqrt{3}$ passa de decréixer a créixer: hi ha un mínim. A $x=0$ la derivada també s'anul·la, però no canvia de signe i no hi ha extrem.`,
+      pegat:   ['creixement/data/full-3.png', 15.0, 32.073, 30.403, 3.72, '42-2a.png'],
+      marca:   ['creixement/data/full-3.png', 12.3, 31.9, 17.8, 4.0] },
+  ],
+
+  'u9/51': [
+    { ondiu:   TEX`«El signe de $y$ és constant.»`,
+      hadedir: TEX`«El signe de $y'$ és constant.»`,
+      motiu:   TEX`La que no s'anul·la mai i és contínua és la derivada $y'(x)=3x^2-4x+6$, i per això té signe constant (positiu, perquè $y'(0)=6>0$). La funció $y$ sí que canvia de signe: per exemple, $y(0)=-13$ i $y(3)=14$.`,
+      pegat:   ['creixement/data/full-7.png', 42.339, 59.085, 3.79, 1.585, '51-1a.png'],
+      marca:   [['creixement/data/full-7.png', 27.7, 58.9, 17.8, 2.2], ['creixement/data/full-7.png', 9.7, 61.0, 8.6, 1.8]] },
+  ],
+
+  'u9/58': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$y'(x)=0 \;\rightarrow\; a=\pm 2$`,
+      hadedir: TEX`$y'(x)=0 \;\rightarrow\; x=\pm 2$`,
+      motiu:   TEX`El que es resol és $3x^2-12=0$, i la incògnita és $x$. El paràmetre $a$ ja s'ha trobat a l'apartat a) i val $-12$.`,
+      pegat:   ['creixement/data/full-8.png', 71.774, 63.476, 7.258, 1.524, '58-1a.png'],
+      marca:   ['creixement/data/full-8.png', 60.5, 63.3, 18.9, 2.1] },
+  ],
+
+  'u9/67': [
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$y''=-\dfrac{6}{x^2}$`,
+      hadedir: TEX`$y''=-\dfrac{6}{x^4}$`,
+      motiu:   TEX`Com que $y'=\dfrac{x^3+2}{x^3}=1+2x^{-3}$, la derivada segona és $y''=-6x^{-4}$. La conclusió no canvia: $y''<0$ per a tot $x\neq 0$ i la funció és còncava a $(-\infty,0)$ i a $(0,+\infty)$.`,
+      pegat:   ['concavitat/data/full-2.png', 23.468, 70.061, 1.21, 1.037, '67-1a.png'],
+      marca:   ['concavitat/data/full-2.png', 12.6, 68.0, 12.7, 3.9] },
+    { lloc:    TEX`f)`,
+      ondiu:   TEX`«$y''>0$ a $(-\infty,-2)$ i a $(2,+\infty)$ $\rightarrow$ $y$ és convexa a $(-\infty,-2)$ i a $(2,+\infty)$.»`,
+      hadedir: TEX`Aquestes dues línies sobren.`,
+      motiu:   TEX`El domini de la funció és $[-2,2]$, com diu la mateixa solució: fora d'aquest interval la funció no existeix i no té sentit parlar-ne de la curvatura. La resposta és només que $y$ és còncava a $(-2,2)$.`,
+      pegat:   ['concavitat/data/full-2.png', 58.871, 15.61, 29.435, 5.671, '67-2a.png'],
+      marca:   ['concavitat/data/full-2.png', 58.5, 15.4, 30.1, 6.0] },
+    { lloc:    TEX`h)`,
+      ondiu:   TEX`$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)}$`,
+      hadedir: TEX`$y''(x)=\dfrac{2(x^2-x)-(2x-1)^2}{(x^2-x)^2}$`,
+      motiu:   TEX`En derivar el quocient, el denominador queda elevat al quadrat. El pas següent de la solució ja el porta bé, perquè $x^2(x-1)^2=(x^2-x)^2$.`,
+      pegat:   ['concavitat/data/full-2.png', 80.887, 45.366, 1.129, 1.037, '67-3a.png'],
+      marca:   ['concavitat/data/full-2.png', 59.0, 43.2, 31.0, 4.2] },
+    { lloc:    TEX`n)`,
+      ondiu:   TEX`$y''(x)>0$ a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$ i a $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$;\quad $y''(x)<0$ a $\left(-\tfrac{\pi}{2},-\tfrac{\pi}{4}\right)$`,
+      hadedir: TEX`$y''(x)>0$ a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$;\quad $y''(x)<0$ a $\left(-\tfrac{\pi}{2},-\tfrac{\pi}{4}\right)$ i a $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$`,
+      motiu:   TEX`$y''=2\cos 2x$. A l'interval $\left(\tfrac{\pi}{4},\tfrac{\pi}{2}\right)$ l'angle $2x$ és entre $\tfrac{\pi}{2}$ i $\pi$, on el cosinus és negatiu. Per tant, la funció és convexa a $\left(-\tfrac{\pi}{4},\tfrac{\pi}{4}\right)$ i còncava als altres dos intervals.`,
+      marca:   ['concavitat/data/full-3.png', 14.2, 83.5, 31.4, 12.5] },
+  ],
+
+  /* ── Unitat 10 · Representació de funcions ───────────────────────────── */
+
+  'u10/37': [
+    { ondiu:   TEX`«$f'(x)>0$ en $(-\infty,-2)\cup(2,6)$» \; i \; «$f'(x)<0$ en $(-2,2)\cup(6,+\infty)$»`,
+      hadedir: TEX`«$f'(x)>0$ en $(-\infty,x_1)\cup(x_2,x_3)$» \; i \; «$f'(x)<0$ en $(x_1,x_2)\cup(x_3,+\infty)$»`,
+      motiu:   TEX`El signe de $f'$ canvia als punts on la gràfica talla l'eix $X$, que l'enunciat anomena $x_1$, $x_2$ i $x_3$ i que la mateixa solució fa servir a la línia següent. A la gràfica, $x_1$ és entre $-2$ i $-1$ i $x_3$ entre $5$ i $6$: no són $-2$ ni $6$.`,
+      pegat:   [['practica/data/full-2.png', 23.553, 87.925, 13.023, 1.699, '37-1a.png'], ['practica/data/full-2.png', 18.891, 92.233, 17.363, 1.76, '37-1b.png']],
+      marca:   [['practica/data/full-2.png', 8.4, 87.7, 28.1, 2.1], ['practica/data/full-2.png', 8.4, 92.0, 28.1, 2.1]] },
+  ],
+
+  'u10/38': [
+    { enunciat: 1,
+      ondiu:   TEX`«Creixement: $(-\infty,0)\cup(2\;-\infty)$.»`,
+      hadedir: TEX`«Creixement: $(-\infty,0)\cup(2,+\infty)$.»`,
+      motiu:   TEX`És una errada de l'enunciat. La funció creix abans del màxim $(0,0)$ i després del mínim $(2,4)$, com es veu a la gràfica de la solució.`,
+      pegat:   ['practica/data/full-2.png', 79.019, 26.76, 6.19, 1.699, '38-1a.png'],
+      marca:   ['practica/data/full-2.png', 54.6, 26.5, 30.1, 2.1] },
+  ],
+
+  'u10/41': [
+    { ondiu:   TEX`«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ creixent»`,
+      hadedir: TEX`«$f'(x)=\dfrac{-x^2-1}{(x^2-1)^2}<0 \;\rightarrow\; f(x)$ decreixent»`,
+      motiu:   TEX`Si la derivada és negativa, la funció decreix. És el que es veu a la gràfica de la mateixa solució, on les tres branques baixen.`,
+      pegat:   ['practica/data/full-4.png', 34.968, 49.211, 9.084, 1.578, '41-1a.png'],
+      marca:   ['practica/data/full-4.png', 10.3, 48.0, 32.0, 4.2] },
+  ],
+
+  'u10/45': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$\mathrm{Dom}\,f=\R-\{3\}$`,
+      hadedir: TEX`$\mathrm{Dom}\,f=\R-\{-3\}$`,
+      motiu:   TEX`El denominador és $x+3$, que s'anul·la en $x=-3$.`,
+      pegat:   ['domini-recorregut/data/full-1.png', 73.071, 46.177, 4.019, 1.76, '45-1a.png'],
+      marca:   ['domini-recorregut/data/full-1.png', 57.7, 46.0, 17.6, 2.1] },
+  ],
+
+  'u10/62': [
+    { lloc:    TEX`c)`,
+      ondiu:   TEX`$\dlim_{x\to-\infty}\,(x^4+2x^3-2x-1)=-\infty$`,
+      hadedir: TEX`$\dlim_{x\to-\infty}\,(x^4+2x^3-2x-1)=+\infty$`,
+      motiu:   TEX`El terme dominant és $x^4$, que és positiu tant si $x\to-\infty$ com si $x\to+\infty$.`,
+      pegat:   ['asimptotes/data/full-2.png', 37.379, 32.16, 4.421, 1.456, '62-1a.png'],
+      marca:   ['asimptotes/data/full-2.png', 11.6, 31.8, 29.9, 2.8] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$\dlim_{x\to+\infty}\,(-2x^4+3x^2-x-1)=+\infty$`,
+      hadedir: TEX`$\dlim_{x\to+\infty}\,(-2x^4+3x^2-x-1)=-\infty$`,
+      motiu:   TEX`El terme dominant és $-2x^4$, que tendeix a $-\infty$ tant si $x\to-\infty$ com si $x\to+\infty$.`,
+      pegat:   ['asimptotes/data/full-2.png', 39.309, 39.745, 3.859, 1.456, '62-2a.png'],
+      marca:   ['asimptotes/data/full-2.png', 14.1, 39.4, 29.2, 2.7] },
+  ],
+
+  'u10/63': [
+    { lloc:    TEX`c)`,
+      ondiu:   TEX`$\dlim_{x\to-\infty}\dfrac{2x}{x+1}=2$ \; i \; $\dlim_{x\to+\infty}\dfrac{2x}{x+1}=2$`,
+      hadedir: TEX`$\dlim_{x\to-\infty}\dfrac{4x^2}{x^2-9}=4$ \; i \; $\dlim_{x\to+\infty}\dfrac{4x^2}{x^2-9}=4$`,
+      motiu:   TEX`Els límits que hi ha impresos són d'una altra funció. Amb la de l'apartat, $y=\dfrac{4x^2}{x^2-9}$, el límit és $4$, que és el que dona l'asímptota horitzontal $y=4$ de la mateixa solució.`,
+      pegat:   ['asimptotes/data/full-2.png', 65.193, 34.891, 9.486, 7.221, '63-1a.png'],
+      marca:   ['asimptotes/data/full-2.png', 60.3, 34.8, 18.0, 7.7] },
+  ],
+
+  'u10/75': [
+    { lloc:    TEX`a), signe de la derivada`,
+      ondiu:   TEX`«En $(-5,1)$, $y'>0$ $\rightarrow$ Funció decreixent»`,
+      hadedir: TEX`«En $(-5,1)$, $y'<0$ $\rightarrow$ Funció decreixent»`,
+      motiu:   TEX`Entre les dues arrels la derivada és negativa: per exemple, $y'(0)=-15$.`,
+      pegat:   ['creixement/data/full-1.png', 24.196, 71.056, 1.849, 1.396, '75-1a.png'],
+      marca:   ['creixement/data/full-1.png', 12.3, 70.8, 18.3, 3.8] },
+    { lloc:    TEX`a), màxim`,
+      ondiu:   TEX`$x=-5 \;\rightarrow\; y=203 \;\rightarrow\; (-5,203)$ màxim`,
+      hadedir: TEX`$x=-5 \;\rightarrow\; y=103 \;\rightarrow\; (-5,103)$ màxim`,
+      motiu:   TEX`$y(-5)=(-5)^3+6\cdot(-5)^2-15\cdot(-5)+3=-125+150+75+3=103$.`,
+      pegat:   ['creixement/data/full-1.png', 25.804, 75.425, 11.656, 1.456, '75-2a.png'],
+      marca:   ['creixement/data/full-1.png', 12.1, 75.2, 33.8, 2.2] },
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$x=-\tfrac{1}{2} \rightarrow y=-6 \rightarrow \left(-\tfrac{1}{2},-6\right)$ màxim;\quad $x=-\tfrac{1}{2} \rightarrow y=6 \rightarrow \left(-\tfrac{1}{2},6\right)$ mínim`,
+      hadedir: TEX`$x=-\tfrac{1}{2} \rightarrow y=-4 \rightarrow \left(-\tfrac{1}{2},-4\right)$ màxim;\quad $x=\tfrac{1}{2} \rightarrow y=4 \rightarrow \left(\tfrac{1}{2},4\right)$ mínim`,
+      motiu:   TEX`El numerador val $4\cdot\tfrac{1}{4}+1=2$ en tots dos punts, i $2:\tfrac{1}{2}=4$. Per tant, $y\left(\tfrac{1}{2}\right)=4$ i $y\left(-\tfrac{1}{2}\right)=-4$. A més, el mínim és a $x=\tfrac{1}{2}$, no a $x=-\tfrac{1}{2}$.`,
+      pegat:   [['creixement/data/full-1.png', 89.068, 6.25, 1.447, 1.456, '75-3a.png'], ['creixement/data/full-1.png', 68.248, 12.5, 1.447, 1.456, '75-3b.png'], ['creixement/data/full-1.png', 62.46, 15.959, 27.412, 8.192, '75-3c.png'], ['creixement/data/full-1.png', 61.897, 24.575, 12.54, 4.005, '75-3d.png']],
+      marca:   ['creixement/data/full-1.png', 58.4, 2.4, 35.0, 26.3] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`«$y'=4x^3-72x^2=0 \rightarrow x=0$. En $\R-\{0\}$, $y'<0$ $\rightarrow$ Funció decreixent»`,
+      hadedir: TEX`«$y'=4x^3-72x^2=0 \rightarrow x=0$, $x=18$. En $(-\infty,0)\cup(0,18)$, $y'<0$ $\rightarrow$ Funció decreixent. En $(18,+\infty)$, $y'>0$ $\rightarrow$ Funció creixent. $x=18 \rightarrow y=-34\,992 \rightarrow (18,-34\,992)$ mínim»`,
+      motiu:   TEX`$y'=4x^2(x-18)$ també s'anul·la en $x=18$, i allà passa de negativa a positiva. En $x=0$ la derivada val $0$ però no canvia de signe: no hi ha extrem.`,
+      marca:   ['creixement/data/full-1.png', 58.4, 47.1, 27.1, 6.6] },
+  ],
+
+  'u10/78': [
+    { lloc:    TEX`b), domini`,
+      ondiu:   TEX`$\mathrm{Dom}=\R$`,
+      hadedir: TEX`$\mathrm{Dom}=\R-\{-2\}$`,
+      motiu:   TEX`El denominador $x+2$ s'anul·la en $x=-2$.`,
+      pegat:   ['concavitat/data/full-1.png', 21.383, 54.248, 6.27, 1.699, '78-1a.png'],
+      marca:   ['concavitat/data/full-1.png', 9.7, 54.1, 11.7, 1.9] },
+    { lloc:    TEX`b), interval`,
+      ondiu:   TEX`«En $(-\infty,2)$, $y''>0$ $\rightarrow$ Funció convexa»`,
+      hadedir: TEX`«En $(-\infty,-2)$, $y''>0$ $\rightarrow$ Funció convexa»`,
+      motiu:   TEX`$y''=\dfrac{-8}{(x+2)^3}$ canvia de signe en $x=-2$: és positiva per a $x<-2$ i negativa per a $x>-2$.`,
+      pegat:   ['concavitat/data/full-1.png', 20.338, 66.505, 12.621, 1.76, '78-2a.png'],
+      marca:   ['concavitat/data/full-1.png', 12.3, 66.3, 19.1, 3.7] },
+    { lloc:    TEX`d), derivada segona`,
+      ondiu:   TEX`$y''=\dfrac{12x^2+4x}{(x^2-1)^3}\neq 0$`,
+      hadedir: TEX`$y''=\dfrac{12x^2+4}{(x^2-1)^3}\neq 0$`,
+      motiu:   TEX`El numerador és $12x^2+4$, que no s'anul·la mai. Amb $4x$ s'anul·laria en $x=0$, i la solució no podria dir que $y''\neq 0$.`,
+      pegat:   ['concavitat/data/full-1.png', 64.148, 45.085, 8.682, 2.124, '78-3a.png'],
+      marca:   ['concavitat/data/full-1.png', 58.4, 45.4, 21.7, 4.2] },
+    { lloc:    TEX`d), interval`,
+      ondiu:   TEX`«En $(1,1)$, $y''<0$ $\rightarrow$ Funció còncava»`,
+      hadedir: TEX`«En $(-1,1)$, $y''<0$ $\rightarrow$ Funció còncava»`,
+      motiu:   TEX`Entre $-1$ i $1$ el denominador $(x^2-1)^3$ és negatiu i el numerador és positiu.`,
+      pegat:   ['concavitat/data/full-1.png', 61.897, 56.493, 28.055, 1.82, '78-4a.png'],
+      marca:   ['concavitat/data/full-1.png', 58.5, 56.3, 29.8, 2.2] },
+  ],
+
+  'u10/84': [
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$f\left(\tfrac{2}{3}\right)=\dfrac{26}{27} \;\rightarrow\; \left(\tfrac{2}{3},\tfrac{26}{27}\right)$ punt d'inflexió`,
+      hadedir: TEX`$f\left(\tfrac{2}{3}\right)=\dfrac{20}{27} \;\rightarrow\; \left(\tfrac{2}{3},\tfrac{20}{27}\right)$ punt d'inflexió`,
+      motiu:   TEX`$f\left(\tfrac{2}{3}\right)=\tfrac{8}{27}-\tfrac{24}{27}-\tfrac{18}{27} +\tfrac{54}{27}=\tfrac{20}{27}$.`,
+      pegat:   [['representacio/data/full-3.png', 73.633, 47.451, 1.447, 1.517, '84-1a.png'], ['representacio/data/full-3.png', 69.775, 51.456, 1.447, 1.517, '84-1b.png']],
+      marca:   ['representacio/data/full-3.png', 50.3, 47.1, 34.8, 8.3] },
+    { lloc:    TEX`g)`,
+      ondiu:   TEX`«$f''(x)=-2>0$ \; $\forall x\in\R$»`,
+      hadedir: TEX`«$f''(x)=-2<0$ \; $\forall x\in\R$»`,
+      motiu:   TEX`$-2$ és negatiu, i per això la funció és còncava, com diu la mateixa solució.`,
+      pegat:   ['representacio/data/full-5.png', 26.608, 12.257, 14.228, 1.638, '84-2a.png'],
+      marca:   ['representacio/data/full-5.png', 15.9, 12.1, 25.2, 2.1] },
+  ],
+
+  'u10/100': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$y''=\dfrac{-1}{2(2-x)\sqrt{2-x}}<0$`,
+      hadedir: TEX`$y''=\dfrac{-1}{4(2-x)\sqrt{2-x}}<0$`,
+      motiu:   TEX`De $y'=-\tfrac{1}{2}(2-x)^{-1/2}$ surt $y''=-\tfrac{1}{4}(2-x)^{-3/2}$. La conclusió (funció còncava) no canvia.`,
+      pegat:   ['altres-funcions/data/full-1.png', 19.855, 79.369, 1.447, 1.456, '100-1a.png'],
+      marca:   ['altres-funcions/data/full-1.png', 14.0, 77.0, 26.9, 4.2] },
+    { lloc:    TEX`c), límit`,
+      ondiu:   TEX`$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=1 \;\rightarrow\; m=-1$`,
+      hadedir: TEX`$\dlim_{x\to-\infty}\dfrac{\sqrt{x^2-9}}{x}=-1 \;\rightarrow\; m=-1$`,
+      motiu:   TEX`Quan $x\to-\infty$, el numerador és positiu i el denominador negatiu: el límit és $-1$, que és el pendent $m$ que la solució fa servir.`,
+      pegat:   ['altres-funcions/data/full-2.png', 31.511, 25.789, 13.344, 1.396, '100-2a.png'],
+      marca:   ['altres-funcions/data/full-2.png', 15.9, 24.0, 27.5, 4.4] },
+    { lloc:    TEX`c), títol`,
+      ondiu:   TEX`«Creixement i decreixement:» (a sobre de la derivada segona)`,
+      hadedir: TEX`«Concavitat i convexitat:»`,
+      motiu:   TEX`El títol «Creixement i decreixement» hi surt dues vegades. La segona, la que porta $y''$, és l'estudi de la curvatura.`,
+      pegat:   ['altres-funcions/data/full-2.png', 16.399, 66.201, 22.91, 1.638, '100-3a.png'],
+      marca:   ['altres-funcions/data/full-2.png', 14.1, 66.0, 25.6, 1.9] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$y''=\dfrac{-1}{4(x+3)\sqrt{x+3}}>0$`,
+      hadedir: TEX`$y''=\dfrac{1}{4(x+3)\sqrt{x+3}}>0$`,
+      motiu:   TEX`De $y'=-\tfrac{1}{2}(x+3)^{-1/2}$ surt $y''=\tfrac{1}{4}(x+3)^{-3/2}$, que és positiva. La conclusió (funció convexa) és correcta.`,
+      pegat:   ['altres-funcions/data/full-2.png', 73.312, 46.42, 3.135, 1.396, '100-4a.png'],
+      marca:   ['altres-funcions/data/full-2.png', 62.1, 46.2, 26.9, 4.2] },
+  ],
+
+  'u10/108': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`«Eix $Y$: $f(0)=0 \;\rightarrow\; (0,6)$»`,
+      hadedir: TEX`«Eix $Y$: $f(0)=6 \;\rightarrow\; (0,6)$»`,
+      motiu:   TEX`Per a $x>-2$ la funció és $6-x^2$, i $f(0)=6$. El punt $(0,6)$ ja és correcte.`,
+      pegat:   ['trossos/data/full-2.png', 26.768, 22.694, 1.447, 1.517, '108-1a.png'],
+      marca:   ['trossos/data/full-2.png', 16.0, 22.5, 19.8, 2.1] },
+    { lloc:    TEX`c), continuïtat`,
+      ondiu:   TEX`$\dlim_{x\to-2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$`,
+      hadedir: TEX`$\dlim_{x\to 2^-}f(x)=\dlim_{x\to 2^-}(x^3-1)=7$`,
+      motiu:   TEX`El punt que s'estudia és $x=2$, on canvia l'expressió de la funció.`,
+      pegat:   ['trossos/data/full-2.png', 62.379, 6.493, 4.662, 1.032, '108-2a.png'],
+      marca:   ['trossos/data/full-2.png', 62.1, 4.9, 26.5, 2.8] },
+    { lloc:    TEX`c), derivada segona`,
+      ondiu:   TEX`$\dfrac{14}{(x-1)^3}$ \; si \; $x<2$`,
+      hadedir: TEX`$\dfrac{14}{(x-1)^3}$ \; si \; $x>2$`,
+      motiu:   TEX`És la derivada segona del tercer tros, $\dfrac{7}{x-1}$, que és el de $x>2$.`,
+      pegat:   ['trossos/data/full-2.png', 84.486, 93.507, 3.778, 1.517, '108-3a.png'],
+      marca:   ['trossos/data/full-2.png', 68.7, 92.3, 19.8, 4.2] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`«$2-3\cos x=0 \;\rightarrow\; x=\arccos\left(\tfrac{2}{3}\right) \;\rightarrow\; \left(\arccos\left(\tfrac{2}{3}\right),0\right)$»`,
+      hadedir: TEX`«$2-3\cos x=0 \;\rightarrow\; x=\pm\arccos\left(\tfrac{2}{3}\right)+2k\pi$, amb $x\leq 0$. El tall més proper a l'origen és $\left(-\arccos\left(\tfrac{2}{3}\right),0\right)$»`,
+      motiu:   TEX`El tros $2-3\cos x$ només val per a $x\leq 0$, i $\arccos\left(\tfrac{2}{3}\right)\approx 0{,}84$ és positiu: allà la funció és $2^{-x+1}-3$ i no val $0$. Els talls amb l'eix $X$ són tots a l'esquerra de l'origen i n'hi ha infinits, com es veu a la gràfica de la solució.`,
+      marca:   ['trossos/data/full-3.png', 14.0, 53.6, 27.1, 10.6] },
+  ],
+
+  /* ── Unitat 11 · Integrals ───────────────────────────────────────────── */
+
+  'u11/52': [
+    { lloc:    TEX`g)`,
+      ondiu:   TEX`$\displaystyle\int (x-1)^3\,dx=\dfrac{(x-1)^3}{4}+k$`,
+      hadedir: TEX`$\displaystyle\int (x-1)^3\,dx=\dfrac{(x-1)^4}{4}+k$`,
+      motiu:   TEX`En integrar una potència, l'exponent augmenta una unitat.`,
+      pegat:   ['funcions-elementals/data/full-2.png', 34.968, 64.713, 1.206, 1.208, '52-1a.png'],
+      marca:   ['funcions-elementals/data/full-2.png', 12.2, 64.5, 28.3, 4.3] },
+  ],
+
+  'u11/54': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$\displaystyle\int\dfrac{4}{x-2}\,dx=4\ln|x+2|+k$`,
+      hadedir: TEX`$\displaystyle\int\dfrac{4}{x-2}\,dx=4\ln|x-2|+k$`,
+      motiu:   TEX`El denominador és $x-2$.`,
+      pegat:   ['funcions-elementals/data/full-2.png', 76.768, 61.148, 1.929, 1.45, '54-1a.png'],
+      marca:   ['funcions-elementals/data/full-2.png', 55.9, 59.7, 29.1, 4.4] },
+    { lloc:    TEX`d)`,
+      ondiu:   TEX`$\displaystyle\int\dfrac{1}{(x+4)^2}\,dx=-\dfrac{1}{x-4}+k$`,
+      hadedir: TEX`$\displaystyle\int\dfrac{1}{(x+4)^2}\,dx=-\dfrac{1}{x+4}+k$`,
+      motiu:   TEX`El denominador és $x+4$.`,
+      pegat:   ['funcions-elementals/data/full-2.png', 77.331, 83.082, 1.929, 1.45, '54-2a.png'],
+      marca:   ['funcions-elementals/data/full-2.png', 55.9, 80.6, 29.5, 4.3] },
+    { lloc:    TEX`f)`,
+      ondiu:   TEX`$\displaystyle\int\left(\dfrac{2}{(x+3)^3}+\dfrac{5}{(x-3)^2}\right)dx =\dfrac{-1}{(x+3)^2}-\dfrac{5}{x-3}+k$`,
+      hadedir: TEX`$\displaystyle\int\left(\dfrac{2}{(x+3)^3}-\dfrac{5}{(x-3)^2}\right)dx =\dfrac{-1}{(x+3)^2}+\dfrac{5}{x-3}+k$`,
+      motiu:   TEX`A l'enunciat, el segon terme porta signe menys. La solució el copia amb signe més, i el resultat que dona és el d'aquesta altra integral.`,
+      pegat:   [['funcions-elementals/data/full-2.png', 69.453, 95.347, 1.929, 1.45, '54-3a.png'], ['funcions-elementals/data/full-3.png', 24.437, 3.384, 1.929, 1.45, '54-3b.png']],
+      marca:   [['funcions-elementals/data/full-2.png', 55.9, 93.9, 29.5, 4.5], ['funcions-elementals/data/full-3.png', 13.9, 2.2, 23.7, 4.0]] },
+  ],
+
+  /* ── Unitat 12 · La integral definida ────────────────────────────────── */
+
+  'u12/55': [
+    { lloc:    TEX`c)`,
+      ondiu:   TEX`$=\dfrac{9}{4}\sqrt[3]{9}+\dfrac{195}{12}$`,
+      hadedir: TEX`$=\dfrac{27}{4}\sqrt[3]{9}+\dfrac{199}{12}$`,
+      motiu:   TEX`$\tfrac{3}{4}\sqrt[3]{9^4}=\tfrac{3}{4}\cdot 9\sqrt[3]{9}= \tfrac{27}{4}\sqrt[3]{9}$ \;i\; $18-\tfrac{3}{4}-\tfrac{2}{3}=\tfrac{199}{12}$. El valor és aproximadament $30{,}62$.`,
+      pegat:   ['regla-barrow/data/full-2.png', 16.76, 94.891, 11.868, 3.528, '55-1a.png'],
+      marca:   ['regla-barrow/data/full-2.png', 14.0, 94.8, 14.4, 3.8] },
+    { lloc:    TEX`g)`,
+      ondiu:   TEX`$\displaystyle\int_0^{\pi}\cos 2x\,dx$`,
+      hadedir: TEX`$\displaystyle\int_0^{\pi}\cos^2 x\,dx$`,
+      motiu:   TEX`L'enunciat demana la integral de $\cos^2 x$, i la primitiva $\tfrac{x}{2}+\tfrac{\sin 2x}{4}$ i el resultat $\tfrac{\pi}{2}$ són els d'aquesta funció. La integral de $\cos 2x$ entre $0$ i $\pi$ valdria $0$.`,
+      pegat:   ['regla-barrow/data/full-2.png', 65.758, 22.019, 1.844, 1.582, '55-2a.png'],
+      marca:   ['regla-barrow/data/full-2.png', 57.5, 20.8, 14.9, 4.4] },
+  ],
+
+  /* ── Unitat 13 · Probabilitat ────────────────────────────────────────── */
+
+  'u13/40': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$VR_{5,6}=5^6=15\,625$`,
+      hadedir: TEX`$4\cdot VR_{5,5}=4\cdot 5^5=12\,500$`,
+      motiu:   TEX`Els dígits parells són $0$, $2$, $4$, $6$ i $8$, però un nombre de 6 xifres no pot començar per $0$: per a la primera xifra només hi ha 4 opcions. El resultat $15\,625$ compta també seqüències com $002468$, que no són nombres de 6 xifres.`,
+      pegat:   ['espai-mostral/data/full-1.png', 58.54, 73.058, 19.888, 2.002, '40-1a.png'],
+      marca:   ['espai-mostral/data/full-1.png', 55.7, 73.0, 19.9, 2.2] },
+  ],
+
+  'u13/60': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$P(A\cap B)=1-P(\overline{A}\cap\overline{B})=1-0{,}3=0{,}7$`,
+      hadedir: TEX`$P(A\cup B)=1-P(\overline{A}\cap\overline{B})=1-0{,}3=0{,}7$`,
+      motiu:   TEX`«No s'ha complert alguna de les dues normes» és la unió $A\cup B$, que és el contrari de $\overline{A}\cap\overline{B}$ (complir-les totes dues). La intersecció val una altra cosa: $P(A\cap B)=0{,}23+0{,}65-0{,}7=0{,}18$.`,
+      pegat:   ['probabilitat-esdeveniments/data/full-3.png', 18.043, 8.981, 1.684, 1.578, '60-1a.png'],
+      marca:   ['probabilitat-esdeveniments/data/full-3.png', 11.5, 8.7, 27.7, 4.1] },
+  ],
+
+  /* ── Unitat 14 · Distribucions de probabilitat ───────────────────────── */
+
+  'u14/53': [
+    { lloc:    TEX`b)`,
+      ondiu:   TEX`$P(X=3)=0{,}188$`,
+      hadedir: TEX`$P(X=12)=0{,}000000007$`,
+      motiu:   TEX`$X$ compta els enquestats que responen «NS/NC». Si exactament 3 no responen «NS/NC», els altres 12 sí que ho fan: cal $P(X=12)=\binom{15}{12}\cdot 0{,}13^{12}\cdot 0{,}87^{3}\approx 7\cdot 10^{-9}$. El valor $0{,}188$ és la probabilitat que exactament 3 responguin «NS/NC»: seria la resposta si a l'enunciat hi sobrés el «no».`,
+      pegat:   ['distribucio-binomial/data/full-3.png', 18.444, 96.898, 16.199, 1.703, '53-1a.png'],
+      marca:   ['distribucio-binomial/data/full-3.png', 9.7, 96.7, 18.4, 2.0] },
   ],
 
 };
@@ -768,7 +751,7 @@ const ERRADES = {
    Comentaris que no són errades, però que poden confondre. Només es veuen
    si ERRADES_OBS és true: surten dins de l'exercici, sota les errades.
 
-     'apl-ud10/U4.66': [
+     'u9/66': [
        { lloc: TEX`c) i d)`,
          text: TEX`Les respostes són el nombre màxim.` },
      ],
@@ -778,6 +761,148 @@ const ERRADES = {
    ═══════════════════════════════════════════════════════════════════════ */
 
 const OBSERVACIONS = {
+
+  /* ── Unitat 1 · Matrius ──────────────────────────────────────────────── */
+
+  'u1/42': [
+    { text: TEX`L'enunciat demana dos exemples de cada tipus de matriu i la solució només en dona un.` },
+  ],
+
+  'u1/85': [
+    { lloc: TEX`b)`,
+      text: TEX`La solució no exclou $a=0$ ni $b=0$. Si $a=b=0$, $B$ és la matriu nul·la, que no és nilpotent de grau 2 perquè ja és nul·la amb l'exponent 1. Cal afegir-hi $a\neq 0$ a la primera família de matrius i $b\neq 0$ a la segona.` },
+  ],
+
+  /* ── Unitat 2 · Determinants ─────────────────────────────────────────── */
+
+  'u2/44': [
+    { text: TEX`A l'enunciat hi ha una paraula repetida: «perquè que el determinant» ha de ser «perquè el determinant».` },
+  ],
+
+  'u2/79': [
+    { lloc: TEX`d)`,
+      text: TEX`El rang 2 és correcte, però la justificació és incompleta. Dels dos determinants d'ordre 3 que es calculen, només el segon és un menor orlat del menor $\begin{vmatrix}1&3\\0&5\end{vmatrix}$ que s'agafa al final. N'hi falta l'altre, $\begin{vmatrix}2&1&3\\-2&0&5\\2&3&19\end{vmatrix}$, que també val $0$.` },
+  ],
+
+  /* ── Unitat 3 · Sistemes d'equacions ─────────────────────────────────── */
+
+  'u3/60': [
+    { lloc: TEX`d) i e)`,
+      text: TEX`Dues errades tipogràfiques sense importància: a d) hi diu «Rango ($A$)» en lloc de «Rang ($A$)», i a e), a «Si $m\neq 1$, $m$ $\rightarrow$», hi sobra la segona $m$.` },
+  ],
+
+  'u3/64': [
+    { text: TEX`L'enunciat demana resoldre el sistema quan és compatible indeterminat ($a=1$) i la solució només el discuteix. Per a $a=1$ el sistema és $2x+y+z=2$, $x+y=1$, $-y+z=0$, i les solucions són $x=1-\lambda$, $y=\lambda$, $z=\lambda$ amb $\lambda\in\R$.` },
+  ],
+
+  'u3/100': [
+    { text: TEX`El plantejament de la solució no és el model de Leontief. La producció de cada empresa ha de ser igual al que en consumeixen les tres empreses més la demanda: $p_1=0{,}4p_2+0{,}5p_3+44$, $p_2=0{,}2p_1+0{,}2p_3+24$, $p_3=0{,}3p_1+0{,}1p_2+36$. La solució correcta és $p_1=\dfrac{18700}{179}\approx 104{,}5$, $p_2=\dfrac{10660}{179}\approx 59{,}6$ i $p_3=\dfrac{13120}{179}\approx 73{,}3$. La solució del llibre escriu $10p_1=2p_2+3p_3$ i hi posa la demanda al primer membre ($2p_2+3p_3=440$), una equació que no té sentit: per produir 44 unitats de $x_1$ calen $8{,}8$ unitats de $x_2$ i $13{,}2$ de $x_3$.` },
+  ],
+
+  /* ── Unitat 5 · Rectes i plans en l'espai ────────────────────────────── */
+
+  'u5/76': [
+    { lloc: TEX`b)`,
+      text: TEX`La solució escriu «$M^*=(\ldots)=2$» i «$M^*=(\ldots)=3$». Vol dir que el rang de $M^*$ és $2$ o $3$: una matriu no és igual a un nombre.` },
+  ],
+
+  'u5/77': [
+    { text: TEX`La solució escriu «$M^*=(\ldots)=2$» i «$M^*=(\ldots)=3$». Vol dir que el rang de $M^*$ és $2$ o $3$: una matriu no és igual a un nombre.` },
+  ],
+
+  /* ── Unitat 7 · Límits i continuïtat ─────────────────────────────────── */
+
+  'u7/68': [
+    { text: TEX`A la solució, els apartats c) i d) surten en ordre canviat: primer el d) i després el c). Els valors de cadascun són correctes.` },
+  ],
+
+  'u7/113': [
+    { text: TEX`El valor $x=-3$ és una arrel exacta, perquè $x^3+6x^2+12x+9=(x+2)^3+1$. Si proves amb $x=-3$ trobaràs $f(-3)=0$ en lloc d'un canvi de signe: no t'has equivocat, has trobat l'arrel. Qualsevol interval de longitud $2$ que la contingui, com ara $(-4,-2)$, respon la pregunta.` },
+  ],
+
+  'u7/120': [
+    { text: TEX`L'enunciat anomena $f(x)=x+1$, i la solució torna a fer servir la lletra $f$ per a una funció diferent: la resta de les dues funcions que es tallen (per exemple, $f(x)=x+1-e^{x-1}$ a l'apartat a). El punt on aquesta resta val zero és l'abscissa del punt de tall. D'altra banda, l'enunciat només demana demostrar que hi ha un punt de tall; la solució va més enllà i l'aproxima amb un error menor que una dècima.` },
+  ],
+
+  /* ── Unitat 8 · Derivades ────────────────────────────────────────────── */
+
+  'u8/54': [
+    { text: TEX`L'enunciat escriu la recta com a $f(x)=2x-123$, amb la mateixa lletra $f$ de la funció $f(x)=x^3-x+4$. Són dues coses diferents: la recta és $y=2x-123$, que és com l'escriu la solució.` },
+  ],
+
+  'u8/58': [
+    { text: TEX`A la solució hi ha una errada tipogràfica sense importància: hi diu «traingle» en lloc de «triangle».` },
+  ],
+
+  'u8/87': [
+    { text: TEX`L'enunciat demana calcular la funció derivada «utilitzant la definició», però el solucionari només hi dona el resultat final de cada apartat, sense el desenvolupament. Els resultats són correctes. Si vols veure un model del desenvolupament pas a pas, mira la solució de l'exercici 88.` },
+  ],
+
+  /* ── Unitat 9 · Aplicacions de les derivades ─────────────────────────── */
+
+  'u9/39': [
+    { lloc: TEX`b)`,
+      text: TEX`On diu «La derivada té un grau» vol dir «La derivada té grau u»: la derivada d'una paràbola és un polinomi de grau $1$, que s'anul·la en un sol punt, i per això la paràbola té, com a molt, un extrem.` },
+  ],
+
+  'u9/41': [
+    { text: TEX`L'enunciat diu «A partir de la derivada de $f'(x)$». Vol dir: a partir de la gràfica de la derivada $f'(x)$, que és la que es dona.` },
+  ],
+
+  'u9/51': [
+    { text: TEX`La primera frase de la solució enuncia la implicació al revés. El que es fa servir és: si $y'(x)>0$ per a tot $x$, llavors la funció és sempre creixent. La implicació contrària no és certa en general: $y=x^3$ és sempre creixent i, en canvi, $y'(0)=0$.` },
+  ],
+
+  'u9/66': [
+    { lloc: TEX`c) i d)`,
+      text: TEX`Les respostes «Dos punts d'inflexió» i «$n-2$ punts d'inflexió» són el nombre màxim. Un polinomi de quart grau en pot tenir dos o cap: per exemple, $y=x^4$ no en té cap, perquè $y''=12x^2$ no canvia de signe.` },
+  ],
+
+  /* ── Unitat 10 · Representació de funcions ───────────────────────────── */
+
+  'u10/75': [
+    { lloc: TEX`e)`,
+      text: TEX`La solució estudia el creixement, però no diu l'extrem relatiu que demana l'enunciat: hi ha un mínim a $(0,1)$.` },
+  ],
+
+  'u10/84': [
+    { lloc: TEX`d)`,
+      text: TEX`Al segon extrem, $\left(\tfrac{2+\sqrt{7}}{3},\tfrac{20-14\sqrt{7}}{27}\right)$, la solució no diu de quin tipus és: és un mínim.` },
+  ],
+
+  'u10/108': [
+    { lloc: TEX`b) i c)`,
+      text: TEX`La solució només hi dona els mínims. També hi ha màxims relatius: a b), el punt $(0,6)$; a c), el punt $(2,7)$, on la funció passa de créixer a decréixer.` },
+  ],
+
+  'u10/124': [
+    { lloc: TEX`c)`,
+      text: TEX`La solució escriu $T'(x)$ i $T(x)$ en lloc de $T'(t)$ i $T(t)$, i dona l'interval $(-\infty,2)$ tot i que el temps comença a $t=0$.` },
+  ],
+
+  /* ── Unitat 13 · Probabilitat ────────────────────────────────────────── */
+
+  'u13/35': [
+    { text: TEX`A la solució hi ha una errada tipogràfica sense importància: hi diu «probabiltat» en lloc de «probabilitat».` },
+  ],
+
+  'u13/36': [
+    { text: TEX`A les solucions hi ha dues errades tipogràfiques sense importància: «probabiltat» en lloc de «probabilitat» (exercici 36) i «perfeccionamient» en lloc de «perfeccionament» (exercici 96).` },
+  ],
+
+  'u13/96': [
+    { text: TEX`A les solucions hi ha dues errades tipogràfiques sense importància: «probabiltat» en lloc de «probabilitat» (exercici 36) i «perfeccionamient» en lloc de «perfeccionament» (exercici 96).` },
+  ],
+
+  /* ── Unitat 14 · Distribucions de probabilitat ───────────────────────── */
+
+  'u14/46': [
+    { text: TEX`A les solucions hi ha dues errades tipogràfiques sense importància: «propabilitat» en lloc de «probabilitat» (exercici 46 a) i, a l'exercici 50, un parèntesi que no es tanca: ha de dir $1-\bigl(P(X=0)+P(X=1)+P(X=2)\bigr)$.` },
+  ],
+
+  'u14/50': [
+    { text: TEX`A les solucions hi ha dues errades tipogràfiques sense importància: «propabilitat» en lloc de «probabilitat» (exercici 46 a) i, a l'exercici 50, un parèntesi que no es tanca: ha de dir $1-\bigl(P(X=0)+P(X=1)+P(X=2)\bigr)$.` },
+  ],
 
 };
 
@@ -973,25 +1098,20 @@ function _numero(errs, k){
    siguin de l'exercici que siguin: la pàgina s'ha de veure corregida es miri
    des d'on es miri. Cadena buida si no n'hi ha o si l'interruptor és apagat. */
 let _PEGATS_PER_IMATGE = null;
-/* Una pàgina del llibre pot ser a més d'una carpeta (PAGINES_IGUALS): tots els seus pegats valen per a totes les còpies. */
-function _pagina(ruta){ return (typeof PAGINES_IGUALS !== 'undefined' && PAGINES_IGUALS[ruta]) || ruta; }
 function htmlPegats(u, img){
   if(!ERRADES_PEGATS) return '';
   if(!_PEGATS_PER_IMATGE){
     _PEGATS_PER_IMATGE = {};
-    const vistos = {};
     Object.keys(ERRADES).forEach(clau => {
       const un = clau.split('/')[0];
       ERRADES[clau].forEach(e => pegatsDe(e).forEach(q => {
-        const k = _pagina(un + '/' + q.img), id = k + '|' + q.x + '|' + q.y + '|' + q.w + '|' + q.h;
-        if(vistos[id]) return;                  // la mateixa errada pot ser en dues unitats
-        vistos[id] = 1;
+        const k = un + '/' + q.img;
         (_PEGATS_PER_IMATGE[k] = _PEGATS_PER_IMATGE[k] || []).push('<img class="pegat" alt="" src="pegats/' + un + '/' + q.f
           + '" style="left:' + q.x + '%;top:' + q.y + '%;width:' + q.w + '%;height:' + q.h + '%">');
       }));
     });
   }
-  return (_PEGATS_PER_IMATGE[_pagina(u + '/' + img)] || []).join('');
+  return (_PEGATS_PER_IMATGE[u + '/' + img] || []).join('');
 }
 
 /* ── Les marques ──────────────────────────────────────────────────────── */

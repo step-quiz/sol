@@ -28,135 +28,60 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 - **Proves.** Abans de lliurar res, passa les proves del repositori i digues-ne el resultat.
 <!-- regles-comunes:fi -->
 
-
 ## Qui és l'usuari
 
-- Professor de Matemàtiques d'ESO i Batxillerat (Catalunya). Llicenciat en Matemàtiques.
+- Professor de Matemàtiques de Batxillerat (Catalunya). Llicenciat en Matemàtiques.
 - Parla en **català**: respon sempre en català.
 - Coneixements de GitHub limitats: quan calgui fer alguna cosa a GitHub, explica-ho
   pas a pas, amb enllaços i textos per copiar i enganxar.
-- Col·labora amb l'editorial del llibre (detecta errades del solucionari i les hi passa).
 
 ## Com es puja la feina a GitHub
 
 - **El professor puja ell mateix els fitxers** a GitHub: *Add file* → *Upload files* a l'arrel del
   repositori, i *Commit changes*. Claude no hi té permís d'escriptura ni hi fa pull requests: prepara els
-  fitxers definitius (`hints.js`, `tasques.js`, `cataleg.js`…), els envia i dona el missatge de commit.
+  fitxers definitius (`hints.js`, `errades.js`, `cataleg.js`…), els envia i dona el missatge de commit.
 - També es pot lliurar un **ZIP** perquè el professor el pugi a `_uploads/`: l'acció `unzip-upload.yml`
   el descomprimeix a l'arrel i en fa commit. Les rutes del ZIP han de ser les del repositori (per exemple
-  `hints.js` o `apl-u5/…`), sense cap carpeta que ho contingui tot. **Límit de GitHub: 25 MB per fitxer pujat
-  pel web.** Una unitat sencera d'imatges (~15 MB) hi cap; si un ZIP passa de 25 MB, parteix-lo en dos.
-- Després de cada pujada s'executa `comprova.yml` (Actions): si surt en vermell, alguna dada no quadra.
+  `hints.js` o `u7/…`), sense cap carpeta que ho contingui tot. (Fins al 18/10/2026 aquesta acció
+  fallava, perquè cridava comprovacions de `1eso/` i `4eso/` copiades d'un altre repositori.)
 
 ## Què és el projecte
 
-Web estàtica (publicada amb Cloudflare Pages des de GitHub, sense servidor) d'exercicis de Matemàtiques de
-**4t d'ESO**, amb dues matèries: **Aplicades** (`apl`) i **Acadèmiques** (`aca`). És germana de `sol`
-(Matemàtiques II, 2n de Batxillerat): mateix funcionament, mateixos fitxers, mateix estil.
-L'alumne navega **matèria → unitat → tasca setmanal → exercici** i veu la imatge de l'enunciat i la solució.
+Web estàtica (publicada des de GitHub, sense servidor) d'exercicis de Matemàtiques II (2n de Batxillerat).
+L'alumne navega **unitat → tasca setmanal → exercici** i veu la imatge de l'enunciat i la solució.
 Vegeu `README.md` i `TODO.md`.
-
-**Llibre i solucionari:** Santillana, *Matemáticas 4 ESO Opción A* (edició de la Comunitat Valenciana, en
-castellà): `source/4ESO_aplicades_-_Solucionario.pdf`. Les imatges surten d'aquest PDF (pàgina del PDF =
-pàgina del llibre + 1); els títols del catàleg i tot el que veu l'alumne són en català.
-
-**Llibre propi:** el del professor, a l'Overleaf (`4eso-apl`, 11 UD). **Les unitats del web són les seves UD**
-(vistiplau del 7/11/2026), i cada UD agafa la pràctica de Santillana que li toca, d'una o més unitats, més els
-exercicis del llibre propi quan Santillana no en té. Quins exercicis de Santillana van a cada UD: artifact
-«Vistiplau · Mapa de continguts 4t A ↔ Santillana» (P1–P11) i doc «Mapa de continguts». Les UD es carreguen
-una a una, unes setmanes abans de fer-les. Ordre del curs: UD1, UD2, UD3, UD4, UD11, UD5, UD10, UD6, UD7, UD8,
-UD9 (camp `ordre` a `UNITATS_META`). No es carrega cap contingut d'ampliació.
-
-### Identificadors (diferència amb `sol`)
-
-- **Unitat:** prefix de la matèria + UD del llibre propi: `apl-ud4`, `apl-ud10`. És la carpeta de les imatges
-  (`apl-ud4/<tema>/data/full-K.png`; el tema porta la unitat de Santillana al davant: `u5-semblanca`) i el
-  principi de les claus: `'apl-ud4/U5.64'` a `hints.js`, `errades.js` i `enunciats.js`.
-- **Exercici:** la clau diu d'on surt.
-  - Santillana: `'U5.57'` (unitat 5, ex. 57). Els que no tenen número: `'U4.FN'` (fake news), `'U4.SA1'`
-    (situació d'aprenentatge), `'U4.AV1'` (autoavaluació), `'U4.R1'` (repte); porten `e` (etiqueta) i `nom`.
-    L'etiqueta que veu l'alumne és «U5 · 57», «U4 · Situació 1». Els «¿Qué sabes ya?» que siguin a la
-    llista aprovada: `'U3.QS1'`. Els annexos: `'AP.33'` (Polinomis), `'AR.'` (Potències i radicals),
-    `'AT.'` (Trigonometria); l'etiqueta és «Annex Pol. · 33» (`ORIGENS` a `cataleg.js`).
-  - Llibre propi: `'4.2.7'` (el número del llibre: UD.activitat.exercici). `i:[]`: no tenen imatge; l'enunciat
-    i la solució (camp `solucio`) són a `enunciats.js`, i `tasca.html` els mostra en prémer «Veure solució».
-    Es transcriuen del `.tex` (exlist i sollist). Fora: «Per al Quadern d'eines», reflexions personals i la
-    prova escrita. Les figures: la `tikzpicture` compilada a part (`standalone`, colors de `defs.tex`) i
-    passada a PNG a `apl-udN/enunciats/<clau>.png`.
-  - A `tasques.js` van sempre entre cometes: `exercicis:['4.2.7', 'U5.57', 'U4.SA1']`.
-- El «Desafío» de Santillana no és al catàleg.
-- **Com es carrega una UD:** pàgines de cada exercici amb `pdfplumber` (els números són Raleway-SemiBold de
-  8 pt a x < 60 o 235 < x < 260; la dificultat són tres cercles de 3,2 pt just a sota, plens si tenen color
-  CMYK), temes a `eines/retalls.json`, `retalla.py --escriu`, catàleg, i **revisar cada solució** (les errades
-  noves van a `errades.js`, amb la marca comprovada a la imatge). Una tasca d'exemple amagada per UD, amb els
-  enunciats dels seus exercicis.
 
 | Fitxer | Paper |
 |---|---|
 | `tasques.js` | Programació: una línia per setmana (`unitat`, `setmana`, `limit`, `exercicis`) |
-| `cataleg.js` | `MATERIES`, `UNITATS_META` i la fitxa de **cada** exercici de la unitat (títol `t`, dificultat `d`, imatges `i`, i `e`/`nom` per a les claus de text). Mantingut a mà |
+| `cataleg.js` | Fitxa de **cada** exercici de la unitat (títol `t`, dificultat `d`, imatges `i`, `a:1` si és activitat del món real). Mantingut a mà, no es genera |
 | `hints.js` | Pistes, **només** dels exercicis programats a `tasques.js` |
-| `enunciats.js` | Enunciats complets en català i KaTeX, **només** dels exercicis programats. A la llista de la tasca substitueixen el títol curt `t` |
-| `errades.js` | Errades del solucionari dels exercicis programats (62 errades, 55 exercicis, totes amb `pegat`), amb totes les funcions de `sol` (targetes, marques, pegats) i la taula `PAGINES_IGUALS` |
+| `errades.js` | Errades del solucionari dels exercicis programats («On diu / Ha de dir / Motiu») i observacions. Clau `'uN/número'`. **Es genera** amb `eines/conversor/genera.py` (vegeu més avall); no s'edita a mà |
 | `assets/katex/` | KaTeX 0.16.47: pinta les fórmules de `errades.js`. No s'hi toca res |
-| `marca.js` | Eina del professor per marcar on és una errada dins la imatge (`tasca.html?tot=1&marca=1`) |
-| `pegats/` | Trossos de pàgina ja corregits (163 PNG). Els fa `eines/pegats/` |
-| `eines/retalla.py`, `eines/retalls.json` | Fan les imatges d'una unitat a partir del PDF |
-| `eines/figura.py` | Retalla una figura del PDF per a un enunciat (`apl-uN/enunciats/<n>-1.png`) |
-| `eines/comprova.js` | Les proves: catàleg, imatges, tasques, pistes, errades, enunciats i fórmules (KaTeX) |
-| `source/` | El PDF del solucionari |
+| `marca.js` | Eina del professor per marcar on és una errada dins la imatge. Només es carrega amb `?tot=1&marca=1` |
+| `pegats/` | Trossos de pàgina ja corregits (PNG petits) que `tasca.html` posa a sobre de les imatges. Camp `pegat` de `errades.js` |
+| `index.html` | `UNITATS`: unitats i temes |
+| `publicats.js` | Vista per temes (antiga): tots els temes a `'cap'` |
+| `source/2Bat - Unitats i feina Classroom.xlsx` | Programació del curs (setmana, data límit, unitat, exercicis) |
 
 ## Com s'afegeix una unitat nova (workflow)
 
-1. Mira al PDF quines pàgines té la unitat i com es divideix en seccions (activitats del tema, activitats
-   finals 1, 2, 3…, problemes aparentment diferents, situació d'aprenentatge, autoavaluació).
-2. **Imatges**: afegeix la unitat a `eines/retalls.json` (pàgines del PDF de cada tema; la caixa del retall
-   de la UD4 serveix per a tot el llibre) i passa `python3 eines/retalla.py apl-uN`; mira'n el resultat a
-   `eines/sortida/` i, si és bo, `--escriu`. Cada pàgina queda a `apl-uN/<tema>/data/full-K.png`, a
-   **1208 px d'amplada**, sense la capçalera «SOLUCIONARIO» ni el número de pàgina. Una pàgina amb exercicis de
-   dos temes va a les dues carpetes. Comprova a ull que cap text quedi tallat.
-3. **Catàleg** de **tota** la unitat a `cataleg.js` (no només dels exercicis triats) i la unitat a
-   `UNITATS_META`.
-   - La dificultat (●○○) es llegeix dels cercles del PDF (són corbes: tres cercles, els plens tenen color).
-     Les activitats del tema, els exercicis «resolts al llibre», els problemes aparentment diferents, la
-     situació d'aprenentatge i l'autoavaluació no en porten (`d:''`).
-   - Les imatges de cada exercici: des de la pàgina on comença fins a la pàgina on comença el següent (si el
-     següent comença a dalt de tot de la columna esquerra, la pàgina anterior). Amb la posició dels números
-     (lletra `Raleway-SemiBold` a la capa de text) es calcula sol; després es mira a ull.
+1. L'usuari passa el **PDF del solucionari** de la unitat.
+2. **Imatges**: cada pàgina del PDF → `uN/<tema>/data/full-K.png`, retallada sense la
+   capçalera "SOLUCIONARI" ni el número de pàgina, **1208 px d'amplada**. Comprova que cap
+   text quedi fora del retall. Una pàgina amb exercicis de dos temes va a les dues carpetes.
+3. **Catàleg** de **tota** la unitat a `cataleg.js` (no només dels seleccionats), afegir la unitat
+   a `UNITATS_META` (`cataleg.js`), a `UNITATS` (`index.html`) i els temes a `publicats.js`.
+   - La dificultat (●○○) es llegeix dels cercles del PDF; la secció PRACTICA i els
+     problemes finals no en porten (`d:''`).
+   - Els números 1–N de "Matemàtiques en el món real" porten `a:1` i ocupen aquests números:
+     les activitats del text amb el mateix número no hi caben.
 4. L'usuari passa la **llista-sel** (exercicis de cada setmana, segons l'Excel).
-5. Afegir les setmanes a `tasques.js`, l'**enunciat** de cada exercici programat a `enunciats.js` (apartat
-   «Enunciats») i, si ho demana, esborranys de **pista** per exercici (que apuntin al mètode, **mai** el
-   resultat; segons l'apartat «Estil de les pistes»).
-6. `node eines/comprova.js`, provar-ho al navegador amb `index.html?tot=1` i enviar els fitxers definitius al
-   professor perquè els pugi.
-
-## Enunciats (`enunciats.js`)
-
-Decisió del professor (7/11/2026): a la llista de la tasca, en lloc del títol curt, l'enunciat complet, **en
-català**, amb KaTeX, **només dels exercicis programats**. Les figures es retallen del PDF.
-
-- **Transcripció fidel.** Mateixes dades, mateix ordre d'apartats, mateixos noms de variables i punts. Es
-  tradueix, no s'adapta ni s'aclareix. Es llegeix la imatge ampliada (no la capa de text, que barreja
-  columnes) i, en acabat, es compara la web renderitzada amb la imatge, apartat per apartat.
-- **Si l'enunciat del llibre té una errada**, no es corregeix en silenci: es transcriu tal com és i es diu al
-  professor (pot anar a `errades.js` amb `enunciat: 1`).
-- Les dades que l'enunciat del solucionari no porta (les de la pàgina d'obertura de la unitat, a les
-  situacions d'aprenentatge) no s'inventen.
-- Català del llibre: «Troba», «Resol», «Esbrina», «Determina», «Calcula»; «sistema compatible
-  determinat / indeterminat», «incompatible»; «inequació»; «parell»; vols «de la tarda / de la nit».
-- LaTeX: fraccions amb `\dfrac`; sistemes amb `\left.\begin{aligned} … \end{aligned}\right\}` (la clau a la
-  dreta, com el llibre); parells amb parèntesis normals, o `\left( … \right)` si porten fraccions.
-- `col`: 3 per a equacions curtes, 2 per a sistemes o expressions llargues, 1 si cal.
-- Figura: `python3 eines/figura.py apl-ud10 U4.37-1 <pàgina PDF> x0 y0 x1 y1` (coordenades de pdfplumber), mirar
-  el retall a `eines/sortida/`, i `--escriu`. A l'enunciat: `fig: ['enunciats/U4.37-1.png']`.
-- Sempre `node eines/comprova.js` (pinta totes les fórmules) i mirar la tasca al navegador, a l'ordinador i al
-  mòbil (390 px): cap fórmula en vermell, cap apartat tallat.
+5. Afegir les setmanes a `tasques.js` i **una pista per exercici** a `hints.js`
+   (que apunti al mètode, **mai** el resultat; segons l'apartat «Estil de les pistes»).
+6. Provar-ho al navegador amb `?tot=1` i enviar els fitxers definitius al professor perquè els pugi.
 
 ## Estil de les pistes
-
-*Heretat de `sol` (Matemàtiques II, 2n de Batxillerat), on el professor va revisar totes les pistes. Val igual
-per a 4t d'ESO, amb una diferència: l'alumnat és més jove i, a Aplicades, el llenguatge ha de ser encara més
-planer. Els exemples (u1, u7, u14…) són de `sol`.*
 
 - Clau `'uN/número'`. Apòstrofs escapats (`d\'una`) o tipogràfics (’).
 - Orienten cap al mètode o el concepte clau; no donen el resultat numèric ni el pas final.
@@ -224,23 +149,24 @@ descuits, no estil. No les copiïs.
 
 ### Qui toca què
 
-- **Les pistes les escriu o les revisa el professor.** Ara mateix `hints.js` és buit. No es reescriu cap pista
-  seva si ell no ho demana. Una errada d'escriptura o de format no es corregeix en silenci: s'enumera, i es
-  corregeix quan ell ho diu.
-- **Flux de treball.** Com a `sol`: el professor edita les pistes amb un artifact «Editor de pistes» (que parteix
-  de `hints.js`). Si Claude proposa pistes noves, les deixa com a **esborranys a la base de dades de l'artifact**
-  (col·lecció `hints`, document `apl-ud10_U4.24`, camps `key` i `text`) perquè ell les revisi; Claude no les posa a
+- **Totes les pistes de `hints.js` (u1–u3, u5–u14) les ha escrit o revisat el professor** (octubre de 2026).
+  No es reescriuen si ell no ho demana. Una errada d'escriptura o de format no es corregeix en silenci:
+  s'enumera, i es corregeix quan ell ho diu.
+- **Flux de treball.** El professor edita les pistes amb l'artifact «Editor de pistes» (que parteix de
+  `hints.js`). Si Claude proposa pistes noves, les deixa com a **esborranys a la base de dades de l'artifact**
+  (col·lecció `hints`, document `uN_número`, camps `key` i `text`) perquè ell les revisi; Claude no les posa a
   `hints.js` si no li ho demana. Abans de tornar a escriure un esborrany, comprova que la versió del document
   encara és la que va escriure Claude (si el professor l'ha tocat, no el trepitgis).
-- Quan el professor dona per bones les pistes, Claude les passa a `hints.js` (i a la base de l'Editor) i passa
-  `node eines/comprova.js`, que valida el format de cada pista.
-- Quan el professor retoca els esborranys, Claude compara la seva versió amb la final i afegeix aquí, a
-  «Què s'ha après dels esborranys», el que n'aprèn.
+- Quan el professor dona per bones les pistes, Claude les passa a `hints.js` i a la base de l'Editor
+  (`DATA.items[].o` i les línies de `FILE`), comprova que `FILE` regenera exactament `hints.js`, i iguala els
+  documents de la base de dades a la nova base (si no, una còpia antiga taparia el canvi).
+- Quan el professor retoca els esborranys, Claude compara la seva versió amb la final i actualitza aquest
+  apartat amb el que n'aprèn.
 
 ### Contrastar amb el solucionari
 
 - Claude **pot llegir l'enunciat i la solució** de cada exercici: `cataleg.js` dona les imatges
-  (`apl-ud4/<tema>/data/full-K.png`) i el Read les mostra. Una pista nova o revisada es comprova sempre contra
+  (`uN/<tema>/data/full-K.png`) i el Read les mostra. Una pista nova o revisada es comprova sempre contra
   l'enunciat (dades, noms dels punts i de les funcions, tots els apartats) i contra la resolució.
 - Paranys trobats en la revisió de 2026: la pista parla d'un altre tipus d'exercici (u7/90, u13/96); dona per
   feta una forma de les dades que l'enunciat no té (recta en forma contínua o com a intersecció de plans, pla
@@ -249,9 +175,6 @@ descuits, no estil. No les copiïs.
 - Una errada del solucionari nova va a `errades.js` (o a `OBSERVACIONS`), i la pista no la reprodueix.
 
 ### Què s'ha après dels esborranys
-
-*(De `sol`, 2n de Batxillerat. Quan hi hagi esborranys de 4t d'ESO, s'hi afegeixen al davant.)*
-
 - **Què s'ha après dels esborranys de la u14**:
   - Retalla les preguntes que demanen un recompte o una deducció intermèdia («quants termes tindràs?»,
     «quins valors de *X* hi corresponen?»): ho afirma («és preferible treballar amb l'esdeveniment
@@ -329,31 +252,31 @@ descuits, no estil. No les copiïs.
   - Manté l'**Atenció** dels paranys reals (el valor absolut dona dues solucions) i posa en negreta la
     conclusió clau («**dos punts**»).
 
-
 ## Errades del solucionari
 
-- El sistema és el de `sol`, sencer i provat: `errades.js` (dades i funcions), KaTeX, `marca.js`, `pegats/`,
-  `errades.html`. Les errades de cada UD són a `TODO.md`; `OBSERVACIONS` és buit. Format i comportament: `ERRADES.md`.
-- **Diferència amb `sol`:** allà `errades.js` es genera amb `eines/conversor/genera.py` a partir de `tex/`, i
-  les marques tenen la seva eina (`eines/localitzador/`). Aquí aquestes dues no hi són: les errades i les marques
-  s'escriuen **directament a `errades.js`**.
-- **Els pegats sí que hi són:** `eines/pegats/` (motor i receptes per UD; documentació tècnica a
-  `eines/pegats/README.md`). `pegat` i `PAGINES_IGUALS` no s'escriuen a mà: els posa `eines/pegats/aplica.py`.
-  Si s'afegeix una errada nova, se n'ha de fer el pegat i mirar-lo ampliat, abans i després.
-- El text s'escriu entre accents greus amb `TEX` al davant, i les fórmules entre `$...$` (LaTeX). No s'hi pot
-  posar cap accent greu ni la parella `${`.
-- Una marca mal posada és pitjor que cap marca: s'ha de comprovar sempre a la imatge ampliada.
-- Després de tocar `errades.js`: `node eines/comprova.js`, obrir `tasca.html?tot=1#apl-ud4/s1` i mirar que cap
-  fórmula surti en vermell, i pujar el número de `errades.js?v=` a `tasca.html` i `errades.html`.
+- Viuen a `errades.js`: una llista d'errades per exercici. El format és a la capçalera
+  del fitxer i al `README.md`.
+- **`errades.js` es genera** amb `eines/conversor/genera.py` a partir de `tex/errors-setmanaN.tex`
+  (text), `eines/localitzador/marques.json` (marques) i `eines/pegats/pegats.json` (pegats). Una errada o
+  observació nova s'escriu a `tex/` i després `genera.py --escriu` i `verifica.js`; si només es toca
+  `errades.js`, es perd el dia que es torna a generar. Vegeu `eines/LLEGEIX-ME.md`.
+- **Pegats** (el solucionari «pintat» ja corregit): amb les receptes d'`eines/pegats/` i `fes.py`, i
+  mirant sempre el full ampliat abans de donar-lo per bo. Quan la correcció no hi cap tal com és, es pot
+  escriure una forma equivalent que sí que hi càpiga (u6/88: «√6 · √6» en lloc d'una fracció de dos pisos).
+  Després de canviar `errades.js`, puja el número de `errades.js?v=` a `tasca.html`.
+- El text s'escriu entre accents greus amb `TEX` al davant, i les fórmules entre `$...$`
+  (LaTeX). No s'hi pot posar cap accent greu ni la parella `${`.
+- Es veuen a `tasca.html`: etiqueta al costat del botó *Veure solució* a la llista de la tasca
+  (les errades d'enunciat, senceres) i targetes «On diu / Ha de dir» abans de la imatge.
+- El camp `marca` de cada errada diu on és dins la imatge (imatge i rectangle en tant per cent).
+  Es calcula amb l'eina `tasca.html?tot=1&marca=1` (`marca.js`). Una marca mal posada és pitjor
+  que cap marca: s'ha de comprovar sempre a la imatge ampliada.
+- Amb `ERRADES_PEGATS = true`, una errada amb `pegat` no s'anuncia: la imatge ja es veu corregida.
+  Les imatges originals no es toquen mai. Els pegats no es fan a mà.
+- Després de tocar el fitxer, obrir `tasca.html?tot=1#u7/s3` i comprovar que cap fórmula
+  surt en vermell (KaTeX pinta en vermell el que no entén).
 
 ## Suggeriments de treball per a Claude
-
-- **Interfície:** tot element clicable, en passar-hi el ratolí o amb el focus del teclat, té vora negra pura
-  gruixuda i fons gris clar, sense canviar de mida ni moure's (bloc final de `assets/style.css`). Qualsevol
-  element clicable nou ha d'entrar en aquell bloc.
-- **Targetes d'exercici de la tasca (decisió del professor, 7/11/2026):** no són clicables, no tenen fletxa
-  ni canvien en passar-hi el ratolí (classe `ex-fixa`). La solució només s'obre amb el botó «Veure solució».
-  Les fórmules dels apartats no porten barres de desplaçament.
 
 - **Valida cada pista abans de desar-la:** una sola línia, només `<i>`, `<b>`, `<br>` (cap altre `<`, que
   s'escriu «menor que» en text), etiquetes tancades, cap accent greu ni `$`, cap `<br>` ni espai sobrer al final.
