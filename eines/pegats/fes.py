@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Aplica receptes i fa els pegats.
 
-   Ús:  python3 eines/pegats/fes.py receptes_u10                totes les receptes d'aquest fitxer
-        python3 eines/pegats/fes.py receptes_u10 u10/63#0       només aquesta errada
-        python3 eines/pegats/fes.py receptes_u10 --escriu       i, a més, substitueix els pegats del repo
+   Ús:  python3 eines/pegats/fes.py receptes_ud1                totes les receptes d'aquest fitxer
+        python3 eines/pegats/fes.py receptes_ud1 apl-ud1/U1.45#0       només aquesta errada
+        python3 eines/pegats/fes.py receptes_ud1 --escriu       i, a més, substitueix els pegats del repo
 
    Sense --escriu NO toca res del repo: escriu els pegats a eines/sortida/pegats/<unitat>/ i diu, de cada un,
    si és idèntic al que hi ha a pegats/<unitat>/. Sempre deixa a eines/sortida/ un full amb l'abans (a dalt)
    i el després (a sota) de cada pegat: s'ha de mirar, ampliat, abans de donar res per bo.
 
    Amb --escriu copia els pegats a pegats/<unitat>/ i posa al dia eines/pegats/pegats.json. Després cal
-   tornar a fer errades.js:  python3 eines/conversor/genera.py --escriu"""
+   posar-los a errades.js:  python3 eines/pegats/aplica.py"""
 import sys, os, json, importlib, shutil, collections
 import numpy as np, cv2
 AQUI = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, AQUI); sys.path.insert(0, os.path.join(AQUI, '..'))
@@ -33,7 +33,7 @@ for key, ops in REC.items():
         print(f'{key}: ERROR {e!r}'[:300]); compte['amb error'] += 1; continue
     d_out = os.path.join(camins.SORTIDA, 'pegats', u); os.makedirs(d_out, exist_ok=True); files = []
     for k, (img, x, y, w, h, retall, work) in enumerate(sorted(ps, key=lambda p: (p[0], p[2], p[1]))):
-        pag = pegats.pagina(u, img); nom = f"{n}-{int(j) + 1}{'abcdefgh'[k]}.png"
+        pag = pegats.pagina(u, img); nom = f"{n}-{int(j) + 1}{'abcdefghijklmnopqrstuvwxyz'[k]}.png"
         cv2.imwrite(os.path.join(d_out, nom), retall, [cv2.IMWRITE_PNG_COMPRESSION, 9])
         fila = [img, round(100*x/pag.W, 3), round(100*y/pag.H, 3), round(100*w/pag.W, 3), round(100*h/pag.H, 3), nom]; files.append(fila)
         f_repo = os.path.join(camins.ARREL, 'pegats', u, nom); vell = next((q for q in VELL.get(key, []) if q[5] == nom), None)
@@ -76,6 +76,6 @@ if ESCRIU:
     for a, b in per_copiar:
         os.makedirs(os.path.dirname(b), exist_ok=True); shutil.copyfile(a, b)
     json.dump(nou_json, open(F_JSON, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    print(f'ESCRIT: {len(per_copiar)} pegats a pegats/ i eines/pegats/pegats.json. Ara: python3 eines/conversor/genera.py --escriu')
+    print(f'ESCRIT: {len(per_copiar)} pegats a pegats/ i eines/pegats/pegats.json. Ara: python3 eines/pegats/aplica.py')
 else:
     print('No s\'ha tocat res del repo. Els pegats nous són a eines/sortida/pegats/. Amb --escriu se substitueixen els del repo.')

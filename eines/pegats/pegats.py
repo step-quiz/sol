@@ -6,16 +6,19 @@
    El resultat és un retall petit (PNG) que el web posa a sobre de la imatge.
 
    Aquest fitxer no s'executa sol: el fa servir fes.py, que aplica les «receptes» (receptes_*.py).
-   Les operacions que pot portar una recepta són a `OPERACIONS`, al final de `fes`, i explicades a LLEGEIX-ME.md."""
+   Les operacions que pot portar una recepta són al final de `fes`, i explicades a eines/pegats/README.md.
+   Ve del projecte `sol` (2n de Batxillerat). Per a 4t s'hi han afegit: `pagines.py` (la geometria d'aquestes imatges),
+   els signes ≤ ≥ ∈ ≠ ×, l'espai fi dels milers (~), la selecció per zona i les operacions LIN, RECT, MOU i PY."""
 import sys, os, json, re, subprocess, glob, collections
 import numpy as np, cv2
 _AQUI = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_AQUI, '..')); sys.path.insert(0, os.path.join(_AQUI, '..', 'localitzador'))
-import camins, loc, loc2
+sys.path.insert(0, os.path.join(_AQUI, '..')); sys.path.insert(0, _AQUI)
+import camins
+import pagines as loc
 SITE = loc.SITE
 AQUI = os.path.join(camins.SORTIDA, 'latex')         # només per al cas (que no s'ha donat mai) d'haver de compondre un signe amb LaTeX
-MARQ = json.load(open(os.path.join(camins.EINES, 'localitzador', 'marques.json'), encoding='utf-8'))
-norm = lambda t: loc2.norm(t).replace(' ', '')
+MARQ = loc.marques()
+norm = lambda t: loc.norm(t).replace(' ', '')
 
 # ───────── LaTeX: es componen tots els trossos d'un cop ─────────
 CAP = r'''\documentclass[border=0pt,multi=tros]{standalone}
@@ -65,7 +68,8 @@ class Pagina:
             r.sort(key=lambda c: c['x0'])
             for c in r: c['fila'] = i
         # mida principal i alçada de les xifres (per posar el text nou a la mateixa mida)
-        self.mida = (collections.Counter(c['s'] for c in chs if 'Vectora' in c['f']).most_common(1) or [(8.5, 0)])[0][0]      # una pàgina sense text (només una gràfica) també val
+        _mides = collections.Counter(c['s'] for c in chs if 'Vectora' in c['f'])
+        self.mida = 9.0 if _mides.get(9.0, 0) >= 5 else ((_mides.most_common(1) or [(9.0, 0)])[0][0])      # el text corrent fa 9 pt; les taules, 8
         alc = []
         for c in chs:
             if c['t'].isdigit() and c['s'] == self.mida and 'Vectora' in c['f']:
@@ -80,6 +84,11 @@ class Pagina:
             for a, b in zip(f, f[1:]):
                 if all('Vectora' in q['f'] and 'Italic' not in q['f'] and q['s'] == self.mida and q['t'].isalpha() for q in (a, b)) and .12*em < b['x0'] - a['x1'] < .45*em: buits.append(b['x0'] - a['x1'])
         self.espai = float(np.median(buits)) if buits else .25*em          # l'espai entre dues paraules
+        fins = []                                                           # l'espai fi dels milers: el buit entre dues xifres seguides quan n'hi ha
+        for f in self.files:
+            for a, b in zip(f, f[1:]):
+                if a['t'].isdigit() and b['t'].isdigit() and a['s'] == b['s'] and a['s'] >= 8 and .06*a['s']*self.pxpt < b['x0'] - a['x1'] < .32*a['s']*self.pxpt: fins.append((b['x0'] - a['x1'])/a['s'])
+        self.fi_em = float(np.median(fins)) if fins else None              # en punts per punt de mida; None si a la pàgina no n'hi ha cap
     def text(self, fila): return ''.join(norm(c['t']) for c in fila)
     def troba(self, cars, vell, nth=0):
         """La n-èsima aparició de `vell` (caràcters seguits d'una mateixa fila) entre els caràcters donats."""
@@ -122,12 +131,15 @@ def dibuixa(work, tex, s, X, base, tinta, gruix=0):
 GRUIX = 0
 BAIXEN = set('gjpqy,;()[]{}|/')
 def _t(c): return c['t'].replace('\u2212', '-').replace('\u2013', '-').replace('\u2019', "'")
+REL = {'≤': '#', '≥': '$', '∈': '!'}          # a la lletra MMaRelation
 def classe(ch, text=False):
-    if ch in '+-=<>': return 'MMaCentury'
+    if ch in '+-=<>×': return 'MMaCentury'
+    if ch in REL: return 'MMaRelation'
+    if ch == '≠': return 'MMaNegate'
     if ch == '→': return 'MMaArrow'
     if ch == '′': return 'MMaEtc'
     if ch == '·': return 'Pi'
-    if ch in '∪∩': return 'MMaBinary'
+    if ch in '∪∩±': return 'MMaBinary'
     if ch.isalpha(): return 'Recta' if text else 'Italic'
     return 'Recta'
 MENOR_MAJOR = {'<': '1', '>': '2'}          # en algunes fórmules «<» i «>» són els caràcters 1 i 2 de la lletra MMaExtra
@@ -137,7 +149,9 @@ def _es(c, ch, cl, mida, lleu=True):
     if cl == 'MMaArrow': return 'MMaArrow' in f and abs(c['s'] - mida*10.5/8.5) < .12
     if cl == 'MMaEtc': return 'MMaEtc' in f and c['t'] == 'l' and abs(c['s'] - mida) < .07
     if cl == 'Pi': return 'MathematicalPi' in f and c['t'] == '?' and abs(c['s'] - mida) < .07
-    if cl == 'MMaBinary': return 'MMaBinary' in f and c['t'] == {'∪': ',', '∩': '+'}[ch] and abs(c['s'] - mida) < .3
+    if cl == 'MMaBinary': return 'MMaBinary' in f and c['t'] == {'∪': ',', '∩': '+', '±': '!'}[ch] and abs(c['s'] - mida) < .3
+    if cl == 'MMaRelation': return 'MMaRelation' in f and c['t'] == REL[ch] and abs(c['s'] - mida) < .3
+    if cl == 'MMaNegate': return 'MMaNegate' in f and c['t'] == '!' and abs(c['s'] - mida) < .3
     if abs(c['s'] - mida) > .07: return False
     if ch in MENOR_MAJOR and 'MMaExtra' in f and c['t'] == MENOR_MAJOR[ch]: return True
     if _t(c) != ch: return False
@@ -155,7 +169,13 @@ def _vei(pag, c, d):
 def _net(pag, c):
     h = c['y1'] - c['y0']
     if (pag.gris[int(c['y0']):int(np.ceil(c['y1'])) + 1, int(c['x0']):int(np.ceil(c['x1'])) + 1] < 150).sum() < 5: return False
-    if 'MMaArrow' in c['f']: return True
+    if np.percentile(pag.gris[int(c['y0']):int(np.ceil(c['y1'])) + 1, int(c['x0']):int(np.ceil(c['x1'])) + 1], 92) < 225: return False      # sobre un fons de color (capçaleres de taula): no serveix de model
+    _em = c['s']*pag.pxpt; _b = pag.img[max(0, int(c['base'] - .75*_em)):int(c['base'] + .1*_em) + 1, int(c['x0']) + 2:int(np.ceil(c['x1'])) - 1].astype(int)
+    if len(_b) and (((_b[..., 0] - _b[..., 2] > 90) & (_b[..., 1] > 130)).sum() >= 3 or ((_b[..., 2] - _b[..., 0] > 90) & (_b[..., 1] > 130)).sum() >= 3): return False      # hi passa una línia de quadrícula (blau cel) o de taula (taronja)
+    if 'MMaArrow' in c['f'] or 'MMaRelation' in c['f'] or 'MMaNegate' in c['f']: return True
+    if 'Italic' not in c['f']:                                       # una lletra cursiva enganxada s'inclina cap a dins de la caixa d'aquest signe
+        f = pag.files[c['fila']]; i = f.index(c)
+        if (i + 1 < len(f) and 'Italic' in f[i + 1]['f'] and f[i + 1]['x0'] - c['x1'] < 1.5) or (i and 'Italic' in f[i - 1]['f'] and c['x0'] - f[i - 1]['x1'] < 1.5): return False
     for o in pag.chars:
         if o is c or o['col'] != c['col'] or abs(o['base'] - c['base']) <= 1.6: continue
         if min(o['x1'], c['x1']) - max(o['x0'], c['x0']) > 1.2 and min(o['y1'], c['y1']) - max(o['y0'], c['y0']) > .35*h: return False
@@ -163,23 +183,54 @@ def _net(pag, c):
         sota = pag.gris[int(c['base']) + 3:int(np.ceil(c['y1'])) + 1, int(c['x0']) + 1:int(c['x1'])]
         if sota.size and (sota < 150).any(): return False
     return True
+def _fiable(P, c):
+    """El PDF porta text amagat: de vegades un «=» de la capa de text té, a la imatge, una altra cosa a sota. Es compara el
+       signe amb la mediana de tots els signes iguals de la pàgina (mateixa lletra, caràcter i mida) i es descarta si no s'hi assembla."""
+    if not getattr(_fiable, 'estricte', True): return True
+    if 'fiable' in c: return c['fiable']
+    mides = P.__dict__.setdefault('_models', {}); k = (c['f'], c['t'], c['s'])
+    def retall(q, W):
+        y0 = int(round(q['base'])) - int(round(.95*q['s']*P.pxpt)); y1 = int(round(q['base'])) + int(round(.32*q['s']*P.pxpt)); x0 = int(round(q['x0']))
+        g = P.gris[max(0, y0):y1, x0:x0 + W]
+        if g.shape != (y1 - y0, W): return None
+        return (g < np.percentile(g, 95) - 50).astype(np.uint8)
+    if k not in mides:
+        W = int(np.ceil(c['x1'] - c['x0'])) + 1; iguals = [q for q in P.chars if (q['f'], q['t'], q['s']) == k]
+        rs = [(q, retall(q, W)) for q in iguals]; rs = [(q, r) for q, r in rs if r is not None and r.any()]
+        mides[k] = (W, None if len(rs) < 3 else (np.median([r for q, r in rs], axis=0) >= .5).astype(np.uint8))
+    W, m = mides[k]
+    if m is None: c['fiable'] = False; return False                      # massa pocs exemples per comparar: si n'hi ha en altres pàgines, millor
+    if m.sum() < (40 if c['t'] in '.,;:' else 12): c['fiable'] = True; return True     # els signes molt petits (punt, coma) no donen prou informació
+    r = retall(c, W)
+    if r is None or not r.any(): c['fiable'] = False; return False
+    u = np.ones((3, 3), np.uint8); a = (r & cv2.dilate(m, u)).sum()/max(1, r.sum()); b = (m & cv2.dilate(r, u)).sum()/max(1, m.sum())
+    c['fiable'] = bool(a >= .8 and b >= .8)
+    return c['fiable']
+def _es_negre(P, c):
+    """Si el signe és imprès en negre (enunciats) o en color (solucionari)."""
+    if 'negre' not in c:
+        y0, y1, x0, x1 = int(c['y0']), int(np.ceil(c['y1'])) + 1, int(np.floor(c['x0'])), int(np.ceil(c['x1'])) + 1
+        reg = P.img[y0:y1, x0:x1].reshape(-1, 3); g = P.gris[y0:y1, x0:x1].reshape(-1)
+        fosc = reg[np.argsort(g)[:max(6, len(g)//25)]] if len(g) else reg     # els píxels més foscos (un signe prim, com el «−», només n'ocupa unes files)
+        m = np.median(fosc, axis=0) if len(fosc) else np.array([0, 0, 0]); c['negre'] = _gris(m)
+    return c['negre']
+def _gris(m): return not (m.max() - m.min() >= 12 and m.max() - m.min() > .22*(255 - m.min()))        # sense color (la tinta barrejada amb el blanc del fons també compta com a color)
+def _color(tinta): glifs.negre = None if tinta is None else _gris(np.asarray(tinta, float))
 def _altres_pagines(pag):
-    """Altres imatges de la mateixa unitat on buscar un signe que en aquesta pàgina no hi és."""
-    vistes = {pag.rel}
-    for key, ms in MARQ.items():
-        if key.split('/')[0] != pag.u: continue
-        for q in ms:
-            if q[0] not in vistes: vistes.add(q[0]); yield pagina(pag.u, q[0])
-    for n, imgs in loc.CAT[pag.u].items():
-        for rel in imgs:
-            if rel not in vistes: vistes.add(rel); yield pagina(pag.u, rel)
+    """Altres imatges on buscar un signe que en aquesta pàgina no hi és: primer les de la mateixa unitat, després les altres."""
+    vistes = {(pag.u, pag.rel)}
+    for u in [pag.u] + [v for v in loc.CAT if v != pag.u]:
+        for rel in loc.CAT[u]:
+            if (u, rel) not in vistes: vistes.add((u, rel)); yield pagina(u, rel)
 def glifs(pag, text, mida, abans=None, despres=None, prop=None, es_text=False, lleu=True, ultim_just=False):
     """Per a cada signe de `text`: (caràcter d'on copiar-lo, quant avança, pàgina d'on surt). None si en falta algun."""
     out = []; seq = list(text)
-    tp = lambda x: '-' if x is None else ('d' if x.isdigit() else ('a' if x.isalpha() else ('o' if x in '+-=<>→' else 'p')))
+    tp = lambda x: '-' if x is None else ('d' if x.isdigit() else ('a' if x.isalpha() else ('o' if x in '+-=<>→≤≥≠∈×·∪∩±' else 'p')))
     sub = False
     for i, ch in enumerate(seq):
         if ch == ' ': out.append((None, pag.espai, pag)); continue
+        if ch == '~': out.append((None, (pag.fi_em or .34)*mida, pag)); continue          # espai fi, el dels milers
+        if ch == '¦': out.append((None, 1.0, pag)); continue                               # un píxel més d'aire (quan l'arrodoniment deixa dos signes massa junts)
         if ch in '_^': sub = ch; continue
         if sub:
             amunt = sub == '^'; sub = False; em = mida*pag.pxpt; triat = None
@@ -189,7 +240,7 @@ def glifs(pag, text, mida, abans=None, despres=None, prop=None, es_text=False, l
                 for c in P.chars:
                     if _t(c) == ch and c['s'] < .7*mida and 'Vectora' in c['f'] and 'Italic' not in c['f']:
                         esq = [q for q in P.chars if q['col'] == c['col'] and abs(q['s'] - mida) < .1 and ('Italic' in q['f'] or amunt) and -1.5 < c['x0'] - q['x1'] < 3 and ((-.62*em < c['base'] - q['base'] < -.2*em) if amunt else (.05*em < c['base'] - q['base'] < .45*em))]
-                        if esq and _net(P, c): cands.append((c, esq[0]))
+                        if esq and _net(P, c) and (getattr(glifs, 'negre', None) is None or _es_negre(P, c) == glifs.negre): cands.append((c, esq[0]))
                 if cands:
                     c, q = min(cands, key=lambda cq: 0 if P is not pag or prop is None else abs(cq[0]['x0'] - prop[0]) + 3*abs(cq[0]['base'] - prop[1]))
                     triat = (c, (c['x1'] - c['x0']) + .5, P, c['base'] - q['base'], c['x0'] - q['x1']); break
@@ -201,9 +252,10 @@ def glifs(pag, text, mida, abans=None, despres=None, prop=None, es_text=False, l
         vol_seg, vol_ant = ('s' if (es_text and seg_ch == ' ') else tp(seg_ch)), ('s' if (es_text and ant_ch == ' ') else tp(ant_ch))
         if ch == '-' and (ant_ch is None or ant_ch in '=(<>+-,→{[') and seg_ch is not None: vol_seg, vol_ant = 'd', 'o'      # signe menys «de davant»: com el de «= −4»
         triat = None
-        aqui = [c for c in pag.chars if _es(c, ch, cl, mida, lleu) and _net(pag, c)]
+        neg = getattr(glifs, 'negre', None); bo_color = lambda P, c: neg is None or _es_negre(P, c) == neg
+        aqui = [c for c in pag.chars if _es(c, ch, cl, mida, lleu) and _net(pag, c) and bo_color(pag, c) and _fiable(pag, c)]
         for P in ([pag] if aqui else _altres_pagines(pag)):
-            cands = aqui if P is pag else [c for c in P.chars if _es(c, ch, cl, mida, lleu) and _net(P, c)]
+            cands = aqui if P is pag else [c for c in P.chars if _es(c, ch, cl, mida, lleu) and _net(P, c) and bo_color(P, c) and _fiable(P, c)]
             if not cands: continue
             def nota(c):
                 seg, ant = _vei(P, c, 1), _vei(P, c, -1)
@@ -217,8 +269,17 @@ def glifs(pag, text, mida, abans=None, despres=None, prop=None, es_text=False, l
             av = float(np.clip(seg['x0'] - c['x0'], w - .35*em, w + .45*em)) if igual else w
             if ultim_just and i == len(seq) - 1: av = w
             if ch.isdigit() and seg_ch is not None and seg_ch.isdigit(): av = w              # entre dues xifres seguides no hi ha mai espai (el model podia venir de «15 625»)
+            if seg_ch in ('~', '¦', ' '): av = w                                                # el que ve al darrere ja porta el seu espai
+            if ch.isdigit() and seg_ch == ',': av = w                                          # la coma va enganxada a la xifra
+            if ch.isdigit() and seg_ch is not None and seg_ch.isalpha() and not es_text: av = w   # el coeficient va enganxat a la lletra (el model podia venir de «10 cm»)
+            if ch == ',' and ant_ch is not None and ant_ch.isdigit() and seg_ch is not None and seg_ch.isdigit(): av = w      # la coma decimal: sense espai
             if ch == '-' and vol_ant == 'o' and vol_seg == 'd': av = min(av, w + .12*em)      # el signe menys «de davant» va enganxat al nombre
-            triat = (c, av, P); break
+            triat = (c, av, P) if cl != 'MMaArrow' else (c, av, P, 1.9*mida/9); break          # les fletxes tenen la línia de base una mica més avall que el text
+        if triat is None and getattr(_fiable, 'estricte', True):
+            _fiable.estricte = False                                  # segona passada: ara sí que valen els signes que no s'han pogut comparar
+            try: alt = glifs(pag, ch, mida, ant_ch, seg_ch, prop, es_text, lleu, False)
+            finally: _fiable.estricte = True
+            if alt: out.append(alt[0]); continue
         if triat is None:
             if lleu is not None and not getattr(glifs, '_dins', False):
                 glifs._dins = True
@@ -228,14 +289,14 @@ def glifs(pag, text, mida, abans=None, despres=None, prop=None, es_text=False, l
             return None
         out.append(triat)
     return out
-ACCENTS = 'ijàáèéìíòóùúïüÀÈÉÍÒÓÚ'
+ACCENTS = 'ijàáèéìíòóùúïüñÀÈÉÍÒÓÚÑ'
 def posa_glifs(pag, work, gl, X, base, tinta, fons):
     for g in gl:
         c, av, pag = g[0], g[1], g[2]; base_g = base + (g[3] if len(g) > 3 else 0)
         if c is None: X += av; continue
         dalt = 9 if c['t'] in ACCENTS else 1; costat = 2 if c['t'] in 'íìïÍ' else 0             # l'accent de la í és més ample que la lletra
         y0 = int(np.floor(c['y0'])) - dalt; y1 = int(np.ceil(c['y1'])) + 1; x0 = int(np.floor(c['x0'])) - costat; x1 = int(np.ceil(c['x1'])) + costat
-        src = pag.gris[y0:y1, x0:x1].astype(np.float32); gb = float(np.percentile(src, 92)); gi = float(tinta @ np.array([.114, .587, .299]))
+        src = pag.gris[y0:y1, x0:x1].astype(np.float32); gb = float(np.percentile(src, 92)); gi = min(float(tinta @ np.array([.114, .587, .299])), float(src.min()))     # si el model és més fosc que la tinta (negre sobre blau), no s'ha d'engruixir
         a = np.clip((gb - src)/max(1.0, gb - gi), 0, 1); zona_accent = dalt + 7
         if costat: a[zona_accent:, :costat] = 0; a[zona_accent:, -costat:] = 0
         n, lab, st, _ = cv2.connectedComponentsWithStats((a > .2).astype(np.uint8)); bo = np.zeros(a.shape, np.uint8)
@@ -285,7 +346,7 @@ def _mesura(pag, nou, mida, abans, despres, prop=None, lleu=True, ultim_just=Fal
     if gl is not None: return sum(g[1] for g in gl), gl, None
     compon([tex]); return _tex[tex].shape[1]*escala(pag, mida), None, tex
 
-def S(pag, work, cars, vell, nou, nth=0, mou=True, alinea='e', buit=True, franja=None, centra=False, enganxat=False):
+def S(pag, work, cars, vell, nou, nth=0, mou=True, alinea='e', buit=True, franja=None, centra=False, enganxat=False, fins=None, lleu=None):
     """Substitueix els caràcters `vell` per `nou`. La resta de la línia es desplaça el que calgui, amb els seus píxels."""
     T = pag.troba(cars, vell, nth); f = pag.files[T[0]['fila']]; base = float(np.median([c['base'] for c in T]))
     mida = max(c['s'] for c in T if 'MMaArrow' not in c['f']); em = mida*pag.pxpt
@@ -295,7 +356,8 @@ def S(pag, work, cars, vell, nou, nth=0, mou=True, alinea='e', buit=True, franja
     x0 = T[0]['x0']; fi = min(T[-1]['x1'], seg['x0']) if seg is not None else T[-1]['x1']       # on acaba el text vell
     x1 = seg['x0'] if seg is not None else fi                                                   # on comença el que ve darrere (espai inclòs)
     ty0 = int(round(base - .9*em)); ty1 = int(round(base + .32*em))
-    lleu = not any(('Vectora' in c['f'] and 'Light' not in c['f']) or ('MMaCentury' in c['f'] and 'Bold' in c['f']) for c in f)
+    if lleu is None: lleu = not any(('Vectora' in c['f'] and 'Light' not in c['f']) or ('MMaCentury' in c['f'] and 'Bold' in c['f']) for c in f)
+    _color(colors(pag, int(x0) - 2, ty0, int(np.ceil(T[-1]['x1'])) + 3, ty1)[0])
     ample, gl, tex = _mesura(pag, nou, mida, norm(ant['t']) if ant else None, norm(seg['t']) if seg else None, (T[0]['x0'], base), lleu, buit and seg is not None and (x1 - fi) > .5)
     d = ample - (fi - x0) - (0 if buit else (x1 - fi))
     if not nou:
@@ -306,11 +368,14 @@ def S(pag, work, cars, vell, nou, nth=0, mou=True, alinea='e', buit=True, franja
     cua += [c for c in pag.chars if c['col'] == T[0]['col'] and c['fila'] != T[0]['fila'] and c['s'] < .85*pag.mida and c['x0'] >= x1 - .6
             and -.95*em <= c['base'] - base <= .8*em and cua and c['x1'] <= max(q['x1'] for q in cua) + 30
             and not any(abs(c['base'] - q[0]['base']) < abs(c['base'] - base) for q in pag.files if q is not f and q[0]['s'] >= .85*pag.mida and q[0]['col'] == c['col'] and -.95*em <= c['base'] - q[0]['base'] <= .8*em)]
+    if fins is not None:                                                       # la resta de la línia només es mou fins aquí (taules, columnes d'apartats)
+        xf = fins if not isinstance(fins, str) else min(c['x0'] for c in pag.troba([c for c in f if c['x0'] > x1 - 1], fins))
+        cua = [c for c in cua if c['x1'] <= xf - 1]
     tinta, fons = colors(pag, int(x0) - 2, ty0, int(np.ceil(T[-1]['x1'])) + 3, ty1)
     esborra(pag, work, x0, fi, ty0, ty1, fons)
     if abs(d) < .75 and not centra: mou = False
     if cua and mou:
-        cy0 = min(ty0, int(min(c['y0'] for c in cua)) - 1); cy1 = max(ty1, int(max(c['y1'] for c in cua)) + 2); cx0 = int(np.floor(x1)) - 2; cx1 = int(max(c['x1'] for c in cua)) + 4
+        cy0 = min(ty0, int(min(c['y0'] for c in cua)) - 1, min((int(c['y0']) - 9 for c in cua if c['t'] in ACCENTS), default=10**6)); cy1 = max(ty1, int(max(c['y1'] for c in cua)) + 2); cx0 = int(np.floor(x1)) - 2; cx1 = int(max(c['x1'] for c in cua)) + 4
         if franja:
             cy0 = int(round(base + franja[0]*em)); cy1 = int(round(base + franja[1]*em)); cx1 += 6
             gf = float(fons @ np.array([.114, .587, .299])); limit = pag.W if T[0]['col'] else int(pag.W/2) + 40
@@ -323,7 +388,7 @@ def S(pag, work, cars, vell, nou, nth=0, mou=True, alinea='e', buit=True, franja
             for i, c in enumerate(cc):
                 xb = int(np.ceil(c['x1'])) + 1
                 if i + 1 < len(cc) and cc[i + 1]['x0'] - c['x1'] < .6*em: xb = max(xb, int(np.ceil(cc[i + 1]['x0'])))
-                masc[max(0, int(c['y0']) - 1 - cy0):int(np.ceil(c['y1'])) + 1 - cy0, max(0, int(np.floor(c['x0'])) - (2 if i == 0 else 0) - cx0):xb - cx0] = True
+                masc[max(0, int(c['y0']) - (9 if c['t'] in ACCENTS else 1) - cy0):int(np.ceil(c['y1'])) + 1 - cy0, max(0, int(np.floor(c['x0'])) - (2 if i == 0 else 0) - cx0):xb - cx0] = True
         work[cy0:cy1, cx0:cx1][masc] = fons
     X = x0 if alinea == 'e' else (fi - ample if alinea == 'd' else (x0 + fi - ample)/2)
     if enganxat and ant is not None: X = ant['x1']; d -= (x0 - ant['x1'])          # el text nou comença on acaba el signe anterior (sense l'espai que hi havia)
@@ -521,6 +586,183 @@ def R(pag, work, cars, des_de, nou, nth=0, banda=(-1.5, 1.25), marge=3, fins=Non
     compon([nou]); dibuixa(work, nou, escala(pag, pag.mida), x0 + marge, base, tinta, GRUIX)
     return 'latex'
 
+# ───────── operacions afegides per a 4t ─────────
+def _model_fraccio(pag):
+    """Una fracció de la pàgina (o d'una altra) amb un «=» al costat: on van la barra, el numerador i el denominador respecte de la línia de base."""
+    if getattr(pag, 'fr', None): return pag.fr
+    import itertools
+    for P in itertools.chain([pag], _altres_pagines(pag)):
+        n, lab, st, _ = cv2.connectedComponentsWithStats((P.gris < 170).astype(np.uint8), connectivity=8)
+        for k in range(1, n):
+            x, y, w, h, a = st[k]
+            if not (h <= 4 and 24 <= w <= 200 and a >= w*.8): continue
+            ig = [c for c in P.chars if c['t'] == '=' and 'MMaCentury' in c['f'] and abs(c['s'] - 9) < .1 and (0 <= c['x0'] - (x + w) < 34) and abs(((c['y0'] + c['y1'])/2) - (y + h/2)) < 26]
+            if not ig: continue
+            B = ig[0]['base']
+            dalt = [c for c in P.chars if 'Vectora' in c['f'] and abs(c['s'] - 9) < .1 and x - 2 <= c['x0'] and c['x1'] <= x + w + 2 and c['base'] < y and y - c['base'] < 18 and c['t'].isdigit()]
+            baix = [c for c in P.chars if 'Vectora' in c['f'] and abs(c['s'] - 9) < .1 and x - 2 <= c['x0'] and c['x1'] <= x + w + 2 and c['base'] > y + 12 and c['base'] - y < 40 and c['t'].isdigit()]
+            if not dalt or not baix: continue
+            perfil = P.img[y:y + h, x + w//2].copy()
+            cols = dalt if min(c['x0'] for c in dalt) < min(c['x0'] for c in baix) else baix
+            pag.fr = dict(num=dalt[0]['base'] - B, den=baix[0]['base'] - B, b0=y - B, b1=y + h - B, perfil=perfil, vora=max(1.0, min(c['x0'] for c in cols) - x + .5), ample=w)
+            return pag.fr
+    raise LookupError('no trobo cap fracció model')
+
+EXP_MIDA, EXP_ALT = 5.4, 9.6          # els exponents del text de 9 pt: mida (pt) i quant pugen (px)
+
+def _escriu(pag, work, parts, X, base, tinta, fons, mida, lleu=True):
+    """Escriu una llista de trossos (vegeu LIN) a partir de X i torna on acaba. Amb work=None només mesura."""
+    em = mida*pag.pxpt; X = float(X)
+    for k, p in enumerate(parts):
+        if isinstance(p, tuple) and p[0] == 'c':                     # ('c', (x0, y0, x1, y1), base, dx): els píxels (ja nets) d'un altre lloc de la imatge
+            x0, y0, x1, y1 = p[1]; a = (x1 - x0) + p[3]
+            if work is not None:
+                bl = work[y0:y1, x0:x1].copy(); Y = int(round(base + y0 - p[2])); Xi = int(round(X + p[3]))
+                work[Y:Y + (y1 - y0), Xi:Xi + (x1 - x0)] = np.minimum(work[Y:Y + (y1 - y0), Xi:Xi + (x1 - x0)], bl)
+            X += a
+        elif isinstance(p, tuple) and p[0] == 'g':                   # ('g', caràcter de la pàgina): aquest signe en concret
+            g = [(p[1], p[1]['x1'] - p[1]['x0'], p[2] if len(p) > 2 else pag)]
+            if work is None: X += g[0][1]
+            else: X = posa_glifs(pag, work, g, X, base, tinta, fons)
+        elif isinstance(p, tuple) and p[0] == 'e':
+            g = glifs(pag, p[1], p[2] if len(p) > 2 and p[2] else EXP_MIDA*mida/9, p[3] if len(p) > 3 else None, prop=(X, base - EXP_ALT*mida/9), lleu=lleu)      # p[3]: el signe que va al davant
+            if g is None: raise LookupError(f'falta un exponent: {p}')
+            if work is None: X += .5 + sum(q[1] for q in g)
+            else: X = posa_glifs(pag, work, g, X + .5, base - EXP_ALT*mida/9, tinta, fons)
+        elif isinstance(p, tuple) and p[0] == 'f':
+            fr = _model_fraccio(pag)
+            gn = glifs(pag, p[1], mida, prop=(X, base + fr['num']), lleu=lleu); gd = glifs(pag, p[2], mida, prop=(X, base + fr['den']), lleu=lleu)
+            if gn is None or gd is None: raise LookupError(f'falten signes per a la fracció {p}')
+            wn = sum(g[1] for g in gn); wd = sum(g[1] for g in gd); wb = max(wn, wd) + 2*fr['vora']
+            if work is not None:
+                yb = int(round(base + fr['b0'])); work[yb:yb + len(fr['perfil']), int(round(X)):int(round(X + wb))] = fr['perfil'][:, None, :]
+                posa_glifs(pag, work, gn, X + (wb - wn)/2, base + fr['num'], tinta, fons); posa_glifs(pag, work, gd, X + (wb - wd)/2, base + fr['den'], tinta, fons)
+            X += wb
+        else:
+            es_text = p.startswith('t:'); txt = p[2:] if es_text else p
+            g = glifs(pag, txt, mida, None, None, (X, base), es_text, lleu, False)
+            if g is None: raise LookupError(f'falten signes per a «{txt}»')
+            if work is None: X += sum(q[1] for q in g)
+            else: X = posa_glifs(pag, work, g, X, base, tinta, fons)
+    return X
+
+def _tinta_a_prop(pag, x, base, em):
+    """El color de la tinta i del fons d'on es va a escriure, encara que allà ara no hi hagi res."""
+    for r in (1, 2, 4, 8):
+        x0, x1 = max(0, int(x - 20*r)), min(pag.W, int(x + 80*r)); y0, y1 = max(0, int(base - em*r)), min(pag.H, int(base + .4*em*r))
+        if (pag.gris[y0:y1, x0:x1] < 150).sum() > 30: return colors(pag, x0, y0, x1, y1)
+    return colors(pag, 0, 0, pag.W, pag.H)
+
+def LIN(pag, work, cars, parts, x=None, base=None, esborra_fila=True, lleu=True, mida=None, marge=(4, 5, 3, 4), dx=0, dy=0, tinta_de=None):
+    """Escriu una línia sencera amb signes copiats de la pàgina. `parts` és una llista de trossos, en ordre:
+         'x + 2'         fórmula: les lletres són variables (cursiva), les xifres i els signes, rectes (~ és l'espai fi dels milers)
+         't:Una frase'   text (lletra recta); els espais són espais de paraula
+         ('f', num, den) una fracció, amb la seva barra
+         ('e', '-25')    un exponent (lletra petita, a l'alçada dels exponents); ('e', text, mida, signe_anterior) per afinar-lo
+         ('g', c[, P])   un signe concret (el caràcter c de la pàgina P)
+         ('c', rect, base, dx)  píxels ja nets d'un altre lloc de la imatge (rect, amb la seva línia de base)
+       Si la recepta ha triat caràcters (marca, zona o fila), la línia nova comença on comencen ells, a la seva
+       línia de base, i aquells caràcters s'esborren. Amb `x` i `base` (en píxels) s'escriu on es digui."""
+    mida = mida or pag.mida; em = mida*pag.pxpt
+    prin = [c for c in cars if c['s'] >= .85*mida and 'MMaVariable' not in c['f'] and 'MMaArrow' not in c['f']]
+    if base is None: base = float(np.median([c['base'] for c in prin]))
+    if x is None: x = min(c['x0'] for c in prin)
+    base += dy; x += dx
+    if tinta_de is not None: tinta, fons = colors(pag, *tinta_de)
+    elif cars: tinta, fons = colors(pag, int(min(c['x0'] for c in cars)) - marge[0], int(min(c['y0'] for c in cars)) - marge[2], int(max(c['x1'] for c in cars)) + marge[1], int(max(c['y1'] for c in cars)) + marge[3])
+    else: tinta, fons = _tinta_a_prop(pag, x, base, em)
+    if cars and esborra_fila:
+        ax0 = int(min(c['x0'] for c in cars)) - marge[0]; ax1 = int(max(c['x1'] for c in cars)) + marge[1]; ay0 = int(min(c['y0'] for c in cars)) - marge[2]; ay1 = int(max(c['y1'] for c in cars)) + marge[3]
+        work[ay0:ay1, ax0:ax1] = fons
+    _color(tinta); LIN.fi = _escriu(pag, work, parts, x, base, tinta, fons, mida, lleu)
+    return 'glifs'
+
+def REFRA(pag, work, cars, caixa, num, den, base_num=None, base_den=None, xlim=None, vinc=None, lleu=True, mida=None, vora=1.3, buida=None):
+    """Refà una fracció que ja hi és: esborra el numerador i el denominador, hi escriu els nous, centrats, i ajusta la
+       barra a la nova amplada. El que hi ha a la dreta de la barra (dins de la zona, fins a `xlim`) es desplaça el que calgui.
+       `caixa` (x0, y0, x1, y1) ha de contenir la barra i tots els signes de la fracció, però no la resta de la línia de l'esquerra.
+       num/den: llistes de trossos, com a LIN. `vinc` (y0, y1): files d'una ratlla d'arrel de sobre, que s'allarga igual que la barra."""
+    mida = mida or pag.mida; em = mida*pag.pxpt
+    x0, y0, x1, y1 = [int(v) for v in caixa]; xlim = int(xlim or x1)
+    g = pag.gris[y0:y1, x0:x1]; n, lab, st, _ = cv2.connectedComponentsWithStats((g < 180).astype(np.uint8), connectivity=8)
+    bs = [k for k in range(1, n) if st[k][3] <= 4 and st[k][2] >= 18]
+    if not bs: raise LookupError('no trobo la barra de la fracció')
+    k = max(bs, key=lambda k: st[k][2]); bx0, by0, bw, bh = int(st[k][0] + x0), int(st[k][1] + y0), int(st[k][2]), int(st[k][3]); bx1 = bx0 + bw
+    tinta, fons = colors(pag, x0, y0, x1, y1); _color(tinta)
+    dins = [c for c in pag.chars if bx0 - 3 <= (c['x0'] + c['x1'])/2 <= bx1 + 3 and y0 <= (c['y0'] + c['y1'])/2 <= y1]
+    principals = [c for c in dins if abs(c['s'] - mida) < .3 and 'MMaArrow' not in c['f']]
+    yn = base_num or float(np.median([c['base'] for c in principals if c['base'] < by0])); yd = base_den or float(np.median([c['base'] for c in principals if c['base'] > by0]))
+    wn = _escriu(pag, None, num, 0, yn, tinta, fons, mida, lleu); wd = _escriu(pag, None, den, 0, yd, tinta, fons, mida, lleu)
+    nou_w = int(round(max(wn, wd) + 2*vora)); dd = nou_w - bw
+    perfil = work[by0:by0 + bh, bx0 + bw//2].copy()
+    # el que hi ha a la dreta
+    bl = None
+    if xlim > bx1 + 1:
+        bl = work[y0:y1, bx1 + 1:xlim].copy()
+        if dd: work[y0:y1, bx1 + 1:xlim] = fons
+    work[y0:by0 - 0, bx0 - 1:bx1 + 2] = fons; work[by0 + bh:y1, bx0 - 1:bx1 + 2] = fons; work[by0:by0 + bh, bx0:bx1 + 1] = fons
+    work[by0:by0 + bh, bx0:bx0 + nou_w] = perfil[:, None, :]
+    xc = bx0 + nou_w/2
+    _escriu(pag, work, num, xc - wn/2, yn, tinta, fons, mida, lleu); _escriu(pag, work, den, xc - wd/2, yd, tinta, fons, mida, lleu)
+    if bl is not None and dd:
+        nx = bx1 + 1 + dd; dst = work[y0:y1, nx:nx + bl.shape[1]]; dst[:] = np.where(bl.astype(int).sum(axis=2, keepdims=True) < fons.sum() - 24, bl, dst)
+    if vinc is not None and dd > 0:                                             # la ratlla de l'arrel s'allarga: el final es desplaça i el forat s'omple
+        va, vb = vinc; col = pag.img[va:vb, bx0 + bw//2].copy(); fila = (pag.gris[va:vb, bx0:x1] < 180).any(axis=0); vx1 = bx0 + int(np.where(fila)[0].max()) + 1
+        cap = pag.img[va:vb, vx1 - 3:vx1 + 3].copy(); work[va:vb, vx1 - 4:vx1 - 3 + dd] = col[:, None, :]; work[va:vb, vx1 - 3 + dd:vx1 + 3 + dd] = cap
+    return 'glifs'
+
+def RECT(pag, work, cars, rect, fons=None):
+    """Esborra un rectangle (x0, y0, x1, y1, en píxels) amb el color de fons."""
+    x0, y0, x1, y1 = [int(round(v)) for v in rect]
+    if fons is None: _, fons = colors(pag, x0, y0, x1, y1)
+    work[y0:y1, x0:x1] = fons
+    return 'esborrat'
+
+def MOU(pag, work, cars, rect, dx=0, dy=0, esborra_origen=True):
+    """Mou tal qual un rectangle de la pàgina (x0, y0, x1, y1, en píxels)."""
+    x0, y0, x1, y1 = [int(round(v)) for v in rect]
+    bl = work[y0:y1, x0:x1].copy()
+    if esborra_origen:
+        _, fons = colors(pag, x0, y0, x1, y1); work[y0:y1, x0:x1] = fons
+    work[y0 + dy:y1 + dy, x0 + dx:x1 + dx] = bl
+    return 'mogut'
+
+def PY(pag, work, cars, f, **kw):
+    """Una operació feta a mida (gràfiques, taules): una funció f(pag, work, cars, **kw) del fitxer de receptes."""
+    return f(pag, work, cars, **kw) or 'py'
+
+# ───────── gràfiques ─────────
+VERMELL = np.array([36, 28, 237], float)          # el vermell de les corbes del llibre (BGR)
+def neteja_grafica(pag, work, rect, treure=(), verm=True, llindar=25):
+    """Dins de `rect` (x0, y0, x1, y1) esborra la corba vermella i els rectangles de `treure`, i hi refà la quadrícula:
+       per a cada columna i cada fila es calcula el color dominant, i a cada punt es posa el més fosc dels dos."""
+    x0, y0, x1, y1 = rect; img = pag.img[y0:y1, x0:x1].astype(int); B, G, R = img[..., 0], img[..., 1], img[..., 2]
+    m = np.zeros(pag.gris.shape, np.uint8)
+    if verm: m[y0:y1, x0:x1] = ((R - np.maximum(G, B) > llindar) & (R > 120)).astype(np.uint8); m = cv2.dilate(m, np.ones((5, 5), np.uint8))
+    for a0, b0, a1, b1 in treure:                                # només la tinta del text: la resta del rectangle serveix per calcular el fons
+        t = np.zeros(pag.gris.shape, np.uint8); t[b0:b1, a0:a1] = pag.img[b0:b1, a0:a1, 1] < 140; m |= cv2.dilate(t, np.ones((5, 5), np.uint8))      # (la quadrícula, blau cel, té molt verd; la tinta dels textos, poc)
+    m = m[y0:y1, x0:x1] > 0; dades = np.where(m[..., None], np.nan, pag.img[y0:y1, x0:x1].astype(float))
+    col = np.nanmedian(dades, axis=0); fil = np.nanmedian(dades, axis=1)
+    fons = np.minimum(col[None, :, :], fil[:, None, :]); w = work[y0:y1, x0:x1]; w[m] = fons.astype(np.uint8)[m]
+
+def traca(work, pts, gruix=2.15, color=VERMELL, retall=None):
+    """Una línia poligonal amb antialiàsing. `retall` (x0, y0, x1, y1): fora d'aquí no es pinta."""
+    pts = np.asarray(pts, float); S = 6; m = 6
+    cx0, cy0 = int(pts[:, 0].min()) - m, int(pts[:, 1].min()) - m; cx1, cy1 = int(pts[:, 0].max()) + m, int(pts[:, 1].max()) + m
+    can = np.zeros(((cy1 - cy0)*S, (cx1 - cx0)*S), np.uint8); p = ((pts - [cx0, cy0] + .5)*S).astype(np.int32)
+    cv2.polylines(can, [p.reshape(-1, 1, 2)], False, 255, int(round(gruix*S)), cv2.LINE_AA)
+    a = cv2.resize(can, (cx1 - cx0, cy1 - cy0), interpolation=cv2.INTER_AREA).astype(float)/255
+    if retall is not None:
+        X, Y = np.meshgrid(np.arange(cx0, cx1), np.arange(cy0, cy1)); a[(X < retall[0]) | (Y < retall[1]) | (X >= retall[2]) | (Y >= retall[3])] = 0
+    r = work[cy0:cy1, cx0:cx1].astype(float); work[cy0:cy1, cx0:cx1] = (r*(1 - a[..., None]) + color*a[..., None]).astype(np.uint8)
+
+def punt(work, x, y, r=4.0, color=VERMELL):
+    """Un punt ple, amb antialiàsing."""
+    S = 6; m = int(r) + 3; cx, cy = int(round(x)), int(round(y)); can = np.zeros(((2*m + 1)*S, (2*m + 1)*S), np.uint8)
+    cv2.circle(can, (int(round((x - cx + m + .5)*S)), int(round((y - cy + m + .5)*S))), int(round(r*S)), 255, -1, cv2.LINE_AA)
+    a = cv2.resize(can, (2*m + 1, 2*m + 1), interpolation=cv2.INTER_AREA).astype(float)/255
+    reg = work[cy - m:cy + m + 1, cx - m:cx + m + 1].astype(float); work[cy - m:cy + m + 1, cx - m:cx + m + 1] = (reg*(1 - a[..., None]) + color*a[..., None]).astype(np.uint8)
+
 # ───────── aplicar les receptes i treure'n els pegats ─────────
 def cars_de(pag, key, m=None, creix=3):
     out = []
@@ -534,7 +776,7 @@ def fila_amb(pag, key, text, nth=0):
     q = next(q for q in MARQ[key] if q[0] == pag.rel); yq = (q[2] + q[4]/2)*pag.H/100; xq = (q[1] + q[3]/2)*pag.W/100
     cands = [f for f in pag.files if norm(text) in pag.text(f) and (f[0]['col'] == int(xq >= pag.W/2))]
     cands.sort(key=lambda f: abs(f[0]['base'] - yq)); f = cands[nth]
-    return [c for c in pag.chars if c['col'] == f[0]['col'] and abs(c['base'] - f[0]['base']) < 1.2*23.6 and abs((c['y0']+c['y1'])/2 - (f[0]['y0']+f[0]['y1'])/2) < 1.6*23.6]
+    return [c for c in pag.chars if c['col'] == f[0]['col'] and abs(c['base'] - f[0]['base']) < 1.2*24 and abs((c['y0']+c['y1'])/2 - (f[0]['y0']+f[0]['y1'])/2) < 1.6*24]
 
 _pags = {}
 def pagina(u, rel):
@@ -548,9 +790,12 @@ def fes(key, ops):
     for nom, a in ops:
         a = dict(a); img = a.pop('img', MARQ[key][a.get('m') or 0][0]); pag = pagina(u, img)
         work = per_img.setdefault(img, pag.img.copy())
-        cars = fila_amb(pag, key, a.pop('fila'), a.pop('nfila', 0)) if 'fila' in a else cars_de(pag, key, a.pop('m', None))
-        a.pop('m', None)
-        com.append({'S': S, 'SUB': SUB, 'R': R, 'RF': RF, 'SUP': SUP, 'E': E, 'INS': INS, 'COPG': COPG, 'APP': APP, 'FR1': FR1}[nom](pag, work, cars, **a))
+        zona = a.pop('zona', None)
+        if zona is not None:                       # (x0, y0, x1, y1), en píxels de la imatge: els caràcters que hi tenen el centre
+            cars = [c for c in pag.chars if zona[0] <= (c['x0'] + c['x1'])/2 <= zona[2] and zona[1] <= (c['y0'] + c['y1'])/2 <= zona[3]]; a.pop('m', None); a.pop('fila', None); a.pop('nfila', None)
+        elif 'fila' in a: cars = fila_amb(pag, key, a.pop('fila'), a.pop('nfila', 0)); a.pop('m', None)
+        else: cars = cars_de(pag, key, a.pop('m', None))
+        com.append({'S': S, 'SUB': SUB, 'R': R, 'RF': RF, 'SUP': SUP, 'E': E, 'INS': INS, 'COPG': COPG, 'APP': APP, 'FR1': FR1, 'LIN': LIN, 'REFRA': REFRA, 'RECT': RECT, 'MOU': MOU, 'PY': PY}[nom](pag, work, cars, **a))
     out = []
     for img, work in per_img.items():
         pag = pagina(u, img)

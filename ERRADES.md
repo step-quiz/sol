@@ -1,20 +1,20 @@
-# Les errades del solucionari: què s'ha fet i com funciona
+# Les errades del solucionari: com funcionen
 
-> **Per a qui és aquest document.** Per a una IA (Claude) que arriba a aquest repositori
-> sense cap context i ha d'entendre, mantenir o ampliar la feina feta sobre les errades
-> del solucionari. Estat a **4 d'octubre de 2026**.
+> **Per a qui és aquest document.** Per a una IA (Claude) o per al professor, quan calgui posar
+> errades del solucionari al web. Abans llegeix `CLAUDE.md` i el `README.md`.
 >
-> Abans llegeix `CLAUDE.md` (qui és l'usuari i com es treballa al repo) i el `README.md`
-> (com fa servir el web el professor). Aquí només s'explica la part de les errades.
+> **Estat (7 de novembre de 2026):** el sistema és el de `sol` (Matemàtiques II), copiat sencer i provat
+> amb els identificadors d'aquest repositori (`apl-ud4`). Hi ha errades a totes les UD carregades menys la UD10;
+> `OBSERVACIONS` és buit. Els exemples d'aquest document (`u7/92`, `u9/42`…) són de `sol`; aquí la clau
+> s'escriu `'apl-ud4/U5.64'`, i les imatges, `'u5-semblanca/data/full-3.png'` (sense la carpeta de la UD).
 
 ---
 
 ## 1. El que has de saber en un minut
 
-- El web ensenya a l'alumne, per a cada exercici programat, la **imatge de la pàgina del
-  solucionari** (Santillana, Matemàtiques II, 2n de Batxillerat) amb l'enunciat i la solució.
-- El solucionari té errades. El professor en té la llista escrita en LaTeX: és a `tex/`.
-- La feina s'ha fet en **tres fases**, i cada una s'afegeix a l'anterior:
+- El web ensenya, per a cada exercici programat, la **imatge de la pàgina del solucionari** amb
+  l'enunciat i la solució. El solucionari té errades.
+- El sistema té **tres fases**, i cada una s'afegeix a l'anterior:
 
   | Fase | Què hi afegeix | Camp a `errades.js` |
   |---|---|---|
@@ -22,95 +22,23 @@
   | 2 | Un requadre vermell numerat sobre la imatge, al lloc exacte de l'errada | `marca` |
   | 3 | Un «pegat»: la imatge es veu **ja corregida**, sense cap senyal, i l'errada deixa d'anunciar-se | `pegat` |
 
-- **Xifres actuals:** 83 errades en 51 exercicis (2 són d'enunciat) · 25 observacions ·
-  87 requadres (les 83 errades en tenen) · **78 errades amb pegat (94 pegats)** · 5 sense pegat.
-- **Les imatges de les pàgines no es toquen mai.** Tot el que es veu a sobre (requadres i
-  pegats) ho posa el navegador.
-- Les eines amb què es van generar les dades, les posicions i els pegats són a `eines/`
-  (apartat 9 i `eines/LLEGEIX-ME.md`).
-
----
-
-## 2. On és cada cosa
+- **Les imatges de les pàgines no es toquen mai.** Tot el que es veu a sobre (requadres i pegats) ho
+  posa el navegador.
+- **Diferència amb `sol`:** allà `errades.js` es genera (`eines/conversor/genera.py`, a partir de `tex/`,
+  `marques.json` i `pegats.json`). Aquí les errades i les marques **s'escriuen a mà**, directament a
+  `errades.js`; els pegats els posa `eines/pegats/aplica.py`. Vegeu l'apartat 6.
 
 | Fitxer o carpeta | Paper |
 |---|---|
-| `tex/` | L'origen: la llista d'errades del professor, en LaTeX (apartat 3) |
 | `errades.js` | Les dades (errades i observacions) **i** les funcions que les pinten. És l'únic que llegeix el web |
 | `tasca.html` | On es veu tot: llista de la tasca, exercici, imatge ampliada |
+| `errades.html` | Totes les errades, per setmanes |
 | `assets/style.css` | Estils (classes `err-*`, `ex-err`, `marca*`, `pegat`, `lb-*`) |
-| `assets/katex/` | KaTeX 0.16.47 en local: pinta les fórmules de `errades.js` |
-| `marca.js` | Eina del professor per marcar on és una errada. Només es carrega amb `?tot=1&marca=1` |
+| `assets/katex/` | KaTeX 0.16.47 en local: pinta les fórmules |
+| `marca.js` | Eina del professor per marcar on és una errada (`tasca.html?tot=1&marca=1`) |
 | `pegats/<unitat>/` | Els pegats: PNG petits amb el tros de pàgina ja corregit |
-| `uN/<tema>/data/full-K.png` | Les imatges de les pàgines. **No es toquen** |
-| `source/` | Els PDF del solucionari, un per unitat (d'aquí surten les imatges) |
-| `eines/` | El conversor, el localitzador i el motor de pegats (apartat 9) |
-| `tasques.js`, `cataleg.js` | Quins exercicis hi ha cada setmana i quines imatges té cada exercici |
 
-La clau d'un exercici és sempre `'unitat/exercici'`, per exemple `'u7/92'` (la mateixa que a `hints.js`).
-
-Per veure-ho tot sense esperar les dates: `tasca.html?tot=1#u7/s3` (unitat 7, setmana 3).
-
----
-
-## 3. D'on surten les errades: la carpeta `tex/`
-
-El professor hi puja el projecte de LaTeX «Errades del solucionari»:
-
-- `main.tex` — el document. A dalt hi ha dos interruptors: `\motiufalse` / `\motiutrue`
-  (ensenyar o no el motiu) i `\obsfalse` / `\obstrue` (ensenyar o no les observacions).
-- `defs.tex` — les definicions (`\setmana`, `errada`, `\ondiu`, `\hadedir`, `\motiu`,
-  `observacio`, `\senseerrades`, `\dlim`, `\R`).
-- `headers.tex` — paquets i format.
-- `errors-setmana1.tex` … `errors-setmana36.tex` — **un fitxer per setmana** del curs.
-
-Cada errada s'escriu així:
-
-```latex
-\setmana{3}{Unitat 7 \textperiodcentered{} Límits i continuïtat}{4 d'octubre de 2026}%
-        {92, 93, 94, 102, 103, 40 i 106}
-
-\begin{errada}{Exercici 92 e)}
-  \ondiu{«La funció no és contínua en $x=-2$; té una discontinuïtat de salt finit.»}
-  \hadedir{«La funció no és contínua en $x=2$; té una discontinuïtat de salt finit.»}
-  \motiu{És la frase que tanca l'estudi del punt $x=2$ ...}
-\end{errada}
-```
-
-Quan es va fer la conversió hi havia 36 `\setmana`, 83 entorns `errada` i 22 entorns
-`observacio`. Si ara n'hi ha un altre nombre, el LaTeX ha canviat després.
-
-### Com es va passar de `tex/` a `errades.js`
-
-| Al LaTeX | A `errades.js` |
-|---|---|
-| El fitxer és d'una setmana; la unitat surt de `\setmana` (i de `tasques.js`) | La clau: `'u7/92'` |
-| Títol de l'entorn: `Exercici 92 e)` | `` lloc: TEX`e)` `` (el que ve darrere del número) |
-| Títol amb `(enunciat)`: `Exercici 38 (enunciat)` | `enunciat: 1`, sense `lloc` |
-| `\ondiu{...}`, `\hadedir{...}`, `\motiu{...}` | `ondiu`, `hadedir`, `motiu`, amb el mateix text |
-| `\begin{observacio}{...}` | Una entrada a `OBSERVACIONS` (25, perquè algunes parlen de més d'un exercici) |
-| Diverses errades del mateix exercici | Una llista, en l'ordre en què surten a la solució |
-
-**Relació entre tots dos.** `errades.js` és l'únic que llegeix el web. Es pot tornar a fer
-sencer amb `python3 eines/conversor/genera.py`, que ajunta `tex/` (els textos),
-`eines/localitzador/marques.json` (les marques) i `eines/pegats/pegats.json` (els pegats). Avui
-el resultat és **idèntic**, byte a byte, a l'`errades.js` del repo, i
-`node eines/conversor/verifica.js` comprova que tots dos diuen el mateix (les 83 errades, text
-per text, i les 597 fórmules, pintades amb KaTeX sense cap error).
-
-Hi ha, doncs, dues maneres de canviar una errada, i no es poden barrejar sense mirar:
-
-- **Per les fonts:** canvia `tex/` (o `marques.json`, o `pegats.json`) i torna a generar.
-- **A mà:** canvia `errades.js` directament. Llavors passa també el canvi a la font: el dia que
-  algú torni a generar, el que només sigui a `errades.js` es perdrà.
-
-Abans de generar amb `--escriu`, genera sense res: t'ensenya les diferències amb el fitxer del
-repo. Si `tex/` i `errades.js` no diuen el mateix i no saps quin és el bo, **pregunta al
-professor**.
-
----
-
-## 4. Fase 1 — L'avís i la targeta
+## 2. Fase 1 — L'avís i la targeta
 
 ### Les dades
 
@@ -187,7 +115,7 @@ següent. Això depèn de com és per dins aquesta versió (constants `_KATEX_FI
 
 ---
 
-## 5. Fase 2 — El requadre sobre la imatge
+## 3. Fase 2 — El requadre sobre la imatge
 
 ```js
 marca: ['limits-punt/data/full-4.png', 58.9, 64.5, 34.7, 4.3],        // un lloc
@@ -203,21 +131,18 @@ cent perquè la imatge es veu a mides diferents segons la pantalla.
 tocar-lo, o en prémer «Mostra-ho a la imatge» a la targeta, la imatge s'amplia centrada en
 aquell punt i la correcció surt a sota (`#lb-peu`). Escape tanca.
 
-**Com es van trobar les 87 posicions.** Amb la capa de text dels PDF de `source/` (on és
-cada lletra) i casant cada imatge amb la seva pàgina del PDF. Després es van revisar **totes
-a ull**. Una marca mal posada és pitjor que cap marca. L'eina és
-`eines/localitzador/proposa.py`: proposa, però la referència és
-`eines/localitzador/marques.json` (59 de les 83 propostes coincideixen amb la marca desada;
-les altres 24 es van ajustar a ull).
+**Com es troben les posicions.** A `sol`, amb la capa de text del PDF (on és cada lletra),
+amb l'eina `eines/localitzador/proposa.py`, i revisant-les totes a ull. Aquí, de moment, amb l'eina
+del professor. Una marca mal posada és pitjor que cap marca.
 
 **Per marcar-ne una de nova** hi ha l'eina del professor: `tasca.html?tot=1&marca=1`. S'entra
 a l'exercici, es tria l'errada, s'arrossega un rectangle sobre la imatge i l'eina dona la
-línia `marca: [...]` per enganxar a `errades.js`. No desa res enlloc: la marca s'ha de copiar
-també a `marques.json` (clau `'u7/92#0'`: l'exercici i la posició de l'errada, des de 0).
+línia `marca: [...]` per enganxar a `errades.js`. No desa res enlloc. (Si un dia `errades.js`
+es genera, com a `sol`, la marca s'haurà de copiar també a `marques.json`.)
 
 ---
 
-## 6. Fase 3 — El pegat
+## 4. Fase 3 — El pegat
 
 **La decisió és del professor (4 d'octubre de 2026):** vol que la pàgina *sembli corregida,
 sense cap senyal*. Per això un pegat no porta vora ni número, i l'errada que en té deixa
@@ -238,7 +163,8 @@ Com `marca`, més el nom del fitxer, que és a `pegats/<unitat>/`.
   i `tasca.html` el posa dins de la figura, sobre la imatge, i també a la imatge ampliada
   (`#lb-pegats`). No atura els clics (`pointer-events:none`).
 - **Quins pegats surten sobre una imatge:** **tots** els d'aquella imatge, siguin de
-  l'exercici que siguin. La pàgina s'ha de veure corregida es miri des d'on es miri.
+  l'exercici que siguin. La pàgina s'ha de veure corregida es miri des d'on es miri. Si la pàgina del PDF
+  és a més d'una carpeta, la taula `PAGINES_IGUALS` fa que els pegats surtin a totes les còpies.
 
 ### Una errada amb pegat és una errada «callada»
 
@@ -262,12 +188,11 @@ Amb `ERRADES_PEGATS = false` no surt cap pegat i tot torna a ser com a la fase 2
 
 **Només canvien els signes equivocats.** Estan fets amb signes copiats de la mateixa pàgina
 (la lletra del llibre de veritat, no una d'imitada), i la resta de la línia són els seus
-píxels originals, desplaçats si el text nou fa una altra amplada. No s'ha fet servir LaTeX
-en cap dels 93. El mètode és a l'apartat 9.
+píxels originals, desplaçats si el text nou fa una altra amplada. No es fa servir LaTeX. Com es fan: `eines/pegats/README.md`.
 
 ---
 
-## 7. Què veu l'alumne, cas per cas
+## 5. Què veu l'alumne, cas per cas
 
 | L'errada… | Llista de la tasca | Dins de l'exercici | Imatge |
 |---|---|---|---|
@@ -282,215 +207,41 @@ sense. Anuncia «1 errada al solucionari» i ensenya una sola targeta, amb el n�
 
 ---
 
-## 8. Estat errada per errada
 
-### Les cinc que no tenen pegat (i per què)
+## 6. Com s'hi afegeixen errades
 
-Es veuen amb targeta i requadre. No és un oblit:
+**Ara (a mà).** A `errades.js`, dins de `const ERRADES = { … }`, a la llista del seu exercici i en l'ordre
+en què surten a la solució:
 
-| Errada | Motiu |
-|---|---|
-| `u9/67`, apartat n) | Cal passar un tros de text d'una frase a una altra, en línies diferents |
-| `u10/75`, apartat d) | La correcció afegeix línies noves que no caben on és l'original |
-| `u10/108`, apartat d) | El mateix: la correcció és molt més llarga |
-| `u6/139`, apartats b) i c) | L'error ve de l'apartat a) i s'arrossega per passos intermedis que no són a la llista. Tapar només el resultat deixaria la pàgina incoherent |
+```js
+  'apl-ud10/U4.25': [
+    { lloc:    TEX`a)`,
+      ondiu:   TEX`$x+y=1$`,
+      hadedir: TEX`$x+y=5$`,
+      motiu:   TEX`...`,
+      marca:   ['u4-sistemes/data/full-1.png', 55.0, 18.0, 30.0, 4.0] },
+  ],
+```
 
-`u6/88`, l'equació, sí que en té des del 16/10/2026, fet a part del motor de receptes
-(`eines/pegats/a_part_u6_88.py`): en lloc de la fracció de dos pisos, que no hi cap, el pegat escriu
-l'equació equivalent en una sola línia, «→ |λ + 4| = √6 · √6», copiant el «·» i el «√6» de la mateixa pàgina.
+La `marca` es fa amb l'eina `tasca.html?tot=1&marca=1` (arrossegant un rectangle sobre la imatge) i es mira
+a la imatge ampliada. Després: `node eines/comprova.js`, obrir la tasca amb `?tot=1` i mirar que cap
+fórmula surti en vermell, i pujar el número de `errades.js?v=` a `tasca.html` i `errades.html`.
 
-### Decisions que no es dedueixen de «On diu / Ha de dir»
+**Els pegats.** Una errada nova es fa així: (1) s'escriu a `errades.js`, amb la `marca`; (2) se n'afegeix la recepta a
+`eines/pegats/receptes_udN.py`; (3) `python3 eines/pegats/fes.py receptes_udN` i es mira ampliat el full de
+`eines/sortida/` (abans i després); (4) `python3 eines/pegats/fes.py receptes_udN --escriu` i
+`python3 eines/pegats/aplica.py`; (5) `node eines/comprova.js` i pujar el número de `errades.js?v=`. Referència tècnica de
+les operacions i dels paranys: `eines/pegats/README.md`. **Un pegat mal fet és pitjor que cap pegat.**
 
-- **`u7/92` b):** el pegat corregeix també la línia «→ Existeix lim f(x) = 0,5», que no és a
-  la llista d'errades però repeteix el valor equivocat.
-- **`u3/60` a):** el «<» surt dues vegades al llibre (final d'una línia i començament de la
-  següent). Canviats tots dos per «=».
-- **`u3/100`:** corregit a la matriu A i també a A*.
-- **`u9/67` f):** les tres línies que sobraven s'han esborrat. Hi queda un buit en blanc.
-- **`u9/42` d) i `u8/58`:** frases reescrites amb lletres copiades de la mateixa pàgina.
-- **`u10/75` b):** quatre valors canviats i dos signes menys trets; el segon càlcul sencer
-  s'ha desplaçat per tancar el forat.
-- **`u10/78` b):** afegit «− {−2}» darrere de ℝ. **`u10/37`:** els nombres passen a ser x₁, x₂, x₃.
-- **`u10/63` c), `u7/76` f), `u12/55` c):** fraccions refetes (numerador, denominador i, si
-  cal, la barra més llarga).
-- **`u11/54` f):** dos pegats en dues pàgines diferents (l'integrand i el resultat).
-- **`u12/55` g):** el «2» de «cos 2x» passa a ser un exponent; la resta de la línia no es mou.
-- **Matrius i determinants:** en treure un signe menys, la xifra no es mou (les columnes
-  estan alineades).
+Les altres dues eines de `sol` (`eines/conversor/` i `eines/localitzador/`) no s'han portat: aquí les errades i les
+marques s'escriuen directament a `errades.js`.
 
-### Recompte per unitat
+## 7. Regles
 
-| Unitat | Errades | Amb pegat | Fitxers de pegat |
-|---|---|---|---|
-| u1 | 1 | 1 | 2 |
-| u2 | 2 | 2 | 2 |
-| u3 | 9 | 9 | 13 |
-| u5 | 8 | 8 | 10 |
-| u6 | 9 | 6 | 7 |
-| u7 | 10 | 10 | 12 |
-| u8 | 1 | 1 | 1 |
-| u9 | 9 | 8 | 8 |
-| u10 | 25 | 23 | 28 |
-| u11 | 4 | 4 | 5 |
-| u12 | 2 | 2 | 2 |
-| u13 | 2 | 2 | 2 |
-| u14 | 1 | 1 | 1 |
-| **Total** | **83** | **77** | **93** |
-
----
-
-## 9. Com es van fer els pegats, i què no hi ha al repo
-
-### Les eines són a `eines/`
-
-| Carpeta | Què fa |
-|---|---|
-| `eines/conversor/` | `genera.py` refà `errades.js`; `verifica.js` el comprova contra `tex/` |
-| `eines/localitzador/` | `proposa.py` proposa on és una errada (`marca`). Les marques bones es desen a `marques.json` |
-| `eines/pegats/` | `fes.py` aplica les «receptes» (`receptes_*.py`: què es canvia per què, errada per errada) i fa els pegats. Les posicions es desen a `pegats.json` |
-
-Com es fan servir, què cal instal·lar i què pot portar una recepta: `eines/LLEGEIX-ME.md`.
-**Cap eina toca el repo sense `--escriu`:** escriuen a `eines/sortida/` i diuen si el resultat
-és igual que el publicat.
-
-**El que no hi ha al repo:** les proves automàtiques del navegador (apartat 11).
-
-**Fins on refan el que hi ha publicat.** `errades.js` surt idèntic. Dels 93 pegats, amb el
-motor d'ara 65 surten idèntics i 28 no: el motor es va anar millorant unitat per unitat, i els
-pegats de les primeres unitats es van fer amb versions anteriors. **Els publicats són els que
-es van mirar un per un, i són la referència:** no en substitueixis cap sense mirar-lo ampliat.
-
-**Un pegat mal fet és pitjor que cap pegat.** Una errada sense `pegat` es veu amb targeta i
-requadre, que és un resultat correcte.
-
-### El mètode (és el que fa `eines/pegats/pegats.py`)
-
-1. **Casar la imatge amb el PDF.** Cada `full-K.png` és un retall d'una pàgina del PDF de
-   `source/`, a 200 ppp per un factor que canvia segons la unitat (les imatges fan entre
-   1208 i 1247 px d'amplada: no en suposis cap). Es troba comparant imatges.
-2. **Llegir la capa de text del PDF** (amb `pdfplumber`): de cada caràcter, la caixa, la
-   **línia de base** (surt de la matriu de text), la lletra i la mida. Passat a píxels de
-   la imatge, se sap on és cada signe.
-3. **Trobar el text vell** dins del rectangle de la `marca`, com una seqüència de caràcters
-   seguits d'una mateixa línia de base.
-4. **Esborrar-lo** amb el color de fons d'aquell lloc (no sempre és blanc).
-5. **Compondre el text nou amb signes copiats de la mateixa pàgina:** la mateixa lletra, el
-   mateix gruix i la mateixa mida, triant el més proper que tingui els mateixos veïns (així
-   l'espaiat surt igual). Es recoloreix amb la tinta del lloc.
-6. **Desplaçar la resta de la línia** el que hagi canviat d'amplada.
-7. **Retallar** la caixa dels píxels que han canviat de veritat, amb 3 px de marge, i
-   passar-la a tant per cent.
-8. **Mirar cada pegat ampliat**, abans i després. Sempre.
-
-### Paranys (tots van passar)
-
-- **El PDF porta text amagat** en alguns llocs. Abans de copiar un signe, comprova que a la
-  imatge hi ha tinta.
-- **Barres de fracció, arrels, barres de valor absolut i fletxes de vector no són
-  caràcters:** són ratlles dibuixades. Si mous la línia lletra a lletra, es queden enrere.
-  En aquestes línies s'ha de moure la franja sencera.
-- **Les fletxes (→)** tenen la línia de base un parell de píxels més avall que el text.
-- **Les lletres cursives** sobresurten de la seva caixa, per l'esquerra i per la dreta.
-- **Els accents i el punt de la i** queden per sobre de la caixa de la lletra.
-- **Les xifres no fan totes la mateixa amplada.** Diversos canvis en una mateixa línia s'han
-  de fer de dreta a esquerra, o canviar el nombre sencer d'un sol cop.
-- **El signe menys «de davant»** (−4) va més enganxat que el de restar (x − 4). En treure'n
-  un, s'ha de conservar l'espai que deixava.
-- **L'enunciat** va en lletra normal i negra, amb els signes d'operació en negreta; la
-  **solució**, en lletra fina i blava. No es poden barrejar.
-- **Prop de la vora de la pàgina,** la caixa del pegat s'ha de mesurar sobre els píxels que
-  han canviat, no sobre una zona eixamplada.
-- **A ull i sense ampliar no es veu res.** Una taca d'un píxel només surt ampliant quatre o
-  cinc vegades, o mirant els píxels un per un.
-
-### Com surten els signes a la capa de text del PDF
-
-| Es veu | Lletra al PDF | Caràcter que es llegeix |
-|---|---|---|
-| Text de la solució | `VectoraLTStd-Light`, 8,5 pt | el mateix |
-| Text de l'enunciat | `VectoraLTStd-Roman` | el mateix |
-| Variables (cursiva) | `VectoraLTStd-LightItalic` | el mateix |
-| + − = | `MMaCentury` (o `MMaCenturyK`; a l'enunciat, `-Bold`) | `+` `-` `=` |
-| < > | `MMaCentury`, o bé `MMaExtra` | `<` `>`, o bé `1` `2` |
-| → | `MMaArrow` | `"` |
-| ′ ″ ∞ | `MMaEtc` | `l` `m` `3` |
-| ∩ ∪ ± | `MMaBinary` | `+` `,` `!` |
-| ≠ ∈ ∀ | `MMaNegate`, `MMaRelation`, `MMaExtra` | `!` `!` `6` |
-| ℝ | `MMaFermat` | `R` |
-| λ π | `MMaGreek` | `m` `r` |
-| · (multiplicar) | `MathematicalPiLTStd` | `?` |
-| ∫ | `MMaVariable`, 18,7 pt | `y` |
-| Parèntesis i claus grans | `MMaVariableA` | lletres i xifres diverses |
-| Subíndexs i exponents | les mateixes lletres, a 5,1 pt | — |
-
----
-
-## 10. Regles per tocar-ho
-
-**Sempre**
-
-- Després de canviar `errades.js`, obre `tasca.html?tot=1#u7/s3` i mira que no hi hagi cap
-  fórmula en vermell.
-- Si canvies `errades.js` o `assets/style.css`, puja el número de `?v=` amb què `tasca.html`
-  els carrega (ara `errades.js?v=3` i `style.css?v=7`). Si no, els alumnes veuran la còpia vella.
-- Respon i escriu en català (`CLAUDE.md`).
-
-**Mai**
-
-- No toquis les imatges `uN/<tema>/data/full-K.png`.
-- No actualitzis KaTeX.
-- No inventis posicions: una `marca` es fa amb l'eina, i un `pegat` no es fa a mà (es fa amb `eines/pegats/`).
-- No executis cap eina amb `--escriu` sense haver mirat abans què canviaria.
-- No posis `[skip ci]`, `[ci skip]` ni `[cf-pages-skip]` en cap missatge de commit: el web es
-  publica sol a partir de GitHub, i Cloudflare Pages no publica els commits que porten
-  aquestes etiquetes.
-
-**Feines habituals**
-
-| Et demanen… | Què has de fer |
-|---|---|
-| Afegir una errada | Escriu-la a `tex/` i torna a generar (o a `errades.js`, a la llista del seu exercici i en l'ordre de la solució, i passa-la després a `tex/`). Demana al professor que la marqui amb `?tot=1&marca=1`, o proposa la marca amb `eines/localitzador/proposa.py` i mira-la. Sense `pegat`, es veurà amb targeta i requadre |
-| Fer un pegat nou | `eines/LLEGEIX-ME.md`, «Fer un pegat nou». Mira'l ampliat abans de publicar-lo |
-| Canviar el text d'una errada que té `pegat` | Si canvia el que ha de dir la pàgina, **treu-li el `pegat`** (la imatge del pegat ja no seria certa) i avisa el professor |
-| Treure una errada | Esborra l'entrada i els seus fitxers de `pegats/` |
-| Tornar als requadres vermells | `ERRADES_PEGATS = false` |
-| Ensenyar els motius o les observacions | `ERRADES_MOTIU = true`, `ERRADES_OBS = true` |
-| Canviar una imatge de pàgina (un altre retall o una altra mida) | Totes les `marca` i els `pegat` d'aquella imatge deixen de valer: s'han de refer |
-| Canviar el camí d'una imatge a `cataleg.js` | Canvia'l també a `marca` i a `pegat`: han de ser idèntics |
-| El `tex/` i `errades.js` no diuen el mateix | `node eines/conversor/verifica.js` diu on. Pregunta quin és el bo abans de tornar a generar |
-
-**Limitacions conegudes**
-
-- Si una mateixa pàgina és copiada a dues carpetes de tema, el pegat només surt a la còpia
-  que fa servir l'exercici de l'errada.
-- Només s'ha provat amb Chromium. **Safari i Firefox no s'han provat.**
-
----
-
-## 11. Com es va comprovar
-
-- **Dades:** les 83 errades, comparades text per text amb el LaTeX; les 597 fórmules,
-  pintades amb KaTeX sense cap error.
-- **Posicions:** les 87 marques, revisades a ull.
-- **Pegats:** els 93, mirats un per un, ampliats, abans i després.
-- **Al navegador (Chromium), a 390 i 1100 px d'amplada, obrint els 175 exercicis de les 36
-  tasques:** cada pegat es veu a la mateixa escala que la seva pàgina, no surt de la imatge,
-  no atura els clics i surt també a la imatge ampliada; les errades amb pegat no s'anuncien
-  i les altres sí; cap error de consola ni de xarxa.
-- **Amb `ERRADES_PEGATS = false`:** 49 etiquetes, 2 blocs d'enunciat i 83 targetes, com
-  abans de la fase 3.
-
-Per comprovar-ho a mà: `tasca.html?tot=1#u7/s3`, exercici 92. No ha de tenir etiqueta ni
-targeta, i a la imatge, a l'apartat b), hi ha de dir «= 1» i «f(2) = 5».
-
----
-
-## 12. Pendent
-
-- Dins d'un exercici, el botó «enrere» del navegador surt de la tasca en lloc de tornar a la
-  llista d'exercicis (ja passava abans de les errades).
-- Opcional: una pàgina `errades.html` amb totes les errades per setmana.
-- Provar-ho amb Safari (iPhone) i Firefox.
-- Les cinc errades sense pegat (apartat 8), si mai es troba la manera de tapar-les bé.
-
-La resta de pendents del projecte és a `TODO.md`.
+- No toquis les imatges `apl-uN/<tema>/data/full-K.png`.
+- No actualitzis KaTeX (`errades.js` depèn de com és per dins la 0.16.47).
+- No inventis posicions: una `marca` es fa amb l'eina i es mira ampliada.
+- Si canvies el text d'una errada que té `pegat` i canvia el que ha de dir la pàgina, treu-li el pegat.
+- Si canvies una imatge de pàgina (un altre retall o una altra mida), totes les marques i els pegats
+  d'aquella imatge deixen de valer.
+- Cap missatge de commit no pot portar `[skip ci]`, `[ci skip]` ni `[cf-pages-skip]`.

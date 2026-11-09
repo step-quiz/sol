@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tasca — Exercicis propis</title>
+<title>Tasca — Exercicis propis · 4t d’ESO</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/katex/katex.min.css">
-<link rel="stylesheet" href="assets/style.css?v=9">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 
@@ -67,15 +67,16 @@
   </span>
 </footer>
 
-<script src="cataleg.js"></script>
+<script src="cataleg.js?v=9"></script>
 <script src="hints.js"></script>
 <script src="assets/katex/katex.min.js"></script>
-<script src="errades.js?v=4"></script>
+<script src="errades.js?v=9"></script>
+<script src="enunciats.js?v=9"></script>
 <script src="tasques.js"></script>
 <script src="progres.js"></script>
 <script>
 /* ── VISOR DE TASQUES ─────────────────────────────────────────────────
-   Pàgina genèrica. L'adreça mana:  tasca.html#u7/s3  obre la setmana 3
+   Pàgina genèrica. L'adreça mana:  tasca.html#apl-ud10/s1  obre la setmana 3
    de la unitat 7. Afegir una setmana NO vol dir crear cap fitxer nou:
    n'hi ha prou amb una línia a tasques.js. */
 
@@ -88,6 +89,8 @@ let Y_LLISTA = 0;      // fins on s'havia baixat a la llista en obrir un exercic
 const AMB_ERRADES = typeof htmlErrades === 'function';
 const AMB_MARQUES = AMB_ERRADES && typeof htmlMarques === 'function';   // les marques sobre la imatge (fase 2)
 const AMB_PEGATS  = AMB_ERRADES && typeof htmlPegats === 'function';    // els trossos ja corregits (fase 3)
+/* Els enunciats complets (enunciats.js). Sense ells, la llista mostra el títol curt del catàleg. */
+const AMB_ENUNCIATS = AMB_ERRADES && typeof htmlEnunciat === 'function';
 
 function render(){
   const id = location.hash.replace('#','');
@@ -102,8 +105,9 @@ function render(){
   }
 
   const meta = UNITATS_META[TASCA.unitat] || {nom:TASCA.unitat, subtitol:''};
-  document.getElementById('back-list').href = 'index.html#' + TASCA.unitat;
-  document.getElementById('hd-title').textContent = meta.nom + '. Setmana ' + TASCA.setmana;
+  const mat  = MATERIES[materiaDe(TASCA.unitat)] || {nom:'', curs:''};
+  document.getElementById('back-list').href = 'index.html' + cercaPreview() + '#' + TASCA.unitat;
+  document.getElementById('hd-title').textContent = mat.nom + ' · ' + meta.nom + ' · Setmana ' + TASCA.setmana;
   document.getElementById('tasca-title').textContent = TASCA.titol || ('Setmana ' + TASCA.setmana);
 
   const dies = diesRestants(TASCA);
@@ -111,10 +115,11 @@ function render(){
       ? 'data límit passada'
       : (dies === 0 ? 'venç avui' : dies === 1 ? 'venç demà' : 'falten ' + dies + ' dies');
   document.getElementById('tasca-sub').textContent =
-      meta.nom + ' · ' + meta.subtitol + ' · data límit: ' + dataLlarga(TASCA.limit) + ' (' + quan + ')';
+      mat.nom + ' · ' + meta.nom + '. ' + meta.subtitol + ' · data límit: ' + dataLlarga(TASCA.limit) + ' (' + quan + ')';
 
-  /* Si la tasca té alguna errada, es van demanant les lletres de les fórmules. */
-  if(AMB_ERRADES && refsDe(TASCA).some(r => erradesDe(r.u, r.n).length)) preparaFormules();
+  /* Si la tasca té alguna errada o algun enunciat, es van demanant les lletres de les fórmules. */
+  if(AMB_ERRADES && refsDe(TASCA).some(r => erradesDe(r.u, r.n).length || (AMB_ENUNCIATS && enunciatDe(r.u, r.n))))
+    preparaFormules();
 
   /* Només a la vista prèvia del professor (?tot=1): avisa si errades.js no
      s'ha pogut carregar, perquè als alumnes no els sortiria cap errada. */
@@ -152,16 +157,17 @@ function renderList(){
     const p = pistaDe(r.u, r.n);
     const avis = AMB_ERRADES ? htmlAvisErrades(r.u, r.n) : '';
     const errEnunciat = AMB_ERRADES ? htmlErradesEnunciat(r.u, r.n) : '';
-    li.className = 'ex-item' + (fet ? ' is-fet' : '');
+    const enunciat = AMB_ENUNCIATS ? htmlEnunciat(r.u, r.n) : '';
+    /* La targeta no és clicable: la solució només s'obre amb el botó «Veure solució». */
+    li.className = 'ex-item ex-fixa' + (fet ? ' is-fet' : '');
     li.innerHTML = `
-      <div class="ex-row">
+      <div class="ex-row${enunciat ? ' amb-enunciat' : ''}">
         <span class="ex-badge">${etiquetaDe(r.u, r.n)}</span>
         <div class="ex-info">
-          <div class="ex-title">${f.t}</div>
+          ${enunciat || `<div class="ex-title">${f.t}</div>`}
           <div class="ex-sub">${[altra ? (UNITATS_META[r.u]||{}).nom : '', f.d].filter(Boolean).join(' · ')}</div>
         </div>
         ${fet ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
-        <span class="ex-arrow">→</span>
       </div>
       <div class="pista-wrap">
         ${errEnunciat}
@@ -172,7 +178,6 @@ function renderList(){
         </div>
         ${p ? `<div class="pista-text" style="display:none">${p}</div>` : ''}
       </div>`;
-    li.querySelector('.ex-row').onclick = () => showExercise(r);
     li.querySelector('.sol-btn').onclick = (ev) => { ev.stopPropagation(); showExercise(r); };
     if(p){
       const btn = li.querySelector('.pista-btn');
@@ -192,13 +197,21 @@ function showExercise(r){
      mòbil) torna a la llista de la tasca, i no surt de la tasca. */
   if(!(history.state && history.state.ex)) history.pushState({ex: r.u + '/' + r.n}, '');
 
-  const esAct = !!f.a;
-  document.getElementById('det-title').textContent =
-      (esAct ? 'Activitat ' : 'Exercici ') + r.n;
+  document.getElementById('det-title').textContent = nomDe(r.u, r.n);
   document.getElementById('det-meta').textContent = f.t + (f.d ? '  ·  ' + f.d : '');
   document.getElementById('err-wrap').innerHTML = AMB_ERRADES ? htmlErrades(r.u, r.n) : '';
 
   const wrap = document.getElementById('page-wrap');
+  /* Exercici del llibre propi: no hi ha imatge del solucionari. Es mostren
+     l'enunciat i la solució escrits a enunciats.js. */
+  if(!f.i || f.i.length === 0){
+    const sol = AMB_ENUNCIATS ? htmlSolucio(r.u, r.n) : '';
+    wrap.innerHTML = '<div class="propi-wrap">' + (AMB_ENUNCIATS ? htmlEnunciat(r.u, r.n) : '')
+      + (sol || '<p class="ex-sub">La solució d’aquest exercici encara no és al web.</p>') + '</div>';
+    updateDoneBtn();
+    window.scrollTo(0, 0);
+    return;
+  }
   wrap.innerHTML = f.i.map((p, i) => {
     const src = r.u + '/' + p;
     const quina = f.i.length > 1 ? 'Imatge ' + (i+1) + ' de ' + f.i.length : 'Enunciat i solució';
@@ -207,7 +220,7 @@ function showExercise(r){
     const pegats = AMB_PEGATS ? htmlPegats(r.u, p) : '';
     return `
       <div class="page-fig">
-        <img src="${src}" alt="Enunciat i solució de l'${esAct ? 'activitat' : 'exercici'} ${r.n}"
+        <img src="${src}" alt="Enunciat i solució: ${nomDe(r.u, r.n)}"
              ${i ? 'loading="lazy" ' : ''}decoding="async" onclick="openLightbox('${src}')">
         ${pegats}
         ${AMB_MARQUES ? htmlMarques(r.u, r.n, p) : ''}

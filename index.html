@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exercicis propis — Step Quiz</title>
+<title>Exercicis propis · 4t d’ESO — Step Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=4">
 </head>
@@ -11,7 +11,7 @@
 
 <header>
   <div class="hd-left">
-    <h1 id="hd-title">Exercicis propis</h1>
+    <h1 id="hd-title">Exercicis propis · 4t d’ESO</h1>
   </div>
   <a class="site-link" href="https://step-quiz.net" target="_blank" rel="noopener" title="Step Quiz — David Arso Civil">
     <div class="site-label">Step Quiz<br>step-quiz.net</div>
@@ -19,34 +19,34 @@
   </a>
 </header>
 
-<!-- VIEW: Unitats -->
-<div class="view active" id="v-unitats">
-  <div class="cat-title">Unitats didàctiques</div>
-  <div class="cat-sub">Tria una unitat per veure les tasques</div>
-  <ul class="ex-list" id="unitats-list"></ul>
-  <div class="buit" id="unitats-buit" style="display:none">
-    Encara no hi ha cap unitat publicada.<br>Torna-hi d'aquí a uns dies.
+<!-- VIEW: Matèries -->
+<div class="view active" id="v-materies">
+  <div class="cat-title">4t d’ESO</div>
+  <div class="cat-sub">Tria la teva matèria</div>
+  <ul class="ex-list" id="materies-list"></ul>
+  <div class="buit" id="materies-buit" style="display:none">
+    Encara no hi ha cap tasca publicada.<br>Torna-hi d'aquí a uns dies.
   </div>
 <!--  <p class="cat-sub"><a href="errades.html">Totes les errades del solucionari, setmana a setmana →</a></p>-->
 </div>
 
+<!-- VIEW: Unitats (dins d'una matèria) -->
+<div class="view" id="v-unitats">
+  <button class="back-btn" id="back-materies" onclick="goBackMateries()">&larr; Torna a les matèries</button>
+  <div class="cat-title" id="unitats-title"></div>
+  <div class="cat-sub">Tria una unitat per veure les tasques</div>
+  <ul class="ex-list" id="unitats-list"></ul>
+</div>
+
 <!-- VIEW: Tasques (dins d'una unitat) -->
 <div class="view" id="v-tasques">
-  <button class="back-btn" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
+  <button class="back-btn" id="back-unitats" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
   <div class="cat-title" id="tasca-cat-title"></div>
   <div class="cat-sub" id="tasca-cat-sub"></div>
   <ul class="ex-list" id="tasques-list"></ul>
   <div class="buit" id="tasques-buit" style="display:none">
     Encara no hi ha cap tasca oberta en aquesta unitat.<br>Torna-hi d'aquí a uns dies.
   </div>
-</div>
-
-<!-- VIEW: Temes (dins d'una unitat) -->
-<div class="view" id="v-temes">
-  <button class="back-btn" onclick="goBackUnitats()">&larr; Torna a les unitats</button>
-  <div class="cat-title" id="tema-cat-title"></div>
-  <div class="cat-sub" id="tema-cat-sub"></div>
-  <ul class="ex-list" id="temes-list"></ul>
 </div>
 
 <footer>
@@ -61,838 +61,105 @@
   </span>
 </footer>
 
-<script src="publicats.js"></script>
-<script src="cataleg.js"></script>
+<script src="cataleg.js?v=9"></script>
 <script src="hints.js"></script>
 <script src="tasques.js"></script>
 <script src="progres.js"></script>
 <script>
-// Teclat: els elements de les llistes (unitats, setmanes, tasques) són <li>
+// Teclat: els elements de les llistes (matèries, unitats, tasques) són <li>
 // amb tabindex; amb el focus, Enter els obre com un clic.
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches('li[tabindex]')) { e.preventDefault(); e.target.click(); }
 });
 </script>
 <script>
-/* ── DADES: unitats i temes ──────────────────────────────────────────
-   L'`id` de la unitat és la seva carpeta ('u7') i l'`id` del tema és
-   la subcarpeta i el nom del fitxer. Per tant, el tema 'bolzano' de la
-   unitat 'u7' viu a  u7/bolzano/bolzano.html  i la seva clau dins de
-   publicats.js és  'u7/bolzano'.  Tot es dedueix; no cal repetir rutes. */
-const UNITATS = [
-  {
-    id: 'u1',
-    temes: [
-      {
-        id: 'activitats',
-        rang: 'activitats 6–29',
-        etiqueta: 'Activitats',   // activitats del text; l'1–5 no hi són perquè xoquen amb el món real
-      },
-      {
-        id: 'practica',
-        rang: 'exercicis 30–38',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'operacions',
-        num: 1,
-        titol: 'Fa operacions amb matrius i n\'aplica les propietats',
-        rang: 'exercicis 39–85',
-      },
-      {
-        id: 'rang',
-        num: 2,
-        titol: 'Determina el rang d\'una matriu',
-        rang: 'exercicis 86–95',
-      },
-      {
-        id: 'inversa',
-        num: 3,
-        titol: 'Determina si una matriu té matriu inversa i la calcula',
-        rang: 'exercicis 96–109',
-      },
-      {
-        id: 'equacions',
-        num: 4,
-        titol: 'Resol equacions matricials',
-        rang: 'exercicis 110–124',
-      },
-      {
-        id: 'problemes',
-        num: 5,
-        titol: 'Utilitza el llenguatge matricial per representar dades i resoldre problemes',
-        rang: 'exercicis 125–135',
-      },
-      {
-        id: 'mon-real',
-        num: 6,
-        titol: 'Matemàtiques en el món real · Grafs',
-        rang: 'activitats 1–5',
-      },
-    ],
-  },
-  {
-    id: 'u2',
-    temes: [
-      {
-        id: 'activitats',
-        rang: 'activitats 5–24',
-        etiqueta: 'Activitats',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'practica',
-        rang: 'exercicis 25–33',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'calcul',
-        num: 1,
-        titol: 'Calcula el valor d\'un determinant i aplica les seves propietats',
-        rang: 'exercicis 34–44',
-      },
-      {
-        id: 'propietats',
-        num: 2,
-        titol: 'Calcula el valor d\'un determinant · Propietats dels determinants',
-        rang: 'exercicis 45–70',
-      },
-      {
-        id: 'qualsevol-ordre',
-        num: 3,
-        titol: 'Calcula el valor d\'un determinant · Determinants de qualsevol ordre',
-        rang: 'exercicis 71–77',
-      },
-      {
-        id: 'rang',
-        num: 4,
-        titol: 'Determina el rang d\'una matriu',
-        rang: 'exercicis 78–94',
-      },
-      {
-        id: 'inversa',
-        num: 5,
-        titol: 'Determina les condicions perquè una matriu tingui inversa i la calcula',
-        rang: 'exercicis 95–107',
-      },
-      {
-        id: 'problemes',
-        num: 6,
-        titol: 'Resol problemes de la vida real mitjançant determinants',
-        rang: 'exercicis 108–111',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 7,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 112–117',
-      },
-      {
-        id: 'mon-real',
-        num: 8,
-        titol: 'Matemàtiques en el món real · Triangulació i àrees',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u3',
-    temes: [
-      {
-        id: 'activitats',
-        rang: 'activitats 5–36',
-        etiqueta: 'Activitats',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'expressa',
-        num: 1,
-        titol: 'Expressa matricialment un sistema d\'equacions lineals',
-        rang: 'exercicis 37–42',
-      },
-      {
-        id: 'gauss',
-        num: 2,
-        titol: 'Discuteix i resol sistemes d\'equacions · Mètode de Gauss',
-        rang: 'exercicis 43–54',
-      },
-      {
-        id: 'rouche',
-        num: 3,
-        titol: 'Discuteix i resol sistemes d\'equacions · Teorema de Rouché-Fröbenius',
-        rang: 'exercicis 55–59',
-      },
-      {
-        id: 'parametre',
-        num: 4,
-        titol: 'Discuteix i resol sistemes d\'equacions lineals que depenen d\'un paràmetre',
-        rang: 'exercicis 60–89',
-      },
-      {
-        id: 'problemes',
-        num: 5,
-        titol: 'Resol problemes, els representa matricialment i n\'interpreta el resultat',
-        rang: 'exercicis 90–103',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 6,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 104–109',
-      },
-      {
-        id: 'mon-real',
-        num: 7,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u5',
-    temes: [
-      {
-        id: 'activitats',
-        rang: 'activitats 5–31',
-        etiqueta: 'Activitats',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'practica',
-        rang: 'exercicis 32–41',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'equacions',
-        num: 1,
-        titol: 'Obté les equacions de plans i de rectes en les diferents formes',
-        rang: 'exercicis 42–69',
-      },
-      {
-        id: 'posicions',
-        num: 2,
-        titol: 'Analitza les posicions relatives de rectes i plans en l\'espai aplicant diferents mètodes',
-        rang: 'exercicis 70–101',
-      },
-      {
-        id: 'problemes',
-        num: 3,
-        titol: 'Resol problemes de geometria en l\'espai',
-        rang: 'exercicis 102–128',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 4,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 129–134',
-      },
-      {
-        id: 'mon-real',
-        num: 5,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u6',
-    temes: [
-      {
-        id: 'activitats',
-        rang: 'activitats 5–31',
-        etiqueta: 'Activitats',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'practica',
-        rang: 'exercicis 32–41',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'angles',
-        num: 1,
-        titol: 'Determina angles i distàncies utilitzant els productes vectorial i mixt · Angles',
-        rang: 'exercicis 42–64',
-      },
-      {
-        id: 'projeccions',
-        num: 2,
-        titol: 'Determina angles i distàncies · Projeccions ortogonals',
-        rang: 'exercicis 65–72',
-      },
-      {
-        id: 'simetries',
-        num: 3,
-        titol: 'Determina angles i distàncies · Simetries',
-        rang: 'exercicis 73–82',
-      },
-      {
-        id: 'distancies',
-        num: 4,
-        titol: 'Determina angles i distàncies · Distàncies',
-        rang: 'exercicis 83–110',
-      },
-      {
-        id: 'esferes',
-        num: 5,
-        titol: 'Estudia situacions geomètriques relatives a objectes',
-        rang: 'exercicis 111–122',
-      },
-      {
-        id: 'problemes',
-        num: 6,
-        titol: 'Resol problemes reals aplicant conceptes geomètrics',
-        rang: 'exercicis 123–134',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 7,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 135–140',
-      },
-      {
-        id: 'mon-real',
-        num: 8,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u7',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 33–43',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'limits-funcions',
-        num: 1,
-        titol: 'Interpreta i calcula el límit d\'una funció · Límits de funcions',
-        rang: 'exercicis 44–65',
-      },
-      {
-        id: 'limits-punt',
-        num: 2,
-        titol: 'Interpreta i calcula el límit d\'una funció · Límit d\'una funció en un punt',
-        rang: 'exercicis 66–91',
-      },
-      {
-        id: 'continuitat',
-        num: 3,
-        titol: 'Determina la continuïtat d\'una funció utilitzant límits',
-        rang: 'exercicis 92–109',
-      },
-      {
-        id: 'bolzano',
-        num: 4,
-        titol: 'Aplica i interpreta els teoremes de Bolzano i dels valors intermedis',
-        rang: 'exercicis 110–115',
-      },
-      {
-        id: 'problemes-limits',
-        num: 5,
-        titol: 'Utilitza el concepte de límit i la continuïtat d\'una funció per resoldre problemes',
-        rang: 'exercicis 116–125',
-      },
-      {
-        id: 'problemes-diversos',
-        num: 6,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 126–131',
-      },
-      {
-        id: 'series',
-        num: 7,
-        titol: 'Matemàtiques en el món real · Sèries geomètriques infinites',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u8',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 21–29',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'derivada-punt',
-        num: 1,
-        titol: 'Calcula i interpreta la derivada d\'una funció · Taxa de variació mitjana',
-        rang: 'exercicis 30–39',
-      },
-      {
-        id: 'interpretacio-geometrica',
-        num: 2,
-        titol: 'Calcula i interpreta la derivada d\'una funció · Interpretació geomètrica de la derivada',
-        rang: 'exercicis 40–66',
-      },
-      {
-        id: 'derivabilitat',
-        num: 3,
-        titol: 'Estudia la derivabilitat d\'una funció',
-        rang: 'exercicis 67–85',
-      },
-      {
-        id: 'funcio-derivada',
-        num: 4,
-        titol: 'Calcula la derivada de qualsevol funció',
-        rang: 'exercicis 86–124',
-      },
-      {
-        id: 'problemes-contextualitzats',
-        num: 5,
-        titol: 'Aplica la funció derivada a la resolució de problemes contextualitzats',
-        rang: 'exercicis 125–130',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 6,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 131–136',
-      },
-      {
-        id: 'mon-real',
-        num: 7,
-        titol: 'Matemàtiques en el món real · Llei de Newton del refredament',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u9',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 30–38',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'creixement',
-        num: 1,
-        titol: 'Aplica el càlcul de derivades a l\'estudi d\'una funció · Creixement i decreixement. Màxims i mínims',
-        rang: 'exercicis 39–64',
-      },
-      {
-        id: 'concavitat',
-        num: 2,
-        titol: 'Aplica el càlcul de derivades a l\'estudi d\'una funció · Concavitat i convexitat. Punts d\'inflexió',
-        rang: 'exercicis 65–75',
-      },
-      {
-        id: 'optimitzacio',
-        num: 3,
-        titol: 'Resol problemes d\'optimització mitjançant el càlcul de derivades',
-        rang: 'exercicis 76–91',
-      },
-      {
-        id: 'teoremes',
-        num: 4,
-        titol: 'Utilitza els teoremes associats a la derivada per demostrar característiques d\'una funció',
-        rang: 'exercicis 92–114',
-      },
-      {
-        id: 'hopital',
-        num: 5,
-        titol: 'Aplica la regla de L\'Hôpital per resoldre indeterminacions en límits',
-        rang: 'exercicis 115–128',
-      },
-      {
-        id: 'aplicacions',
-        num: 6,
-        titol: 'Problemes amb aplicacions de les derivades',
-        rang: 'exercicis 129–137',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 7,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 138–143',
-      },
-      {
-        id: 'mon-real',
-        num: 8,
-        titol: 'Matemàtiques en el món real · La llauna perfecta',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u10',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 34–42',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'domini-recorregut',
-        num: 1,
-        titol: 'Domini i recorregut',
-        rang: 'exercicis 43–53',
-      },
-      {
-        id: 'simetria-periodicitat',
-        num: 2,
-        titol: 'Simetria i periodicitat',
-        rang: 'exercicis 54–60',
-      },
-      {
-        id: 'asimptotes',
-        num: 3,
-        titol: 'Asímptotes',
-        rang: 'exercicis 61–74',
-      },
-      {
-        id: 'creixement',
-        num: 4,
-        titol: 'Creixement i decreixement',
-        rang: 'exercicis 75–77',
-      },
-      {
-        id: 'concavitat',
-        num: 5,
-        titol: 'Concavitat',
-        rang: 'exercicis 78–79',
-      },
-      {
-        id: 'estudi-complet',
-        num: 6,
-        titol: 'Estudi complet de la funció',
-        rang: 'exercicis 80–83',
-      },
-      {
-        id: 'representacio',
-        num: 7,
-        titol: 'Representació gràfica',
-        rang: 'exercicis 84–99',
-      },
-      {
-        id: 'altres-funcions',
-        num: 8,
-        titol: 'Funcions radicals, exponencials, trigonomètriques, logarítmiques',
-        rang: 'exercicis 100–107',
-      },
-      {
-        id: 'trossos',
-        num: 9,
-        titol: 'Funcions definides a trossos',
-        rang: 'exercicis 108–115',
-      },
-      {
-        id: 'problemes-reals',
-        num: 10,
-        titol: 'Propietats de les funcions i aplicació en problemes reals',
-        rang: 'exercicis 116–118',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 11,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 119–124',
-      },
-      {
-        id: 'mon-real',
-        num: 12,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u11',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 33–42',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'primitiva',
-        num: 1,
-        titol: 'Calcula la primitiva d’una funció elemental',
-        rang: 'exercicis 43–51',
-      },
-      {
-        id: 'funcions-elementals',
-        num: 2,
-        titol: 'Integrals de funcions elementals',
-        rang: 'exercicis 52–72',
-      },
-      {
-        id: 'integracio-parts',
-        num: 3,
-        titol: 'Integració per parts',
-        rang: 'exercicis 73–84',
-      },
-      {
-        id: 'funcions-racionals',
-        num: 4,
-        titol: 'Integrals de funcions racionals',
-        rang: 'exercicis 85–91',
-      },
-      {
-        id: 'canvi-variable',
-        num: 5,
-        titol: 'Integració per canvi de variable',
-        rang: 'exercicis 92–100',
-      },
-      {
-        id: 'integrals-funcions',
-        num: 6,
-        titol: 'Integrals de funcions',
-        rang: 'exercicis 101–120',
-      },
-      {
-        id: 'problemes-reals',
-        num: 7,
-        titol: 'Aplicació de les integrals a problemes reals',
-        rang: 'exercicis 121–124',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 8,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 125–130',
-      },
-      {
-        id: 'mon-real',
-        num: 9,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u12',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 26–34',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'integral-definida',
-        num: 1,
-        titol: 'Integral definida',
-        rang: 'exercicis 35–42',
-      },
-      {
-        id: 'valor-mitja',
-        num: 2,
-        titol: 'Teorema del valor mitjà',
-        rang: 'exercicis 43–47',
-      },
-      {
-        id: 'teorema-fonamental',
-        num: 3,
-        titol: 'Teorema fonamental del càlcul integral',
-        rang: 'exercicis 48–52',
-      },
-      {
-        id: 'regla-barrow',
-        num: 4,
-        titol: 'Regla de Barrow',
-        rang: 'exercicis 53–76',
-      },
-      {
-        id: 'area-corba',
-        num: 5,
-        titol: 'Àrea tancada per una corba',
-        rang: 'exercicis 77–109',
-      },
-      {
-        id: 'area-corbes',
-        num: 6,
-        titol: 'Àrea tancada per corbes',
-        rang: 'exercicis 110–129',
-      },
-      {
-        id: 'problemes-reals',
-        num: 7,
-        titol: 'Problemes reals amb integrals definides',
-        rang: 'exercicis 130–136',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 8,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 137–142',
-      },
-      {
-        id: 'mon-real',
-        num: 9,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u13',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 25–36',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'espai-mostral',
-        num: 1,
-        titol: 'Espai mostral',
-        rang: 'exercicis 37–49',
-      },
-      {
-        id: 'probabilitat-esdeveniments',
-        num: 2,
-        titol: 'Probabilitat d’esdeveniments',
-        rang: 'exercicis 50–62',
-      },
-      {
-        id: 'calcul-probabilitats',
-        num: 3,
-        titol: 'Càlcul de probabilitats',
-        rang: 'exercicis 63–73',
-      },
-      {
-        id: 'probabilitat-condicionada',
-        num: 4,
-        titol: 'Probabilitat condicionada',
-        rang: 'exercicis 74–90',
-      },
-      {
-        id: 'bayes',
-        num: 5,
-        titol: 'Teorema de Bayes',
-        rang: 'exercicis 91–97',
-      },
-      {
-        id: 'problemes-quotidians',
-        num: 6,
-        titol: 'Problemes de la vida quotidiana',
-        rang: 'exercicis 98–102',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 7,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 103–108',
-      },
-      {
-        id: 'mon-real',
-        num: 8,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-  {
-    id: 'u14',
-    temes: [
-      {
-        id: 'practica',
-        rang: 'exercicis 21–31',
-        etiqueta: 'Practica',   // badge propi; sense num i sense titol
-      },
-      {
-        id: 'variables-discretes',
-        num: 1,
-        titol: 'Variables aleatòries discretes',
-        rang: 'exercicis 32–42',
-      },
-      {
-        id: 'distribucio-binomial',
-        num: 2,
-        titol: 'Distribució binomial',
-        rang: 'exercicis 43–56',
-      },
-      {
-        id: 'variables-continues',
-        num: 3,
-        titol: 'Variables aleatòries contínues',
-        rang: 'exercicis 57–59',
-      },
-      {
-        id: 'distribucio-normal',
-        num: 4,
-        titol: 'Distribució normal',
-        rang: 'exercicis 60–85',
-      },
-      {
-        id: 'aproximacio-normal',
-        num: 5,
-        titol: 'Aproximació de la binomial a la normal',
-        rang: 'exercicis 86–89',
-      },
-      {
-        id: 'calcul-probabilitats',
-        num: 6,
-        titol: 'Càlcul de probabilitats mitjançant les distribucions binomial i normal',
-        rang: 'exercicis 90–99',
-      },
-      {
-        id: 'problemes-diferents',
-        num: 7,
-        titol: 'Problemes aparentment diferents',
-        rang: 'exercicis 100–105',
-      },
-      {
-        id: 'mon-real',
-        num: 8,
-        titol: 'Matemàtiques en el món real',
-        rang: 'activitats 1–4',
-      },
-    ],
-  },
-];
+/* ── NAVEGACIÓ: matèria → unitat → tasca ─────────────────────────────────
+   Les matèries són a MATERIES i les unitats a UNITATS_META (cataleg.js).
+   Una unitat només surt si té alguna tasca visible (tasques.js), en l'ordre
+   del curs (`ordre` a UNITATS_META), i una
+   matèria només surt si té alguna unitat visible. Si només n'hi ha una de
+   visible, la portada hi entra directament.
 
-const clauDe   = (u,t) => u.id + '/' + t.id;
-const fitxerDe = (u,t) => u.id + '/' + t.id + '/' + t.id + '.html';
-const metaDe   = u => UNITATS_META[u.id] || {nom:u.id, subtitol:''};
+   L'adreça mana:
+     (sense hash)   les matèries
+     #apl           les unitats de 4t ESO Aplicades
+     #apl-ud4       les tasques de la UD4 d'Aplicades
+   La vista prèvia del professor (?tot=1) es manté en tots els enllaços. */
 
-/* Els temes ja no es mostren als alumnes: la navegació normal és
-   unitat → tasca → exercici. Segueixen existint i s'hi arriba escrivint
-   l'adreça  index.html#u7/temes  (o obrint el fitxer del tema directament). */
-function temesVisibles(u){
-  return u.temes.filter(t => comptaPublicats(clauDe(u,t)) !== 0);
+const metaDe = u => UNITATS_META[u] || {nom:u, subtitol:''};
+
+function unitatsVisibles(m){
+  return Object.keys(UNITATS_META)
+    .filter(u => materiaDe(u) === m && tasquesDe(u).length > 0)
+    .sort((a, b) => ordreDe(a) - ordreDe(b));       // en l'ordre del curs
 }
 
-function renderUnitats(){
+function materiesVisibles(){
+  return Object.keys(MATERIES).filter(m => unitatsVisibles(m).length > 0);
+}
+
+function fila(badge, titol, sub, accio){
+  const li = document.createElement('li');
+  li.className = 'ex-item';
+  li.innerHTML = `
+    <span class="ex-badge">${badge}</span>
+    <div class="ex-info">
+      <div class="ex-title">${titol}</div>
+      <div class="ex-sub">${sub}</div>
+    </div>
+    <span class="ex-arrow">&rarr;</span>`;
+  li.onclick = accio;
+  li.tabIndex = 0;
+  return li;
+}
+
+function showMateries(){
+  show('v-materies');
+  document.getElementById('hd-title').textContent = 'Exercicis propis · 4t d’ESO';
+  const ul = document.getElementById('materies-list');
+  ul.innerHTML = '';
+  const ms = materiesVisibles();
+  document.getElementById('materies-buit').style.display = ms.length ? 'none' : 'block';
+  ms.forEach(m => {
+    const n = unitatsVisibles(m).length;
+    ul.appendChild(fila(MATERIES[m].curs, MATERIES[m].nom,
+      n === 1 ? '1 unitat' : n + ' unitats', () => { location.hash = m; }));
+  });
+}
+
+function showUnitats(m){
+  show('v-unitats');
+  document.getElementById('hd-title').textContent = MATERIES[m].nom + ' · ' + MATERIES[m].curs;
+  document.getElementById('unitats-title').textContent = MATERIES[m].nom;
+  /* Si només hi ha una matèria, no cal el botó per tornar-hi. */
+  document.getElementById('back-materies').style.display = materiesVisibles().length > 1 ? '' : 'none';
   const ul = document.getElementById('unitats-list');
   ul.innerHTML = '';
-  const visibles = UNITATS.filter(u => tasquesDe(u.id).length > 0);
-
-  document.getElementById('unitats-buit').style.display = visibles.length ? 'none' : 'block';
-
-  visibles.forEach(u=>{
+  unitatsVisibles(m).forEach(u => {
     const meta = metaDe(u);
-    const n = tasquesDe(u.id).length;
-    const li = document.createElement('li');
-    li.className = 'ex-item';
-    li.innerHTML = `
-      <span class="ex-badge">${meta.nom}</span>
-      <div class="ex-info">
-        <div class="ex-title">${meta.nom}</div>
-        <div class="ex-sub">${meta.subtitol} &middot; ${n===1 ? '1 tasca' : n + ' tasques'}</div>
-      </div>
-      <span class="ex-arrow">&rarr;</span>`;
-    li.onclick = () => { location.hash = u.id; };
-    li.tabIndex = 0;
-    ul.appendChild(li);
+    const n = tasquesDe(u).length;
+    ul.appendChild(fila(meta.nom, meta.subtitol, n === 1 ? '1 tasca' : n + ' tasques',
+      () => { location.hash = u; }));
   });
 }
 
 function showTasques(u){
   show('v-tasques');
   const meta = metaDe(u);
-  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
-  document.getElementById('tasca-cat-title').textContent = meta.nom;
-  document.getElementById('tasca-cat-sub').textContent = meta.subtitol + ' · tria una tasca';
+  const m = MATERIES[materiaDe(u)] || {nom:'', curs:''};
+  document.getElementById('hd-title').textContent = m.nom + ' · ' + meta.nom;
+  document.getElementById('tasca-cat-title').textContent = meta.nom + '. ' + meta.subtitol;
+  document.getElementById('tasca-cat-sub').textContent = m.nom + ' · ' + m.curs + ' · tria una tasca';
+  /* Si la portada ha entrat directament aquí (una sola matèria i una sola unitat), no hi ha on tornar. */
+  const unica = materiesVisibles().length === 1 && unitatsVisibles(materiaDe(u)).length === 1;
+  document.getElementById('back-unitats').style.display = unica ? 'none' : '';
 
-  const llista = tasquesDe(u.id);
+  const llista = tasquesDe(u);
   const ul = document.getElementById('tasques-list');
   ul.innerHTML = '';
   document.getElementById('tasques-buit').style.display = llista.length ? 'none' : 'block';
 
-  llista.forEach(t=>{
+  llista.forEach(t => {
     const refs  = refsDe(t);
     const fets  = comptaFets(refs);
     const tots  = refs.length;
@@ -911,67 +178,39 @@ function showTasques(u){
       </div>
       ${acabada ? '<span class="ex-fet-tag">✓ Fet</span>' : ''}
       <span class="ex-arrow">&rarr;</span>`;
-    li.onclick = () => { window.location.href = 'tasca.html#' + idTasca(t); };
+    li.onclick = () => { window.location.href = 'tasca.html' + cercaPreview() + '#' + idTasca(t); };
     li.tabIndex = 0;
     ul.appendChild(li);
   });
 }
 
-function showTemes(u){
-  show('v-temes');
-  const meta = metaDe(u);
-  document.getElementById('hd-title').textContent = meta.nom + '. ' + meta.subtitol;
-  document.getElementById('tema-cat-title').textContent = meta.nom + ' · temes del llibre';
-  document.getElementById('tema-cat-sub').textContent = meta.subtitol + ' · vista per temes';
-
-  const ul = document.getElementById('temes-list');
-  ul.innerHTML = '';
-  temesVisibles(u).forEach(t=>{
-    const etiqueta = t.etiqueta || ('Tema ' + t.num);
-    const n = comptaPublicats(clauDe(u,t));
-    const sub = (n === 'tots') ? t.rang
-              : `${n} exercici${n===1?'':'s'} disponible${n===1?'':'s'}`;
-    const li = document.createElement('li');
-    li.className = 'ex-item';
-    li.innerHTML = `
-      <span class="ex-badge">${etiqueta}</span>
-      <div class="ex-info">
-        ${t.titol ? `<div class="ex-title">${t.titol}</div>` : ''}
-        <div class="ex-sub">${sub}</div>
-      </div>
-      <span class="ex-arrow">&rarr;</span>`;
-    li.onclick = () => { window.location.href = fitxerDe(u,t); };
-    li.tabIndex = 0;
-    ul.appendChild(li);
-  });
+function goBackMateries(){ location.hash = ''; }
+function goBackUnitats(){
+  const u = location.hash.replace('#','');
+  const m = materiaDe(u);
+  location.hash = (materiesVisibles().length > 1 || unitatsVisibles(m).length > 1) ? m : '';
 }
 
-function mostraUnitats(){
-  show('v-unitats');
-  document.getElementById('hd-title').textContent = 'Exercicis propis';
-}
-
-function goBackUnitats(){ location.hash = ''; }
-
-/* L'adreça mana:
-     (sense hash)   llista d'unitats
-     #u7            les tasques de la unitat 7      ← el que veu l'alumne
-     #u7/temes      els temes de la unitat 7        ← no enllaçat enlloc */
 function router(){
-  const parts = location.hash.replace('#','').split('/');
-  const u = UNITATS.find(x => x.id === parts[0]);
-  if(u && parts[1] === 'temes' && temesVisibles(u).length) showTemes(u);
-  else if(u && tasquesDe(u.id).length) showTasques(u);
-  else mostraUnitats();
+  const h = location.hash.replace('#','');
+  if(UNITATS_META[h] && tasquesDe(h).length) return showTasques(h);
+  if(MATERIES[h] && unitatsVisibles(h).length) return showUnitats(h);
+  /* Portada: si només hi ha una matèria (i una unitat), s'hi entra directament. */
+  const ms = materiesVisibles();
+  if(ms.length === 1){
+    const us = unitatsVisibles(ms[0]);
+    if(us.length === 1) return showTasques(us[0]);
+    return showUnitats(ms[0]);
+  }
+  showMateries();
 }
 window.addEventListener('hashchange', router);
 
 function show(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-renderUnitats();
 router();
 </script>
 </body>
