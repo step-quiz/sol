@@ -16,6 +16,7 @@ function carrega(pegats){                       // el fitxer tal com el veuria e
   const ctx = { katex }; vm.createContext(ctx);
   const s = src.replace(/^const ERRADES_PEGATS\s*=\s*(true|false);/m, 'const ERRADES_PEGATS = ' + pegats + ';')
                .replace(/^const ERRADES_MOTIU\s*=\s*(true|false);/m, 'const ERRADES_MOTIU = false;')
+               .replace(/^const ERRADES_ENUNCIAT\s*=\s*(true|false);/m, 'const ERRADES_ENUNCIAT = true;')   // es prova amb el bloc encès
                .replace(/^const ERRADES_OBS\s*=\s*(true|false);/m, 'const ERRADES_OBS = false;');
   vm.runInContext(s.replace(/^const (\w+)\s*=/mg, 'var $1 ='), ctx);
   return ctx;

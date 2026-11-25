@@ -79,6 +79,7 @@
 const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
 const ERRADES_PEGATS = true;   // true: on hi ha «pegat», la imatge es veu ja corregida i l'errada no s'anuncia
+const ERRADES_ENUNCIAT = false;   // true: s'anuncien també les errades d'enunciat (requadre vermell a la llista i targeta a la solució)
 
 const TEX = String.raw;        // no toquis aquesta línia
 
@@ -1084,6 +1085,7 @@ function pegatsDe(e){
 
 /* Una errada «callada»: la imatge ja es veu corregida i no cal anunciar-la. */
 function _callada(e){
+  if(!ERRADES_ENUNCIAT && e.enunciat) return true;   // errades d'enunciat apagades
   return ERRADES_PEGATS && pegatsDe(e).length > 0;
 }
 
@@ -1225,7 +1227,7 @@ function htmlErrades(u, n){
 /* El bloc que surt a la llista de la tasca: només les errades d'enunciat,
    que l'alumne ha de conèixer abans de començar. Cadena buida si no n'hi ha. */
 function htmlErradesEnunciat(u, n){
-  const errs = erradesDe(u, n).filter(e => e.enunciat);
+  const errs = ERRADES_ENUNCIAT ? erradesDe(u, n).filter(e => e.enunciat) : [];
   if(!errs.length) return '';
   return '<div class="err-panel err-llista" role="note">'
        + _titolBloc(errs.length === 1 ? 'L’enunciat té una errada' : 'L’enunciat té ' + errs.length + ' errades')
