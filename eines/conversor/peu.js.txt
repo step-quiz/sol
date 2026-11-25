@@ -177,6 +177,7 @@ function pegatsDe(e){
 
 /* Una errada «callada»: la imatge ja es veu corregida i no cal anunciar-la. */
 function _callada(e){
+  if(!ERRADES_ENUNCIAT && e.enunciat) return true;   // errades d'enunciat apagades
   return ERRADES_PEGATS && pegatsDe(e).length > 0;
 }
 
@@ -318,7 +319,7 @@ function htmlErrades(u, n){
 /* El bloc que surt a la llista de la tasca: només les errades d'enunciat,
    que l'alumne ha de conèixer abans de començar. Cadena buida si no n'hi ha. */
 function htmlErradesEnunciat(u, n){
-  const errs = erradesDe(u, n).filter(e => e.enunciat);
+  const errs = ERRADES_ENUNCIAT ? erradesDe(u, n).filter(e => e.enunciat) : [];
   if(!errs.length) return '';
   return '<div class="err-panel err-llista" role="note">'
        + _titolBloc(errs.length === 1 ? 'L’enunciat té una errada' : 'L’enunciat té ' + errs.length + ' errades')

@@ -79,6 +79,7 @@
 const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
 const ERRADES_PEGATS = true;   // true: on hi ha «pegat», la imatge es veu ja corregida i l'errada no s'anuncia
+const ERRADES_ENUNCIAT = false;   // true: s'anuncien també les errades d'enunciat (requadre vermell a la llista i targeta a la solució)
 
 const TEX = String.raw;        // no toquis aquesta línia
 

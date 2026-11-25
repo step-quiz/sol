@@ -200,7 +200,7 @@ es toca: el pegat és un retall petit que el navegador hi posa a sobre.
 
 - Un pegat només canvia els signes equivocats. Estan fets amb signes copiats de la mateixa
   pàgina (la lletra del llibre), i la resta de la línia són els píxels originals, desplaçats si cal.
-- Les errades d'enunciat s'anuncien igualment a la llista de la tasca, perquè el llibre de
+- Les errades d'enunciat s'anuncien igualment a la llista de la tasca (si `ERRADES_ENUNCIAT = true`), perquè el llibre de
   l'alumne continua tenint l'errada.
 - A una imatge amb pegats no s'ofereix *Obre la imatge en nova pestanya*, que sortiria sense corregir.
 - Amb `ERRADES_PEGATS = false` tot torna a ser com abans: etiquetes, targetes i requadres vermells.
@@ -215,7 +215,10 @@ A dalt de `errades.js`:
 const ERRADES_MOTIU = false;   // true: cada errada mostra també el «Motiu»
 const ERRADES_OBS   = false;   // true: es veuen també les observacions
 const ERRADES_PEGATS = true;   // true: on hi ha pegat, la imatge es veu corregida i l'errada no s'anuncia
+const ERRADES_ENUNCIAT = false;   // true: s'anuncien les errades d'enunciat (requadre vermell a la llista, targeta a la solució)
 ```
+
+Amb `ERRADES_ENUNCIAT = false` (estat actual) cap errada d'enunciat no es mostra: ni el requadre vermell de la llista ni la targeta. Les dades es conserven a `errades.js`; si s'encén, tornen a sortir.
 
 Les observacions (comentaris que no són errades, però que poden confondre)
 són al mateix fitxer, a `OBSERVACIONS`. Amb l'interruptor apagat, el text
